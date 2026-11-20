@@ -46,6 +46,8 @@ jobs:
     name: Unity export (Xcode project)
     needs: checks
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     timeout-minutes: 120
     steps:
       - name: Check secrets
@@ -98,22 +100,27 @@ jobs:
           tar -C "$proj" -czf xcode.tgz .
           ls -lh xcode.tgz
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: xcode-project
-          path: xcode.tgz
-          retention-days: 3
-          compression-level: 0
+      # Hand the Xcode project to the Mac job as a temporary release file: Actions artifacts count against the
+      # account's storage quota (shared with Sands of Empire), release files do not. The Mac job deletes it.
+      - name: Hand over the Xcode project
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "xcode-${{ github.run_id }}" xcode.tgz --repo "$GITHUB_REPOSITORY" \
+            --title "CI transfer ${{ github.run_number }}" --notes "Temporary build transfer, deleted after the upload." --prerelease
 
   ios:
     name: Archive and upload to TestFlight
     needs: unity
     runs-on: macos-15
+    permissions:
+      contents: write
     timeout-minutes: 90
     steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: xcode-project
+      - name: Fetch the Xcode project
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release download "xcode-${{ github.run_id }}" --repo "$GITHUB_REPOSITORY" --pattern xcode.tgz
 
       - name: Unpack
         run: |
@@ -208,6 +215,12 @@ jobs:
             -authenticationKeyID "$KEY_ID" \
             -authenticationKeyIssuerID "$ISSUER"
           ls -la "$RUNNER_TEMP/export" || true
+
+      - name: Delete the transfer file
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release delete "xcode-${{ github.run_id }}" --repo "$GITHUB_REPOSITORY" --yes --cleanup-tag || true
 
       - uses: actions/upload-artifact@v4
         if: ${{ github.event_name == 'workflow_dispatch' && !inputs.upload }}
