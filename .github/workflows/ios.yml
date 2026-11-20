@@ -1,0 +1,255 @@
+name: iOS build
+
+# Arab Drift: builds the Unity client for iPhone and uploads it to TestFlight (same pipeline as Sands of Empire).
+# Run it from the Actions tab ("Run workflow"). Apple limits uploads, so it does not run on every push.
+#
+# Repository secrets used:
+#   UNITY_LICENSE, UNITY_EMAIL, UNITY_PASSWORD          Unity Personal licence (contents of Unity_lic.ulf) and account
+#   APPLE_TEAM_ID                                       10-character Apple Developer team id
+#   APPSTORE_KEY_ID, APPSTORE_ISSUER_ID, APPSTORE_P8    App Store Connect API key (Admin role), the .p8 contents
+#
+# Signing uses Xcode cloud signing with the API key, so no certificates or profiles are stored anywhere.
+
+on:
+  push:
+    tags: ["ios-*"]
+  workflow_dispatch:
+    inputs:
+      upload:
+        description: "Upload to TestFlight"
+        type: boolean
+        default: true
+      version:
+        description: "App version shown in TestFlight"
+        type: string
+        default: "0.1.0"
+
+concurrency:
+  group: arabdrift-ios-build
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: Script syntax check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Every C# script parses
+        run: |
+          pip install -q tree-sitter tree-sitter-c-sharp
+          python3 tools/ci/check_scripts.py
+
+  unity:
+    name: Unity export (Xcode project)
+    needs: checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Check secrets
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        run: |
+          missing=""
+          [ -z "$UNITY_LICENSE" ] && missing="$missing UNITY_LICENSE"
+          [ -z "$UNITY_EMAIL" ] && missing="$missing UNITY_EMAIL"
+          [ -z "$UNITY_PASSWORD" ] && missing="$missing UNITY_PASSWORD"
+          if [ -n "$missing" ]; then echo "::error::Missing repository secrets:$missing"; exit 1; fi
+
+      - name: Free disk space for the Unity image
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost
+          sudo docker image prune --all --force
+          df -h /
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/cache@v4
+        with:
+          path: client/Library
+          key: Library-iOS-${{ hashFiles('client/Packages/manifest.json', 'client/ProjectSettings/ProjectVersion.txt') }}-${{ github.run_number }}
+          restore-keys: |
+            Library-iOS-${{ hashFiles('client/Packages/manifest.json', 'client/ProjectSettings/ProjectVersion.txt') }}-
+
+      - name: Build with Unity
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: client
+          targetPlatform: iOS
+          buildName: ArabDrift
+          buildMethod: BuildScript.BuildIOS
+          customParameters: -buildNumber ${{ github.run_number }} -appVersion ${{ inputs.version || '0.1.0' }} -appleTeamId ${{ secrets.APPLE_TEAM_ID }}
+          allowDirtyBuild: true
+
+      - name: Pack Xcode project
+        run: |
+          proj=$(dirname "$(find build -maxdepth 4 -name Unity-iPhone.xcodeproj -type d | head -1)")
+          echo "Xcode project at: $proj"
+          test -n "$proj"
+          sudo chown -R "$(id -u):$(id -g)" build
+          tar -C "$proj" -czf xcode.tgz .
+          ls -lh xcode.tgz
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: xcode-project
+          path: xcode.tgz
+          retention-days: 3
+          compression-level: 0
+
+  ios:
+    name: Archive and upload to TestFlight
+    needs: unity
+    runs-on: macos-15
+    timeout-minutes: 90
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: xcode-project
+
+      - name: Unpack
+        run: |
+          mkdir xcode && tar -C xcode -xzf xcode.tgz && rm xcode.tgz
+          ls xcode
+
+      - name: Pick the newest Xcode
+        run: |
+          x=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort -V | tail -1)
+          [ -z "$x" ] && x=$(ls -d /Applications/Xcode_16*.app | sort -V | tail -1)
+          sudo xcode-select -s "$x"
+          xcodebuild -version
+
+      - name: App Store Connect key
+        env:
+          APPSTORE_P8: ${{ secrets.APPSTORE_P8 }}
+          APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/keys"
+          printf '%s\n' "$APPSTORE_P8" > "$RUNNER_TEMP/keys/AuthKey_${APPSTORE_KEY_ID}.p8"
+
+      - name: Info.plist (export compliance)
+        run: |
+          /usr/libexec/PlistBuddy -c "Delete :ITSAppUsesNonExemptEncryption" xcode/Info.plist 2>/dev/null || true
+          /usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool false" xcode/Info.plist
+
+      - name: Archive
+        env:
+          TEAM: ${{ secrets.APPLE_TEAM_ID }}
+          KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
+          ISSUER: ${{ secrets.APPSTORE_ISSUER_ID }}
+        run: |
+          xcodebuild archive -quiet \
+            -project xcode/Unity-iPhone.xcodeproj \
+            -scheme Unity-iPhone \
+            -configuration Release \
+            -destination "generic/platform=iOS" \
+            -archivePath "$RUNNER_TEMP/ArabDrift.xcarchive" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$RUNNER_TEMP/keys/AuthKey_${KEY_ID}.p8" \
+            -authenticationKeyID "$KEY_ID" \
+            -authenticationKeyIssuerID "$ISSUER" \
+            DEVELOPMENT_TEAM="$TEAM" \
+            CODE_SIGN_STYLE=Automatic \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Carry entitlements into the archive
+        run: |
+          # The archive is built unsigned, which drops entitlements (Game Center). An ad-hoc signature that carries
+          # them lets the export step re-sign with the right capabilities.
+          ent=$(find xcode -name "ArabDrift.entitlements" | head -1)
+          app=$(ls -d "$RUNNER_TEMP/ArabDrift.xcarchive/Products/Applications/"*.app | head -1)
+          if [ -n "$ent" ]; then
+            # Unity writes "<true />", which codesign's parser rejects; plutil rewrites it in canonical form.
+            plutil -convert xml1 -o "$RUNNER_TEMP/app.entitlements" "$ent"
+            cat "$RUNNER_TEMP/app.entitlements"
+            codesign --force --sign - --entitlements "$RUNNER_TEMP/app.entitlements" --timestamp=none "$app"
+            codesign -d --entitlements - "$app" || true
+          else
+            echo "No entitlements file found"
+          fi
+
+      - name: Export and upload
+        env:
+          TEAM: ${{ secrets.APPLE_TEAM_ID }}
+          KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
+          ISSUER: ${{ secrets.APPSTORE_ISSUER_ID }}
+          UPLOAD: ${{ github.event_name != 'workflow_dispatch' || inputs.upload }}
+        run: |
+          dest=export
+          [ "$UPLOAD" = "true" ] && dest=upload
+          cat > "$RUNNER_TEMP/ExportOptions.plist" <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key><string>app-store-connect</string>
+            <key>destination</key><string>${dest}</string>
+            <key>teamID</key><string>${TEAM}</string>
+            <key>signingStyle</key><string>automatic</string>
+            <key>uploadSymbols</key><true/>
+            <key>manageAppVersionAndBuildNumber</key><false/>
+          </dict>
+          </plist>
+          EOF
+          xcodebuild -exportArchive \
+            -archivePath "$RUNNER_TEMP/ArabDrift.xcarchive" \
+            -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist" \
+            -exportPath "$RUNNER_TEMP/export" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$RUNNER_TEMP/keys/AuthKey_${KEY_ID}.p8" \
+            -authenticationKeyID "$KEY_ID" \
+            -authenticationKeyIssuerID "$ISSUER"
+          ls -la "$RUNNER_TEMP/export" || true
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ github.event_name == 'workflow_dispatch' && !inputs.upload }}
+        with:
+          name: ipa
+          path: ${{ runner.temp }}/export/*.ipa
+          retention-days: 7
+
+  report:
+    # Saves a short build report (and the failing logs) to the ci-reports branch, so it can be read without the GitHub UI.
+    name: Build report
+    needs: [checks, unity, ios]
+    if: always()
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - name: Collect
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          RUN: ${{ github.run_id }}
+        run: |
+          out=run-${{ github.run_number }}.txt
+          {
+            echo "run ${{ github.run_number }} ($RUN) ref ${{ github.ref_name }} sha ${{ github.sha }}"
+            echo "checks=${{ needs.checks.result }} unity=${{ needs.unity.result }} ios=${{ needs.ios.result }}"
+          } > "$out"
+          gh api "repos/$REPO/actions/runs/$RUN/jobs" --jq '.jobs[] | select(.conclusion=="failure") | "\(.id) \(.name)"' | while read -r id name; do
+            echo "" >> "$out"; echo "===== FAILED: $name =====" >> "$out"
+            gh api "repos/$REPO/actions/jobs/$id" --jq '.steps[] | "  step: \(.name) -> \(.conclusion)"' >> "$out" || true
+            sleep 15
+            curl -sSL -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$REPO/actions/jobs/$id/logs" > job.log || true
+            wc -l job.log >> "$out"
+            grep -n -i -E "error|exception|failed|fatal" job.log | grep -v -i "warning" | head -150 >> "$out" || true
+            echo "----- last 250 lines -----" >> "$out"
+            tail -250 job.log >> "$out"
+          done
+          git init -q r && cd r
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/$REPO.git"
+          git fetch -q origin ci-reports 2>/dev/null && git checkout -q -b ci-reports FETCH_HEAD || git checkout -q --orphan ci-reports
+          cp "../$out" . && cp "../$out" latest.txt
+          git add . && git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -q -m "report run ${{ github.run_number }}"
+          git push -q origin ci-reports

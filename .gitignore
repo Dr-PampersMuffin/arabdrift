@@ -1,0 +1,11 @@
+client/Library/
+client/Temp/
+client/Obj/
+client/Logs/
+client/UserSettings/
+client/Build/
+build/
+*.csproj
+*.sln
+.DS_Store
+node_modules/

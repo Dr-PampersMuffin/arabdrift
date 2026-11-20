@@ -1,0 +1,27 @@
+{
+  "_note": "Stage 1 sound pack for الشاهين and Salwa. Engine loops must hold ONE steady RPM so Unity can pitch and crossfade them. Edit prompts freely; re-run with --only key --force to regenerate one sound.",
+  "sounds": [
+    { "key": "shaheen_idle", "loop": true, "duration": 6, "influence": 0.7,
+      "text": "1980s Japanese four-cylinder turbo sports coupe engine idling at a steady 900 rpm, recorded at the exhaust, lumpy and slightly rough, constant, no revving, no other sounds, seamless loop" },
+    { "key": "shaheen_2000", "loop": true, "duration": 6, "influence": 0.7,
+      "text": "1980s Japanese four-cylinder turbo engine held at a steady 2000 rpm under light throttle, exhaust recording, gritty and raspy, constant pitch, no gear changes, no other sounds, seamless loop" },
+    { "key": "shaheen_4000", "loop": true, "duration": 6, "influence": 0.7,
+      "text": "1980s Japanese four-cylinder turbo engine at a steady 4000 rpm under full throttle, turbo spooling whistle, aggressive raspy exhaust, constant pitch, no gear changes, no other sounds, seamless loop" },
+    { "key": "shaheen_6000", "loop": true, "duration": 6, "influence": 0.7,
+      "text": "1980s Japanese four-cylinder turbo engine screaming at a steady 6500 rpm full throttle, high turbo whistle, harsh metallic exhaust, constant pitch, no gear changes, no other sounds, seamless loop" },
+    { "key": "shaheen_blowoff", "loop": false, "duration": 1.2, "influence": 0.8,
+      "text": "single turbo blow-off valve release, sharp pssshh with a fluttering chatter, 1980s sports car, close up, no engine" },
+
+    { "key": "tyre_squeal_loop", "loop": true, "duration": 6, "influence": 0.7,
+      "text": "car tyres screeching continuously in a long sideways drift on hot asphalt, steady high-pitched squeal, no engine, no music, seamless loop" },
+    { "key": "tyre_burnout_loop", "loop": true, "duration": 6, "influence": 0.7,
+      "text": "rear wheels spinning in a stationary burnout, tyres burning and smoking on asphalt, rough roaring scrub, no engine, seamless loop" },
+    { "key": "sand_roost_loop", "loop": true, "duration": 6, "influence": 0.6,
+      "text": "car tyres spinning in loose desert sand, sand spraying and hissing against the body, no engine, seamless loop" },
+
+    { "key": "amb_salwa_golden", "loop": true, "duration": 22, "influence": 0.4,
+      "text": "quiet residential street at sunset in a hot Gulf city in the 1980s, air conditioner compressors humming from villas, distant light traffic, a dog barking far away, warm wind, no music, no voices, seamless loop" },
+    { "key": "amb_garage_oldworkshop", "loop": true, "duration": 22, "influence": 0.4,
+      "text": "inside an old car mechanic workshop, ceiling fan turning, occasional metal tool clinks, a kettle, a small old radio playing faint static, no music, no voices, seamless loop" }
+  ]
+}
