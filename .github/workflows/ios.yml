@@ -62,6 +62,9 @@ jobs:
         run: |
           # Apple secrets first: a bad one otherwise only shows up on the Mac, 25 minutes in.
           bad=""
+          # Pasted secrets often carry a trailing space or line break: every step trims them.
+          APPLE_TEAM_ID=$(printf %s "$APPLE_TEAM_ID" | tr -d '[:space:]'); APPSTORE_KEY_ID=$(printf %s "$APPSTORE_KEY_ID" | tr -d '[:space:]')
+          APPSTORE_ISSUER_ID=$(printf %s "$APPSTORE_ISSUER_ID" | tr -d '[:space:]')
           [ ${#APPLE_TEAM_ID} -eq 10 ] || bad="$bad APPLE_TEAM_ID(must be 10 characters, is ${#APPLE_TEAM_ID})"
           echo "$APPSTORE_KEY_ID" | grep -Eq '^[A-Z0-9]{10}$' || bad="$bad APPSTORE_KEY_ID(must be exactly 10 letters/digits, is ${#APPSTORE_KEY_ID} characters)"
           echo "$APPSTORE_ISSUER_ID" | grep -Eq '^[0-9a-f-]{36}$' || bad="$bad APPSTORE_ISSUER_ID(must be the 36-character issuer id)"
@@ -150,6 +153,7 @@ jobs:
           APPSTORE_P8: ${{ secrets.APPSTORE_P8 }}
           APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
         run: |
+          APPSTORE_KEY_ID=$(printf %s "$APPSTORE_KEY_ID" | tr -d '[:space:]')
           mkdir -p "$RUNNER_TEMP/keys"
           printf '%s\n' "$APPSTORE_P8" > "$RUNNER_TEMP/keys/AuthKey_${APPSTORE_KEY_ID}.p8"
 
@@ -164,6 +168,7 @@ jobs:
           KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
           ISSUER: ${{ secrets.APPSTORE_ISSUER_ID }}
         run: |
+          TEAM=$(printf %s "$TEAM" | tr -d '[:space:]'); KEY_ID=$(printf %s "$KEY_ID" | tr -d '[:space:]'); ISSUER=$(printf %s "$ISSUER" | tr -d '[:space:]')
           xcodebuild archive -quiet \
             -project xcode/Unity-iPhone.xcodeproj \
             -scheme Unity-iPhone \
@@ -201,6 +206,7 @@ jobs:
           ISSUER: ${{ secrets.APPSTORE_ISSUER_ID }}
           UPLOAD: ${{ github.event_name != 'workflow_dispatch' || inputs.upload }}
         run: |
+          TEAM=$(printf %s "$TEAM" | tr -d '[:space:]'); KEY_ID=$(printf %s "$KEY_ID" | tr -d '[:space:]'); ISSUER=$(printf %s "$ISSUER" | tr -d '[:space:]')
           dest=export
           [ "$UPLOAD" = "true" ] && dest=upload
           cat > "$RUNNER_TEMP/ExportOptions.plist" <<EOF

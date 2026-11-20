@@ -37,7 +37,7 @@ public static class BuildScript
     {
         string outDir = Arg("-customBuildPath", "build/iOS");
         string buildNumber = Arg("-buildNumber", "1");
-        string teamId = Arg("-appleTeamId", "");
+        string teamId = Arg("-appleTeamId", "").Trim();
         string version = Arg("-appVersion", "0.1.0");
 
         EnsureUrp();
