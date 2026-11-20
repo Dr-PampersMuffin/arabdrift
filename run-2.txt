@@ -1,0 +1,355 @@
+run 2 (44771366737) ref ios-2 sha bea458d4bc3539f7ae08d8a19210416b5bbf4179
+checks=success unity=failure ios=skipped
+
+===== FAILED: Unity export (Xcode project) =====
+  step: Set up job -> success
+  step: Check secrets -> success
+  step: Free disk space for the Unity image -> success
+  step: Run actions/checkout@v4 -> success
+  step: Run actions/cache@v4 -> success
+  step: Build with Unity -> success
+  step: Pack Xcode project -> success
+  step: Run actions/upload-artifact@v4 -> failure
+  step: Post Run actions/cache@v4 -> skipped
+  step: Post Run actions/checkout@v4 -> success
+  step: Complete job -> success
+13670 job.log
+42:2026-11-20T16:14:51.6573039Z [36;1mif [ -n "$missing" ]; then echo "::error::Missing repository secrets:$missing"; exit 1; fi[0m
+167:2026-11-20T16:16:14.0390602Z HEAD is now at bea458d Fix build 1 compile error (camera variable name); art tools and car reference prompts
+336:2026-11-20T16:19:52.6166591Z CreateDirectory '/root/.cache/unity3d' failed:  (current dir: /github/workspace)
+449:2026-11-20T16:19:59.1120059Z GLX Extensions: GLX_ARB_context_flush_control GLX_ARB_create_context GLX_ARB_create_context_no_error GLX_ARB_create_context_profile GLX_ARB_fbconfig_float GLX_ARB_framebuffer_sRGB GLX_ARB_get_proc_address GLX_ARB_multisample GLX_EXT_create_context_es2_profile GLX_EXT_create_context_es_profile GLX_EXT_fbconfig_packed_float GLX_EXT_framebuffer_sRGB GLX_EXT_no_config_context GLX_EXT_texture_from_pixmap GLX_EXT_visual_info GLX_EXT_visual_rating GLX_MESA_copy_sub_buffer GLX_MESA_query_renderer GLX_OML_swap_method GLX_SGIS_multisample GLX_SGIX_fbconfig GLX_SGIX_pbuffer GLX_SGIX_visual_select_group GLX_SGI_make_current_read 
+459:2026-11-20T16:19:59.1486385Z rm GL_EXT_texture_swizzle GL_EXT_timer_query GL_EXT_transform_feedback GL_EXT_vertex_array_bgra GL_EXT_vertex_attrib_64bit GL_IBM_multimode_draw_arrays GL_INTEL_shader_atomic_float_minmax GL_KHR_blend_equation_advanced GL_KHR_blend_equation_advanced_coherent GL_KHR_context_flush_control GL_KHR_debug GL_KHR_no_error GL_KHR_parallel_shader_compile GL_KHR_robust_buffer_access_behavior GL_KHR_robustness GL_KHR_texture_compression_astc_ldr GL_KHR_texture_compression_astc_sliced_3d GL_MESA_framebuffer_flip_y GL_MESA_pack_invert GL_MESA_shader_integer_functions GL_MESA_texture_signed_rgba GL_MESA_ycbcr_texture GL_NVX_gpu_memory_info GL_NV_conditional_render GL_NV_copy_image GL_NV_depth_clamp GL_NV_packed_depth_stencil GL_NV_shader_atomic_float GL_NV_texture_barrier GL_OES_EGL_image GL_S3_s3tc
+505:2026-11-20T16:20:01.8388303Z 			LogAssemblyErrors (0ms)
+868:2026-11-20T16:20:28.0519048Z 			LogAssemblyErrors (0ms)
+951:2026-11-20T16:20:28.6990185Z Start importing Packages/com.unity.ai.navigation/ValidationExceptions.json using Guid(203bedb65db239c4aa5d9cf073cd3b73) (TextScriptImporter) -> (artifact id: 'b0adf71f88467c8339d665a36ccdf3e8') in 0.001259275 seconds
+1040:2026-11-20T16:20:30.3755394Z Curl error 42: Callback aborted
+1230:2026-11-20T16:20:35.6961822Z [Licensing::Module] Error: Access token is unavailable; failed to update
+1261:2026-11-20T16:20:36.1518045Z GLX Extensions: GLX_ARB_context_flush_control GLX_ARB_create_context GLX_ARB_create_context_no_error GLX_ARB_create_context_profile GLX_ARB_fbconfig_float GLX_ARB_framebuffer_sRGB GLX_ARB_get_proc_address GLX_ARB_multisample GLX_EXT_create_context_es2_profile GLX_EXT_create_context_es_profile GLX_EXT_fbconfig_packed_float GLX_EXT_framebuffer_sRGB GLX_EXT_no_config_context GLX_EXT_texture_from_pixmap GLX_EXT_visual_info GLX_EXT_visual_rating GLX_MESA_copy_sub_buffer GLX_MESA_query_renderer GLX_OML_swap_method GLX_SGIS_multisample GLX_SGIX_fbconfig GLX_SGIX_pbuffer GLX_SGIX_visual_select_group GLX_SGI_make_current_read 
+1271:2026-11-20T16:20:36.1814563Z rm GL_EXT_texture_swizzle GL_EXT_timer_query GL_EXT_transform_feedback GL_EXT_vertex_array_bgra GL_EXT_vertex_attrib_64bit GL_IBM_multimode_draw_arrays GL_INTEL_shader_atomic_float_minmax GL_KHR_blend_equation_advanced GL_KHR_blend_equation_advanced_coherent GL_KHR_context_flush_control GL_KHR_debug GL_KHR_no_error GL_KHR_parallel_shader_compile GL_KHR_robust_buffer_access_behavior GL_KHR_robustness GL_KHR_texture_compression_astc_ldr GL_KHR_texture_compression_astc_sliced_3d GL_MESA_framebuffer_flip_y GL_MESA_pack_invert GL_MESA_shader_integer_functions GL_MESA_texture_signed_rgba GL_MESA_ycbcr_texture GL_NVX_gpu_memory_info GL_NV_conditional_render GL_NV_copy_image GL_NV_depth_clamp GL_NV_packed_depth_stencil GL_NV_shader_atomic_float GL_NV_texture_barrier GL_OES_EGL_image GL_S3_s3tc
+1316:2026-11-20T16:20:37.6337311Z 			LogAssemblyErrors (0ms)
+3318:2026-11-20T16:22:26.0339110Z 			LogAssemblyErrors (0ms)
+4255:2026-11-20T16:22:37.3312253Z Start importing Packages/com.unity.render-pipelines.universal/Shaders/Utils/FallbackError.shader using Guid(e6e9a19c3678ded42a3bc431ebef7dbd) (ShaderImporter) -> (artifact id: '309fafc5c15ee4ddb2bf91e5392e418f') in 0.011143862 seconds
+4321:2026-11-20T16:22:38.1879970Z Start importing Packages/com.unity.shadergraph/Editor/Resources/Shaders/FallbackError.shader using Guid(da07703fcc09f8d4799221050659bd55) (ShaderImporter) -> (artifact id: '62bd157639de5bb26a29e3fcbdc68977') in 0.005516597 seconds
+4355:2026-11-20T16:22:39.5643755Z Start importing Packages/com.unity.render-pipelines.universal/Shaders/Utils/MaterialError.shader using Guid(5fd9a8feb75a4b5894c241777f519d4e) (ShaderImporter) -> (artifact id: 'c28e0fc383dfcfaf8ac1505d03aed6c1') in 0.015645684 seconds
+4361:2026-11-20T16:22:39.8041755Z Start importing Packages/com.unity.render-pipelines.universal/Runtime/Materials/Lit.mat using Guid(31321ba15b8f8eb4c954353edc038b1d) (NativeFormatImporter)Shader 'Universal Render Pipeline/Lit': fallback shader 'Hidden/Universal Render Pipeline/FallbackError' not found
+4365:2026-11-20T16:22:39.8183179Z Start importing Packages/com.unity.render-pipelines.universal/Runtime/Materials/SpatialMappingOcclusion.mat using Guid(b51db210fe78df745a372851b3db949e) (NativeFormatImporter)Shader 'Universal Render Pipeline/VR/SpatialMapping/Occlusion': fallback shader 'Hidden/Universal Render Pipeline/FallbackError' not found
+4369:2026-11-20T16:22:39.8305246Z Start importing Packages/com.unity.render-pipelines.universal/Runtime/Materials/SpatialMappingWireframe.mat using Guid(9875a245ac49007498213638a307faa1) (NativeFormatImporter)Shader 'Universal Render Pipeline/VR/SpatialMapping/Wireframe': fallback shader 'Hidden/Universal Render Pipeline/FallbackError' not found
+4371:2026-11-20T16:22:39.8371022Z Start importing Packages/com.unity.render-pipelines.universal/Runtime/Materials/ParticlesUnlit.mat using Guid(e823cd5b5d27c0f4b8256e7c12ee3e6d) (NativeFormatImporter)Shader 'Universal Render Pipeline/Particles/Unlit': fallback shader 'Hidden/Universal Render Pipeline/FallbackError' not found
+4373:2026-11-20T16:22:39.8454230Z Start importing Packages/com.unity.render-pipelines.universal/Runtime/Materials/TerrainLit.mat using Guid(594ea882c5a793440b60ff72d896021e) (NativeFormatImporter)Shader 'Universal Render Pipeline/Terrain/Lit': fallback shader 'Hidden/Universal Render Pipeline/FallbackError' not found
+4380:2026-11-20T16:22:39.8644636Z Start importing Packages/com.unity.render-pipelines.universal/Runtime/Materials/SimpleLit.mat using Guid(6a1143ee683302f4aa628c052723efc1) (NativeFormatImporter)Shader 'Universal Render Pipeline/Simple Lit': fallback shader 'Hidden/Universal Render Pipeline/FallbackError' not found
+4458:2026-11-20T16:22:49.7229639Z Start importing Packages/com.unity.test-framework.performance/ValidationExceptions.json using Guid(a23a55c69f9544b56a85639e7258ea1d) (TextScriptImporter) -> (artifact id: '1024791765b0e8e84823210b022d1eb8') in 0.002158828 seconds
+4463:2026-11-20T16:22:49.7361654Z Start importing Packages/com.unity.burst/ValidationExceptions.json using Guid(f383c015504b380698ba4a8681b1223e) (TextScriptImporter) -> (artifact id: '1832c82ee42321e0f5c680b68fbe37eb') in 0.002114283 seconds
+4503:2026-11-20T16:22:49.8730317Z Start importing Packages/com.unity.render-pipelines.universal/ValidationExceptions.json using Guid(3afe581e949e3cc489c978bd8e000c4b) (TextScriptImporter) -> (artifact id: '980e22429d5d4161b19132dc7ef780b2') in 0.002147472 seconds
+4524:2026-11-20T16:22:49.9482148Z Start importing Packages/com.unity.mathematics/ValidationExceptions.json using Guid(5ed727127196a4ecc90e24e2cd7af338) (TextScriptImporter) -> (artifact id: '4cc76c19a2de3daa0998756408ae203b') in 0.001237106 seconds
+4530:2026-11-20T16:22:49.9775063Z Start importing Packages/com.unity.collections/pvpExceptions.json using Guid(fee59c2b2318a7e4fa7a2c2af28d9553) (TextScriptImporter) -> (artifact id: 'e7d6d9de6fef388fbd1e6dba877bd237') in 0.002631831 seconds
+4538:2026-11-20T16:22:50.0088094Z Start importing Packages/com.unity.collections/ValidationExceptions.json using Guid(6fe576033d6a2424c888d599967457a2) (TextScriptImporter) -> (artifact id: 'f8ad2fec6095330ee571eda86931f6a4') in 0.002203617 seconds
+4712:2026-11-20T16:22:55.2462069Z UnityEngine.Rendering.RenderPipelineGlobalSettingsUtils:TryEnsure<UnityEngine.Rendering.Universal.UniversalRenderPipelineGlobalSettings, UnityEngine.Rendering.Universal.UniversalRenderPipeline> (UnityEngine.Rendering.Universal.UniversalRenderPipelineGlobalSettings&,string,bool,System.Exception&) (at ./Library/PackageCache/com.unity.render-pipelines.core@0ff91b144dbd/Runtime/RenderPipeline/RenderPipelineGlobalSettingsUtils.cs:126)
+6561:2026-11-20T16:24:25.6091738Z Compiling shader "Hidden/Core/FallbackError" pass "" (vp)
+6570:2026-11-20T16:24:25.6255289Z Compiling shader "Hidden/Core/FallbackError" pass "" (fp)
+6579:2026-11-20T16:24:25.6375476Z Serialized binary data for shader Hidden/Core/FallbackError in 0.00s
+7266:2026-11-20T16:24:31.9469283Z Compiling shader "Hidden/Universal Render Pipeline/FallbackError" pass "" (vp)
+7275:2026-11-20T16:24:31.9762759Z Compiling shader "Hidden/Universal Render Pipeline/FallbackError" pass "" (fp)
+7284:2026-11-20T16:24:31.9978765Z Serialized binary data for shader Hidden/Universal Render Pipeline/FallbackError in 0.00s
+9586:2026-11-20T16:24:50.7783193Z [  89/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Platforms/Tvos/Include/C/Baselib_ErrorState.inl.h
+9591:2026-11-20T16:24:50.7794084Z [  94/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Platforms/OSX/Include/C/Baselib_ErrorState.inl.h
+9596:2026-11-20T16:24:50.7807640Z [  99/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Platforms/Linux/Include/C/Baselib_ErrorState.inl.h
+9601:2026-11-20T16:24:50.7826808Z [ 104/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Platforms/IOS/Include/C/Baselib_ErrorState.inl.h
+9606:2026-11-20T16:24:50.7844931Z [ 109/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Platforms/Windows/Include/C/Baselib_ErrorState.inl.h
+9611:2026-11-20T16:24:50.9802266Z [ 114/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Platforms/WebGL/Include/C/Baselib_ErrorState.inl.h
+9616:2026-11-20T16:24:50.9822702Z [ 119/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Platforms/VisionOS/Include/C/Baselib_ErrorState.inl.h
+9621:2026-11-20T16:24:50.9834250Z [ 124/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Platforms/UniversalWindows/Include/C/Baselib_ErrorState.inl.h
+9646:2026-11-20T16:24:51.2020568Z [ 149/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Platforms/EmbeddedLinux/Include/C/Baselib_ErrorState.inl.h
+9651:2026-11-20T16:24:51.2031514Z [ 154/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Platforms/Android/Include/C/Baselib_ErrorState.inl.h
+9673:2026-11-20T16:24:51.5126902Z [ 176/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Include/C/Baselib_ErrorState.h
+9767:2026-11-20T16:24:52.3934163Z [ 270/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Include/C/Baselib_ErrorCode.h
+9846:2026-11-20T16:24:53.1593792Z [ 349/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/mono/mono/eglib/gerror.c
+9917:2026-11-20T16:24:53.6842786Z [ 420/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/mono/mono/metadata/exception.c
+9918:2026-11-20T16:24:53.6852899Z [ 421/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/mono/mono/metadata/exception-internals.h
+9955:2026-11-20T16:24:53.9366679Z [ 458/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/mono/mono/metadata/exception.h
+10044:2026-11-20T16:24:54.6921060Z [ 547/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Platforms/WindowsGames/Include/C/Baselib_ErrorState.inl.h
+10556:2026-11-20T16:25:01.3129550Z [1058/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/mono/mono/utils/mono-error.h
+10577:2026-11-20T16:25:01.3943534Z [1079/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/mono/mono/utils/mono-error-internals.h
+10579:2026-11-20T16:25:01.3947052Z [1081/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/mono/mono/utils/mono-error.c
+10657:2026-11-20T16:25:01.5651875Z [1159/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/mono/mono/metadata/w32error-win32.c
+10658:2026-11-20T16:25:01.5653710Z [1160/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/mono/mono/metadata/w32error.h
+10730:2026-11-20T16:25:01.8570184Z [1232/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/mono/mono/metadata/w32error-unix.c
+10736:2026-11-20T16:25:01.8586397Z [1238/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/utils/Il2CppError.cpp
+10738:2026-11-20T16:25:01.8589984Z [1240/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/utils/Il2CppError.h
+10744:2026-11-20T16:25:01.8603031Z [1246/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/utils/ExceptionSupportStack.h
+10766:2026-11-20T16:25:01.9499639Z [1268/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/vm/Exception.h
+10877:2026-11-20T16:25:02.2578157Z [1379/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/utils/Exception.cpp
+10878:2026-11-20T16:25:02.2579776Z [1380/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/utils/Exception.h
+10894:2026-11-20T16:25:02.3377174Z [1396/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/os/c-api/Error.cpp
+10961:2026-11-20T16:25:02.5082109Z [1463/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/icalls/System/System.Net.Sockets/SocketException.cpp
+11040:2026-11-20T16:25:02.7612543Z [1542/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/icalls/System/System.Net.Sockets/SocketException.h
+11260:2026-11-20T16:25:03.3676649Z [1762/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/icalls/mscorlib/System/Exception.cpp
+11262:2026-11-20T16:25:03.3680583Z [1764/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/icalls/mscorlib/System/Exception.h
+11410:2026-11-20T16:25:03.9168097Z [1912/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/os/Win32/LastError.cpp
+11411:2026-11-20T16:25:03.9169824Z [1913/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/os/Posix/Error.h
+11427:2026-11-20T16:25:03.9988728Z [1929/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/os/Posix/LastError.cpp
+11446:2026-11-20T16:25:04.0023514Z [1948/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/os/LastError.h
+11467:2026-11-20T16:25:04.0942754Z [1969/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/os/Error.h
+11470:2026-11-20T16:25:04.0954420Z [1972/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/os/ErrorCodes.h
+11491:2026-11-20T16:25:04.2195410Z [1993/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/os/Error.cpp
+11759:2026-11-20T16:25:05.8253998Z [2261/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/vm/Exception.cpp
+11788:2026-11-20T16:25:05.9163154Z [2290/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/vm/LastError.cpp
+11789:2026-11-20T16:25:05.9164709Z [2291/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/vm/LastError.h
+11825:2026-11-20T16:25:06.0724994Z [2327/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/os/c-api/Error-c-api.h
+11949:2026-11-20T16:25:06.4050614Z [2451/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/os/Posix/Error.cpp
+12186:2026-11-20T16:25:50.5169379Z [W] opendir() failed: /github/workspace/client/Library/Bee/artifacts/iOS/il2cppOutput/cpp/Symbols
+12613:2026-11-20T16:26:01.0858533Z  4.1 kb	 0.0% Packages/com.unity.render-pipelines.universal/Shaders/Utils/FallbackError.shader
+12686:2026-11-20T16:26:01.1059455Z  0.2 kb	 0.0% Packages/com.unity.rendering.light-transport/Runtime/UnifiedRayTracing/UnifiedRayTracingException.cs
+12801:2026-11-20T16:26:01.1357904Z  0.1 kb	 0.0% Packages/com.unity.render-pipelines.universal/Runtime/Decal/DecalDrawErrorRenderPass.cs
+13540:2026-11-20T16:26:02.1909425Z [Build] Succeeded, 0 errors, 795 MB, to /github/workspace/build/iOS/ArabDrift
+13653:2026-11-20T16:26:37.4563942Z ##[error]Failed to CreateArtifact: Artifact storage quota has been hit. Unable to upload any new artifacts. Usage is recalculated every 6-12 hours.
+----- last 250 lines -----
+2026-11-20T16:26:01.2433368Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/UGUI/UI/Core/Layout/CanvasScaler.cs
+2026-11-20T16:26:01.2434263Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/UGUI/UI/Core/InputField.cs
+2026-11-20T16:26:01.2435084Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/UGUI/UI/Core/IMaskable.cs
+2026-11-20T16:26:01.2435956Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/UGUI/UI/Core/ColorBlock.cs
+2026-11-20T16:26:01.2436784Z  0.1 kb	 0.0% Packages/com.unity.mathematics/Unity.Mathematics/random.cs
+2026-11-20T16:26:01.2437813Z  0.1 kb	 0.0% Packages/com.unity.mathematics/Unity.Mathematics/matrix.gen.cs
+2026-11-20T16:26:01.2438948Z  0.1 kb	 0.0% Packages/com.unity.mathematics/Unity.Mathematics/matrix.cs
+2026-11-20T16:26:01.2440073Z  0.1 kb	 0.0% Packages/com.unity.mathematics/Unity.Mathematics/Noise/noise4D.cs
+2026-11-20T16:26:01.2441377Z  0.1 kb	 0.0% Packages/com.unity.mathematics/Unity.Mathematics/Noise/noise3D.cs
+2026-11-20T16:26:01.2442596Z  0.1 kb	 0.0% Packages/com.unity.mathematics/Unity.Mathematics/Noise/noise2D.cs
+2026-11-20T16:26:01.2443762Z  0.1 kb	 0.0% Packages/com.unity.mathematics/Unity.Mathematics/Noise/common.cs
+2026-11-20T16:26:01.2444894Z  0.1 kb	 0.0% Packages/com.unity.collections/Unity.Collections/xxHash3.cs
+2026-11-20T16:26:01.2445983Z  0.1 kb	 0.0% Packages/com.unity.collections/Unity.Collections/Unicode.cs
+2026-11-20T16:26:01.2447061Z  0.1 kb	 0.0% Packages/com.unity.collections/Unity.Collections/Memory.cs
+2026-11-20T16:26:01.2448307Z  0.1 kb	 0.0% Packages/com.unity.collections/Unity.Collections/Jobs/IJobFilter.cs
+2026-11-20T16:26:01.2449441Z  0.1 kb	 0.0% Packages/com.unity.collections/Unity.Collections/BitField.cs
+2026-11-20T16:26:01.2450520Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/NoAliasAttribute.cs
+2026-11-20T16:26:01.2451538Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/FunctionPointer.cs
+2026-11-20T16:26:01.2452552Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Editor/BurstLoader.cs
+2026-11-20T16:26:01.2453636Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/CompilerServices/Constant.cs
+2026-11-20T16:26:01.2454757Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/CompilerServices/Aliasing.cs
+2026-11-20T16:26:01.2455890Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/BurstString.Float.cs
+2026-11-20T16:26:01.2456898Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/BurstCompiler.cs
+2026-11-20T16:26:01.2457988Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/UGUI/UI/Core/Culling/IClipRegion.cs
+2026-11-20T16:26:01.2458831Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/TMP/TextMeshPro.cs
+2026-11-20T16:26:01.2459654Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/TMP/TMP_TextInfo.cs
+2026-11-20T16:26:01.2460480Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/TMP/TMP_SubMesh.cs
+2026-11-20T16:26:01.2461321Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/TMP/TMP_Style.cs
+2026-11-20T16:26:01.2462147Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/TMP/TMP_Sprite.cs
+2026-11-20T16:26:01.2462968Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/TMP/TMP_Settings.cs
+2026-11-20T16:26:01.2463849Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/TMP/TMP_MeshInfo.cs
+2026-11-20T16:26:01.2464835Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/TMP/TMP_LineInfo.cs
+2026-11-20T16:26:01.2465604Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/TMP/TMP_Dropdown.cs
+2026-11-20T16:26:01.2466340Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/TMP/TMP_Asset.cs
+2026-11-20T16:26:01.2467068Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/TMP/FastAction.cs
+2026-11-20T16:26:01.2468000Z  0.1 kb	 0.0% Packages/com.unity.mathematics/Unity.Mathematics/int4.gen.cs
+2026-11-20T16:26:01.2468872Z  0.1 kb	 0.0% Packages/com.unity.mathematics/Unity.Mathematics/int3.gen.cs
+2026-11-20T16:26:01.2469690Z  0.1 kb	 0.0% Packages/com.unity.mathematics/Unity.Mathematics/int2.gen.cs
+2026-11-20T16:26:01.2470524Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Intrinsics/Common.cs
+2026-11-20T16:26:01.2471476Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Intrinsics/Arm/NEON_ctor.cs
+2026-11-20T16:26:01.2472452Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Intrinsics/Arm/NEON_AArch64.cs
+2026-11-20T16:26:01.2473266Z  0.1 kb	 0.0% Assets/DriftKuwait/Scripts/World/TextureKit.cs
+2026-11-20T16:26:01.2474020Z  0.1 kb	 0.0% Assets/DriftKuwait/Scripts/World/SurfaceType.cs
+2026-11-20T16:26:01.2474810Z  0.1 kb	 0.0% Assets/DriftKuwait/Scripts/World/StreetLamp.cs
+2026-11-20T16:26:01.2475656Z  0.1 kb	 0.0% Assets/DriftKuwait/Scripts/World/Atmosphere.cs
+2026-11-20T16:26:01.2476405Z  0.1 kb	 0.0% Assets/DriftKuwait/Scripts/Vehicle/SkidMarks.cs
+2026-11-20T16:26:01.2477195Z  0.1 kb	 0.0% Assets/DriftKuwait/Scripts/UI/HoldButton.cs
+2026-11-20T16:26:01.2478204Z  0.1 kb	 0.0% Assets/DriftKuwait/Scripts/UI/ArabicShaper.cs
+2026-11-20T16:26:01.2479137Z  0.1 kb	 0.0% Assets/DriftKuwait/Scripts/Gameplay/DriftScorer.cs
+2026-11-20T16:26:01.2480192Z  0.1 kb	 0.0% Assets/DriftKuwait/Scripts/Camera/DriftCamera.cs
+2026-11-20T16:26:01.2481124Z  0.1 kb	 0.0% Assets/DriftKuwait/Scripts/Audio/TyreAudio.cs
+2026-11-20T16:26:01.2482041Z  0.1 kb	 0.0% Assets/DriftKuwait/Scripts/Audio/EngineAudio.cs
+2026-11-20T16:26:01.2483085Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/UGUI/UI/Core/VertexModifiers/Shadow.cs
+2026-11-20T16:26:01.2484262Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/UGUI/UI/Core/VertexModifiers/Outline.cs
+2026-11-20T16:26:01.2485349Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/UGUI/UI/Core/Toggle.cs
+2026-11-20T16:26:01.2486338Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/UGUI/UI/Core/Slider.cs
+2026-11-20T16:26:01.2487333Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/UGUI/UI/Core/RawImage.cs
+2026-11-20T16:26:01.2488440Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/UGUI/UI/Core/Image.cs
+2026-11-20T16:26:01.2489393Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/UGUI/UI/Core/IMask.cs
+2026-11-20T16:26:01.2490367Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/UGUI/UI/Core/Graphic.cs
+2026-11-20T16:26:01.2491380Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/UGUI/UI/Core/FontData.cs
+2026-11-20T16:26:01.2492388Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/UGUI/UI/Core/Dropdown.cs
+2026-11-20T16:26:01.2493445Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/UGUI/UI/Core/Culling/Clipping.cs
+2026-11-20T16:26:01.2494491Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/UGUI/UI/Core/Button.cs
+2026-11-20T16:26:01.2495480Z  0.1 kb	 0.0% Packages/com.unity.mathematics/Unity.Mathematics/svd.cs
+2026-11-20T16:26:01.2496492Z  0.1 kb	 0.0% Packages/com.unity.mathematics/Unity.Mathematics/math.cs
+2026-11-20T16:26:01.2497584Z  0.1 kb	 0.0% Packages/com.unity.mathematics/Unity.Mathematics/half.cs
+2026-11-20T16:26:01.2498496Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/SharedStatic.cs
+2026-11-20T16:26:01.2499334Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Intrinsics/x86/Ssse3.cs
+2026-11-20T16:26:01.2500232Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Intrinsics/x86/Sse4_2.cs
+2026-11-20T16:26:01.2501154Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Intrinsics/x86/Sse4_1.cs
+2026-11-20T16:26:01.2501953Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Intrinsics/x86/Popcnt.cs
+2026-11-20T16:26:01.2502741Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Intrinsics/x86/Common.cs
+2026-11-20T16:26:01.2503760Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/CompilerServices/Hint.cs
+2026-11-20T16:26:01.2504526Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/BurstString.cs
+2026-11-20T16:26:01.2505383Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/BurstRuntime.cs
+2026-11-20T16:26:01.2506230Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/TMP/TMP_Text.cs
+2026-11-20T16:26:01.2507060Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Intrinsics/x86/Sse3.cs
+2026-11-20T16:26:01.2508156Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Intrinsics/x86/Sse2.cs
+2026-11-20T16:26:01.2509073Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Intrinsics/x86/Sse.cs
+2026-11-20T16:26:01.2509990Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Intrinsics/x86/Fma.cs
+2026-11-20T16:26:01.2510925Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Intrinsics/x86/F16C.cs
+2026-11-20T16:26:01.2511838Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Intrinsics/x86/Csr.cs
+2026-11-20T16:26:01.2512764Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Intrinsics/x86/Bmi2.cs
+2026-11-20T16:26:01.2513686Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Intrinsics/x86/Bmi1.cs
+2026-11-20T16:26:01.2514598Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Intrinsics/x86/Avx2.cs
+2026-11-20T16:26:01.2515525Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Intrinsics/x86/Avx.cs
+2026-11-20T16:26:01.2516317Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Intrinsics/v64.cs
+2026-11-20T16:26:01.2517077Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Intrinsics/v256.cs
+2026-11-20T16:26:01.2518127Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Intrinsics/v128.cs
+2026-11-20T16:26:01.2519128Z  0.1 kb	 0.0% Packages/com.unity.burst/Runtime/Intrinsics/Arm/NEON.cs
+2026-11-20T16:26:01.2520231Z  0.1 kb	 0.0% Assets/DriftKuwait/Scripts/Vehicle/TyreFX.cs
+2026-11-20T16:26:01.2521154Z  0.1 kb	 0.0% Assets/DriftKuwait/Scripts/Vehicle/CarInput.cs
+2026-11-20T16:26:01.2522063Z  0.1 kb	 0.0% Assets/DriftKuwait/Scripts/Core/MeshKit.cs
+2026-11-20T16:26:01.2522985Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/UGUI/UI/Core/Text.cs
+2026-11-20T16:26:01.2523942Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/UGUI/UI/Core/Misc.cs
+2026-11-20T16:26:01.2524902Z  0.1 kb	 0.0% Packages/com.unity.ugui/Runtime/UGUI/UI/Core/Mask.cs
+2026-11-20T16:26:01.2525794Z  0.1 kb	 0.0% Assets/DriftKuwait/Scripts/UI/HUD.cs
+2026-11-20T16:26:01.2526706Z  0.1 kb	 0.0% Assets/Resources/PerformanceTestRunSettings.json
+2026-11-20T16:26:01.2527704Z  0.1 kb	 0.0% Assets/DefaultVolumeProfile.asset
+2026-11-20T16:26:01.2528653Z -------------------------------------------------------------------------------
+2026-11-20T16:26:01.2529772Z Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
+2026-11-20T16:26:01.2530813Z Unloading 2036 unused Assets / (1.9 MB). Loaded Objects now: 3872.
+2026-11-20T16:26:01.2531745Z Memory consumption went from 222.1 MB to 220.2 MB.
+2026-11-20T16:26:01.2533052Z Total: 36.087303 ms (FindLiveObjects: 0.489585 ms CreateObjectMapping: 0.161370 ms MarkObjects: 31.029665 ms  DeleteObjects: 4.405051 ms)
+2026-11-20T16:26:01.2534036Z 
+2026-11-20T16:26:01.2534404Z Build Finished, Result: Success.
+2026-11-20T16:26:01.8844941Z ##utp:{"type":"PlayerBuildInfo","version":2,"phase":"Immediate","time":1795191961881,"processId":1446,"steps":[{"description":"Preprocess Player","duration":189},{"description":"Prepare For Build","duration":17},{"description":"ProducePlayerScriptAssemblies","duration":41985},{"description":"Verify Build setup","duration":21},{"description":"Prepare assets for target platform","duration":405},{"description":"Prepare splash screen","duration":1010},{"description":"Building scenes","duration":1129},{"description":"Build scripts DLLs","duration":36},{"description":"Build GlobalGameManagers file","duration":1088},{"description":"Writing asset files","duration":14684},{"description":"Building Resources/unity_builtin_extra","duration":8543},{"description":"Write data build dirty tracking information","duration":109},{"description":"Postprocess built player","duration":73357}],"duration":142573}
+2026-11-20T16:26:01.8889382Z Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
+2026-11-20T16:26:02.1526103Z Loaded scene 'Temp/__Backupscenes/0.backup'
+2026-11-20T16:26:02.1527320Z 	Deserialize:            0.671 ms
+2026-11-20T16:26:02.1528224Z 	Integration:            264.514 ms
+2026-11-20T16:26:02.1528891Z 	Integration of assets:  0.002 ms
+2026-11-20T16:26:02.1529512Z 	Thread Wait Time:       1.298 ms
+2026-11-20T16:26:02.1530141Z 	Total Operation Time:   266.485 ms
+2026-11-20T16:26:02.1819143Z Unloading 0 unused Assets / (0 B). Loaded Objects now: 3865.
+2026-11-20T16:26:02.1820054Z Memory consumption went from 219.4 MB to 219.4 MB.
+2026-11-20T16:26:02.1821180Z Total: 27.654182 ms (FindLiveObjects: 0.309240 ms CreateObjectMapping: 0.432052 ms MarkObjects: 26.883167 ms  DeleteObjects: 0.028298 ms)
+2026-11-20T16:26:02.1822026Z 
+2026-11-20T16:26:02.1909425Z [Build] Succeeded, 0 errors, 795 MB, to /github/workspace/build/iOS/ArabDrift
+2026-11-20T16:26:02.1910595Z UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+2026-11-20T16:26:02.1911744Z UnityEngine.StackTraceUtility:ExtractStackTrace () (at /home/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:35)
+2026-11-20T16:26:02.1928369Z UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+2026-11-20T16:26:02.1948256Z UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+2026-11-20T16:26:02.1958137Z UnityEngine.Logger:Log (UnityEngine.LogType,object)
+2026-11-20T16:26:02.1977977Z UnityEngine.Debug:Log (object)
+2026-11-20T16:26:02.1998062Z BuildScript:BuildIOS () (at Assets/Editor/BuildScript.cs:58)
+2026-11-20T16:26:02.2017761Z 
+2026-11-20T16:26:02.2018459Z (Filename: Assets/Editor/BuildScript.cs Line: 58)
+2026-11-20T16:26:02.2018954Z 
+2026-11-20T16:26:02.2239287Z Batchmode quit successfully invoked - shutting down!
+2026-11-20T16:26:02.8096697Z [Physics::Module] Cleanup current backned.
+2026-11-20T16:26:02.8097717Z [Physics::Module] Id: 0xf2b8ea05
+2026-11-20T16:26:02.8098450Z Input System module state changed to: ShutdownInProgress.
+2026-11-20T16:26:02.8099145Z Input System polling thread exited.
+2026-11-20T16:26:02.8099677Z Input System module state changed to: Shutdown.
+2026-11-20T16:26:02.8112452Z [Licensing::IpcConnector] LicenseClient-root-notifications channel disconnected successfully.
+2026-11-20T16:26:02.8129030Z [Licensing::IpcConnector] LicenseClient-root channel disconnected successfully.
+2026-11-20T16:26:02.8236548Z AcceleratorClientConnectionCallback - disconnected - :0
+2026-11-20T16:26:02.8328702Z info: Microsoft.Hosting.Lifetime[0]
+2026-11-20T16:26:02.8331147Z       Application is shutting down...
+2026-11-20T16:26:02.8419195Z info: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+2026-11-20T16:26:02.8420419Z       ALC ILPP context 2 is unloading
+2026-11-20T16:26:05.3271170Z Cleanup mono
+2026-11-20T16:26:05.5973433Z debugger-agent: Unable to listen on 36
+2026-11-20T16:26:05.6017914Z [usbmuxd] Stop listen thread
+2026-11-20T16:26:06.1355896Z [usbmuxd] Listen thread exiting
+2026-11-20T16:26:06.1359211Z Exiting batchmode successfully now!
+2026-11-20T16:26:06.1974337Z 
+2026-11-20T16:26:06.1975560Z SDL leaked 2 allocations
+2026-11-20T16:26:06.2861155Z Build succeeded
+2026-11-20T16:26:06.4100573Z 
+2026-11-20T16:26:06.4102290Z ###########################
+2026-11-20T16:26:06.4103110Z #       Build output      #
+2026-11-20T16:26:06.4103944Z ###########################
+2026-11-20T16:26:06.4104434Z 
+2026-11-20T16:26:06.4125298Z total 12K
+2026-11-20T16:26:06.4125902Z drwxr-xr-x  3 root root 4.0K Nov 20 16:24 .
+2026-11-20T16:26:06.4126522Z drwxr-xr-x  3 root root 4.0K Nov 20 16:20 ..
+2026-11-20T16:26:06.4127860Z drwxr-xr-x 13 root root 4.0K Nov 20 16:26 ArabDrift
+2026-11-20T16:26:06.5225396Z [UnityConnectServicesConfig] Local config successfully read: "/usr/share/unity3d/config/services-config.json"
+2026-11-20T16:26:06.5227047Z [UnityConnectServicesConfig] "clientConnectTimeoutSec" was overridden with "5"
+2026-11-20T16:26:06.5229137Z [UnityConnectServicesConfig] "clientHandshakeTimeoutSec" was overridden with "10"
+2026-11-20T16:26:06.5230372Z [UnityConnectServicesConfig] Service configuration:
+2026-11-20T16:26:06.5231497Z     "servicesConfigBaseUrl": "",
+2026-11-20T16:26:06.5244708Z     "disableServicesWindow": false,
+2026-11-20T16:26:06.5245776Z     "disableUserLogin": false,
+2026-11-20T16:26:06.5246593Z     "entitlementCacheTimeoutInSeconds": 60,
+2026-11-20T16:26:06.5247330Z     "clientConnectTimeoutSec": 5,
+2026-11-20T16:26:06.5248200Z     "clientHandshakeTimeoutSec": 10,
+2026-11-20T16:26:06.5248938Z     "clientResolveEntitlementsTimeoutSec": 30,
+2026-11-20T16:26:06.5249655Z     "clientUpdateLicenseTimeoutSec": 30,
+2026-11-20T16:26:06.5250392Z     "licensingServiceBaseUrl": "",
+2026-11-20T16:26:06.5251100Z     "enableProxyAutoconfig": "false"
+2026-11-20T16:26:06.5251545Z 
+2026-11-20T16:26:06.5754833Z Unity Editor version:    6000.0.62f1 (f99f05b3e950)
+2026-11-20T16:26:06.5756298Z Branch:                  6000.0/staging
+2026-11-20T16:26:06.5757153Z Build type:              Release
+2026-11-20T16:26:06.5758188Z Batch mode:              YES
+2026-11-20T16:26:06.5758964Z System name:             Linux
+2026-11-20T16:26:06.5759855Z Distro version:          #21-Ubuntu SMP PREEMPT Tue Oct 27 22:34:38 UTC 2026
+2026-11-20T16:26:06.5760917Z Kernel version:          7.0.0-1020-azure
+2026-11-20T16:26:06.5761618Z Architecture:            x86_64
+2026-11-20T16:26:06.5762329Z Available memory:        7930 MB
+2026-11-20T16:26:07.2781191Z User *** logged in successfully
+2026-11-20T16:26:07.2782174Z [UnityConnect::TryLogin] Request Succeeded.
+2026-11-20T16:26:07.2783114Z [Licensing::Module] Trying to connect to existing licensing client channel...
+2026-11-20T16:26:07.2784608Z [Licensing::IpcConnector] Channel LicenseClient-root doesn't exist
+2026-11-20T16:26:07.2796386Z [Licensing::Module] Successfully launched the LicensingClient (PId: 14240)
+2026-11-20T16:26:07.6570857Z [Licensing::IpcConnector] Successfully connected to: "LicenseClient-root" at "2026-11-20T16:26:07.656106Z"
+2026-11-20T16:26:07.6590996Z [SignatureVerifier] Application signature verification not supported on this platform.
+2026-11-20T16:26:07.8539917Z [Licensing::Client] Handshaking with LicensingClient:
+2026-11-20T16:26:07.8541218Z   Version:                 1.17.2+ff71f16
+2026-11-20T16:26:07.8542367Z   Session Id:              6ca0ca73ebbd4839b28b9114258e2a8d
+2026-11-20T16:26:07.8543877Z   Correlation Id:          dafc3d137433994c9993f3a322ed78a2
+2026-11-20T16:26:07.8545059Z   External correlation Id: 7725648537914153575
+2026-11-20T16:26:07.8545880Z   Machine Id:              QqUXN/qfIAxaEz7u8MB9srbfWmE=
+2026-11-20T16:26:07.8553004Z [Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-root" (connect: 0.38s, validation: 0.20s, handshake: 0.00s)
+2026-11-20T16:26:07.8559562Z [Licensing::IpcConnector] Successfully connected to: "LicenseClient-root-notifications" at "2026-11-20T16:26:07.855584Z"
+2026-11-20T16:26:07.8565423Z [Licensing::Module] Connected to LicensingClient (PId: 14240, launch time: 0.00, total connection time: 0.58s)
+2026-11-20T16:26:07.8931824Z [Licensing::Client] Successfully updated the access token
+2026-11-20T16:26:07.8950015Z [Licensing::Module] Successfully updated the access token RNuAnnpKSc...
+2026-11-20T16:26:09.7467243Z [Licensing::Client] Successfully processed license management request
+2026-11-20T16:26:09.7470530Z [Licensing::Module] Successfully returned the entitlement license
+2026-11-20T16:26:09.7811022Z [Licensing::Client] Successfully queried for the EntitlementGroupsDetails
+2026-11-20T16:26:11.5133002Z [Licensing::Client] Successfully returned ULF license with serial number : "***"
+2026-11-20T16:26:12.1058206Z ##[group]Run proj=$(dirname "$(find build -maxdepth 4 -name Unity-iPhone.xcodeproj -type d | head -1)")
+2026-11-20T16:26:12.1059215Z [36;1mproj=$(dirname "$(find build -maxdepth 4 -name Unity-iPhone.xcodeproj -type d | head -1)")[0m
+2026-11-20T16:26:12.1059883Z [36;1mecho "Xcode project at: $proj"[0m
+2026-11-20T16:26:12.1060607Z [36;1mtest -n "$proj"[0m
+2026-11-20T16:26:12.1061099Z [36;1msudo chown -R "$(id -u):$(id -g)" build[0m
+2026-11-20T16:26:12.1061628Z [36;1mtar -C "$proj" -czf xcode.tgz .[0m
+2026-11-20T16:26:12.1062119Z [36;1mls -lh xcode.tgz[0m
+2026-11-20T16:26:12.1123125Z shell: /usr/bin/bash -e {0}
+2026-11-20T16:26:12.1123648Z ##[endgroup]
+2026-11-20T16:26:12.1255964Z Xcode project at: build/iOS/ArabDrift
+2026-11-20T16:26:37.0983817Z -rw-r--r-- 1 runner runner 202M Nov 20 16:26 xcode.tgz
+2026-11-20T16:26:37.1080121Z ##[group]Run actions/upload-artifact@v4
+2026-11-20T16:26:37.1080924Z with:
+2026-11-20T16:26:37.1081565Z   name: xcode-project
+2026-11-20T16:26:37.1082232Z   path: xcode.tgz
+2026-11-20T16:26:37.1082866Z   retention-days: 3
+2026-11-20T16:26:37.1083515Z   compression-level: 0
+2026-11-20T16:26:37.1084194Z   if-no-files-found: warn
+2026-11-20T16:26:37.1084845Z   overwrite: false
+2026-11-20T16:26:37.1085504Z   include-hidden-files: false
+2026-11-20T16:26:37.1086184Z ##[endgroup]
+2026-11-20T16:26:37.3218687Z (node:17030) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-20T16:26:37.3220433Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-20T16:26:37.3310730Z With the provided path, there will be 1 file uploaded
+2026-11-20T16:26:37.3314970Z Artifact name is valid!
+2026-11-20T16:26:37.3315697Z Root directory input is valid!
+2026-11-20T16:26:37.4563942Z ##[error]Failed to CreateArtifact: Artifact storage quota has been hit. Unable to upload any new artifacts. Usage is recalculated every 6-12 hours.
+More info on storage limits: https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions#calculating-minute-and-storage-spending
+2026-11-20T16:26:37.4798895Z Post job cleanup.
+2026-11-20T16:26:37.5909466Z [command]/usr/bin/git version
+2026-11-20T16:26:37.5995852Z git version 2.56.1
+2026-11-20T16:26:37.6015581Z Temporarily overriding HOME='/home/runner/work/_temp/ce4b503e-5cc3-4fb2-a57f-daf14f7690d8' before making global git config changes
+2026-11-20T16:26:37.6017701Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-20T16:26:37.6018855Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/arabdrift/arabdrift
+2026-11-20T16:26:37.6093491Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-20T16:26:37.6151425Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-20T16:26:37.6630662Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-20T16:26:37.6693738Z http.https://github.com/.extraheader
+2026-11-20T16:26:37.6696345Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-20T16:26:37.6789978Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-20T16:26:37.7221882Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-20T16:26:37.7228357Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-20T16:26:37.7625921Z Cleaning up orphan processes
+2026-11-20T16:26:37.8226844Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@v4, actions/checkout@v4, actions/upload-artifact@v4, game-ci/unity-builder@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
