@@ -1,0 +1,287 @@
+run 1 (44768802024) ref ios-1 sha fb44bfd8ebdf4562e8b5fc21aff2fadf9330fed9
+checks=success unity=failure ios=skipped
+
+===== FAILED: Unity export (Xcode project) =====
+  step: Set up job -> success
+  step: Check secrets -> success
+  step: Free disk space for the Unity image -> success
+  step: Run actions/checkout@v4 -> success
+  step: Run actions/cache@v4 -> success
+  step: Build with Unity -> failure
+  step: Pack Xcode project -> skipped
+  step: Run actions/upload-artifact@v4 -> skipped
+  step: Post Run actions/cache@v4 -> skipped
+  step: Post Run actions/checkout@v4 -> success
+  step: Complete job -> success
+2588 job.log
+42:2026-11-20T15:59:50.5145468Z [36;1mif [ -n "$missing" ]; then echo "::error::Missing repository secrets:$missing"; exit 1; fi[0m
+336:2026-11-20T16:05:37.2265700Z CreateDirectory '/root/.cache/unity3d' failed:  (current dir: /github/workspace)
+449:2026-11-20T16:05:44.0602823Z GLX Extensions: GLX_ARB_context_flush_control GLX_ARB_create_context GLX_ARB_create_context_no_error GLX_ARB_create_context_profile GLX_ARB_fbconfig_float GLX_ARB_framebuffer_sRGB GLX_ARB_get_proc_address GLX_ARB_multisample GLX_EXT_create_context_es2_profile GLX_EXT_create_context_es_profile GLX_EXT_fbconfig_packed_float GLX_EXT_framebuffer_sRGB GLX_EXT_no_config_context GLX_EXT_texture_from_pixmap GLX_EXT_visual_info GLX_EXT_visual_rating GLX_MESA_copy_sub_buffer GLX_MESA_query_renderer GLX_OML_swap_method GLX_SGIS_multisample GLX_SGIX_fbconfig GLX_SGIX_pbuffer GLX_SGIX_visual_select_group GLX_SGI_make_current_read 
+459:2026-11-20T16:05:44.0778863Z rm GL_EXT_texture_swizzle GL_EXT_timer_query GL_EXT_transform_feedback GL_EXT_vertex_array_bgra GL_EXT_vertex_attrib_64bit GL_IBM_multimode_draw_arrays GL_INTEL_shader_atomic_float_minmax GL_KHR_blend_equation_advanced GL_KHR_blend_equation_advanced_coherent GL_KHR_context_flush_control GL_KHR_debug GL_KHR_no_error GL_KHR_parallel_shader_compile GL_KHR_robust_buffer_access_behavior GL_KHR_robustness GL_KHR_texture_compression_astc_ldr GL_KHR_texture_compression_astc_sliced_3d GL_MESA_framebuffer_flip_y GL_MESA_pack_invert GL_MESA_shader_integer_functions GL_MESA_texture_signed_rgba GL_MESA_ycbcr_texture GL_NVX_gpu_memory_info GL_NV_conditional_render GL_NV_copy_image GL_NV_depth_clamp GL_NV_packed_depth_stencil GL_NV_shader_atomic_float GL_NV_texture_barrier GL_OES_EGL_image GL_S3_s3tc
+505:2026-11-20T16:05:45.4753777Z 			LogAssemblyErrors (0ms)
+868:2026-11-20T16:06:08.9544737Z 			LogAssemblyErrors (0ms)
+951:2026-11-20T16:06:09.5248878Z Start importing Packages/com.unity.ai.navigation/ValidationExceptions.json using Guid(203bedb65db239c4aa5d9cf073cd3b73) (TextScriptImporter) -> (artifact id: 'b0adf71f88467c8339d665a36ccdf3e8') in 0.001290098 seconds
+1040:2026-11-20T16:06:11.0597358Z Curl error 42: Callback aborted
+1230:2026-11-20T16:06:15.7499920Z [Licensing::Module] Error: Access token is unavailable; failed to update
+1259:2026-11-20T16:06:16.2714643Z GLX Extensions: GLX_ARB_context_flush_control GLX_ARB_create_context GLX_ARB_create_context_no_error GLX_ARB_create_context_profile GLX_ARB_fbconfig_float GLX_ARB_framebuffer_sRGB GLX_ARB_get_proc_address GLX_ARB_multisample GLX_EXT_create_context_es2_profile GLX_EXT_create_context_es_profile GLX_EXT_fbconfig_packed_float GLX_EXT_framebuffer_sRGB GLX_EXT_no_config_context GLX_EXT_texture_from_pixmap GLX_EXT_visual_info GLX_EXT_visual_rating GLX_MESA_copy_sub_buffer GLX_MESA_query_renderer GLX_OML_swap_method GLX_SGIS_multisample GLX_SGIX_fbconfig GLX_SGIX_pbuffer GLX_SGIX_visual_select_group GLX_SGI_make_current_read 
+1269:2026-11-20T16:06:16.2881313Z rm GL_EXT_texture_swizzle GL_EXT_timer_query GL_EXT_transform_feedback GL_EXT_vertex_array_bgra GL_EXT_vertex_attrib_64bit GL_IBM_multimode_draw_arrays GL_INTEL_shader_atomic_float_minmax GL_KHR_blend_equation_advanced GL_KHR_blend_equation_advanced_coherent GL_KHR_context_flush_control GL_KHR_debug GL_KHR_no_error GL_KHR_parallel_shader_compile GL_KHR_robust_buffer_access_behavior GL_KHR_robustness GL_KHR_texture_compression_astc_ldr GL_KHR_texture_compression_astc_sliced_3d GL_MESA_framebuffer_flip_y GL_MESA_pack_invert GL_MESA_shader_integer_functions GL_MESA_texture_signed_rgba GL_MESA_ycbcr_texture GL_NVX_gpu_memory_info GL_NV_conditional_render GL_NV_copy_image GL_NV_depth_clamp GL_NV_packed_depth_stencil GL_NV_shader_atomic_float GL_NV_texture_barrier GL_OES_EGL_image GL_S3_s3tc
+1314:2026-11-20T16:06:17.5577044Z 			LogAssemblyErrors (0ms)
+2487:2026-11-20T16:07:53.0442895Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Bu## Script Compilation Error for: Csc Library/Bee/artifacts/900b0aE.dag/Assembly-CSharp.dll (+2 others)
+2490:2026-11-20T16:07:53.0448550Z Assets/DriftKuwait/Scripts/Core/GameBootstrap.cs(32,26): error CS0136: A local or parameter named 'cam' cannot be declared in this scope because that name is used in an enclosing local scope to define a local or parameter
+2494:2026-11-20T16:07:53.0452655Z Assets/DriftKuwait/Scripts/Core/GameBootstrap.cs(32,26): error CS0136: A local or parameter named 'cam' cannot be declared in this scope because that name is used in an enclosing local scope to define a local or parameter
+2496:2026-11-20T16:07:53.1502781Z Scripts have compiler errors.
+2499:2026-11-20T16:07:53.1505422Z Scripts have compiler errors.
+2503:2026-11-20T16:07:53.1901027Z Build failed, with exit code 1
+2570:2026-11-20T16:07:58.7489872Z To find the reason for failure: please search for errors in the log above and check for annotations in the summary view.
+2572:2026-11-20T16:07:59.1859525Z ##[error]Build failed with exit code 1
+----- last 250 lines -----
+2026-11-20T16:07:53.0199819Z [           0s] Csc Library/Bee/artifacts/900b0aE.dag/Unity.PerformanceTesting.Editor.dll (+2 others) [CacheWrite 00000000000000000000000000000004]
+2026-11-20T16:07:53.0201679Z [390/495    1s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.RenderPipelines.Universal.Config.Runtime.dll (+pdb)
+2026-11-20T16:07:53.0203495Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.RenderPipelines.Universal.Config.Runtime.dll, with 128 defines and 228 references
+2026-11-20T16:07:53.0205067Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0206435Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0207355Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0208618Z [391/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.Rendering.LightTransport.Runtime.dll (+pdb)
+2026-11-20T16:07:53.0210244Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.Rendering.LightTransport.Runtime.dll, with 128 defines and 230 references
+2026-11-20T16:07:53.0211818Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0213079Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0214035Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0215309Z [392/495    1s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.RenderPipelines.GPUDriven.Runtime.dll (+pdb)
+2026-11-20T16:07:53.0217261Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.RenderPipelines.GPUDriven.Runtime.dll, with 128 defines and 231 references
+2026-11-20T16:07:53.0218809Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0249821Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0250860Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0252111Z [393/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.RenderPipelines.Core.Runtime.dll (+pdb)
+2026-11-20T16:07:53.0253749Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.RenderPipelines.Core.Runtime.dll, with 128 defines and 230 references
+2026-11-20T16:07:53.0255252Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0256434Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0257607Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0258831Z [394/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.RenderPipelines.Universal.2D.Runtime.dll (+pdb)
+2026-11-20T16:07:53.0260494Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.RenderPipelines.Universal.2D.Runtime.dll, with 128 defines and 232 references
+2026-11-20T16:07:53.0261915Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0263145Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0269098Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0270432Z [395/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.RenderPipelines.Universal.Runtime.dll (+pdb)
+2026-11-20T16:07:53.0272115Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.RenderPipelines.Universal.Runtime.dll, with 129 defines and 234 references
+2026-11-20T16:07:53.0273662Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0274816Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0275703Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0277207Z [396/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll (+pdb)
+2026-11-20T16:07:53.0279014Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll, with 128 defines and 227 references
+2026-11-20T16:07:53.0280636Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0282034Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0283019Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0284339Z [397/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.RenderPipeline.Universal.ShaderLibrary.dll (+pdb)
+2026-11-20T16:07:53.0286225Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.RenderPipeline.Universal.ShaderLibrary.dll, with 128 defines and 228 references
+2026-11-20T16:07:53.0287862Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0288976Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0289873Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0291163Z [398/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.RenderPipelines.Core.Runtime.Shared.dll (+pdb)
+2026-11-20T16:07:53.0292847Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.RenderPipelines.Core.Runtime.Shared.dll, with 128 defines and 228 references
+2026-11-20T16:07:53.0294396Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0295506Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0296551Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0297682Z [399/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.TextMeshPro.dll (+pdb)
+2026-11-20T16:07:53.0299064Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.TextMeshPro.dll, with 129 defines and 227 references
+2026-11-20T16:07:53.0300502Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0301652Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0302537Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0303665Z [400/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/UnityEngine.UI.dll (+pdb)
+2026-11-20T16:07:53.0304968Z Processing assembly Library/Bee/artifacts/900b0aE.dag/UnityEngine.UI.dll, with 130 defines and 225 references
+2026-11-20T16:07:53.0306563Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0308043Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0308957Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0310137Z [401/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.PerformanceTesting.dll (+pdb)
+2026-11-20T16:07:53.0311634Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.PerformanceTesting.dll, with 129 defines and 221 references
+2026-11-20T16:07:53.0313067Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0314212Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0315120Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0316349Z [402/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.Burst.dll (+pdb)
+2026-11-20T16:07:53.0317704Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.Burst.dll, with 128 defines and 223 references
+2026-11-20T16:07:53.0319086Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0320200Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0321092Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0322239Z [403/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.Mathematics.dll (+pdb)
+2026-11-20T16:07:53.0323643Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.Mathematics.dll, with 128 defines and 227 references
+2026-11-20T16:07:53.0325026Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0326225Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0327294Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0328610Z [404/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.RenderPipelines.Core.ShaderLibrary.dll (+pdb)
+2026-11-20T16:07:53.0330247Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.RenderPipelines.Core.ShaderLibrary.dll, with 128 defines and 227 references
+2026-11-20T16:07:53.0331797Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0332951Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0333868Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0335155Z [405/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.RenderPipelines.Universal.Shaders.dll (+pdb)
+2026-11-20T16:07:53.0336967Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.RenderPipelines.Universal.Shaders.dll, with 128 defines and 227 references
+2026-11-20T16:07:53.0338503Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0339600Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0340474Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0341817Z [406/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.Rendering.LightTransport.Editor.dll (+pdb)
+2026-11-20T16:07:53.0343479Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.Rendering.LightTransport.Editor.dll, with 126 defines and 261 references
+2026-11-20T16:07:53.0344979Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0346263Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0347242Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0348523Z [407/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.RenderPipelines.Core.Editor.Shared.dll (+pdb)
+2026-11-20T16:07:53.0350173Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.RenderPipelines.Core.Editor.Shared.dll, with 126 defines and 262 references
+2026-11-20T16:07:53.0351751Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0356588Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0357511Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0358709Z [408/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.RenderPipelines.Core.Editor.dll (+pdb)
+2026-11-20T16:07:53.0360267Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.RenderPipelines.Core.Editor.dll, with 127 defines and 267 references
+2026-11-20T16:07:53.0361767Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0362902Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0363822Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0364956Z [409/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.Collections.dll (+pdb)
+2026-11-20T16:07:53.0366509Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.Collections.dll, with 130 defines and 229 references
+2026-11-20T16:07:53.0368804Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0370076Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0371943Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0373567Z [410/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.ShaderGraph.Utilities.dll (+pdb)
+2026-11-20T16:07:53.0375641Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.ShaderGraph.Utilities.dll, with 126 defines and 261 references
+2026-11-20T16:07:53.0377357Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0379110Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0380356Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0381576Z [411/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.Collections.Editor.dll (+pdb)
+2026-11-20T16:07:53.0383009Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.Collections.Editor.dll, with 127 defines and 262 references
+2026-11-20T16:07:53.0384484Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0385582Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0386626Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0387810Z [412/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.Mathematics.Editor.dll (+pdb)
+2026-11-20T16:07:53.0389301Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.Mathematics.Editor.dll, with 126 defines and 262 references
+2026-11-20T16:07:53.0390770Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0391873Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0392746Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0393889Z [413/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/PPv2URPConverters.dll (+pdb)
+2026-11-20T16:07:53.0395291Z Processing assembly Library/Bee/artifacts/900b0aE.dag/PPv2URPConverters.dll, with 126 defines and 265 references
+2026-11-20T16:07:53.0396787Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0397891Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0398764Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0400004Z [414/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.RenderPipelines.Universal.Editor.dll (+pdb)
+2026-11-20T16:07:53.0401624Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.RenderPipelines.Universal.Editor.dll, with 126 defines and 271 references
+2026-11-20T16:07:53.0403116Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0404469Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0405378Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0406538Z [415/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/UnityEditor.UI.dll (+pdb)
+2026-11-20T16:07:53.0410661Z Processing assembly Library/Bee/artifacts/900b0aE.dag/UnityEditor.UI.dll, with 127 defines and 260 references
+2026-11-20T16:07:53.0412079Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0413195Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0414097Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0415303Z [416/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.Searcher.Editor.dll (+pdb)
+2026-11-20T16:07:53.0416932Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.Searcher.Editor.dll, with 126 defines and 261 references
+2026-11-20T16:07:53.0421029Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0422140Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0423060Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0424269Z [417/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.PerformanceTesting.Editor.dll (+pdb)
+2026-11-20T16:07:53.0425806Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.PerformanceTesting.Editor.dll, with 127 defines and 257 references
+2026-11-20T16:07:53.0427389Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0428534Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0429610Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0430818Z [418/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.TextMeshPro.Editor.dll (+pdb)
+2026-11-20T16:07:53.0432515Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.TextMeshPro.Editor.dll, with 126 defines and 263 references
+2026-11-20T16:07:53.0434153Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0437460Z running Unity.Jobs.CodeGen.JobsILPostProcessor
+2026-11-20T16:07:53.0438362Z running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+2026-11-20T16:07:53.0439651Z [419/495    0s] ILPostProcess Library/Bee/artifacts/900b0aE.dag/post-processed/Unity.Burst.Editor.dll (+pdb)
+2026-11-20T16:07:53.0441128Z Processing assembly Library/Bee/artifacts/900b0aE.dag/Unity.Burst.Editor.dll, with 126 defines and 262 references
+2026-11-20T16:07:53.0442895Z processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Bu## Script Compilation Error for: Csc Library/Bee/artifacts/900b0aE.dag/Assembly-CSharp.dll (+2 others)
+2026-11-20T16:07:53.0445260Z ## CmdLine: "/opt/unity/Editor/Data/NetCoreRuntime/dotnet" exec "/opt/unity/Editor/Data/DotNetSdkRoslyn/csc.dll" /nostdlib /noconfig /shared "@Library/Bee/artifacts/900b0aE.dag/Assembly-CSharp.rsp" "@Library/Bee/artifacts/900b0aE.dag/Assembly-CSharp.rsp2"
+2026-11-20T16:07:53.0447107Z ## Output:
+2026-11-20T16:07:53.0448550Z Assets/DriftKuwait/Scripts/Core/GameBootstrap.cs(32,26): error CS0136: A local or parameter named 'cam' cannot be declared in this scope because that name is used in an enclosing local scope to define a local or parameter
+2026-11-20T16:07:53.0449846Z 
+2026-11-20T16:07:53.0450230Z Total cache size 18822344
+2026-11-20T16:07:53.0451026Z Total cache size after purge 18822344, took 00:00:00.0682232
+2026-11-20T16:07:53.0452655Z Assets/DriftKuwait/Scripts/Core/GameBootstrap.cs(32,26): error CS0136: A local or parameter named 'cam' cannot be declared in this scope because that name is used in an enclosing local scope to define a local or parameter
+2026-11-20T16:07:53.0454242Z AssetDatabase: script compilation time: 63.756966s
+2026-11-20T16:07:53.1502781Z Scripts have compiler errors.
+2026-11-20T16:07:53.1504208Z 
+2026-11-20T16:07:53.1504703Z Aborting batchmode due to failure:
+2026-11-20T16:07:53.1505422Z Scripts have compiler errors.
+2026-11-20T16:07:53.1505869Z 
+2026-11-20T16:07:53.1508655Z 
+2026-11-20T16:07:53.1509133Z SDL leaked 2 allocations
+2026-11-20T16:07:53.1901027Z Build failed, with exit code 1
+2026-11-20T16:07:53.4032558Z 
+2026-11-20T16:07:53.4038811Z ###########################
+2026-11-20T16:07:53.4045322Z #       Build output      #
+2026-11-20T16:07:53.4050786Z ###########################
+2026-11-20T16:07:53.4055917Z 
+2026-11-20T16:07:53.4082046Z total 8.0K
+2026-11-20T16:07:53.4083037Z drwxr-xr-x 2 root root 4.0K Nov 20 16:06 .
+2026-11-20T16:07:53.4083876Z drwxr-xr-x 3 root root 4.0K Nov 20 16:06 ..
+2026-11-20T16:07:53.5481662Z [UnityConnectServicesConfig] Local config successfully read: "/usr/share/unity3d/config/services-config.json"
+2026-11-20T16:07:53.5484521Z [UnityConnectServicesConfig] "clientConnectTimeoutSec" was overridden with "5"
+2026-11-20T16:07:53.5485895Z [UnityConnectServicesConfig] "clientHandshakeTimeoutSec" was overridden with "10"
+2026-11-20T16:07:53.5487113Z [UnityConnectServicesConfig] Service configuration:
+2026-11-20T16:07:53.5487974Z     "servicesConfigBaseUrl": "",
+2026-11-20T16:07:53.5488709Z     "disableServicesWindow": false,
+2026-11-20T16:07:53.5489502Z     "disableUserLogin": false,
+2026-11-20T16:07:53.5490224Z     "entitlementCacheTimeoutInSeconds": 60,
+2026-11-20T16:07:53.5491038Z     "clientConnectTimeoutSec": 5,
+2026-11-20T16:07:53.5491812Z     "clientHandshakeTimeoutSec": 10,
+2026-11-20T16:07:53.5492679Z     "clientResolveEntitlementsTimeoutSec": 30,
+2026-11-20T16:07:53.5493792Z     "clientUpdateLicenseTimeoutSec": 30,
+2026-11-20T16:07:53.5494624Z     "licensingServiceBaseUrl": "",
+2026-11-20T16:07:53.5495690Z     "enableProxyAutoconfig": "false"
+2026-11-20T16:07:53.5516965Z 
+2026-11-20T16:07:53.5792097Z Unity Editor version:    6000.0.62f1 (f99f05b3e950)
+2026-11-20T16:07:53.5794060Z Branch:                  6000.0/staging
+2026-11-20T16:07:53.5795048Z Build type:              Release
+2026-11-20T16:07:53.5795883Z Batch mode:              YES
+2026-11-20T16:07:53.5798566Z System name:             Linux
+2026-11-20T16:07:53.5799470Z Distro version:          #21-Ubuntu SMP PREEMPT Tue Oct 27 22:34:38 UTC 2026
+2026-11-20T16:07:53.5800406Z Kernel version:          7.0.0-1020-azure
+2026-11-20T16:07:53.5801194Z Architecture:            x86_64
+2026-11-20T16:07:53.5801965Z Available memory:        7931 MB
+2026-11-20T16:07:54.4557620Z [40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+2026-11-20T16:07:54.4558382Z       Application is shutting down...
+2026-11-20T16:07:54.4622437Z [40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+2026-11-20T16:07:54.4625319Z       ALC ILPP context 1 is unloading
+2026-11-20T16:07:54.4828946Z User *** logged in successfully
+2026-11-20T16:07:54.4829912Z [UnityConnect::TryLogin] Request Succeeded.
+2026-11-20T16:07:54.4830858Z [Licensing::Module] Trying to connect to existing licensing client channel...
+2026-11-20T16:07:54.4831904Z [Licensing::IpcConnector] Channel LicenseClient-root doesn't exist
+2026-11-20T16:07:54.4847559Z [Licensing::Module] Successfully launched the LicensingClient (PId: 4376)
+2026-11-20T16:07:54.7343539Z [Licensing::IpcConnector] Successfully connected to: "LicenseClient-root" at "2026-11-20T16:07:54.733685Z"
+2026-11-20T16:07:54.7369106Z [SignatureVerifier] Application signature verification not supported on this platform.
+2026-11-20T16:07:54.9241919Z [Licensing::Client] Handshaking with LicensingClient:
+2026-11-20T16:07:54.9242799Z   Version:                 1.17.2+ff71f16
+2026-11-20T16:07:54.9243524Z   Session Id:              2cc03e31f63b46d9b288dd5e4b8f5933
+2026-11-20T16:07:54.9244536Z   Correlation Id:          a42c2f6cecfd1b75aedc8a294c5ec31e
+2026-11-20T16:07:54.9245263Z   External correlation Id: 3422165384311491883
+2026-11-20T16:07:54.9245948Z   Machine Id:              yJmF7BcXZMlp5f4MpMAl5jnmJW0=
+2026-11-20T16:07:54.9247506Z [Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-root" (connect: 0.25s, validation: 0.19s, handshake: 0.00s)
+2026-11-20T16:07:54.9250022Z [Licensing::IpcConnector] Successfully connected to: "LicenseClient-root-notifications" at "2026-11-20T16:07:54.924743Z"
+2026-11-20T16:07:54.9251521Z [Licensing::Module] Connected to LicensingClient (PId: 4376, launch time: 0.00, total connection time: 0.44s)
+2026-11-20T16:07:54.9490015Z [Licensing::Client] Successfully updated the access token
+2026-11-20T16:07:54.9491297Z [Licensing::Module] Successfully updated the access token kAFTZwiHz-...
+2026-11-20T16:07:56.9339330Z [Licensing::Client] Successfully processed license management request
+2026-11-20T16:07:56.9340561Z [Licensing::Module] Successfully returned the entitlement license
+2026-11-20T16:07:56.9628181Z [Licensing::Client] Successfully queried for the EntitlementGroupsDetails
+2026-11-20T16:07:58.7365021Z [Licensing::Client] Successfully returned ULF license with serial number : "***"
+2026-11-20T16:07:58.7484239Z 
+2026-11-20T16:07:58.7485202Z ###########################
+2026-11-20T16:07:58.7486226Z #         Failure         #
+2026-11-20T16:07:58.7486919Z ###########################
+2026-11-20T16:07:58.7487359Z 
+2026-11-20T16:07:58.7487813Z Please note that the exit code is not very descriptive.
+2026-11-20T16:07:58.7488654Z Most likely it will not help you solve the issue.
+2026-11-20T16:07:58.7489189Z 
+2026-11-20T16:07:58.7489872Z To find the reason for failure: please search for errors in the log above and check for annotations in the summary view.
+2026-11-20T16:07:58.7490657Z 
+2026-11-20T16:07:59.1859525Z ##[error]Build failed with exit code 1
+2026-11-20T16:07:59.2330115Z Post job cleanup.
+2026-11-20T16:07:59.3312121Z [command]/usr/bin/git version
+2026-11-20T16:07:59.3397308Z git version 2.56.1
+2026-11-20T16:07:59.3478409Z Temporarily overriding HOME='/home/runner/work/_temp/826ec5dc-dc5e-43b1-b169-05b8a9e5a479' before making global git config changes
+2026-11-20T16:07:59.3491368Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-20T16:07:59.3492896Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/arabdrift/arabdrift
+2026-11-20T16:07:59.3495045Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-20T16:07:59.3548795Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-20T16:07:59.4054561Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-20T16:07:59.4069827Z http.https://github.com/.extraheader
+2026-11-20T16:07:59.4076444Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-20T16:07:59.4130011Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-20T16:07:59.4455045Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-20T16:07:59.4490099Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-20T16:07:59.4897155Z Cleaning up orphan processes
+2026-11-20T16:07:59.5462958Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@v4, actions/checkout@v4, game-ci/unity-builder@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
