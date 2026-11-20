@@ -91,7 +91,19 @@ jobs:
           restore-keys: |
             Library-iOS-${{ hashFiles('client/Packages/manifest.json', 'client/ProjectSettings/ProjectVersion.txt') }}-
 
+      # Cached IL2CPP/Bee build files from an earlier run can crash Unity's C++ converter (segfault, run 5):
+      # keep the imported assets, drop the build caches.
+      - name: Clear stale build caches
+        run: |
+          rm -rf client/Library/Bee client/Library/Il2cppBuildCache client/Library/BuildPlayerData client/Library/PlayerDataCache build
+          team=$(printf %s "$APPLE_TEAM_ID" | tr -d '[:space:]'); echo "id=$team" >> "$GITHUB_OUTPUT"
+        id: team
+        env:
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+
       - name: Build with Unity
+        id: unity1
+        continue-on-error: true
         uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -102,7 +114,26 @@ jobs:
           targetPlatform: iOS
           buildName: ArabDrift
           buildMethod: BuildScript.BuildIOS
-          customParameters: -buildNumber ${{ github.run_number }} -appVersion ${{ inputs.version || '0.1.0' }} -appleTeamId ${{ secrets.APPLE_TEAM_ID }}
+          customParameters: -buildNumber ${{ github.run_number }} -appVersion ${{ inputs.version || '0.1.0' }} -appleTeamId ${{ steps.team.outputs.id }}
+          allowDirtyBuild: true
+
+      - name: Clear caches before the second attempt
+        if: steps.unity1.outcome == 'failure'
+        run: sudo rm -rf client/Library/Bee client/Library/Il2cppBuildCache client/Library/BuildPlayerData client/Library/PlayerDataCache build
+
+      - name: Build with Unity (second attempt)
+        if: steps.unity1.outcome == 'failure'
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: client
+          targetPlatform: iOS
+          buildName: ArabDrift
+          buildMethod: BuildScript.BuildIOS
+          customParameters: -buildNumber ${{ github.run_number }} -appVersion ${{ inputs.version || '0.1.0' }} -appleTeamId ${{ steps.team.outputs.id }}
           allowDirtyBuild: true
 
       - name: Pack Xcode project
