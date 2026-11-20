@@ -1,0 +1,80 @@
+run 4 (44777355058) ref ios-4 sha 3470c482b1c877802d4ce7f89a3055d7bd429a25
+checks=success unity=failure ios=skipped
+
+===== FAILED: Unity export (Xcode project) =====
+  step: Set up job -> success
+  step: Check secrets -> failure
+  step: Free disk space for the Unity image -> skipped
+  step: Run actions/checkout@v4 -> skipped
+  step: Run actions/cache@v4 -> skipped
+  step: Build with Unity -> skipped
+  step: Pack Xcode project -> skipped
+  step: Hand over the Xcode project -> skipped
+  step: Complete job -> success
+61 job.log
+42:2026-11-20T16:50:38.2189182Z [36;1mif [ -n "$bad" ]; then echo "::error::Fix these repository secrets:$bad"; exit 1; fi[0m
+47:2026-11-20T16:50:38.2200017Z [36;1mif [ -n "$missing" ]; then echo "::error::Missing repository secrets:$missing"; exit 1; fi[0m
+59:2026-11-20T16:50:38.2516175Z ##[error]Fix these repository secrets: APPLE_TEAM_ID(must be 10 characters, is 11)
+60:2026-11-20T16:50:38.2532423Z ##[error]Process completed with exit code 1.
+----- last 250 lines -----
+﻿2026-11-20T16:50:36.4674440Z Current runner version: '2.338.2'
+2026-11-20T16:50:36.4778940Z ##[group]Runner Image Provisioner
+2026-11-20T16:50:36.4781919Z Hosted Compute Agent
+2026-11-20T16:50:36.4784339Z Version: 20261111.635
+2026-11-20T16:50:36.4787283Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-20T16:50:36.4790133Z Build Date: 2026-11-11T01:49:01Z
+2026-11-20T16:50:36.4792918Z Worker ID: {06e5c920-81a8-4b0a-8080-a6bfed4f999e}
+2026-11-20T16:50:36.4795693Z Region: westus3
+2026-11-20T16:50:36.4818459Z Cloud: Azure
+2026-11-20T16:50:36.4820992Z ##[endgroup]
+2026-11-20T16:50:36.4825176Z ##[group]Operating System
+2026-11-20T16:50:36.4828104Z Ubuntu
+2026-11-20T16:50:36.4830456Z 26.04.1
+2026-11-20T16:50:36.4832734Z LTS
+2026-11-20T16:50:36.4834980Z ##[endgroup]
+2026-11-20T16:50:36.4845631Z ##[group]Runner Image
+2026-11-20T16:50:36.4848418Z Image: ubuntu-26.04
+2026-11-20T16:50:36.4850868Z Version: 20261116.202.1
+2026-11-20T16:50:36.4854579Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-20T16:50:36.4859229Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-20T16:50:36.4862616Z ##[endgroup]
+2026-11-20T16:50:36.4897178Z ##[group]GITHUB_TOKEN Permissions
+2026-11-20T16:50:36.4901742Z Contents: write
+2026-11-20T16:50:36.4904161Z Metadata: read
+2026-11-20T16:50:36.4906914Z ##[endgroup]
+2026-11-20T16:50:36.4911441Z Secret source: Actions
+2026-11-20T16:50:36.4915125Z Cache mode: write
+2026-11-20T16:50:36.4938102Z Prepare workflow directory
+2026-11-20T16:50:36.5577097Z Prepare all required actions
+2026-11-20T16:50:36.5740649Z Getting action download info
+2026-11-20T16:50:36.9575135Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-20T16:50:37.0596497Z Download action repository 'actions/cache@v4' (SHA:0057852bfaa89a56745cba8c7296529d2fc39830)
+2026-11-20T16:50:37.1399072Z Download action repository 'game-ci/unity-builder@v4' (SHA:4423ee75828dff56037d1d1cfdac6b68e3a6ba00)
+2026-11-20T16:50:38.1270374Z Complete job name: Unity export (Xcode project)
+2026-11-20T16:50:38.2173408Z ##[group]Run # Apple secrets first: a bad one otherwise only shows up on the Mac, 25 minutes in.
+2026-11-20T16:50:38.2175484Z [36;1m# Apple secrets first: a bad one otherwise only shows up on the Mac, 25 minutes in.[0m
+2026-11-20T16:50:38.2178171Z [36;1mbad=""[0m
+2026-11-20T16:50:38.2179683Z [36;1m[ ${#APPLE_TEAM_ID} -eq 10 ] || bad="$bad APPLE_TEAM_ID(must be 10 characters, is ${#APPLE_TEAM_ID})"[0m
+2026-11-20T16:50:38.2182024Z [36;1mecho "$APPSTORE_KEY_ID" | grep -Eq '^[A-Z0-9]{10}$' || bad="$bad APPSTORE_KEY_ID(must be exactly 10 letters/digits, is ${#APPSTORE_KEY_ID} characters)"[0m
+2026-11-20T16:50:38.2184415Z [36;1mecho "$APPSTORE_ISSUER_ID" | grep -Eq '^[0-9a-f-]{36}$' || bad="$bad APPSTORE_ISSUER_ID(must be the 36-character issuer id)"[0m
+2026-11-20T16:50:38.2186944Z [36;1mecho "$APPSTORE_P8" | grep -q 'BEGIN PRIVATE KEY' || bad="$bad APPSTORE_P8(must contain the whole .p8 file, BEGIN and END lines included)"[0m
+2026-11-20T16:50:38.2189182Z [36;1mif [ -n "$bad" ]; then echo "::error::Fix these repository secrets:$bad"; exit 1; fi[0m
+2026-11-20T16:50:38.2190666Z [36;1mmissing=""[0m
+2026-11-20T16:50:38.2191939Z [36;1m[ -z "$UNITY_LICENSE" ] && missing="$missing UNITY_LICENSE"[0m
+2026-11-20T16:50:38.2193436Z [36;1m[ -z "$UNITY_EMAIL" ] && missing="$missing UNITY_EMAIL"[0m
+2026-11-20T16:50:38.2196941Z [36;1m[ -z "$UNITY_PASSWORD" ] && missing="$missing UNITY_PASSWORD"[0m
+2026-11-20T16:50:38.2200017Z [36;1mif [ -n "$missing" ]; then echo "::error::Missing repository secrets:$missing"; exit 1; fi[0m
+2026-11-20T16:50:38.2241415Z shell: /usr/bin/bash -e {0}
+2026-11-20T16:50:38.2242896Z env:
+2026-11-20T16:50:38.2258601Z   UNITY_LICENSE: ***
+2026-11-20T16:50:38.2259803Z   UNITY_EMAIL: ***
+2026-11-20T16:50:38.2260940Z   UNITY_PASSWORD: ***
+2026-11-20T16:50:38.2262107Z   APPLE_TEAM_ID: 
+***
+2026-11-20T16:50:38.2263260Z   APPSTORE_KEY_ID: ***
+2026-11-20T16:50:38.2264527Z   APPSTORE_ISSUER_ID: ***
+2026-11-20T16:50:38.2267968Z   APPSTORE_P8: ***
+2026-11-20T16:50:38.2269062Z ##[endgroup]
+2026-11-20T16:50:38.2516175Z ##[error]Fix these repository secrets: APPLE_TEAM_ID(must be 10 characters, is 11)
+2026-11-20T16:50:38.2532423Z ##[error]Process completed with exit code 1.
+2026-11-20T16:50:38.2798446Z Cleaning up orphan processes
