@@ -55,7 +55,18 @@ jobs:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
+          APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+          APPSTORE_P8: ${{ secrets.APPSTORE_P8 }}
         run: |
+          # Apple secrets first: a bad one otherwise only shows up on the Mac, 25 minutes in.
+          bad=""
+          [ ${#APPLE_TEAM_ID} -eq 10 ] || bad="$bad APPLE_TEAM_ID(must be 10 characters, is ${#APPLE_TEAM_ID})"
+          echo "$APPSTORE_KEY_ID" | grep -Eq '^[A-Z0-9]{10}$' || bad="$bad APPSTORE_KEY_ID(must be exactly 10 letters/digits, is ${#APPSTORE_KEY_ID} characters)"
+          echo "$APPSTORE_ISSUER_ID" | grep -Eq '^[0-9a-f-]{36}$' || bad="$bad APPSTORE_ISSUER_ID(must be the 36-character issuer id)"
+          echo "$APPSTORE_P8" | grep -q 'BEGIN PRIVATE KEY' || bad="$bad APPSTORE_P8(must contain the whole .p8 file, BEGIN and END lines included)"
+          if [ -n "$bad" ]; then echo "::error::Fix these repository secrets:$bad"; exit 1; fi
           missing=""
           [ -z "$UNITY_LICENSE" ] && missing="$missing UNITY_LICENSE"
           [ -z "$UNITY_EMAIL" ] && missing="$missing UNITY_EMAIL"
