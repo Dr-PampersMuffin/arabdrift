@@ -1,80 +1,358 @@
-run 4 (44777355058) ref ios-4 sha 3470c482b1c877802d4ce7f89a3055d7bd429a25
+run 5 (44777783162) ref ios-5 sha 3a1e427cdef6f2734c37587df18fc2885aae2a2b
 checks=success unity=failure ios=skipped
 
 ===== FAILED: Unity export (Xcode project) =====
   step: Set up job -> success
-  step: Check secrets -> failure
-  step: Free disk space for the Unity image -> skipped
-  step: Run actions/checkout@v4 -> skipped
-  step: Run actions/cache@v4 -> skipped
-  step: Build with Unity -> skipped
+  step: Check secrets -> success
+  step: Free disk space for the Unity image -> success
+  step: Run actions/checkout@v4 -> success
+  step: Run actions/cache@v4 -> success
+  step: Build with Unity -> failure
   step: Pack Xcode project -> skipped
   step: Hand over the Xcode project -> skipped
+  step: Post Run actions/cache@v4 -> skipped
+  step: Post Run actions/checkout@v4 -> success
   step: Complete job -> success
-61 job.log
-42:2026-11-20T16:50:38.2189182Z [36;1mif [ -n "$bad" ]; then echo "::error::Fix these repository secrets:$bad"; exit 1; fi[0m
-47:2026-11-20T16:50:38.2200017Z [36;1mif [ -n "$missing" ]; then echo "::error::Missing repository secrets:$missing"; exit 1; fi[0m
-59:2026-11-20T16:50:38.2516175Z ##[error]Fix these repository secrets: APPLE_TEAM_ID(must be 10 characters, is 11)
-60:2026-11-20T16:50:38.2532423Z ##[error]Process completed with exit code 1.
+12272 job.log
+45:2026-11-20T16:53:17.2184307Z [36;1mif [ -n "$bad" ]; then echo "::error::Fix these repository secrets:$bad"; exit 1; fi[0m
+50:2026-11-20T16:53:17.2190410Z [36;1mif [ -n "$missing" ]; then echo "::error::Missing repository secrets:$missing"; exit 1; fi[0m
+349:2026-11-20T16:58:35.2731601Z CreateDirectory '/root/.cache/unity3d' failed:  (current dir: /github/workspace)
+462:2026-11-20T16:58:41.3519589Z GLX Extensions: GLX_ARB_context_flush_control GLX_ARB_create_context GLX_ARB_create_context_no_error GLX_ARB_create_context_profile GLX_ARB_fbconfig_float GLX_ARB_framebuffer_sRGB GLX_ARB_get_proc_address GLX_ARB_multisample GLX_EXT_create_context_es2_profile GLX_EXT_create_context_es_profile GLX_EXT_fbconfig_packed_float GLX_EXT_framebuffer_sRGB GLX_EXT_no_config_context GLX_EXT_texture_from_pixmap GLX_EXT_visual_info GLX_EXT_visual_rating GLX_MESA_copy_sub_buffer GLX_MESA_query_renderer GLX_OML_swap_method GLX_SGIS_multisample GLX_SGIX_fbconfig GLX_SGIX_pbuffer GLX_SGIX_visual_select_group GLX_SGI_make_current_read 
+472:2026-11-20T16:58:41.3638133Z rm GL_EXT_texture_swizzle GL_EXT_timer_query GL_EXT_transform_feedback GL_EXT_vertex_array_bgra GL_EXT_vertex_attrib_64bit GL_IBM_multimode_draw_arrays GL_INTEL_shader_atomic_float_minmax GL_KHR_blend_equation_advanced GL_KHR_blend_equation_advanced_coherent GL_KHR_context_flush_control GL_KHR_debug GL_KHR_no_error GL_KHR_parallel_shader_compile GL_KHR_robust_buffer_access_behavior GL_KHR_robustness GL_KHR_texture_compression_astc_ldr GL_KHR_texture_compression_astc_sliced_3d GL_MESA_framebuffer_flip_y GL_MESA_pack_invert GL_MESA_shader_integer_functions GL_MESA_texture_signed_rgba GL_MESA_ycbcr_texture GL_NVX_gpu_memory_info GL_NV_conditional_render GL_NV_copy_image GL_NV_depth_clamp GL_NV_packed_depth_stencil GL_NV_shader_atomic_float GL_NV_texture_barrier GL_OES_EGL_image GL_S3_s3tc
+518:2026-11-20T16:58:42.6891887Z 			LogAssemblyErrors (0ms)
+881:2026-11-20T16:59:06.1943427Z 			LogAssemblyErrors (0ms)
+964:2026-11-20T16:59:06.5805208Z Start importing Packages/com.unity.ai.navigation/ValidationExceptions.json using Guid(203bedb65db239c4aa5d9cf073cd3b73) (TextScriptImporter) -> (artifact id: 'b0adf71f88467c8339d665a36ccdf3e8') in 0.001410419 seconds
+1053:2026-11-20T16:59:07.6962996Z Curl error 42: Callback aborted
+1243:2026-11-20T16:59:10.9006911Z [Licensing::Module] Error: Access token is unavailable; failed to update
+1272:2026-11-20T16:59:11.3271164Z GLX Extensions: GLX_ARB_context_flush_control GLX_ARB_create_context GLX_ARB_create_context_no_error GLX_ARB_create_context_profile GLX_ARB_fbconfig_float GLX_ARB_framebuffer_sRGB GLX_ARB_get_proc_address GLX_ARB_multisample GLX_EXT_create_context_es2_profile GLX_EXT_create_context_es_profile GLX_EXT_fbconfig_packed_float GLX_EXT_framebuffer_sRGB GLX_EXT_no_config_context GLX_EXT_texture_from_pixmap GLX_EXT_visual_info GLX_EXT_visual_rating GLX_MESA_copy_sub_buffer GLX_MESA_query_renderer GLX_OML_swap_method GLX_SGIS_multisample GLX_SGIX_fbconfig GLX_SGIX_pbuffer GLX_SGIX_visual_select_group GLX_SGI_make_current_read 
+1282:2026-11-20T16:59:11.3497595Z rm GL_EXT_texture_swizzle GL_EXT_timer_query GL_EXT_transform_feedback GL_EXT_vertex_array_bgra GL_EXT_vertex_attrib_64bit GL_IBM_multimode_draw_arrays GL_INTEL_shader_atomic_float_minmax GL_KHR_blend_equation_advanced GL_KHR_blend_equation_advanced_coherent GL_KHR_context_flush_control GL_KHR_debug GL_KHR_no_error GL_KHR_parallel_shader_compile GL_KHR_robust_buffer_access_behavior GL_KHR_robustness GL_KHR_texture_compression_astc_ldr GL_KHR_texture_compression_astc_sliced_3d GL_MESA_framebuffer_flip_y GL_MESA_pack_invert GL_MESA_shader_integer_functions GL_MESA_texture_signed_rgba GL_MESA_ycbcr_texture GL_NVX_gpu_memory_info GL_NV_conditional_render GL_NV_copy_image GL_NV_depth_clamp GL_NV_packed_depth_stencil GL_NV_shader_atomic_float GL_NV_texture_barrier GL_OES_EGL_image GL_S3_s3tc
+1327:2026-11-20T16:59:12.4674393Z 			LogAssemblyErrors (0ms)
+3239:2026-11-20T17:00:48.6851835Z 			LogAssemblyErrors (0ms)
+4176:2026-11-20T17:00:58.5973565Z Start importing Packages/com.unity.render-pipelines.universal/Shaders/Utils/FallbackError.shader using Guid(e6e9a19c3678ded42a3bc431ebef7dbd) (ShaderImporter) -> (artifact id: '309fafc5c15ee4ddb2bf91e5392e418f') in 0.011529956 seconds
+4242:2026-11-20T17:00:59.5006921Z Start importing Packages/com.unity.shadergraph/Editor/Resources/Shaders/FallbackError.shader using Guid(da07703fcc09f8d4799221050659bd55) (ShaderImporter) -> (artifact id: '62bd157639de5bb26a29e3fcbdc68977') in 0.008806177 seconds
+4276:2026-11-20T17:01:00.7561864Z Start importing Packages/com.unity.render-pipelines.universal/Shaders/Utils/MaterialError.shader using Guid(5fd9a8feb75a4b5894c241777f519d4e) (ShaderImporter) -> (artifact id: 'c28e0fc383dfcfaf8ac1505d03aed6c1') in 0.007937314 seconds
+4282:2026-11-20T17:01:00.8211131Z Start importing Packages/com.unity.render-pipelines.universal/Runtime/Materials/Lit.mat using Guid(31321ba15b8f8eb4c954353edc038b1d) (NativeFormatImporter)Shader 'Universal Render Pipeline/Lit': fallback shader 'Hidden/Universal Render Pipeline/FallbackError' not found
+4286:2026-11-20T17:01:00.8314620Z Start importing Packages/com.unity.render-pipelines.universal/Runtime/Materials/SpatialMappingOcclusion.mat using Guid(b51db210fe78df745a372851b3db949e) (NativeFormatImporter)Shader 'Universal Render Pipeline/VR/SpatialMapping/Occlusion': fallback shader 'Hidden/Universal Render Pipeline/FallbackError' not found
+4290:2026-11-20T17:01:00.8409059Z Start importing Packages/com.unity.render-pipelines.universal/Runtime/Materials/SpatialMappingWireframe.mat using Guid(9875a245ac49007498213638a307faa1) (NativeFormatImporter)Shader 'Universal Render Pipeline/VR/SpatialMapping/Wireframe': fallback shader 'Hidden/Universal Render Pipeline/FallbackError' not found
+4292:2026-11-20T17:01:00.8454676Z Start importing Packages/com.unity.render-pipelines.universal/Runtime/Materials/ParticlesUnlit.mat using Guid(e823cd5b5d27c0f4b8256e7c12ee3e6d) (NativeFormatImporter)Shader 'Universal Render Pipeline/Particles/Unlit': fallback shader 'Hidden/Universal Render Pipeline/FallbackError' not found
+4294:2026-11-20T17:01:00.8506846Z Start importing Packages/com.unity.render-pipelines.universal/Runtime/Materials/TerrainLit.mat using Guid(594ea882c5a793440b60ff72d896021e) (NativeFormatImporter)Shader 'Universal Render Pipeline/Terrain/Lit': fallback shader 'Hidden/Universal Render Pipeline/FallbackError' not found
+4301:2026-11-20T17:01:00.8646906Z Start importing Packages/com.unity.render-pipelines.universal/Runtime/Materials/SimpleLit.mat using Guid(6a1143ee683302f4aa628c052723efc1) (NativeFormatImporter)Shader 'Universal Render Pipeline/Simple Lit': fallback shader 'Hidden/Universal Render Pipeline/FallbackError' not found
+4379:2026-11-20T17:01:08.4704357Z Start importing Packages/com.unity.test-framework.performance/ValidationExceptions.json using Guid(a23a55c69f9544b56a85639e7258ea1d) (TextScriptImporter) -> (artifact id: '1024791765b0e8e84823210b022d1eb8') in 0.000957305 seconds
+4384:2026-11-20T17:01:08.4846198Z Start importing Packages/com.unity.burst/ValidationExceptions.json using Guid(f383c015504b380698ba4a8681b1223e) (TextScriptImporter) -> (artifact id: '1832c82ee42321e0f5c680b68fbe37eb') in 0.001069231 seconds
+4424:2026-11-20T17:01:08.5931428Z Start importing Packages/com.unity.render-pipelines.universal/ValidationExceptions.json using Guid(3afe581e949e3cc489c978bd8e000c4b) (TextScriptImporter) -> (artifact id: '980e22429d5d4161b19132dc7ef780b2') in 0.000962633 seconds
+4445:2026-11-20T17:01:08.6429511Z Start importing Packages/com.unity.mathematics/ValidationExceptions.json using Guid(5ed727127196a4ecc90e24e2cd7af338) (TextScriptImporter) -> (artifact id: '4cc76c19a2de3daa0998756408ae203b') in 0.001732819 seconds
+4451:2026-11-20T17:01:08.6625934Z Start importing Packages/com.unity.collections/pvpExceptions.json using Guid(fee59c2b2318a7e4fa7a2c2af28d9553) (TextScriptImporter) -> (artifact id: 'e7d6d9de6fef388fbd1e6dba877bd237') in 0.002751676 seconds
+4459:2026-11-20T17:01:08.6805865Z Start importing Packages/com.unity.collections/ValidationExceptions.json using Guid(6fe576033d6a2424c888d599967457a2) (TextScriptImporter) -> (artifact id: 'f8ad2fec6095330ee571eda86931f6a4') in 0.002507282 seconds
+4633:2026-11-20T17:01:13.6311128Z UnityEngine.Rendering.RenderPipelineGlobalSettingsUtils:TryEnsure<UnityEngine.Rendering.Universal.UniversalRenderPipelineGlobalSettings, UnityEngine.Rendering.Universal.UniversalRenderPipeline> (UnityEngine.Rendering.Universal.UniversalRenderPipelineGlobalSettings&,string,bool,System.Exception&) (at ./Library/PackageCache/com.unity.render-pipelines.core@0ff91b144dbd/Runtime/RenderPipeline/RenderPipelineGlobalSettingsUtils.cs:126)
+6446:2026-11-20T17:02:31.2009246Z Compiling shader "Hidden/Core/FallbackError" pass "" (vp)
+6455:2026-11-20T17:02:31.2167482Z Compiling shader "Hidden/Core/FallbackError" pass "" (fp)
+6464:2026-11-20T17:02:31.2291149Z Serialized binary data for shader Hidden/Core/FallbackError in 0.00s
+7151:2026-11-20T17:02:36.6025531Z Compiling shader "Hidden/Universal Render Pipeline/FallbackError" pass "" (vp)
+7160:2026-11-20T17:02:36.6289723Z Compiling shader "Hidden/Universal Render Pipeline/FallbackError" pass "" (fp)
+7169:2026-11-20T17:02:36.6478133Z Serialized binary data for shader Hidden/Universal Render Pipeline/FallbackError in 0.00s
+9471:2026-11-20T17:02:53.1126753Z [  89/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Platforms/Tvos/Include/C/Baselib_ErrorState.inl.h
+9476:2026-11-20T17:02:53.1137469Z [  94/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Platforms/OSX/Include/C/Baselib_ErrorState.inl.h
+9481:2026-11-20T17:02:53.1170908Z [  99/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Platforms/Linux/Include/C/Baselib_ErrorState.inl.h
+9486:2026-11-20T17:02:53.1181381Z [ 104/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Platforms/IOS/Include/C/Baselib_ErrorState.inl.h
+9491:2026-11-20T17:02:53.1190716Z [ 109/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Platforms/Windows/Include/C/Baselib_ErrorState.inl.h
+9496:2026-11-20T17:02:53.3123840Z [ 114/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Platforms/WebGL/Include/C/Baselib_ErrorState.inl.h
+9501:2026-11-20T17:02:53.3132963Z [ 119/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Platforms/VisionOS/Include/C/Baselib_ErrorState.inl.h
+9506:2026-11-20T17:02:53.3158426Z [ 124/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Platforms/UniversalWindows/Include/C/Baselib_ErrorState.inl.h
+9531:2026-11-20T17:02:53.5198484Z [ 149/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Platforms/EmbeddedLinux/Include/C/Baselib_ErrorState.inl.h
+9536:2026-11-20T17:02:53.5215247Z [ 154/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Platforms/Android/Include/C/Baselib_ErrorState.inl.h
+9558:2026-11-20T17:02:53.9024415Z [ 176/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Include/C/Baselib_ErrorState.h
+9652:2026-11-20T17:02:54.7065514Z [ 270/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Include/C/Baselib_ErrorCode.h
+9731:2026-11-20T17:02:55.5093393Z [ 349/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/mono/mono/eglib/gerror.c
+9802:2026-11-20T17:02:56.0758514Z [ 420/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/mono/mono/metadata/exception.c
+9803:2026-11-20T17:02:56.0760257Z [ 421/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/mono/mono/metadata/exception-internals.h
+9840:2026-11-20T17:02:56.3108458Z [ 458/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/mono/mono/metadata/exception.h
+9929:2026-11-20T17:02:57.1657045Z [ 547/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/baselib/Platforms/WindowsGames/Include/C/Baselib_ErrorState.inl.h
+10401:2026-11-20T17:03:02.5408782Z [1018/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/mono/mono/utils/mono-error.c
+10402:2026-11-20T17:03:02.5410333Z [1019/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/mono/mono/utils/mono-error-internals.h
+10413:2026-11-20T17:03:02.5438367Z [1030/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/mono/mono/utils/mono-error.h
+10616:2026-11-20T17:03:03.2408808Z [1233/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/utils/ExceptionSupportStack.h
+10622:2026-11-20T17:03:03.2418501Z [1239/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/utils/Il2CppError.cpp
+10623:2026-11-20T17:03:03.2420047Z [1240/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/utils/Il2CppError.h
+10624:2026-11-20T17:03:03.2421577Z [1241/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/os/c-api/Error-c-api.h
+10745:2026-11-20T17:03:03.6296954Z [1362/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/vm/Exception.h
+10763:2026-11-20T17:03:03.6343397Z [1380/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/utils/Exception.cpp
+10764:2026-11-20T17:03:03.6344895Z [1381/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/utils/Exception.h
+10768:2026-11-20T17:03:03.6350852Z [1385/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/os/c-api/Error.cpp
+10782:2026-11-20T17:03:03.7162132Z [1399/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/icalls/System/System.Net.Sockets/SocketException.cpp
+10890:2026-11-20T17:03:04.0244313Z [1507/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/icalls/System/System.Net.Sockets/SocketException.h
+11036:2026-11-20T17:03:04.4826725Z [1653/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/mono/mono/metadata/w32error-unix.c
+11037:2026-11-20T17:03:04.4828386Z [1654/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/mono/mono/metadata/w32error-win32.c
+11038:2026-11-20T17:03:04.4830021Z [1655/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/external/mono/mono/metadata/w32error.h
+11115:2026-11-20T17:03:04.7503854Z [1732/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/icalls/mscorlib/System/Exception.cpp
+11116:2026-11-20T17:03:04.7505548Z [1733/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/icalls/mscorlib/System/Exception.h
+11302:2026-11-20T17:03:05.4131707Z [1919/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/os/Posix/LastError.cpp
+11336:2026-11-20T17:03:05.5091503Z [1953/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/os/Error.cpp
+11349:2026-11-20T17:03:05.6032060Z [1966/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/os/Error.h
+11350:2026-11-20T17:03:05.6034835Z [1967/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/os/ErrorCodes.h
+11587:2026-11-20T17:03:06.9734638Z [2204/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/vm/LastError.cpp
+11588:2026-11-20T17:03:06.9736199Z [2205/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/vm/LastError.h
+11660:2026-11-20T17:03:07.2029765Z [2277/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/vm/Exception.cpp
+11823:2026-11-20T17:03:07.6671244Z [2440/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/os/LastError.h
+11832:2026-11-20T17:03:07.6706104Z [2449/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/os/Win32/LastError.cpp
+11833:2026-11-20T17:03:07.6707700Z [2450/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/os/Posix/Error.h
+11955:2026-11-20T17:03:08.0244349Z [2572/2600  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/Il2CppOutputProject/IL2CPP/libil2cpp/os/Posix/Error.cpp
+12071:2026-11-20T17:03:51.9342019Z [W] opendir() failed: /github/workspace/client/Library/Bee/artifacts/iOS/il2cppOutput/cpp/Symbols
+12080:2026-11-20T17:03:51.9517973Z *** Tundra build failed (42.95 seconds), 84 items updated, 2672 evaluated
+12089:2026-11-20T17:03:51.9651085Z UnityEngine.Debug:LogError (object)
+12090:2026-11-20T17:03:51.9652574Z UnityEditor.Modules.BeeBuildPostprocessor:PrintStdoutOnErrorProcessor (Bee.BinLog.NodeFinishedMessage) (at /home/bokken/build/output/unity/unity/Editor/Mono/Modules/BeeBuildPostprocessor.cs:570)
+12124:2026-11-20T17:03:51.9905944Z BuildFailedException: Player build failed: /opt/unity/Editor/Data/il2cpp/build/deploy/il2cpp --convert-to-cpp --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Assembly-CSharp.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Mono.Security.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/System.Configuration.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/System.Core.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/System.Xml.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/System.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.Burst.Unsafe.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.Burst.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.Collections.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.Mathematics.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipeline.Universal.ShaderLibrary.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipelines.Core.Runtime.Shared.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipelines.Core.Runtime.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipelines.GPUDriven.Runtime.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipelines.Universal.Runtime.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.AIModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.AndroidJNIModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.AudioModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.CoreModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.GameCenterModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.HierarchyCoreModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.IMGUIModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.InputForUIModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.InputLegacyModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.ParticleSystemModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.PhysicsModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.PropertiesModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.SharedInternalsModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.TerrainModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.TextCoreFontEngineModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.TextCoreTextEngineModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.TextRenderingModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.UI.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.UIElementsModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.UIModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.VFXModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/mscorlib.dll --generatedcppdir=/github/workspace/client/Library/Bee/artifacts/iOS/il2cppOutput/cpp --symbols-folder=/github/workspace/client/Library/Bee/artifacts/iOS/il2cppOutput/cpp/Symbols --enable-analytics --emit-null-checks --enable-array-bounds-check --dotnetprofile=unityaot-macos --usymtool-path=/opt/unity/Editor/Data/Tools/usymtool --profiler-report --profiler-output-file=/github/workspace/client/Library/Bee/artifacts/il2cpp_conv_llt4.traceevents --print-command-line --static-lib-il2-cpp --data-folder=/github/workspace/client/Library/Bee/artifacts/iOS/il2cppOutput/data
+12159:2026-11-20T17:03:53.0486634Z [Build] Failed, 2 errors, 35 MB, to /github/workspace/build/iOS/ArabDrift
+12190:2026-11-20T17:03:59.3109759Z Build failed, with exit code 1
+12254:2026-11-20T17:04:04.2286308Z To find the reason for failure: please search for errors in the log above and check for annotations in the summary view.
+12256:2026-11-20T17:04:04.6464988Z ##[error]Build failed with exit code 1
 ----- last 250 lines -----
-﻿2026-11-20T16:50:36.4674440Z Current runner version: '2.338.2'
-2026-11-20T16:50:36.4778940Z ##[group]Runner Image Provisioner
-2026-11-20T16:50:36.4781919Z Hosted Compute Agent
-2026-11-20T16:50:36.4784339Z Version: 20261111.635
-2026-11-20T16:50:36.4787283Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
-2026-11-20T16:50:36.4790133Z Build Date: 2026-11-11T01:49:01Z
-2026-11-20T16:50:36.4792918Z Worker ID: {06e5c920-81a8-4b0a-8080-a6bfed4f999e}
-2026-11-20T16:50:36.4795693Z Region: westus3
-2026-11-20T16:50:36.4818459Z Cloud: Azure
-2026-11-20T16:50:36.4820992Z ##[endgroup]
-2026-11-20T16:50:36.4825176Z ##[group]Operating System
-2026-11-20T16:50:36.4828104Z Ubuntu
-2026-11-20T16:50:36.4830456Z 26.04.1
-2026-11-20T16:50:36.4832734Z LTS
-2026-11-20T16:50:36.4834980Z ##[endgroup]
-2026-11-20T16:50:36.4845631Z ##[group]Runner Image
-2026-11-20T16:50:36.4848418Z Image: ubuntu-26.04
-2026-11-20T16:50:36.4850868Z Version: 20261116.202.1
-2026-11-20T16:50:36.4854579Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
-2026-11-20T16:50:36.4859229Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
-2026-11-20T16:50:36.4862616Z ##[endgroup]
-2026-11-20T16:50:36.4897178Z ##[group]GITHUB_TOKEN Permissions
-2026-11-20T16:50:36.4901742Z Contents: write
-2026-11-20T16:50:36.4904161Z Metadata: read
-2026-11-20T16:50:36.4906914Z ##[endgroup]
-2026-11-20T16:50:36.4911441Z Secret source: Actions
-2026-11-20T16:50:36.4915125Z Cache mode: write
-2026-11-20T16:50:36.4938102Z Prepare workflow directory
-2026-11-20T16:50:36.5577097Z Prepare all required actions
-2026-11-20T16:50:36.5740649Z Getting action download info
-2026-11-20T16:50:36.9575135Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
-2026-11-20T16:50:37.0596497Z Download action repository 'actions/cache@v4' (SHA:0057852bfaa89a56745cba8c7296529d2fc39830)
-2026-11-20T16:50:37.1399072Z Download action repository 'game-ci/unity-builder@v4' (SHA:4423ee75828dff56037d1d1cfdac6b68e3a6ba00)
-2026-11-20T16:50:38.1270374Z Complete job name: Unity export (Xcode project)
-2026-11-20T16:50:38.2173408Z ##[group]Run # Apple secrets first: a bad one otherwise only shows up on the Mac, 25 minutes in.
-2026-11-20T16:50:38.2175484Z [36;1m# Apple secrets first: a bad one otherwise only shows up on the Mac, 25 minutes in.[0m
-2026-11-20T16:50:38.2178171Z [36;1mbad=""[0m
-2026-11-20T16:50:38.2179683Z [36;1m[ ${#APPLE_TEAM_ID} -eq 10 ] || bad="$bad APPLE_TEAM_ID(must be 10 characters, is ${#APPLE_TEAM_ID})"[0m
-2026-11-20T16:50:38.2182024Z [36;1mecho "$APPSTORE_KEY_ID" | grep -Eq '^[A-Z0-9]{10}$' || bad="$bad APPSTORE_KEY_ID(must be exactly 10 letters/digits, is ${#APPSTORE_KEY_ID} characters)"[0m
-2026-11-20T16:50:38.2184415Z [36;1mecho "$APPSTORE_ISSUER_ID" | grep -Eq '^[0-9a-f-]{36}$' || bad="$bad APPSTORE_ISSUER_ID(must be the 36-character issuer id)"[0m
-2026-11-20T16:50:38.2186944Z [36;1mecho "$APPSTORE_P8" | grep -q 'BEGIN PRIVATE KEY' || bad="$bad APPSTORE_P8(must contain the whole .p8 file, BEGIN and END lines included)"[0m
-2026-11-20T16:50:38.2189182Z [36;1mif [ -n "$bad" ]; then echo "::error::Fix these repository secrets:$bad"; exit 1; fi[0m
-2026-11-20T16:50:38.2190666Z [36;1mmissing=""[0m
-2026-11-20T16:50:38.2191939Z [36;1m[ -z "$UNITY_LICENSE" ] && missing="$missing UNITY_LICENSE"[0m
-2026-11-20T16:50:38.2193436Z [36;1m[ -z "$UNITY_EMAIL" ] && missing="$missing UNITY_EMAIL"[0m
-2026-11-20T16:50:38.2196941Z [36;1m[ -z "$UNITY_PASSWORD" ] && missing="$missing UNITY_PASSWORD"[0m
-2026-11-20T16:50:38.2200017Z [36;1mif [ -n "$missing" ]; then echo "::error::Missing repository secrets:$missing"; exit 1; fi[0m
-2026-11-20T16:50:38.2241415Z shell: /usr/bin/bash -e {0}
-2026-11-20T16:50:38.2242896Z env:
-2026-11-20T16:50:38.2258601Z   UNITY_LICENSE: ***
-2026-11-20T16:50:38.2259803Z   UNITY_EMAIL: ***
-2026-11-20T16:50:38.2260940Z   UNITY_PASSWORD: ***
-2026-11-20T16:50:38.2262107Z   APPLE_TEAM_ID: 
-***
-2026-11-20T16:50:38.2263260Z   APPSTORE_KEY_ID: ***
-2026-11-20T16:50:38.2264527Z   APPSTORE_ISSUER_ID: ***
-2026-11-20T16:50:38.2267968Z   APPSTORE_P8: ***
-2026-11-20T16:50:38.2269062Z ##[endgroup]
-2026-11-20T16:50:38.2516175Z ##[error]Fix these repository secrets: APPLE_TEAM_ID(must be 10 characters, is 11)
-2026-11-20T16:50:38.2532423Z ##[error]Process completed with exit code 1.
-2026-11-20T16:50:38.2798446Z Cleaning up orphan processes
+2026-11-20T17:03:15.0548208Z [  46/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/UnityEngine.AIModule-FeaturesChecked.txt
+2026-11-20T17:03:15.0549832Z [  47/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/UnityEngine.ParticleSystemModule-FeaturesChecked.txt
+2026-11-20T17:03:15.0551500Z [  49/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/UnityEngine.PropertiesModule-FeaturesChecked.txt
+2026-11-20T17:03:15.0553256Z [  50/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/Mono.Security-FeaturesChecked.txt
+2026-11-20T17:03:15.0554855Z [  51/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/UnityEngine.TextCoreFontEngineModule-FeaturesChecked.txt
+2026-11-20T17:03:15.0556407Z [  52/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/System.Core-FeaturesChecked.txt
+2026-11-20T17:03:15.0557800Z [  53/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/System-FeaturesChecked.txt
+2026-11-20T17:03:15.0562983Z [  54/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/Unity.RenderPipeline.Universal.ShaderLibrary-FeaturesChecked.txt
+2026-11-20T17:03:15.0565416Z [  55/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/UnityEngine.InputLegacyModule-FeaturesChecked.txt
+2026-11-20T17:03:15.0567008Z [  56/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/Unity.Collections-FeaturesChecked.txt
+2026-11-20T17:03:15.0568512Z [  57/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/UnityEngine.IMGUIModule-FeaturesChecked.txt
+2026-11-20T17:03:15.0570036Z [  58/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/UnityEngine.AudioModule-FeaturesChecked.txt
+2026-11-20T17:03:15.0571556Z [  59/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/UnityEngine.CoreModule-FeaturesChecked.txt
+2026-11-20T17:03:15.0575317Z [  60/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/Unity.RenderPipelines.Universal.Runtime-FeaturesChecked.txt
+2026-11-20T17:03:15.0577055Z [  61/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/UnityEngine.HierarchyCoreModule-FeaturesChecked.txt
+2026-11-20T17:03:15.0579217Z [  62/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/UnityEngine.TextRenderingModule-FeaturesChecked.txt
+2026-11-20T17:03:15.0584850Z [  63/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/mscorlib-FeaturesChecked.txt
+2026-11-20T17:03:15.0586379Z [  64/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/UnityEngine.TerrainModule-FeaturesChecked.txt
+2026-11-20T17:03:15.0588035Z [  65/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/UnityEngine.SharedInternalsModule-FeaturesChecked.txt
+2026-11-20T17:03:15.0589598Z [  66/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/UnityEngine.VFXModule-FeaturesChecked.txt
+2026-11-20T17:03:15.0591233Z [  67/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/UnityEngine.TextCoreTextEngineModule-FeaturesChecked.txt
+2026-11-20T17:03:15.0592819Z [  68/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/UnityEngine-FeaturesChecked.txt
+2026-11-20T17:03:15.0594802Z [  69/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/Assembly-CSharp-FeaturesChecked.txt
+2026-11-20T17:03:22.9498446Z [  70/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/System.Configuration-FeaturesChecked.txt
+2026-11-20T17:03:22.9500491Z [  71/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/System.Xml-FeaturesChecked.txt
+2026-11-20T17:03:22.9502183Z [  72/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/Unity.Burst.Unsafe-FeaturesChecked.txt
+2026-11-20T17:03:22.9503859Z [  73/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/Unity.Mathematics-FeaturesChecked.txt
+2026-11-20T17:03:22.9505378Z [  74/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/Unity.Burst-FeaturesChecked.txt
+2026-11-20T17:03:22.9506997Z [  75/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/Unity.RenderPipelines.Core.Runtime.Shared-FeaturesChecked.txt
+2026-11-20T17:03:22.9508698Z [  76/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/UnityEngine.PhysicsModule-FeaturesChecked.txt
+2026-11-20T17:03:22.9510188Z [  77/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/UnityEngine.UI-FeaturesChecked.txt
+2026-11-20T17:03:22.9511663Z [  78/2674  0s] WriteText Library/Bee/artifacts/csharpactions/AppleRequiredReasonCSharpAPIs.txt_kfm7.info
+2026-11-20T17:03:22.9513403Z [  83/2674  0s] ExtractUsedFeatures Library/Bee/artifacts/iOS/Features/Unity.RenderPipelines.Core.Runtime-FeaturesChecked.txt
+2026-11-20T17:03:22.9515192Z [  84/2674  0s] ClassRegistrationGenerator /github/workspace/client/Library/Bee/artifacts/iOS/il2cppOutput/UnityClassRegistration.cpp
+2026-11-20T17:03:22.9517148Z [  85/2674  0s] ICallRegistrationGenerator /github/workspace/client/Library/Bee/artifacts/iOS/il2cppOutput/UnityICallRegistration.cpp
+2026-11-20T17:03:22.9518732Z [BUSY       6s] IL2CPP_CodeGen /github/workspace/client/Library/Bee/artifacts/il2cpp_conv_llt4.traceevents
+2026-11-20T17:03:32.2028364Z /github/workspace/client/Library/PackageCache/com.unity.burst@1df634d836b8/.Runtime/bcl.exe exited after 14382 ms.
+2026-11-20T17:03:32.2066332Z stdout:
+2026-11-20T17:03:32.2067220Z Starting 1 library requests
+2026-11-20T17:03:32.2068177Z Done
+2026-11-20T17:03:32.2068858Z stderr:
+2026-11-20T17:03:32.2069295Z 
+2026-11-20T17:03:37.9620730Z [  86/2674 14s] GenerateNativePluginsForAssemblies Library/Bee/artifacts/iOS/AsyncPluginsFromLinker
+2026-11-20T17:03:37.9622832Z [1796/2674  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/UnityFramework/ApplePrivacyManifestsMerge.txt
+2026-11-20T17:03:37.9624593Z [1818/2674  0s] CopyFiles /github/workspace/build/iOS/ArabDrift/UnityFramework/PrivacyInfo.xcprivacy
+2026-11-20T17:03:37.9626167Z [1845/2674  0s] CopyFiles Temp/EditorBuildOutput/UnityLinkerToEditorData.json
+2026-11-20T17:03:37.9627499Z [BUSY      21s] IL2CPP_CodeGen /github/workspace/client/Library/Bee/artifacts/il2cpp_conv_llt4.traceevents
+2026-11-20T17:03:47.9759569Z [BUSY      31s] IL2CPP_CodeGen /github/workspace/client/Library/Bee/artifacts/il2cpp_conv_llt4.traceevents
+2026-11-20T17:03:51.9342019Z [W] opendir() failed: /github/workspace/client/Library/Bee/artifacts/iOS/il2cppOutput/cpp/Symbols
+2026-11-20T17:03:51.9391212Z [2667/2674 35s] IL2CPP_CodeGen /github/workspace/client/Library/Bee/artifacts/il2cpp_conv_llt4.traceevents
+2026-11-20T17:03:51.9396336Z ##### CommandLine
+2026-11-20T17:03:51.9418552Z "/opt/unity/Editor/Data/il2cpp/build/deploy/il2cpp" --convert-to-cpp --assembly="Library/Bee/artifacts/iOS/ManagedStripped/Assembly-CSharp.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/Mono.Security.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/System.Configuration.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/System.Core.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/System.Xml.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/System.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/Unity.Burst.Unsafe.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/Unity.Burst.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/Unity.Collections.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/Unity.Mathematics.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipeline.Universal.ShaderLibrary.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipelines.Core.Runtime.Shared.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipelines.Core.Runtime.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipelines.GPUDriven.Runtime.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipelines.Universal.Runtime.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.AIModule.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.AndroidJNIModule.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.AudioModule.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.CoreModule.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.GameCenterModule.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.HierarchyCoreModule.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.IMGUIModule.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.InputForUIModule.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.InputLegacyModule.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.ParticleSystemModule.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.PhysicsModule.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.PropertiesModule.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.SharedInternalsModule.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.TerrainModule.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.TextCoreFontEngineModule.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.TextCoreTextEngineModule.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.TextRenderingModule.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.UI.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.UIElementsModule.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.UIModule.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.VFXModule.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.dll" --assembly="Library/Bee/artifacts/iOS/ManagedStripped/mscorlib.dll" --generatedcppdir="/github/workspace/client/Library/Bee/artifacts/iOS/il2cppOutput/cpp" --symbols-folder="/github/workspace/client/Library/Bee/artifacts/iOS/il2cppOutput/cpp/Symbols" --enable-analytics --emit-null-checks --enable-array-bounds-check --dotnetprofile=unityaot-macos --usymtool-path="/opt/unity/Editor/Data/Tools/usymtool" --profiler-report --profiler-output-file="/github/workspace/client/Library/Bee/artifacts/il2cpp_conv_llt4.traceevents" --print-command-line --static-lib-il2-cpp --data-folder="/github/workspace/client/Library/Bee/artifacts/iOS/il2cppOutput/data"
+2026-11-20T17:03:51.9444904Z ##### ExitCode
+2026-11-20T17:03:51.9445458Z 139
+2026-11-20T17:03:51.9445974Z ##### Output
+2026-11-20T17:03:51.9467226Z /opt/unity/Editor/Data/il2cpp/build/deploy/il2cpp --convert-to-cpp --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Assembly-CSharp.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Mono.Security.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/System.Configuration.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/System.Core.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/System.Xml.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/System.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.Burst.Unsafe.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.Burst.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.Collections.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.Mathematics.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipeline.Universal.ShaderLibrary.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipelines.Core.Runtime.Shared.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipelines.Core.Runtime.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipelines.GPUDriven.Runtime.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipelines.Universal.Runtime.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.AIModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.AndroidJNIModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.AudioModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.CoreModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.GameCenterModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.HierarchyCoreModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.IMGUIModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.InputForUIModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.InputLegacyModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.ParticleSystemModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.PhysicsModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.PropertiesModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.SharedInternalsModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.TerrainModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.TextCoreFontEngineModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.TextCoreTextEngineModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.TextRenderingModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.UI.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.UIElementsModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.UIModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.VFXModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/mscorlib.dll --generatedcppdir=/github/workspace/client/Library/Bee/artifacts/iOS/il2cppOutput/cpp --symbols-folder=/github/workspace/client/Library/Bee/artifacts/iOS/il2cppOutput/cpp/Symbols --enable-analytics --emit-null-checks --enable-array-bounds-check --dotnetprofile=unityaot-macos --usymtool-path=/opt/unity/Editor/Data/Tools/usymtool --profiler-report --profiler-output-file=/github/workspace/client/Library/Bee/artifacts/il2cpp_conv_llt4.traceevents --print-command-line --static-lib-il2-cpp --data-folder=/github/workspace/client/Library/Bee/artifacts/iOS/il2cppOutput/data
+2026-11-20T17:03:51.9512045Z Segmentation fault (core dumped)
+2026-11-20T17:03:51.9517973Z *** Tundra build failed (42.95 seconds), 84 items updated, 2672 evaluated
+2026-11-20T17:03:51.9609862Z /opt/unity/Editor/Data/il2cpp/build/deploy/il2cpp --convert-to-cpp --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Assembly-CSharp.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Mono.Security.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/System.Configuration.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/System.Core.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/System.Xml.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/System.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.Burst.Unsafe.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.Burst.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.Collections.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.Mathematics.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipeline.Universal.ShaderLibrary.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipelines.Core.Runtime.Shared.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipelines.Core.Runtime.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipelines.GPUDriven.Runtime.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipelines.Universal.Runtime.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.AIModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.AndroidJNIModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.AudioModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.CoreModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.GameCenterModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.HierarchyCoreModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.IMGUIModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.InputForUIModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.InputLegacyModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.ParticleSystemModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.PhysicsModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.PropertiesModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.SharedInternalsModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.TerrainModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.TextCoreFontEngineModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.TextCoreTextEngineModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.TextRenderingModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.UI.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.UIElementsModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.UIModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.VFXModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/mscorlib.dll --generatedcppdir=/github/workspace/client/Library/Bee/artifacts/iOS/il2cppOutput/cpp --symbols-folder=/github/workspace/client/Library/Bee/artifacts/iOS/il2cppOutput/cpp/Symbols --enable-analytics --emit-null-checks --enable-array-bounds-check --dotnetprofile=unityaot-macos --usymtool-path=/opt/unity/Editor/Data/Tools/usymtool --profiler-report --profiler-output-file=/github/workspace/client/Library/Bee/artifacts/il2cpp_conv_llt4.traceevents --print-command-line --static-lib-il2-cpp --data-folder=/github/workspace/client/Library/Bee/artifacts/iOS/il2cppOutput/data
+2026-11-20T17:03:51.9643292Z Segmentation fault (core dumped)
+2026-11-20T17:03:51.9644175Z �
+2026-11-20T17:03:51.9644852Z UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+2026-11-20T17:03:51.9646325Z UnityEngine.StackTraceUtility:ExtractStackTrace () (at /home/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:35)
+2026-11-20T17:03:51.9647916Z UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+2026-11-20T17:03:51.9649292Z UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+2026-11-20T17:03:51.9650336Z UnityEngine.Logger:Log (UnityEngine.LogType,object)
+2026-11-20T17:03:51.9651085Z UnityEngine.Debug:LogError (object)
+2026-11-20T17:03:51.9652574Z UnityEditor.Modules.BeeBuildPostprocessor:PrintStdoutOnErrorProcessor (Bee.BinLog.NodeFinishedMessage) (at /home/bokken/build/output/unity/unity/Editor/Mono/Modules/BeeBuildPostprocessor.cs:570)
+2026-11-20T17:03:51.9675130Z UnityEditor.Modules.BeeBuildPostprocessor:ReportBuildResults () (at /home/bokken/build/output/unity/unity/Editor/Mono/Modules/BeeBuildPostprocessor.cs:634)
+2026-11-20T17:03:51.9677468Z UnityEditor.Modules.BeeBuildPostprocessor:PostProcess (UnityEditor.Modules.BuildPostProcessArgs) (at /home/bokken/build/output/unity/unity/Editor/Mono/Modules/BeeBuildPostprocessor.cs:794)
+2026-11-20T17:03:51.9679729Z UnityEditor.iOS.iOSBuildPostprocessor:PostProcess (UnityEditor.Modules.BuildPostProcessArgs) (at /home/bokken/build/output/unity/unity/PlatformDependent/iPhonePlayer/Extensions/Managed/iOSBuildPostprocessor.cs:578)
+2026-11-20T17:03:51.9682234Z UnityEditor.Modules.BeeBuildPostprocessor:PostProcess (UnityEditor.Modules.BuildPostProcessArgs,UnityEditor.BuildProperties&) (at /home/bokken/build/output/unity/unity/Editor/Mono/Modules/BeeBuildPostprocessor.cs:38)
+2026-11-20T17:03:51.9685561Z UnityEditor.PostprocessBuildPlayer:Postprocess (UnityEditor.BuildTarget,int,string,string,string,UnityEditor.BuildOptions,UnityEditor.RuntimeClassRegistry,UnityEditor.Build.Reporting.BuildReport) (at /home/bokken/build/output/unity/unity/Editor/Mono/BuildPipeline/PostprocessBuildPlayer.cs:285)
+2026-11-20T17:03:51.9688614Z UnityEditor.BuildPipeline:BuildPlayerInternalNoCheck (string[],string,string,UnityEditor.BuildTargetGroup,UnityEditor.BuildTarget,int,UnityEditor.BuildOptions,string[],bool)
+2026-11-20T17:03:51.9691266Z UnityEditor.BuildPipeline:BuildPlayerInternal (string[],string,string,UnityEditor.BuildTargetGroup,UnityEditor.BuildTarget,int,UnityEditor.BuildOptions,string[]) (at /home/bokken/build/output/unity/unity/Editor/Mono/BuildPipeline.bindings.cs:534)
+2026-11-20T17:03:51.9694443Z UnityEditor.BuildPipeline:BuildPlayer (string[],string,string,UnityEditor.BuildTargetGroup,UnityEditor.BuildTarget,int,UnityEditor.BuildOptions,string[]) (at /home/bokken/build/output/unity/unity/Editor/Mono/BuildPipeline.bindings.cs:418)
+2026-11-20T17:03:51.9696846Z UnityEditor.BuildPipeline:BuildPlayer (UnityEditor.BuildPlayerOptions) (at /home/bokken/build/output/unity/unity/Editor/Mono/BuildPipeline.bindings.cs:364)
+2026-11-20T17:03:51.9698224Z BuildScript:BuildIOS () (at Assets/Editor/BuildScript.cs:57)
+2026-11-20T17:03:51.9698742Z 
+2026-11-20T17:03:51.9699351Z (Filename: /home/bokken/build/output/unity/unity/Editor/Mono/Modules/BeeBuildPostprocessor.cs Line: 570)
+2026-11-20T17:03:51.9700113Z 
+2026-11-20T17:03:51.9700403Z warning: Unknown file extension: so
+2026-11-20T17:03:51.9701194Z UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+2026-11-20T17:03:51.9702478Z UnityEngine.StackTraceUtility:ExtractStackTrace () (at /home/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:35)
+2026-11-20T17:03:51.9724321Z UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+2026-11-20T17:03:51.9725730Z UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+2026-11-20T17:03:51.9726774Z UnityEngine.Logger:Log (UnityEngine.LogType,object)
+2026-11-20T17:03:51.9727522Z UnityEngine.Debug:LogWarning (object)
+2026-11-20T17:03:51.9728807Z UnityEditor.Modules.BeeBuildPostprocessor:ReportBuildResults () (at /home/bokken/build/output/unity/unity/Editor/Mono/Modules/BeeBuildPostprocessor.cs:642)
+2026-11-20T17:03:51.9731071Z UnityEditor.Modules.BeeBuildPostprocessor:PostProcess (UnityEditor.Modules.BuildPostProcessArgs) (at /home/bokken/build/output/unity/unity/Editor/Mono/Modules/BeeBuildPostprocessor.cs:794)
+2026-11-20T17:03:51.9733587Z UnityEditor.iOS.iOSBuildPostprocessor:PostProcess (UnityEditor.Modules.BuildPostProcessArgs) (at /home/bokken/build/output/unity/unity/PlatformDependent/iPhonePlayer/Extensions/Managed/iOSBuildPostprocessor.cs:578)
+2026-11-20T17:03:51.9736184Z UnityEditor.Modules.BeeBuildPostprocessor:PostProcess (UnityEditor.Modules.BuildPostProcessArgs,UnityEditor.BuildProperties&) (at /home/bokken/build/output/unity/unity/Editor/Mono/Modules/BeeBuildPostprocessor.cs:38)
+2026-11-20T17:03:51.9739284Z UnityEditor.PostprocessBuildPlayer:Postprocess (UnityEditor.BuildTarget,int,string,string,string,UnityEditor.BuildOptions,UnityEditor.RuntimeClassRegistry,UnityEditor.Build.Reporting.BuildReport) (at /home/bokken/build/output/unity/unity/Editor/Mono/BuildPipeline/PostprocessBuildPlayer.cs:285)
+2026-11-20T17:03:51.9742499Z UnityEditor.BuildPipeline:BuildPlayerInternalNoCheck (string[],string,string,UnityEditor.BuildTargetGroup,UnityEditor.BuildTarget,int,UnityEditor.BuildOptions,string[],bool)
+2026-11-20T17:03:51.9745295Z UnityEditor.BuildPipeline:BuildPlayerInternal (string[],string,string,UnityEditor.BuildTargetGroup,UnityEditor.BuildTarget,int,UnityEditor.BuildOptions,string[]) (at /home/bokken/build/output/unity/unity/Editor/Mono/BuildPipeline.bindings.cs:534)
+2026-11-20T17:03:51.9748236Z UnityEditor.BuildPipeline:BuildPlayer (string[],string,string,UnityEditor.BuildTargetGroup,UnityEditor.BuildTarget,int,UnityEditor.BuildOptions,string[]) (at /home/bokken/build/output/unity/unity/Editor/Mono/BuildPipeline.bindings.cs:418)
+2026-11-20T17:03:51.9750610Z UnityEditor.BuildPipeline:BuildPlayer (UnityEditor.BuildPlayerOptions) (at /home/bokken/build/output/unity/unity/Editor/Mono/BuildPipeline.bindings.cs:364)
+2026-11-20T17:03:51.9752003Z BuildScript:BuildIOS () (at Assets/Editor/BuildScript.cs:57)
+2026-11-20T17:03:51.9752513Z 
+2026-11-20T17:03:51.9773420Z (Filename: /home/bokken/build/output/unity/unity/Editor/Mono/Modules/BeeBuildPostprocessor.cs Line: 642)
+2026-11-20T17:03:51.9774240Z 
+2026-11-20T17:03:51.9905944Z BuildFailedException: Player build failed: /opt/unity/Editor/Data/il2cpp/build/deploy/il2cpp --convert-to-cpp --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Assembly-CSharp.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Mono.Security.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/System.Configuration.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/System.Core.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/System.Xml.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/System.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.Burst.Unsafe.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.Burst.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.Collections.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.Mathematics.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipeline.Universal.ShaderLibrary.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipelines.Core.Runtime.Shared.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipelines.Core.Runtime.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipelines.GPUDriven.Runtime.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/Unity.RenderPipelines.Universal.Runtime.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.AIModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.AndroidJNIModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.AudioModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.CoreModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.GameCenterModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.HierarchyCoreModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.IMGUIModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.InputForUIModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.InputLegacyModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.ParticleSystemModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.PhysicsModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.PropertiesModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.SharedInternalsModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.TerrainModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.TextCoreFontEngineModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.TextCoreTextEngineModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.TextRenderingModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.UI.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.UIElementsModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.UIModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.VFXModule.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/UnityEngine.dll --assembly=Library/Bee/artifacts/iOS/ManagedStripped/mscorlib.dll --generatedcppdir=/github/workspace/client/Library/Bee/artifacts/iOS/il2cppOutput/cpp --symbols-folder=/github/workspace/client/Library/Bee/artifacts/iOS/il2cppOutput/cpp/Symbols --enable-analytics --emit-null-checks --enable-array-bounds-check --dotnetprofile=unityaot-macos --usymtool-path=/opt/unity/Editor/Data/Tools/usymtool --profiler-report --profiler-output-file=/github/workspace/client/Library/Bee/artifacts/il2cpp_conv_llt4.traceevents --print-command-line --static-lib-il2-cpp --data-folder=/github/workspace/client/Library/Bee/artifacts/iOS/il2cppOutput/data
+2026-11-20T17:03:51.9944673Z Segmentation fault (core dumped)
+2026-11-20T17:03:51.9945484Z �
+2026-11-20T17:03:51.9946966Z   at UnityEditor.Modules.BeeBuildPostprocessor.PostProcess (UnityEditor.Modules.BuildPostProcessArgs args) [0x00224] in /home/bokken/build/output/unity/unity/Editor/Mono/Modules/BeeBuildPostprocessor.cs:813 
+2026-11-20T17:03:51.9949574Z   at UnityEditor.iOS.iOSBuildPostprocessor.PostProcess (UnityEditor.Modules.BuildPostProcessArgs args) [0x0029e] in /home/bokken/build/output/unity/unity/PlatformDependent/iPhonePlayer/Extensions/Managed/iOSBuildPostprocessor.cs:578 
+2026-11-20T17:03:51.9952021Z UnityEditor.BuildPipeline:BuildPlayerInternalNoCheck_Injected(String[], ManagedSpanWrapper&, ManagedSpanWrapper&, BuildTargetGroup, BuildTarget, Int32, BuildOptions, String[], Boolean)
+2026-11-20T17:03:51.9954164Z UnityEditor.BuildPipeline:BuildPlayerInternalNoCheck(String[], String, String, BuildTargetGroup, BuildTarget, Int32, BuildOptions, String[], Boolean)
+2026-11-20T17:03:51.9956310Z UnityEditor.BuildPipeline:BuildPlayerInternal(String[], String, String, BuildTargetGroup, BuildTarget, Int32, BuildOptions, String[]) (at /home/bokken/build/output/unity/unity/Editor/Mono/BuildPipeline.bindings.cs:534)
+2026-11-20T17:03:51.9958634Z UnityEditor.BuildPipeline:BuildPlayer(String[], String, String, BuildTargetGroup, BuildTarget, Int32, BuildOptions, String[]) (at /home/bokken/build/output/unity/unity/Editor/Mono/BuildPipeline.bindings.cs:418)
+2026-11-20T17:03:51.9960621Z UnityEditor.BuildPipeline:BuildPlayer(BuildPlayerOptions) (at /home/bokken/build/output/unity/unity/Editor/Mono/BuildPipeline.bindings.cs:364)
+2026-11-20T17:03:51.9961878Z BuildScript:BuildIOS() (at Assets/Editor/BuildScript.cs:57)
+2026-11-20T17:03:51.9962369Z 
+2026-11-20T17:03:51.9962970Z (Filename: /home/bokken/build/output/unity/unity/Editor/Mono/Modules/BeeBuildPostprocessor.cs Line: 813)
+2026-11-20T17:03:51.9964310Z 
+2026-11-20T17:03:52.0435459Z Total cache size 32638064
+2026-11-20T17:03:52.0437488Z Total cache size after purge 32638064, took 00:00:00.0743655
+2026-11-20T17:03:52.0534531Z ExitCode: 3 Duration: 43s
+2026-11-20T17:03:52.1346198Z Unloading 45 Unused Serialized files (Serialized files now loaded: 0)
+2026-11-20T17:03:52.3615889Z Unloading 2037 unused Assets / (0.6 MB). Loaded Objects now: 3871.
+2026-11-20T17:03:52.3635521Z Memory consumption went from 225.6 MB to 225.0 MB.
+2026-11-20T17:03:52.3637060Z Total: 226.256189 ms (FindLiveObjects: 0.626964 ms CreateObjectMapping: 0.237723 ms MarkObjects: 219.360877 ms  DeleteObjects: 6.028743 ms)
+2026-11-20T17:03:52.3638115Z 
+2026-11-20T17:03:52.3638542Z Build Finished, Result: Failure.
+2026-11-20T17:03:52.5613458Z ##utp:{"type":"PlayerBuildInfo","version":2,"phase":"Immediate","time":1795194232559,"processId":1447,"steps":[{"description":"Preprocess Player","duration":113},{"description":"Prepare For Build","duration":19},{"description":"ProducePlayerScriptAssemblies","duration":34900},{"description":"Verify Build setup","duration":13},{"description":"Prepare assets for target platform","duration":430},{"description":"Prepare splash screen","duration":893},{"description":"Building scenes","duration":1052},{"description":"Build scripts DLLs","duration":44},{"description":"Build GlobalGameManagers file","duration":508},{"description":"Writing asset files","duration":12397},{"description":"Building Resources/unity_builtin_extra","duration":7489},{"description":"Write data build dirty tracking information","duration":104},{"description":"Postprocess built player","duration":61947}],"duration":119909}
+2026-11-20T17:03:52.5705762Z Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
+2026-11-20T17:03:53.0244865Z Loaded scene 'Temp/__Backupscenes/0.backup'
+2026-11-20T17:03:53.0245702Z 	Deserialize:            4.206 ms
+2026-11-20T17:03:53.0262494Z 	Integration:            452.725 ms
+2026-11-20T17:03:53.0263554Z 	Integration of assets:  0.003 ms
+2026-11-20T17:03:53.0264136Z 	Thread Wait Time:       0.040 ms
+2026-11-20T17:03:53.0264841Z 	Total Operation Time:   456.974 ms
+2026-11-20T17:03:53.0428312Z Unloading 0 unused Assets / (0 B). Loaded Objects now: 3863.
+2026-11-20T17:03:53.0429242Z Memory consumption went from 221.4 MB to 221.4 MB.
+2026-11-20T17:03:53.0430411Z Total: 18.926661 ms (FindLiveObjects: 0.379845 ms CreateObjectMapping: 0.079999 ms MarkObjects: 18.455319 ms  DeleteObjects: 0.010486 ms)
+2026-11-20T17:03:53.0431234Z 
+2026-11-20T17:03:53.0486634Z [Build] Failed, 2 errors, 35 MB, to /github/workspace/build/iOS/ArabDrift
+2026-11-20T17:03:53.0487524Z UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+2026-11-20T17:03:53.0488790Z UnityEngine.StackTraceUtility:ExtractStackTrace () (at /home/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:35)
+2026-11-20T17:03:53.0490266Z UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+2026-11-20T17:03:53.0491686Z UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+2026-11-20T17:03:53.0492780Z UnityEngine.Logger:Log (UnityEngine.LogType,object)
+2026-11-20T17:03:53.0493702Z UnityEngine.Debug:Log (object)
+2026-11-20T17:03:53.0494471Z BuildScript:BuildIOS () (at Assets/Editor/BuildScript.cs:58)
+2026-11-20T17:03:53.0494981Z 
+2026-11-20T17:03:53.0495310Z (Filename: Assets/Editor/BuildScript.cs Line: 58)
+2026-11-20T17:03:53.0495763Z 
+2026-11-20T17:03:53.5476046Z [Physics::Module] Cleanup current backned.
+2026-11-20T17:03:53.5476748Z [Physics::Module] Id: 0xf2b8ea05
+2026-11-20T17:03:53.5478406Z Input System module state changed to: ShutdownInProgress.
+2026-11-20T17:03:53.5478952Z Input System polling thread exited.
+2026-11-20T17:03:53.5479577Z Input System module state changed to: Shutdown.
+2026-11-20T17:03:53.5491643Z [Licensing::IpcConnector] LicenseClient-root-notifications channel disconnected successfully.
+2026-11-20T17:03:53.5496170Z [Licensing::IpcConnector] LicenseClient-root channel disconnected successfully.
+2026-11-20T17:03:53.5583587Z AcceleratorClientConnectionCallback - disconnected - :0
+2026-11-20T17:03:53.5670284Z [40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+2026-11-20T17:03:53.5670922Z       Application is shutting down...
+2026-11-20T17:03:53.5740569Z [40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+2026-11-20T17:03:53.5741223Z       ALC ILPP context 2 is unloading
+2026-11-20T17:03:58.3536772Z Cleanup mono
+2026-11-20T17:03:58.6044525Z debugger-agent: Unable to listen on 36
+2026-11-20T17:03:58.6065284Z [usbmuxd] Stop listen thread
+2026-11-20T17:03:59.0215064Z [usbmuxd] Listen thread exiting
+2026-11-20T17:03:59.1104315Z [Package Manager] Server process was shutdown
+2026-11-20T17:03:59.1405653Z Checking for leaked weakptr:
+2026-11-20T17:03:59.1407342Z   Found no leaked weakptrs.
+2026-11-20T17:03:59.1579176Z ##utp:{"type":"MemoryLeaks","version":2,"phase":"Immediate","time":1795194239156,"processId":1447,"allocatedMemory":12483732,"memoryLabels":[{"Default":22669},{"Permanent":16080},{"Thread":1084616},{"Manager":17570},{"VertexData":8},{"Geometry":408},{"VFX":-104},{"Texture":160},{"Shader":114011},{"Material":24},{"GfxDevice":35968},{"Animation":456},{"Audio":4032},{"Font":1782565},{"FreeType":63500},{"FontEngine":320},{"Physics":2081},{"Serialization":-304},{"Input":26752},{"JobScheduler":33024},{"TextLib":160},{"Mono":32},{"MonoCode":672},{"ScriptingNativeRuntime":155096},{"BaseObject":1665656},{"Resource":1032},{"Renderer":2928},{"Transform":4678},{"File":18374},{"WebCam":80},{"Culling":32},{"Terrain":11298},{"Wind":24},{"String":1038621},{"DynamicArray":102291},{"HashMap":90315},{"Utility":2657904},{"PoolAlloc":1664},{"AI":72},{"TypeTree":5005},{"ScriptManager":512},{"RuntimeInitializeOnLoadManager":64},{"SpriteAtlas":112},{"GI":7448},{"Director":8208},{"CloudService":335152},{"WebRequest":4297},{"VR":45689},{"SceneManager":528},{"Video":64},{"LazyScriptCache":32},{"Camera":17},{"Secure":10073},{"Image":278528},{"SerializationCache":1576},{"APIUpdating":10320},{"Subsystems":336},{"VirtualTexturing":57552},{"StaticSafetyDebugInfo":278528},{"Analytics":384},{"Hierarchy":832},{"Gui":80},{"EditorUtility":32677},{"VersionControl":4},{"Undo":979},{"AssetDatabase":2293714},{"EditorGi":328},{"UnityConnect":24792},{"Upm":106890},{"DrivenProperties":72},{"LocalIPC":147},{"ProfilerEditor":9746},{"CoreBusinessMetrics":13121},{"Licensing":1096},{"AssetReference":32},{"IPCStream":32}]}
+2026-11-20T17:03:59.3109759Z Build failed, with exit code 1
+2026-11-20T17:03:59.5163797Z 
+2026-11-20T17:03:59.5164482Z ###########################
+2026-11-20T17:03:59.5165159Z #       Build output      #
+2026-11-20T17:03:59.5165759Z ###########################
+2026-11-20T17:03:59.5166201Z 
+2026-11-20T17:03:59.5188952Z total 12K
+2026-11-20T17:03:59.5190069Z drwxr-xr-x  3 root root 4.0K Nov 20 17:02 .
+2026-11-20T17:03:59.5190959Z drwxr-xr-x  3 root root 4.0K Nov 20 16:59 ..
+2026-11-20T17:03:59.5191823Z drwxr-xr-x 13 root root 4.0K Nov 20 17:03 ArabDrift
+2026-11-20T17:03:59.6260788Z [UnityConnectServicesConfig] Local config successfully read: "/usr/share/unity3d/config/services-config.json"
+2026-11-20T17:03:59.6262196Z [UnityConnectServicesConfig] "clientConnectTimeoutSec" was overridden with "5"
+2026-11-20T17:03:59.6263391Z [UnityConnectServicesConfig] "clientHandshakeTimeoutSec" was overridden with "10"
+2026-11-20T17:03:59.6264336Z [UnityConnectServicesConfig] Service configuration:
+2026-11-20T17:03:59.6265047Z     "servicesConfigBaseUrl": "",
+2026-11-20T17:03:59.6265507Z     "disableServicesWindow": false,
+2026-11-20T17:03:59.6265962Z     "disableUserLogin": false,
+2026-11-20T17:03:59.6266421Z     "entitlementCacheTimeoutInSeconds": 60,
+2026-11-20T17:03:59.6266901Z     "clientConnectTimeoutSec": 5,
+2026-11-20T17:03:59.6267363Z     "clientHandshakeTimeoutSec": 10,
+2026-11-20T17:03:59.6267849Z     "clientResolveEntitlementsTimeoutSec": 30,
+2026-11-20T17:03:59.6268339Z     "clientUpdateLicenseTimeoutSec": 30,
+2026-11-20T17:03:59.6268815Z     "licensingServiceBaseUrl": "",
+2026-11-20T17:03:59.6269254Z     "enableProxyAutoconfig": "false"
+2026-11-20T17:03:59.6269537Z 
+2026-11-20T17:03:59.6720644Z Unity Editor version:    6000.0.62f1 (f99f05b3e950)
+2026-11-20T17:03:59.6723718Z Branch:                  6000.0/staging
+2026-11-20T17:03:59.6725039Z Build type:              Release
+2026-11-20T17:03:59.6726022Z Batch mode:              YES
+2026-11-20T17:03:59.6726645Z System name:             Linux
+2026-11-20T17:03:59.6727406Z Distro version:          #21-Ubuntu SMP PREEMPT Tue Oct 27 22:34:38 UTC 2026
+2026-11-20T17:03:59.6728222Z Kernel version:          7.0.0-1020-azure
+2026-11-20T17:03:59.6728884Z Architecture:            x86_64
+2026-11-20T17:03:59.6729516Z Available memory:        7931 MB
+2026-11-20T17:04:00.2735050Z User *** logged in successfully
+2026-11-20T17:04:00.2736865Z [UnityConnect::TryLogin] Request Succeeded.
+2026-11-20T17:04:00.2737837Z [Licensing::Module] Trying to connect to existing licensing client channel...
+2026-11-20T17:04:00.2738901Z [Licensing::IpcConnector] Channel LicenseClient-root doesn't exist
+2026-11-20T17:04:00.2757432Z [Licensing::Module] Successfully launched the LicensingClient (PId: 14183)
+2026-11-20T17:04:00.5247498Z [Licensing::IpcConnector] Successfully connected to: "LicenseClient-root" at "2026-11-20T17:04:00.524215Z"
+2026-11-20T17:04:00.5264457Z [SignatureVerifier] Application signature verification not supported on this platform.
+2026-11-20T17:04:00.6864048Z [Licensing::Client] Handshaking with LicensingClient:
+2026-11-20T17:04:00.6865270Z   Version:                 1.17.2+ff71f16
+2026-11-20T17:04:00.6866651Z   Session Id:              8c343fe49dcb4d7dad42f869a418f72a
+2026-11-20T17:04:00.6868261Z   Correlation Id:          f22d7096bc8d9af3026f77fe397b67ae
+2026-11-20T17:04:00.6883868Z   External correlation Id: 3647489303554084466
+2026-11-20T17:04:00.6884830Z   Machine Id:              ZEPcQV2cEwjQAWf1IUAGIRwqI4Y=
+2026-11-20T17:04:00.6886259Z [Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-root" (connect: 0.25s, validation: 0.16s, handshake: 0.00s)
+2026-11-20T17:04:00.6888010Z [Licensing::IpcConnector] Successfully connected to: "LicenseClient-root-notifications" at "2026-11-20T17:04:00.6864Z"
+2026-11-20T17:04:00.6889575Z [Licensing::Module] Connected to LicensingClient (PId: 14183, launch time: 0.00, total connection time: 0.41s)
+2026-11-20T17:04:00.7142861Z [Licensing::Client] Successfully updated the access token
+2026-11-20T17:04:00.7144217Z [Licensing::Module] Successfully updated the access token RhoOqUEx5X...
+2026-11-20T17:04:02.5240435Z [Licensing::Client] Successfully processed license management request
+2026-11-20T17:04:02.5241595Z [Licensing::Module] Successfully returned the entitlement license
+2026-11-20T17:04:02.5520655Z [Licensing::Client] Successfully queried for the EntitlementGroupsDetails
+2026-11-20T17:04:04.2167573Z [Licensing::Client] Successfully returned ULF license with serial number : "***"
+2026-11-20T17:04:04.2261920Z 
+2026-11-20T17:04:04.2264575Z ###########################
+2026-11-20T17:04:04.2278267Z #         Failure         #
+2026-11-20T17:04:04.2279022Z ###########################
+2026-11-20T17:04:04.2279781Z 
+2026-11-20T17:04:04.2281608Z Please note that the exit code is not very descriptive.
+2026-11-20T17:04:04.2282681Z Most likely it will not help you solve the issue.
+2026-11-20T17:04:04.2283969Z 
+2026-11-20T17:04:04.2286308Z To find the reason for failure: please search for errors in the log above and check for annotations in the summary view.
+2026-11-20T17:04:04.2287423Z 
+2026-11-20T17:04:04.6464988Z ##[error]Build failed with exit code 1
+2026-11-20T17:04:04.6858186Z Post job cleanup.
+2026-11-20T17:04:04.7713830Z [command]/usr/bin/git version
+2026-11-20T17:04:04.7793931Z git version 2.56.1
+2026-11-20T17:04:04.7856386Z Temporarily overriding HOME='/home/runner/work/_temp/352cd757-322a-4098-af61-ecef0e326a8a' before making global git config changes
+2026-11-20T17:04:04.7864143Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-20T17:04:04.7865584Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/arabdrift/arabdrift
+2026-11-20T17:04:04.7900675Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-20T17:04:04.7974585Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-20T17:04:04.8391568Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-20T17:04:04.8442025Z http.https://github.com/.extraheader
+2026-11-20T17:04:04.8497148Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-20T17:04:04.8585447Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-20T17:04:04.9010340Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-20T17:04:04.9042786Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-20T17:04:04.9870015Z Cleaning up orphan processes
+2026-11-20T17:04:05.0447920Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@v4, actions/checkout@v4, game-ci/unity-builder@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
