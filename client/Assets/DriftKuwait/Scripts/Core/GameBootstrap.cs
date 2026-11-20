@@ -29,8 +29,8 @@ namespace DriftKuwait
             Time.fixedDeltaTime = 1f / 100f;   // stable tyre forces
 
             // Remove template camera / light so ours own the scene.
-            foreach (var cam in Object.FindObjectsByType<Camera>(FindObjectsSortMode.None))
-                Object.Destroy(cam.gameObject);
+            foreach (var old in Object.FindObjectsByType<Camera>(FindObjectsSortMode.None))
+                Object.Destroy(old.gameObject);
             foreach (var l in Object.FindObjectsByType<Light>(FindObjectsSortMode.None))
                 if (l.type == LightType.Directional) Object.Destroy(l.gameObject);
 

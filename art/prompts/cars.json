@@ -1,0 +1,13 @@
+{
+ "version": 1,
+ "batch": 1,
+ "style_header": "Photorealistic automotive render, the quality of a modern AAA mobile racing game (CarX Drift Racing 3 level): physically based car paint with clear-coat reflections, real glass, chrome and rubber, accurate early-1980s proportions. Fictional car: it must not show any real manufacturer's logo, badge, name or licence plate.",
+ "must_not": ["real car brand logos or names", "Nissan, Datsun, Toyota, Ford badges", "real licence plates", "text other than the specified Arabic badge", "religious buildings, minarets, domes", "flags", "people"],
+ "defaults": {"model": "gpt-image-2", "size": "1536x1024", "quality": "high", "background": "opaque", "output_format": "png", "n": 1},
+ "items": [
+  {"asset_id": "car_shaheen_ref",
+   "prompt": "الشاهين, an early-1980s Japanese-style boxy turbo coupe: two doors, long flat bonnet, sharp wedge lines, flat rectangular headlights with black surrounds, black front lip spoiler and rear decklid spoiler, louvres on the C-pillar, four-spoke silver dish wheels with chunky tyres, lowered stance. Two-tone paint: pearl white upper body over charcoal grey lower body, separated by a thin red pinstripe; black window trim. The grille carries an original gold falcon emblem. Small Arabic lettering الشاهين in chrome on the rear quarter panel. Three-quarter front view from slightly above, the whole car visible and centred, plain light grey studio background with a soft floor shadow, nothing else in frame (this image is a reference for a 3D model)."},
+  {"asset_id": "car_shaheen_scene",
+   "prompt": "In-game screenshot of a mobile drift racing game, chase camera behind and slightly above the car: the same early-1980s boxy turbo coupe (pearl white over charcoal two-tone, red pinstripe, black spoilers, four-spoke silver wheels) in a big sideways drift through a roundabout on a 1980s Kuwaiti residential street at golden hour. Thick white tyre smoke pouring from the rear wheels and lit by the low sun, black skid marks on warm asphalt, yellow-and-black painted kerbs, sandy verges, cream and sand-coloured walled villas with steel gates, window AC units and rooftop water tanks, tall date palms, old street lamps, a water tower on the hazy skyline, dusty orange sky. Cinematic but real-time-game look, sharp, high detail, no on-screen interface (it is added separately)."}
+ ]
+}

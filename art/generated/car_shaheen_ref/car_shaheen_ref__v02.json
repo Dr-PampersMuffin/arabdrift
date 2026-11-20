@@ -1,0 +1,31 @@
+{
+ "asset_id": "car_shaheen_ref",
+ "version": 2,
+ "spec": "art/prompts/cars.json",
+ "prompt": "Photorealistic automotive render, the quality of a modern AAA mobile racing game (CarX Drift Racing 3 level): physically based car paint with clear-coat reflections, real glass, chrome and rubber, accurate early-1980s proportions. Fictional car: it must not show any real manufacturer's logo, badge, name or licence plate.\n\nالشاهين, an early-1980s Japanese-style boxy turbo coupe: two doors, long flat bonnet, sharp wedge lines, flat rectangular headlights with black surrounds, black front lip spoiler and rear decklid spoiler, louvres on the C-pillar, four-spoke silver dish wheels with chunky tyres, lowered stance. Two-tone paint: pearl white upper body over charcoal grey lower body, separated by a thin red pinstripe; black window trim. The grille carries an original gold falcon emblem. Small Arabic lettering الشاهين in chrome on the rear quarter panel. Three-quarter front view from slightly above, the whole car visible and centred, plain light grey studio background with a soft floor shadow, nothing else in frame (this image is a reference for a 3D model).\n\nDo not include: real car brand logos or names; Nissan, Datsun, Toyota, Ford badges; real licence plates; text other than the specified Arabic badge; religious buildings, minarets, domes; flags; people.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "high",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 568,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 568
+  },
+  "output_tokens": 10976,
+  "output_tokens_details": {
+   "image_tokens": 10976,
+   "text_tokens": 0
+  },
+  "total_tokens": 11544
+ },
+ "seconds": 80.6,
+ "created": "2026-11-20T19:10:22+0300",
+ "qa_status": "in_review"
+}
