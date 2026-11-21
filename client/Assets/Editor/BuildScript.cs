@@ -215,6 +215,7 @@ public static class BuildScript
         KeepVariant("Universal Render Pipeline/Particles/Unlit", "pu_transparent", "_SURFACE_TYPE_TRANSPARENT");
         KeepVariant("Universal Render Pipeline/Particles/Unlit", "pu_soft", "_SURFACE_TYPE_TRANSPARENT", "_SOFTPARTICLES_ON", "_FADING_ON");
         KeepVariant("Universal Render Pipeline/Particles/Lit", "pl_soft", "_SURFACE_TYPE_TRANSPARENT", "_SOFTPARTICLES_ON", "_FADING_ON");
+        KeepVariant("Universal Render Pipeline/Particles/Lit", "pl_transparent", "_SURFACE_TYPE_TRANSPARENT");
 
         const string carsDir = "Assets/DriftKuwait/Resources/DriftKuwait/Cars";
         if (!Directory.Exists(carsDir)) return;

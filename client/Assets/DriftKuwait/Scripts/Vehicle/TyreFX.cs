@@ -66,16 +66,12 @@ namespace DriftKuwait
             m.SetInt("_DstBlend", (int)BlendMode.OneMinusSrcAlpha);
             m.SetInt("_ZWrite", 0);
             m.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
-            m.SetFloat("_SoftParticlesEnabled", 1f);
-            m.SetFloat("_SoftParticlesNearFadeDistance", 0f);
-            m.SetFloat("_SoftParticlesFarFadeDistance", 1.2f);
-            m.SetVector("_SoftParticleFadeParams", new Vector4(0f, 1f / 1.2f, 0f, 0f));
-            m.EnableKeyword("_SOFTPARTICLES_ON");
-            m.EnableKeyword("_FADING_ON");
-            // Camera fade: only the inspector normally fills these. Left at zero the smoke is fully transparent.
-            m.SetFloat("_CameraNearFadeDistance", 0.3f);
-            m.SetFloat("_CameraFarFadeDistance", 1.6f);
-            m.SetVector("_CameraFadeParams", new Vector4(0.3f, 1f / (1.6f - 0.3f), 0f, 0f));
+            // No soft particles / camera fade: both depend on depth data that some devices and capture paths do not
+            // provide, and with it missing the smoke renders fully transparent. Puffs spawn above the road instead.
+            m.SetFloat("_SoftParticlesEnabled", 0f);
+            m.SetFloat("_CameraFadingEnabled", 0f);
+            m.DisableKeyword("_SOFTPARTICLES_ON");
+            m.DisableKeyword("_FADING_ON");
             m.SetFloat("_Smoothness", 0f);
             m.renderQueue = (int)RenderQueue.Transparent;
             return m;

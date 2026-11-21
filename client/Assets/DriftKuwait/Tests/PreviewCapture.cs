@@ -76,6 +76,15 @@ namespace DriftKuwait.Preview
                 }
                 Debug.Log($"[Preview] particles alive {n}, smoke material {mat}, speed {car.SpeedKmh:F0} angle {car.DriftAngle:F0}");
             }
+            {
+                // Diagnostic: the same smoke with an unlit material, to tell a lighting/shader problem from an emission one.
+                var swapped = new System.Collections.Generic.List<(ParticleSystemRenderer, Material)>();
+                var unlit = TyreFX.ParticleMaterial("DK_SmokeDiag", Resources.Load<Texture2D>("DriftKuwait/FX/smoke_puff"), new Color(1f, 1f, 1f, 1f));
+                foreach (var ps in Object.FindObjectsByType<ParticleSystem>(FindObjectsSortMode.None))
+                    if (ps.name == "TyreSmoke") { var pr = ps.GetComponent<ParticleSystemRenderer>(); swapped.Add((pr, pr.sharedMaterial)); pr.sharedMaterial = unlit; }
+                Capture("13b_smoke_unlit");
+                foreach (var (pr, m) in swapped) pr.sharedMaterial = m;
+            }
             CarInput.TouchSteer = -1f; CarInput.TouchHandbrake = true;
             yield return new WaitForSeconds(0.3f);
             CarInput.TouchHandbrake = false; CarInput.TouchSteer = 0.25f;

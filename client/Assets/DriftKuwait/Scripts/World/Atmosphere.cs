@@ -25,6 +25,7 @@ namespace DriftKuwait
             sun.type = LightType.Directional;
             sun.shadows = LightShadows.Soft;
             sun.shadowStrength = 0.85f;
+            sun.cullingMask = ~(1 << 30);     // the garage showroom has its own studio lights
             RenderSettings.sun = sun;
 
             var skyShader = Shader.Find("Skybox/Procedural");
