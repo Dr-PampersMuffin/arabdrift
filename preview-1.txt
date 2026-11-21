@@ -1,0 +1,13 @@
+preview run 1 ref preview-1 sha d9cc05d6bf19dfe6df84f3c95899f8aa9829c620 play=cancelled
+----- test results -----
+----- [Preview] / errors from the log -----
+3468:Start importing Packages/com.unity.test-framework.performance/ValidationExceptions.json using Guid(a23a55c69f9544b56a85639e7258ea1d) (TextScriptImporter) -> (artifact id: '1024791765b0e8e84823210b022d1eb8') in 0.000757486 seconds
+3473:Start importing Packages/com.unity.burst/ValidationExceptions.json using Guid(f383c015504b380698ba4a8681b1223e) (TextScriptImporter) -> (artifact id: '1832c82ee42321e0f5c680b68fbe37eb') in 0.000760831 seconds
+3523:Start importing Packages/com.unity.render-pipelines.universal/ValidationExceptions.json using Guid(3afe581e949e3cc489c978bd8e000c4b) (TextScriptImporter) -> (artifact id: '980e22429d5d4161b19132dc7ef780b2') in 0.000788171 seconds
+3546:Start importing Packages/com.unity.mathematics/ValidationExceptions.json using Guid(5ed727127196a4ecc90e24e2cd7af338) (TextScriptImporter) -> (artifact id: '4cc76c19a2de3daa0998756408ae203b') in 0.000773229 seconds
+3553:Start importing Packages/com.unity.collections/pvpExceptions.json using Guid(fee59c2b2318a7e4fa7a2c2af28d9553) (TextScriptImporter) -> (artifact id: 'e7d6d9de6fef388fbd1e6dba877bd237') in 0.002828472 seconds
+3561:Start importing Packages/com.unity.collections/ValidationExceptions.json using Guid(6fe576033d6a2424c888d599967457a2) (TextScriptImporter) -> (artifact id: 'f8ad2fec6095330ee571eda86931f6a4') in 0.000780009 seconds
+3735:UnityEngine.Rendering.RenderPipelineGlobalSettingsUtils:TryEnsure<UnityEngine.Rendering.Universal.UniversalRenderPipelineGlobalSettings, UnityEngine.Rendering.Universal.UniversalRenderPipeline> (UnityEngine.Rendering.Universal.UniversalRenderPipelineGlobalSettings&,string,bool,System.Exception&) (at ./Library/PackageCache/com.unity.render-pipelines.core@0ff91b144dbd/Runtime/RenderPipeline/RenderPipelineGlobalSettingsUtils.cs:126)
+3921:[Build] Created Assets/Settings/DK_URP.asset
+4055:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/shaheen/paint.mat
+4099:[Build] PrepareOnly done
