@@ -255,13 +255,13 @@ namespace DriftKuwait
                 float side = Mathf.Sign(c.x);
                 for (int i = 0; i < 14; i++)
                 {
-                    float a0 = Mathf.Lerp(-20f, 200f, i / 14f) * Mathf.Deg2Rad, a1 = Mathf.Lerp(-20f, 200f, (i + 1) / 14f) * Mathf.Deg2Rad;
+                    float a0 = Mathf.Lerp(-8f, 188f, i / 14f) * Mathf.Deg2Rad, a1 = Mathf.Lerp(-8f, 188f, (i + 1) / 14f) * Mathf.Deg2Rad;
                     float R = d.radius * 1.12f;
                     Vector3 p0 = new Vector3(0f, Mathf.Sin(a0) * R, Mathf.Cos(a0) * R), p1 = new Vector3(0f, Mathf.Sin(a1) * R, Mathf.Cos(a1) * R);
                     Vector3 inner = new Vector3(-side * d.tyreWidth * 1.4f, 0f, 0f), outer = new Vector3(side * d.tyreWidth * 0.2f, 0f, 0f);
                     mk.Quad(c + p0 + inner, c + p1 + inner, c + p1 + outer, c + p0 + outer, -(p0 + p1).normalized);
                 }
-                mk.Quad(c + new Vector3(-side * d.tyreWidth * 1.4f, -d.radius, -d.radius * 1.1f), c + new Vector3(-side * d.tyreWidth * 1.4f, -d.radius, d.radius * 1.1f),
+                mk.Quad(c + new Vector3(-side * d.tyreWidth * 1.4f, -d.radius * 0.18f, -d.radius * 1.1f), c + new Vector3(-side * d.tyreWidth * 1.4f, -d.radius * 0.18f, d.radius * 1.1f),
                         c + new Vector3(-side * d.tyreWidth * 1.4f, d.radius * 1.1f, d.radius * 1.1f), c + new Vector3(-side * d.tyreWidth * 1.4f, d.radius * 1.1f, -d.radius * 1.1f),
                         new Vector3(side, 0f, 0f));
                 var lg = mk.ToObject("WellLiner", bodyRoot.transform, liner);
@@ -294,15 +294,16 @@ namespace DriftKuwait
             }
 
             // Light glows. Tail lights from the texture (car.json), headlights from the car's proportions.
-            var tailMat = Mat.Glow("DK_TailGlow", new Color(1f, 0.06f, 0.03f), 2.5f);
-            var headMat = Mat.Glow("DK_HeadGlow", new Color(1f, 0.92f, 0.78f), 3.5f);
+            // Soft additive glows over the textured lamps: invisible by day, they bloom at night and on the brakes.
+            var tailMat = GlowMat("DK_TailGlowAdd");
+            var headMat = GlowMat("DK_HeadGlowAdd");
             var tails = d.tail.Count > 0 ? d.tail : new List<Vector4>
             {
                 new Vector4(-d.width * 0.34f, d.height * 0.52f, -d.length * 0.49f, d.width * 0.2f),
                 new Vector4(d.width * 0.34f, d.height * 0.52f, -d.length * 0.49f, d.width * 0.2f),
             };
             foreach (var t in tails)
-                v.tail.Add(Glow(bodyRoot.transform, "TailGlow", new Vector3(t.x, t.y, t.z - 0.012f), new Vector2(Mathf.Max(t.w, 0.16f), 0.1f), true, tailMat));
+                v.tail.Add(Glow(bodyRoot.transform, "TailGlow", new Vector3(t.x, t.y, t.z - 0.012f), new Vector2(Mathf.Max(t.w, 0.16f) * 1.35f, 0.2f), true, tailMat));
             var heads = d.head.Count > 0 ? d.head : new List<Vector4>
             {
                 new Vector4(-d.width * 0.33f, d.height * 0.47f, d.length * 0.495f, 0.3f),
@@ -310,7 +311,7 @@ namespace DriftKuwait
             };
             foreach (var h in heads)
             {
-                v.head.Add(Glow(bodyRoot.transform, "HeadGlow", new Vector3(h.x, h.y, h.z + 0.012f), new Vector2(Mathf.Max(h.w, 0.22f), 0.11f), false, headMat));
+                v.head.Add(Glow(bodyRoot.transform, "HeadGlow", new Vector3(h.x, h.y, h.z + 0.012f), new Vector2(Mathf.Max(h.w, 0.22f) * 1.4f, 0.24f), false, headMat));
                 if (!dynamic) continue;
                 var lg = new GameObject("Beam");
                 lg.transform.SetParent(bodyRoot.transform, false);
@@ -324,6 +325,40 @@ namespace DriftKuwait
                 v.beams.Add(l);
             }
             return v;
+        }
+
+        static Texture2D glowTex;
+        static readonly Dictionary<string, Material> glowMats = new Dictionary<string, Material>();
+
+        /// Additive Particles/Unlit material with a soft rounded-rectangle falloff (generated once).
+        static Material GlowMat(string key)
+        {
+            if (glowMats.TryGetValue(key, out var m) && m != null) return m;
+            if (glowTex == null)
+            {
+                const int W = 128, H = 64;
+                glowTex = new Texture2D(W, H, TextureFormat.RGBA32, false) { wrapMode = TextureWrapMode.Clamp, name = "DK_GlowSoft" };
+                var px = new Color32[W * H];
+                for (int y = 0; y < H; y++)
+                    for (int x = 0; x < W; x++)
+                    {
+                        float dx = Mathf.Max(0f, Mathf.Abs((x + 0.5f) / W * 2f - 1f) - 0.55f) / 0.45f;
+                        float dy = Mathf.Max(0f, Mathf.Abs((y + 0.5f) / H * 2f - 1f) - 0.25f) / 0.75f;
+                        float a = Mathf.Clamp01(1f - Mathf.Sqrt(dx * dx + dy * dy));
+                        a = a * a * (3f - 2f * a);
+                        byte b = (byte)(a * 255f);
+                        px[y * W + x] = new Color32(255, 255, 255, b);
+                    }
+                glowTex.SetPixels32(px);
+                glowTex.Apply();
+            }
+            m = TyreFX.ParticleMaterial(key, glowTex, new Color(0f, 0f, 0f, 0f));
+            m.SetFloat("_Blend", 2f);
+            m.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+            m.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.One);
+            m.renderQueue = 3100;
+            glowMats[key] = m;
+            return m;
         }
 
         static Renderer Glow(Transform parent, string name, Vector3 pos, Vector2 size, bool rear, Material m)
@@ -354,25 +389,33 @@ namespace DriftKuwait
         MaterialPropertyBlock mpb;
         bool lastNight = true;
 
-        void Start() { car = GetComponent<DriftCarController>(); input = GetComponent<CarInput>(); mpb = new MaterialPropertyBlock(); }
+        void Start() { car = GetComponent<DriftCarController>(); input = GetComponent<CarInput>(); mpb = new MaterialPropertyBlock(); lastNight = !NightMode; }
 
         void Update()
         {
             if (input == null || tail == null) return;
             bool braking = input.Brake > 0.1f || input.Handbrake;
-            float k = braking ? 3.2f : (NightMode ? 1.3f : 0.55f);
+            float k = braking ? (NightMode ? 1f : 0.75f) : (NightMode ? 0.45f : 0f);
             foreach (var r in tail)
             {
                 if (r == null) continue;
+                r.enabled = k > 0f;
                 r.GetPropertyBlock(mpb);
-                mpb.SetColor("_EmissionColor", new Color(1f, 0.06f, 0.03f) * 2.5f * k);
+                mpb.SetColor("_BaseColor", new Color(4f, 0.25f, 0.12f, k));
                 r.SetPropertyBlock(mpb);
             }
             if (NightMode != lastNight)
             {
                 lastNight = NightMode;
                 foreach (var b in beams) if (b != null) b.enabled = NightMode;
-                foreach (var h in head) if (h != null) h.enabled = NightMode;
+                foreach (var h in head)
+                {
+                    if (h == null) continue;
+                    h.enabled = NightMode;
+                    h.GetPropertyBlock(mpb);
+                    mpb.SetColor("_BaseColor", new Color(3.2f, 3f, 2.6f, 0.9f));
+                    h.SetPropertyBlock(mpb);
+                }
             }
         }
     }

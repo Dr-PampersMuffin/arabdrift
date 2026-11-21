@@ -274,7 +274,7 @@ namespace DriftKuwait
             s.cam.nearClipPlane = 0.3f; s.cam.farClipPlane = 60f;
             s.cam.allowHDR = false;
             s.cam.targetTexture = s.rt;
-            camGo.transform.localPosition = new Vector3(0f, 1.9f, -11.2f);
+            camGo.transform.localPosition = new Vector3(1.35f, 1.9f, -13.4f);   // car sits left of the stats panel
             camGo.transform.localRotation = Quaternion.Euler(6.5f, 0f, 0f);
             var data = s.cam.GetComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>();
             if (data == null) data = camGo.AddComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>();
@@ -285,6 +285,41 @@ namespace DriftKuwait
             AddLight(go.transform, new Vector3(-3.5f, 4.2f, -2.5f), new Color(1f, 0.82f, 0.6f), 38f);
             AddLight(go.transform, new Vector3(3.8f, 3.8f, -1.5f), new Color(1f, 0.78f, 0.55f), 30f);
             AddLight(go.transform, new Vector3(0.5f, 3.0f, 4.5f), new Color(0.7f, 0.8f, 1f), 22f);
+
+            // Studio reflections: big warm softboxes the probe sees (layer 31) but the camera does not, so the
+            // clear coat picks up long highlights like a real workshop shoot.
+            const int ReflLayer = 31;
+            var soft = TyreFX.ParticleMaterial("DK_Softbox", Texture2D.whiteTexture, new Color(2.2f, 1.9f, 1.5f, 1f));
+            foreach (var (pos, rot, scale) in new[]
+            {
+                (new Vector3(0f, 5.5f, 0f), Quaternion.Euler(90f, 0f, 0f), new Vector3(3f, 7f, 1f)),
+                (new Vector3(-6f, 2.2f, 0f), Quaternion.Euler(0f, -90f, 0f), new Vector3(9f, 1.2f, 1f)),
+                (new Vector3(6f, 2.2f, 0f), Quaternion.Euler(0f, 90f, 0f), new Vector3(9f, 1.2f, 1f)),
+                (new Vector3(0f, 2.4f, 7f), Quaternion.identity, new Vector3(6f, 1.6f, 1f)),
+            })
+            {
+                var q = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                Destroy(q.GetComponent<Collider>());
+                q.name = "Softbox"; q.layer = ReflLayer;
+                q.transform.SetParent(go.transform, false);
+                q.transform.localPosition = pos; q.transform.localRotation = rot; q.transform.localScale = scale;
+                var r = q.GetComponent<MeshRenderer>();
+                r.sharedMaterial = soft;
+                r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            }
+            var pg = new GameObject("StudioProbe");
+            pg.transform.SetParent(go.transform, false);
+            pg.transform.localPosition = new Vector3(0f, 1f, 0f);
+            var probe = pg.AddComponent<ReflectionProbe>();
+            probe.mode = UnityEngine.Rendering.ReflectionProbeMode.Realtime;
+            probe.refreshMode = UnityEngine.Rendering.ReflectionProbeRefreshMode.ViaScripting;
+            probe.timeSlicingMode = UnityEngine.Rendering.ReflectionProbeTimeSlicingMode.NoTimeSlicing;
+            probe.size = new Vector3(20f, 12f, 20f);
+            probe.resolution = 128; probe.hdr = true; probe.importance = 10;
+            probe.cullingMask = 1 << ReflLayer;
+            probe.clearFlags = UnityEngine.Rendering.ReflectionProbeClearFlags.SolidColor;
+            probe.backgroundColor = new Color(0.10f, 0.075f, 0.055f);
+            probe.RenderProbe();
 
             // Contact shadow
             var sh = GameObject.CreatePrimitive(PrimitiveType.Quad);

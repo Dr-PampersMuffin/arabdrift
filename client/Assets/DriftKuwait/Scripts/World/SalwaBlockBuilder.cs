@@ -465,10 +465,15 @@ namespace DriftKuwait
                     var mr = head.AddComponent<MeshRenderer>();
                     var sl = head.AddComponent<StreetLamp>();
                     sl.bulb = mr;
-                    if (n++ % 3 == 0)
+                    if (n++ % 2 == 0)
                     {
-                        var l = head.AddComponent<Light>();
-                        l.type = LightType.Point; l.range = 26f; l.intensity = 9f; l.color = new Color(1f, 0.62f, 0.25f);
+                        // Sodium pool on the road under the lamp (Forward+ handles many lights per tile).
+                        var lgo = new GameObject("Pool");
+                        lgo.transform.SetParent(head.transform, false);
+                        lgo.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
+                        var l = lgo.AddComponent<Light>();
+                        l.type = LightType.Spot; l.range = 24f; l.spotAngle = 125f; l.innerSpotAngle = 60f;
+                        l.intensity = 140f; l.color = new Color(1f, 0.6f, 0.26f);
                         l.shadows = LightShadows.None;
                         sl.lamp = l;
                     }

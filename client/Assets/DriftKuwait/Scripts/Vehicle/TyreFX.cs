@@ -44,6 +44,7 @@ namespace DriftKuwait
             m.SetInt("_SrcBlend", (int)BlendMode.SrcAlpha);
             m.SetInt("_DstBlend", (int)BlendMode.OneMinusSrcAlpha);
             m.SetInt("_ZWrite", 0);
+            m.SetFloat("_Cull", 0f);
             m.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
             m.renderQueue = (int)RenderQueue.Transparent;
             return m;

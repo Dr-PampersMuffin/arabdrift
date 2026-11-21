@@ -191,7 +191,7 @@ public static class BuildScript
             m.shader = complex != null ? complex : lit;
             m.SetTexture("_BaseMap", albedo);
             m.SetColor("_BaseColor", Color.white);
-            if (normal != null) { m.SetTexture("_BumpMap", normal); m.SetFloat("_BumpScale", 0.8f); m.EnableKeyword("_NORMALMAP"); }
+            if (normal != null) { m.SetTexture("_BumpMap", normal); m.SetFloat("_BumpScale", 0.35f); m.EnableKeyword("_NORMALMAP"); }
             if (metal != null) { m.SetTexture("_MetallicGlossMap", metal); m.EnableKeyword("_METALLICSPECGLOSSMAP"); m.SetFloat("_Smoothness", 1f); }
             else { m.SetFloat("_Metallic", 0.35f); m.SetFloat("_Smoothness", 0.8f); }
             m.SetFloat("_SmoothnessTextureChannel", 0f);

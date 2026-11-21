@@ -295,17 +295,20 @@ namespace DriftKuwait
         void Update()
         {
             if (car == null) return;
-            // Controls -> input
-            CarInput.TouchThrottle = gas.Pressed ? 1f : 0f;
-            CarInput.TouchBrake = brake.Pressed ? 1f : 0f;
-            CarInput.TouchHandbrake = hand.Pressed;
-            if (GameSettings.Layout == GameSettings.Controls.Buttons) CarInput.TouchSteer = (right.Pressed ? 1f : 0f) - (left.Pressed ? 1f : 0f);
-            else if (GameSettings.Layout == GameSettings.Controls.Wheel) CarInput.TouchSteer = wheel.Value;
-            else CarInput.TouchSteer = 0f;
+            // Controls -> input (preview runs script the inputs directly)
+            if (!PreviewHooks.Active)
+            {
+                CarInput.TouchThrottle = gas.Pressed ? 1f : 0f;
+                CarInput.TouchBrake = brake.Pressed ? 1f : 0f;
+                CarInput.TouchHandbrake = hand.Pressed;
+                if (GameSettings.Layout == GameSettings.Controls.Buttons) CarInput.TouchSteer = (right.Pressed ? 1f : 0f) - (left.Pressed ? 1f : 0f);
+                else if (GameSettings.Layout == GameSettings.Controls.Wheel) CarInput.TouchSteer = wheel.Value;
+                else CarInput.TouchSteer = 0f;
+            }
 
             // Score
             shownTotal = Mathf.Lerp(shownTotal, scorer.Total, 1f - Mathf.Exp(-8f * Time.deltaTime));
-            totalTxt.text = UIKit.Num((long)Mathf.Round(shownTotal));
+            totalTxt.text = shownTotal < 0.5f ? "" : UIKit.Num((long)Mathf.Round(shownTotal));
             bool chain = scorer.Current > 1f;
             multRoot.SetActive(scorer.Multiplier > 1);
             multTxt.text = "x" + scorer.Multiplier;

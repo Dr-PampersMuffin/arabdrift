@@ -12,6 +12,8 @@ namespace DriftKuwait
         static Light sun;
         static Material sky;
         static Volume volume;
+        static ReflectionProbe probe;
+        static Bloom bloomFx;
         public static bool IsNight { get; private set; }
         public static Preset Current { get; private set; }
 
@@ -45,6 +47,7 @@ namespace DriftKuwait
             bloom.threshold.Override(1.0f);
             bloom.intensity.Override(0.55f);
             bloom.scatter.Override(0.72f);
+            bloomFx = bloom;
             profile.Add<ColorAdjustments>(true);
             var vig = profile.Add<Vignette>(true);
             vig.intensity.Override(0.24f);
@@ -52,6 +55,24 @@ namespace DriftKuwait
             var grain = profile.Add<FilmGrain>(true);
             grain.type.Override(FilmGrainLookup.Thin1);
             grain.intensity.Override(0.18f);
+
+            // Realtime reflections of the street and sky for the car paint (no baked lighting in a runtime-built world).
+            QualitySettings.realtimeReflectionProbes = true;
+            var pg = new GameObject("DK_Reflections");
+            pg.transform.SetParent(parent, false);
+            pg.transform.position = new Vector3(0f, 3f, 0f);
+            probe = pg.AddComponent<ReflectionProbe>();
+            probe.mode = ReflectionProbeMode.Realtime;
+            probe.refreshMode = ReflectionProbeRefreshMode.ViaScripting;
+            probe.timeSlicingMode = ReflectionProbeTimeSlicingMode.NoTimeSlicing;
+            probe.size = new Vector3(2000f, 400f, 2000f);
+            probe.resolution = 128;
+            probe.hdr = true;
+            probe.boxProjection = false;
+            probe.importance = 0;
+            probe.cullingMask = 1;          // Default layer: the street, houses and sky (not cars, UI or showroom)
+            probe.clearFlags = ReflectionProbeClearFlags.Skybox;
+            probe.farClipPlane = 900f;
 
             Apply(Preset.GoldenHour);
             PreviewHooks.SetNight = night => Apply(night ? Preset.Night : Preset.GoldenHour);
@@ -107,20 +128,27 @@ namespace DriftKuwait
                     break;
                 case Preset.Night:
                     sun.transform.rotation = Quaternion.Euler(-12f, -40f, 0f);
-                    sun.color = new Color(0.45f, 0.55f, 0.75f);
-                    sun.intensity = 0.06f;
-                    RenderSettings.ambientSkyColor = new Color(0.06f, 0.07f, 0.11f);
-                    RenderSettings.ambientEquatorColor = new Color(0.10f, 0.08f, 0.07f);
-                    RenderSettings.ambientGroundColor = new Color(0.04f, 0.03f, 0.03f);
-                    RenderSettings.fogColor = new Color(0.10f, 0.08f, 0.07f);
-                    RenderSettings.fogDensity = 0.006f;
-                    SetSky(new Color(0.20f, 0.18f, 0.22f), 1.0f, 0.15f, 0.0f);
+                    sun.color = new Color(0.55f, 0.66f, 0.9f);    // moonlight
+                    sun.intensity = 0.28f;
+                    sun.transform.rotation = Quaternion.Euler(42f, -40f, 0f);
+                    RenderSettings.ambientSkyColor = new Color(0.12f, 0.15f, 0.24f);
+                    RenderSettings.ambientEquatorColor = new Color(0.16f, 0.12f, 0.10f);
+                    RenderSettings.ambientGroundColor = new Color(0.07f, 0.05f, 0.04f);
+                    RenderSettings.fogColor = new Color(0.16f, 0.12f, 0.10f);
+                    RenderSettings.fogDensity = 0.0055f;
+                    SetSky(new Color(0.22f, 0.24f, 0.34f), 1.2f, 0.32f, 0.0f);
                     Grade(ca, 0.3f, 18f, -8f, new Color(1f, 0.90f, 0.80f));
                     break;
             }
             foreach (var l in Object.FindObjectsByType<StreetLamp>(FindObjectsSortMode.None))
                 l.SetOn(p == Preset.Night);
+            if (bloomFx != null)
+            {
+                bloomFx.threshold.Override(IsNight ? 0.8f : 1.0f);
+                bloomFx.intensity.Override(IsNight ? 0.9f : 0.55f);
+            }
             DynamicGI.UpdateEnvironment();
+            if (probe != null) probe.RenderProbe();
         }
 
         static void SetSky(Color tint, float atmosphere, float exposure, float sunSize)

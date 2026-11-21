@@ -26,7 +26,7 @@ namespace DriftKuwait
                 topSpeed = 7.4f, accel = 7.8f, handling = 7.2f, braking = 6.8f, drift = 8.0f,
                 mass = 1150f, baseTorque = 175f, maxRpm = 7200f, turboSpool = 0.55f, boost = 0.55f, turbo = true,
                 frontGrip = 1.15f, rearGrip = 1.0f, handbrakeGrip = 0.42f,
-                rimSpokes = 8, rimColor = new Color(0.05f, 0.05f, 0.055f), rimLip = new Color(0.82f, 0.82f, 0.84f), engineSet = "shaheen" },
+                rimSpokes = 8, rimColor = new Color(0.17f, 0.17f, 0.18f), rimLip = new Color(0.82f, 0.82f, 0.84f), engineSet = "shaheen" },
             new CarSpec { id = "ghazal", nameAr = "الغزال", nameEn = "AL GHAZAL", taglineAr = "زلق سلس .. زاوية طويلة", cylinderAr = "٦ سلندر",
                 topSpeed = 7.8f, accel = 6.6f, handling = 7.6f, braking = 6.5f, drift = 8.4f,
                 mass = 1250f, baseTorque = 215f, maxRpm = 6600f, turboSpool = 0.7f, boost = 0.35f, turbo = true,
