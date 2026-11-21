@@ -131,6 +131,7 @@ def main():
     m.add_argument("--version", default="v2.5-20250123")
     m.add_argument("--faces", type=int, default=None)
     m.add_argument("--texture-quality", default="detailed", choices=["standard", "detailed"])
+    m.add_argument("--geometry-quality", default=None, choices=["standard", "detailed"], help="v3.x only")
     r = sub.add_parser("rig")
     r.add_argument("asset_id")
     r.add_argument("--spec", default="tripo", choices=["tripo", "mixamo"])
@@ -154,6 +155,8 @@ def main():
                 "texture": True, "pbr": True, "texture_quality": args.texture_quality}
         if args.faces:
             body["face_limit"] = args.faces
+        if args.geometry_quality:
+            body["geometry_quality"] = args.geometry_quality
         run_task(args.asset_id, "model", body, {"pbr_model": "model_pbr", "model": "model", "base_model": "model_base",
                                                "rendered_image": "preview"})
     elif args.cmd == "rig":
