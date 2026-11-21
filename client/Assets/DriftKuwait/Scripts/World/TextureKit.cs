@@ -9,6 +9,9 @@ namespace DriftKuwait
         static Texture2D sand, asphalt, paving, plaster, smoke;
 
         // Photographic tileables (tools/art/make_textures.py) replace the procedural fallbacks when present.
+        static Texture2D stone, frond;
+        public static Texture2D Stone => stone != null ? stone : (stone = Res("stone") ?? Plaster);
+        public static Texture2D Frond => frond != null ? frond : (frond = Res("frond"));
         static Texture2D Res(string n) => Resources.Load<Texture2D>("DriftKuwait/Tex/" + n);
 
         static float Tile(float x, float y, float period, float scale)

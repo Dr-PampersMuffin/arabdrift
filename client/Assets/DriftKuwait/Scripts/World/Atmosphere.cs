@@ -143,6 +143,7 @@ namespace DriftKuwait
             }
             foreach (var l in Object.FindObjectsByType<StreetLamp>(FindObjectsSortMode.None))
                 l.SetOn(p == Preset.Night);
+            SalwaBlockBuilder.SetNight(p == Preset.Night);
             if (bloomFx != null)
             {
                 bloomFx.threshold.Override(IsNight ? 0.8f : 1.0f);

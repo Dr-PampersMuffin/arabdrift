@@ -39,6 +39,17 @@ namespace DriftKuwait
         // Mesh batches (one draw call each)
         static MeshKit[] houseKits, gateKits;
         static MeshKit glassKit, acKit, tankKit, collKit, kerbYellow, kerbBlack, paintKit, trunkKit, frondKit, pavingKit;
+        // Facade detail: limestone cladding, white trim (frames, bands, cornices), timber, lit windows, steel railings
+        static MeshKit stoneKit, trimKit, woodKit, litGlassKit, railKit, dateKit;
+        static Material litWindowMat;
+
+        /// Called by Atmosphere when the time of day changes: some windows glow warm at night.
+        public static void SetNight(bool night)
+        {
+            if (litWindowMat == null) return;
+            litWindowMat.SetColor("_EmissionColor", night ? new Color(1f, 0.72f, 0.42f) * 2.2f : Color.black);
+            litWindowMat.SetColor("_BaseColor", night ? new Color(0.35f, 0.26f, 0.16f) : new Color(0.08f, 0.10f, 0.11f));
+        }
 
         public static void Build(Transform parent)
         {
@@ -54,6 +65,8 @@ namespace DriftKuwait
             glassKit = new MeshKit(); acKit = new MeshKit(); tankKit = new MeshKit(); collKit = new MeshKit();
             kerbYellow = new MeshKit(); kerbBlack = new MeshKit(); paintKit = new MeshKit();
             trunkKit = new MeshKit(); frondKit = new MeshKit(); pavingKit = new MeshKit();
+            stoneKit = new MeshKit(); trimKit = new MeshKit(); woodKit = new MeshKit(); litGlassKit = new MeshKit();
+            railKit = new MeshKit(); dateKit = new MeshKit();
 
             Ground(root);
             Roads(root);
@@ -330,7 +343,18 @@ namespace DriftKuwait
                 if (s1 - s0 < 0.05f) return;
                 Vector3 c = a + dir * ((s0 + s1) * 0.5f) + Vector3.up * (baseY + H * 0.5f);
                 houseKits[palette].Box(c, new Vector3(T, H, s1 - s0), rot, true);
-                houseKits[(palette + 2) % houseKits.Length].Box(c + Vector3.up * (H * 0.5f + 0.06f), new Vector3(T + 0.08f, 0.12f, s1 - s0), rot, true);
+                trimKit.Box(c + Vector3.up * (H * 0.5f + 0.06f), new Vector3(T + 0.12f, 0.12f, s1 - s0), rot, true);
+                // Limestone plinth along the foot of the wall
+                stoneKit.Box(a + dir * ((s0 + s1) * 0.5f) + Vector3.up * (baseY + 0.3f), new Vector3(T + 0.06f, 0.6f, s1 - s0), rot, true);
+                // Pillars every ~3.6 m, slightly proud and taller, with a white cap
+                int n = Mathf.Max(1, Mathf.RoundToInt((s1 - s0) / 3.6f));
+                for (int k = 0; k <= n; k++)
+                {
+                    Vector3 pc = a + dir * Mathf.Lerp(s0 + 0.25f, s1 - 0.25f, k / (float)n) + Vector3.up * baseY;
+                    houseKits[palette].Box(pc + Vector3.up * (H * 0.5f + 0.15f), new Vector3(T + 0.22f, H + 0.3f, 0.5f), rot, true);
+                    trimKit.Box(pc + Vector3.up * (H + 0.36f), new Vector3(T + 0.34f, 0.12f, 0.62f), rot, true);
+                    stoneKit.Box(pc + Vector3.up * 0.35f, new Vector3(T + 0.28f, 0.7f, 0.56f), rot, true);
+                }
                 collKit.Box(c, new Vector3(T, H, s1 - s0), rot);
             }
             if (gateAt < 0f) { Seg(0f, len); return; }
@@ -379,6 +403,14 @@ namespace DriftKuwait
             Vector3 size = new Vector3(hw * 2f, H, hd * 2f);
             houseKits[pal].Box(center + Vector3.up * (baseY + H * 0.5f), size, rot, true);
             collKit.Box(center + Vector3.up * (baseY + H * 0.5f), size, rot);
+            // Stone-clad ground floor on the street side (or just a plinth), white floor band and cornice
+            bool clad = Random.value > 0.45f;
+            float cladH = clad ? 3.3f : 0.8f;
+            stoneKit.Box(center - fwdIn * (hd + 0.05f) + Vector3.up * (baseY + cladH * 0.5f), new Vector3(hw * 2f + 0.1f, cladH, 0.1f), rot, true);
+            stoneKit.Box(center + Vector3.up * (baseY + 0.4f), new Vector3(hw * 2f + 0.12f, 0.8f, hd * 2f + 0.12f), rot, true);
+            if (twoStorey)
+                trimKit.Box(center + Vector3.up * (baseY + 3.4f), new Vector3(hw * 2f + 0.3f, 0.22f, hd * 2f + 0.3f), rot, true);
+            trimKit.Box(center + Vector3.up * (baseY + H - 0.1f), new Vector3(hw * 2f + 0.4f, 0.3f, hd * 2f + 0.4f), rot, true);
 
             // Parapet
             float py = baseY + H + 0.45f;
@@ -387,6 +419,13 @@ namespace DriftKuwait
             cap.Box(center + fwdIn * hd + Vector3.up * py, new Vector3(0.25f, 0.9f, hw * 2f + 0.25f), rot * Quaternion.Euler(0, 90, 0), true);
             cap.Box(center - along * hw + Vector3.up * py, new Vector3(0.25f, 0.9f, hd * 2f), rot, true);
             cap.Box(center + along * hw + Vector3.up * py, new Vector3(0.25f, 0.9f, hd * 2f), rot, true);
+            // Stepped Gulf parapet merlons on the street face
+            int merl = Mathf.FloorToInt(hw * 2f / 1.6f);
+            for (int m = 0; m < merl; m++)
+            {
+                float t = (m + 0.5f) / merl * 2f - 1f;
+                trimKit.Box(center - fwdIn * hd + along * (t * hw) + Vector3.up * (py + 0.6f), new Vector3(0.7f, 0.3f, 0.3f), rot, true);
+            }
 
             // Roof stair room + water tanks (no satellite dishes: it's the 80s)
             Vector3 roofC = center + Vector3.up * (baseY + H);
@@ -404,8 +443,13 @@ namespace DriftKuwait
                 {
                     float t = (i + 0.5f) / cols * 2f - 1f;
                     Vector3 wc = center - fwdIn * (hd + 0.02f) + along * (t * (hw - 1.2f)) + Vector3.up * (baseY + 1.7f + f * 3.3f);
-                    glassKit.Box(wc, new Vector3(1.3f, 1.5f, 0.06f), rot, true);
+                    trimKit.Box(wc - fwdIn * 0.01f, new Vector3(1.56f, 1.76f, 0.1f), rot, true);
+                    (Random.value < 0.35f ? litGlassKit : glassKit).Box(wc - fwdIn * 0.03f, new Vector3(1.3f, 1.5f, 0.1f), rot, true);
+                    trimKit.Box(wc - Vector3.up * 0.86f - fwdIn * 0.1f, new Vector3(1.7f, 0.08f, 0.24f), rot, true);   // sill
                     houseKits[(pal + 2) % houseKits.Length].Box(wc + Vector3.up * 0.9f - fwdIn * 0.2f, new Vector3(1.8f, 0.1f, 0.42f), rot, true);
+                    if (Random.value < 0.3f)
+                        foreach (float sg in new[] { -1f, 1f })
+                            woodKit.Box(wc + along * sg * 1.08f - fwdIn * 0.06f, new Vector3(0.62f, 1.6f, 0.06f), rot, true);
                     if (Random.value > 0.6f)
                         acKit.Box(wc - Vector3.up * 0.95f - fwdIn * 0.25f, new Vector3(0.7f, 0.45f, 0.55f), rot, true);
                 }
@@ -414,8 +458,30 @@ namespace DriftKuwait
                 foreach (float sgn in new[] { -1f, 1f })
                 {
                     Vector3 wc = center + along * sgn * (hw + 0.02f) + Vector3.up * (baseY + 1.7f + f * 3.3f);
-                    glassKit.Box(wc, new Vector3(0.06f, 1.4f, 1.1f), rot, true);
+                    trimKit.Box(wc, new Vector3(0.1f, 1.6f, 1.3f), rot, true);
+                    (Random.value < 0.3f ? litGlassKit : glassKit).Box(wc + along * sgn * 0.02f, new Vector3(0.1f, 1.4f, 1.1f), rot, true);
                 }
+
+            // Entrance: timber door, two columns and a slab canopy
+            {
+                Vector3 door = center - fwdIn * (hd + 0.04f) + along * (hw * 0.35f) + Vector3.up * baseY;
+                woodKit.Box(door + Vector3.up * 1.2f, new Vector3(1.5f, 2.4f, 0.1f), rot, true);
+                trimKit.Box(door + Vector3.up * 1.25f + fwdIn * 0.02f, new Vector3(1.8f, 2.6f, 0.08f), rot, true);
+                trimKit.Box(door - fwdIn * 1.1f + Vector3.up * 3.0f, new Vector3(3.2f, 0.22f, 2.3f), rot, true);
+                foreach (float sg in new[] { -1f, 1f })
+                    trimKit.Cylinder(door - fwdIn * 2.0f + along * sg * 1.35f + Vector3.up * 1.45f, Vector3.up, 0.16f, 2.9f, 10);
+                stoneKit.Box(door - fwdIn * 1.1f + Vector3.up * 0.1f, new Vector3(3.2f, 0.2f, 2.3f), rot, true);
+            }
+            // Upper balcony with a steel railing on some two-storey houses
+            if (twoStorey && Random.value > 0.4f)
+            {
+                Vector3 bc = center - fwdIn * (hd + 0.6f) - along * (hw * 0.3f) + Vector3.up * (baseY + 3.45f);
+                float bw = Mathf.Min(hw, 4.5f);
+                trimKit.Box(bc, new Vector3(bw, 0.2f, 1.2f), rot, true);
+                railKit.Box(bc + Vector3.up * 0.95f - fwdIn * 0.58f, new Vector3(bw, 0.06f, 0.06f), rot, true);
+                for (int r = 0; r <= Mathf.FloorToInt(bw / 0.18f); r++)
+                    railKit.Box(bc + Vector3.up * 0.5f - fwdIn * 0.58f + along * (-bw * 0.5f + r * 0.18f), new Vector3(0.025f, 0.9f, 0.025f), rot, true);
+            }
 
             if (Random.value > 0.45f)
                 Palm((fa + fb) * 0.5f + fwdIn * 2.6f + along * Random.Range(-hw, hw) + Vector3.up * baseY, Random.Range(6f, 9f));
@@ -432,12 +498,29 @@ namespace DriftKuwait
             for (int i = 0; i < fronds; i++)
             {
                 float yaw = twist + i * (360f / fronds) + Random.Range(-8f, 8f);
-                float pitch = (i % 3 == 0) ? Random.Range(-10f, 10f) : Random.Range(20f, 48f);
-                var rot = Quaternion.Euler(pitch, yaw, 0f);
-                frondKit.Box(top + rot * new Vector3(0f, 0f, 1.7f), new Vector3(0.75f, 0.03f, 3.4f), rot);
+                float lift = (i % 3 == 0) ? Random.Range(25f, 45f) : Random.Range(-5f, 20f);
+                float len = Random.Range(3.4f, 4.4f);
+                var yr = Quaternion.Euler(0f, yaw, 0f);
+                Vector3 fwd = yr * Vector3.forward, side = yr * Vector3.right;
+                // Arc: starts rising, droops under its own weight. 5 segments, leaflet texture along v.
+                const int S = 5;
+                Vector3 prev = top; float prevW = 0.25f;
+                for (int k = 1; k <= S; k++)
+                {
+                    float t = k / (float)S;
+                    float ang = (lift - t * 85f) * Mathf.Deg2Rad;
+                    Vector3 pt = prev + (fwd * Mathf.Cos(ang) + Vector3.up * Mathf.Sin(ang)) * (len / S);
+                    float w = Mathf.Lerp(1.3f, 0.35f, t) * (k == 1 ? 0.8f : 1f);
+                    Vector3 roll = side * 0.5f;
+                    frondKit.QuadUv(prev - roll * prevW + Vector3.up * 0.02f, prev + roll * prevW + Vector3.up * 0.02f, pt + roll * w, pt - roll * w,
+                        new Vector2(0.5f - prevW * 0.5f, (k - 1) / (float)S), new Vector2(0.5f + prevW * 0.5f, (k - 1) / (float)S),
+                        new Vector2(0.5f + w * 0.5f, t), new Vector2(0.5f - w * 0.5f, t));
+                    prev = pt; prevW = w;
+                }
             }
             // Date clusters
-            frondKit.Box(top - Vector3.up * 0.5f, new Vector3(0.5f, 0.45f, 0.5f), Quaternion.Euler(0, twist, 0));
+            dateKit.Box(top - Vector3.up * 0.5f, new Vector3(0.5f, 0.45f, 0.5f), Quaternion.Euler(0, twist, 0));
+            dateKit.Box(top - Vector3.up * 0.55f + Vector3.right * 0.3f, new Vector3(0.4f, 0.4f, 0.4f), Quaternion.Euler(0, twist + 40f, 0));
         }
 
         static void Lamps(Transform root)
@@ -518,6 +601,14 @@ namespace DriftKuwait
             for (int i = 0; i < gateKits.Length; i++)
                 gateKits[i].ToObject("Gates_" + i, village, Mat.Paint("M_Gate_" + i, GatePalette[i], 0.45f, 0.7f));
             glassKit.ToObject("Windows", village, Mat.Paint("M_Window", new Color(0.08f, 0.10f, 0.11f), 0.92f, 0.2f));
+            litWindowMat = Mat.Glow("M_WindowLit", new Color(1f, 0.72f, 0.42f), 0f);
+            litWindowMat.SetFloat("_Smoothness", 0.9f);
+            litGlassKit.ToObject("WindowsLit", village, litWindowMat);
+            stoneKit.ToObject("Stone", village, Mat.Textured("M_Stone", TextureKit.Stone, Color.white, 0.25f, new Vector2(0.83f, 0.83f)));
+            trimKit.ToObject("Trim", village, Mat.Paint("M_Trim", new Color(0.95f, 0.94f, 0.90f), 0.35f));
+            woodKit.ToObject("Timber", village, Mat.Paint("M_Timber", new Color(0.36f, 0.22f, 0.12f), 0.4f));
+            railKit.ToObject("Railings", village, Mat.Paint("M_Rail", new Color(0.12f, 0.13f, 0.13f), 0.5f, 0.6f));
+            dateKit.ToObject("Dates", root, Mat.Paint("M_Dates", new Color(0.55f, 0.30f, 0.08f), 0.3f));
             acKit.ToObject("WindowACs", village, Mat.Paint("M_AC", new Color(0.82f, 0.80f, 0.74f), 0.4f, 0.3f));
             tankKit.ToObject("WaterTanks", village, Mat.Paint("M_Tank", new Color(0.90f, 0.88f, 0.80f), 0.35f));
             pavingKit.ToObject("Pavements", root, Mat.Textured("M_Paving", TextureKit.Paving, Color.white, 0.2f, new Vector2(0.6f, 0.6f)));
@@ -525,7 +616,11 @@ namespace DriftKuwait
             kerbBlack.ToObject("Kerb_Black", root, Mat.Paint("M_KerbB", new Color(0.06f, 0.06f, 0.06f), 0.35f));
             paintKit.ToObject("RoadPaint", root, Mat.Paint("M_RoadPaint", new Color(0.92f, 0.92f, 0.88f), 0.45f));
             trunkKit.ToObject("PalmTrunks", root, Mat.Paint("M_PalmTrunk", new Color(0.42f, 0.33f, 0.24f), 0.15f));
-            frondKit.ToObject("PalmFronds", root, Mat.Paint("M_PalmFrond", new Color(0.34f, 0.41f, 0.20f), 0.25f));
+            var frondMat = Mat.Textured("M_PalmFrondTex", TextureKit.Frond, Color.white, 0.2f, Vector2.one);
+            frondMat.SetFloat("_AlphaClip", 1f); frondMat.SetFloat("_Cutoff", 0.4f); frondMat.EnableKeyword("_ALPHATEST_ON");
+            frondMat.SetFloat("_Cull", 0f);
+            frondMat.renderQueue = 2450;
+            frondKit.ToObject("PalmFronds", root, frondMat);
 
             var coll = new GameObject("StaticColliders");
             coll.transform.SetParent(root, false);

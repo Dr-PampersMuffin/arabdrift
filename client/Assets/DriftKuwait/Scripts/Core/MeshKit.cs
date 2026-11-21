@@ -26,6 +26,16 @@ namespace DriftKuwait
             Tri(a, c, d, outward);
         }
 
+        /// Quad with explicit UVs (no winding fix-up: use a double-sided material).
+        public void QuadUv(Vector3 a, Vector3 b, Vector3 c, Vector3 d, Vector2 ua, Vector2 ub, Vector2 uc, Vector2 ud)
+        {
+            int i = verts.Count;
+            verts.Add(a); verts.Add(b); verts.Add(c); verts.Add(d);
+            uvs.Add(ua); uvs.Add(ub); uvs.Add(uc); uvs.Add(ud);
+            tris.Add(i); tris.Add(i + 1); tris.Add(i + 2);
+            tris.Add(i); tris.Add(i + 2); tris.Add(i + 3);
+        }
+
         // Planar box-projected UVs in metres (good for tiling textures later).
         static Vector2 Uv(Vector3 p, Vector3 n)
         {
