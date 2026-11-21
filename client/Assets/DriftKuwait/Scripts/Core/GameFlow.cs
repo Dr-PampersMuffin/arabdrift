@@ -80,6 +80,7 @@ namespace DriftKuwait
             ClearScreen();
             EndDrive();
             carId = id;
+            if (PreviewHooks.Active) Debug.Log("[Drive] building car " + id);
             car = CarFactory.Build(id, new Vector3(0f, 0.6f, -140f), Quaternion.identity);
             car.GetComponent<DriftCarController>().counterSteerAssist = GameSettings.Assist;
             driftCam.target = car.GetComponent<Rigidbody>();
@@ -87,7 +88,9 @@ namespace DriftKuwait
             worldCam.enabled = true;
             var scorer = car.AddComponent<DriftScorer>();
             scorer.cam = driftCam;
+            if (PreviewHooks.Active) Debug.Log("[Drive] car ready, building HUD");
             hud = DriveHUD.Build(this, car.GetComponent<DriftCarController>(), scorer, driftCam);
+            if (PreviewHooks.Active) Debug.Log("[Drive] HUD ready");
             pursuit = new GameObject("DK_Pursuit").AddComponent<Pursuit>();
             pursuit.player = car.GetComponent<DriftCarController>();
             pursuit.hud = hud;

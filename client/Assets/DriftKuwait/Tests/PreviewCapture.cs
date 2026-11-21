@@ -42,7 +42,14 @@ namespace DriftKuwait.Preview
                 yield return null;
             }
 
+            Debug.Log("[Preview] starting drive");
             PreviewHooks.StartDrive?.Invoke();
+            for (int fr = 0; fr < 6; fr++)
+            {
+                float t0 = Time.realtimeSinceStartup;
+                yield return null;
+                Debug.Log($"[Preview] drive frame {fr}: {(Time.realtimeSinceStartup - t0) * 1000f:F0} ms");
+            }
             yield return new WaitForSeconds(2.0f);
             var car = Object.FindAnyObjectByType<DriftCarController>();
             Assert.IsNotNull(car, "no car spawned");

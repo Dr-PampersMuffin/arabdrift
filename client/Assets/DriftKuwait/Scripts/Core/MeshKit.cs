@@ -166,6 +166,7 @@ namespace DriftKuwait
             go.transform.SetParent(parent, false);
             go.AddComponent<MeshFilter>().sharedMesh = ToMesh(name);
             go.AddComponent<MeshRenderer>().sharedMaterial = mat;
+            if (verts.Count > 30000) Debug.Log($"[World] {name}: {verts.Count} verts, {tris.Count / 3} tris");
             return go;
         }
 

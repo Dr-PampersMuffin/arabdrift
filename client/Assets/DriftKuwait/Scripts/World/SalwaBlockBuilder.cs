@@ -347,7 +347,8 @@ namespace DriftKuwait
                 // Limestone plinth along the foot of the wall
                 stoneKit.Box(a + dir * ((s0 + s1) * 0.5f) + Vector3.up * (baseY + 0.3f), new Vector3(T + 0.06f, 0.6f, s1 - s0), rot, true);
                 // Pillars every ~3.6 m, slightly proud and taller, with a white cap
-                int n = Mathf.Max(1, Mathf.RoundToInt((s1 - s0) / 3.6f));
+                // Street-facing walls get pillars every ~3.6 m, side and back walls every ~8 m (cheaper)
+                int n = Mathf.Max(1, Mathf.RoundToInt((s1 - s0) / (gateAt >= 0f ? 3.6f : 8f)));
                 for (int k = 0; k <= n; k++)
                 {
                     Vector3 pc = a + dir * Mathf.Lerp(s0 + 0.25f, s1 - 0.25f, k / (float)n) + Vector3.up * baseY;
