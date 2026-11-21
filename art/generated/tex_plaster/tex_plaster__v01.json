@@ -1,0 +1,31 @@
+{
+ "asset_id": "tex_plaster",
+ "version": 1,
+ "spec": "art/prompts/textures.json",
+ "prompt": "Seamless tileable texture, photographed straight down (orthographic top view), even flat lighting with no shadows or vignette, high detail, photorealistic, for a racing game material. It must tile perfectly on all edges.\n\nCream limestone-coloured painted cement plaster wall of a Gulf villa, slightly rough sand texture, subtle weathering and faint dust stains, no cracks wider than a hair.\n\nDo not include: text; letters; logos; perspective; shadows of objects.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1024x1024",
+  "quality": "high",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 103,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 103
+  },
+  "output_tokens": 7024,
+  "output_tokens_details": {
+   "image_tokens": 7024,
+   "text_tokens": 0
+  },
+  "total_tokens": 7127
+ },
+ "seconds": 92.6,
+ "created": "2026-11-21T08:01:14+0300",
+ "qa_status": "in_review"
+}

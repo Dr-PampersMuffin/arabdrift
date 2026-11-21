@@ -1,27 +1,215 @@
 {
-  "_note": "Stage 1 sound pack for الشاهين and Salwa. Engine loops must hold ONE steady RPM so Unity can pitch and crossfade them. Edit prompts freely; re-run with --only key --force to regenerate one sound.",
-  "sounds": [
-    { "key": "shaheen_idle", "loop": true, "duration": 6, "influence": 0.7,
-      "text": "1980s Japanese four-cylinder turbo sports coupe engine idling at a steady 900 rpm, recorded at the exhaust, lumpy and slightly rough, constant, no revving, no other sounds, seamless loop" },
-    { "key": "shaheen_2000", "loop": true, "duration": 6, "influence": 0.7,
-      "text": "1980s Japanese four-cylinder turbo engine held at a steady 2000 rpm under light throttle, exhaust recording, gritty and raspy, constant pitch, no gear changes, no other sounds, seamless loop" },
-    { "key": "shaheen_4000", "loop": true, "duration": 6, "influence": 0.7,
-      "text": "1980s Japanese four-cylinder turbo engine at a steady 4000 rpm under full throttle, turbo spooling whistle, aggressive raspy exhaust, constant pitch, no gear changes, no other sounds, seamless loop" },
-    { "key": "shaheen_6000", "loop": true, "duration": 6, "influence": 0.7,
-      "text": "1980s Japanese four-cylinder turbo engine screaming at a steady 6500 rpm full throttle, high turbo whistle, harsh metallic exhaust, constant pitch, no gear changes, no other sounds, seamless loop" },
-    { "key": "shaheen_blowoff", "loop": false, "duration": 1.2, "influence": 0.8,
-      "text": "single turbo blow-off valve release, sharp pssshh with a fluttering chatter, 1980s sports car, close up, no engine" },
-
-    { "key": "tyre_squeal_loop", "loop": true, "duration": 6, "influence": 0.7,
-      "text": "car tyres screeching continuously in a long sideways drift on hot asphalt, steady high-pitched squeal, no engine, no music, seamless loop" },
-    { "key": "tyre_burnout_loop", "loop": true, "duration": 6, "influence": 0.7,
-      "text": "rear wheels spinning in a stationary burnout, tyres burning and smoking on asphalt, rough roaring scrub, no engine, seamless loop" },
-    { "key": "sand_roost_loop", "loop": true, "duration": 6, "influence": 0.6,
-      "text": "car tyres spinning in loose desert sand, sand spraying and hissing against the body, no engine, seamless loop" },
-
-    { "key": "amb_salwa_golden", "loop": true, "duration": 22, "influence": 0.4,
-      "text": "quiet residential street at sunset in a hot Gulf city in the 1980s, air conditioner compressors humming from villas, distant light traffic, a dog barking far away, warm wind, no music, no voices, seamless loop" },
-    { "key": "amb_garage_oldworkshop", "loop": true, "duration": 22, "influence": 0.4,
-      "text": "inside an old car mechanic workshop, ceiling fan turning, occasional metal tool clinks, a kettle, a small old radio playing faint static, no music, no voices, seamless loop" }
-  ]
+ "_note": "Stage 1 sound pack for الشاهين and Salwa. Engine loops must hold ONE steady RPM so Unity can pitch and crossfade them. Edit prompts freely; re-run with --only key --force to regenerate one sound.",
+ "sounds": [
+  {
+   "key": "shaheen_idle",
+   "loop": true,
+   "duration": 6,
+   "influence": 0.7,
+   "text": "1980s Japanese four-cylinder turbo sports coupe engine idling at a steady 900 rpm, recorded at the exhaust, lumpy and slightly rough, constant, no revving, no other sounds, seamless loop"
+  },
+  {
+   "key": "shaheen_2000",
+   "loop": true,
+   "duration": 6,
+   "influence": 0.7,
+   "text": "1980s Japanese four-cylinder turbo engine held at a steady 2000 rpm under light throttle, exhaust recording, gritty and raspy, constant pitch, no gear changes, no other sounds, seamless loop"
+  },
+  {
+   "key": "shaheen_4000",
+   "loop": true,
+   "duration": 6,
+   "influence": 0.7,
+   "text": "1980s Japanese four-cylinder turbo engine at a steady 4000 rpm under full throttle, turbo spooling whistle, aggressive raspy exhaust, constant pitch, no gear changes, no other sounds, seamless loop"
+  },
+  {
+   "key": "shaheen_6000",
+   "loop": true,
+   "duration": 6,
+   "influence": 0.7,
+   "text": "1980s Japanese four-cylinder turbo engine screaming at a steady 6500 rpm full throttle, high turbo whistle, harsh metallic exhaust, constant pitch, no gear changes, no other sounds, seamless loop"
+  },
+  {
+   "key": "shaheen_blowoff",
+   "loop": false,
+   "duration": 1.2,
+   "influence": 0.8,
+   "text": "single turbo blow-off valve release, sharp pssshh with a fluttering chatter, 1980s sports car, close up, no engine"
+  },
+  {
+   "key": "tyre_squeal_loop",
+   "loop": true,
+   "duration": 6,
+   "influence": 0.7,
+   "text": "car tyres screeching continuously in a long sideways drift on hot asphalt, steady high-pitched squeal, no engine, no music, seamless loop"
+  },
+  {
+   "key": "tyre_burnout_loop",
+   "loop": true,
+   "duration": 6,
+   "influence": 0.7,
+   "text": "rear wheels spinning in a stationary burnout, tyres burning and smoking on asphalt, rough roaring scrub, no engine, seamless loop"
+  },
+  {
+   "key": "sand_roost_loop",
+   "loop": true,
+   "duration": 6,
+   "influence": 0.6,
+   "text": "car tyres spinning in loose desert sand, sand spraying and hissing against the body, no engine, seamless loop"
+  },
+  {
+   "key": "amb_salwa_golden",
+   "loop": true,
+   "duration": 22,
+   "influence": 0.4,
+   "text": "quiet residential street at sunset in a hot Gulf city in the 1980s, air conditioner compressors humming from villas, distant light traffic, a dog barking far away, warm wind, no music, no voices, seamless loop"
+  },
+  {
+   "key": "amb_garage_oldworkshop",
+   "loop": true,
+   "duration": 22,
+   "influence": 0.4,
+   "text": "inside an old car mechanic workshop, ceiling fan turning, occasional metal tool clinks, a kettle, a small old radio playing faint static, no music, no voices, seamless loop"
+  },
+  {
+   "key": "shaheen_backfire",
+   "loop": false,
+   "duration": 1.5,
+   "influence": 0.7,
+   "text": "two sharp exhaust backfire pops and crackles from a 1980s turbo car on throttle lift, close exhaust recording, no engine drone after"
+  },
+  {
+   "key": "shaheen_shift",
+   "loop": false,
+   "duration": 0.8,
+   "influence": 0.7,
+   "text": "quick manual gear shift: mechanical gear lever clunk and a short turbo flutter, car interior, no music"
+  },
+  {
+   "key": "shaheen_start",
+   "loop": false,
+   "duration": 3,
+   "influence": 0.6,
+   "text": "1980s turbo four-cylinder car engine cranking briefly then starting and settling to idle, close recording"
+  },
+  {
+   "key": "tyre_squeal_heavy",
+   "loop": true,
+   "duration": 6,
+   "influence": 0.7,
+   "text": "continuous heavy tyre screech of a car drifting sideways on hot asphalt at full lock, loud sustained rubber squeal with scrubbing texture, steady, no engine, seamless loop"
+  },
+  {
+   "key": "tyre_scrub_loop",
+   "loop": true,
+   "duration": 6,
+   "influence": 0.7,
+   "text": "soft continuous tyre scrub and light squeal of a car cornering hard on asphalt, steady, no engine, seamless loop"
+  },
+  {
+   "key": "kerb_hit",
+   "loop": false,
+   "duration": 0.8,
+   "influence": 0.7,
+   "text": "car tyre hitting a concrete kerb, heavy rubber thump and suspension clunk"
+  },
+  {
+   "key": "wall_scrape",
+   "loop": false,
+   "duration": 2.5,
+   "influence": 0.7,
+   "text": "car body scraping along a concrete wall, harsh metal on stone grinding scrape"
+  },
+  {
+   "key": "impact_crash",
+   "loop": false,
+   "duration": 1.5,
+   "influence": 0.7,
+   "text": "car hitting a wall at medium speed: heavy metal crunch, bumper crack, small glass tinkle"
+  },
+  {
+   "key": "siren_dawriya",
+   "loop": true,
+   "duration": 8,
+   "influence": 0.6,
+   "text": "fictional police car siren: a smooth two-tone rising and falling wail, continuous, heard from a short distance outdoors, seamless loop"
+  },
+  {
+   "key": "siren_yelp",
+   "loop": false,
+   "duration": 2,
+   "influence": 0.6,
+   "text": "short fast police siren yelp burst, electronic, outdoors"
+  },
+  {
+   "key": "radio_squelch",
+   "loop": false,
+   "duration": 1.2,
+   "influence": 0.7,
+   "text": "police radio squelch click and short static burst"
+  },
+  {
+   "key": "amb_salwa_night",
+   "loop": true,
+   "duration": 20,
+   "influence": 0.5,
+   "text": "warm night ambience in a quiet 1980s Gulf residential neighbourhood: air conditioner compressors humming on villas, distant traffic, crickets, a far dog bark, faint generator, no music, no voices close, seamless loop"
+  },
+  {
+   "key": "amb_meet_crowd",
+   "loop": true,
+   "duration": 20,
+   "influence": 0.4,
+   "text": "night car meet in a large car park: crowd of young men chatting and laughing indistinctly at a distance, idling cars, occasional rev, no clear words, no music, seamless loop"
+  },
+  {
+   "key": "ui_cassette_insert",
+   "loop": false,
+   "duration": 1.2,
+   "influence": 0.8,
+   "text": "cassette tape pushed into a car tape deck: plastic click and mechanism clunk"
+  },
+  {
+   "key": "ui_click",
+   "loop": false,
+   "duration": 0.5,
+   "influence": 0.8,
+   "text": "soft premium user interface click, short, warm"
+  },
+  {
+   "key": "ui_whoosh",
+   "loop": false,
+   "duration": 0.9,
+   "influence": 0.7,
+   "text": "short cinematic whoosh transition with a subtle low thump"
+  },
+  {
+   "key": "ui_reward",
+   "loop": false,
+   "duration": 1.5,
+   "influence": 0.6,
+   "text": "satisfying reward chime: bright metallic shimmer and a soft impact, game menu"
+  },
+  {
+   "key": "crowd_cheer",
+   "loop": false,
+   "duration": 3,
+   "influence": 0.6,
+   "text": "small crowd of men cheering and whistling outdoors at night after a big car drift, excited"
+  },
+  {
+   "key": "garage_door",
+   "loop": false,
+   "duration": 3,
+   "influence": 0.7,
+   "text": "old metal roller garage door rolling open, rattling"
+  },
+  {
+   "key": "horn",
+   "loop": false,
+   "duration": 1.2,
+   "influence": 0.8,
+   "text": "a 1980s Japanese car horn: two short friendly honks, outdoors"
+  }
+ ]
 }

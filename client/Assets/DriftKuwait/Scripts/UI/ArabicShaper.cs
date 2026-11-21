@@ -117,7 +117,7 @@ namespace DriftKuwait
             return sb.ToString();
         }
 
-        static bool IsLtr(char c) => (c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '.' || c == ',';
+        static bool IsLtr(char c) => (c >= '0' && c <= '9') || (c >= '\u0660' && c <= '\u0669') || c == '\u066B' || c == '\u066C' || c == '+' || c == '%' || c == ':' || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '.' || c == ',';
 
         static char Mirror(char c)
         {

@@ -1,0 +1,10 @@
+{
+ "_note": "Arab Drift soundtrack (blueprint section 8): oriental Kuwaiti desert tones, oud, qanun, rababa, mirwas and tabl drums, Gulf hand-clap patterns, 1980s analogue synths at night. Instrumental, no vocals.",
+ "tracks": [
+  {"key": "mus_menu", "seconds": 95, "prompt": "Epic cinematic Khaleeji synthwave title theme for a 1980s Kuwait street drifting game: warm analogue synth pads and a pulsing synth bass, a soaring oud melody in maqam hijaz, mirwas and tabl drums with Gulf hand-clap patterns, big reverb, nostalgic sunset mood building to a powerful drop, instrumental, no vocals"},
+  {"key": "mus_garage", "seconds": 70, "prompt": "Slow intimate solo oud taqsim in maqam bayati recorded in an old workshop, soft cassette tape hiss and warmth, gentle frame drum entering later, nostalgic and calm, instrumental, no vocals"},
+  {"key": "mus_drive_day", "seconds": 120, "prompt": "Upbeat Gulf street groove for driving through a sunny residential neighbourhood: Khaleeji hand-clap rhythm, qanun hook, punchy mirwas drums, round analogue synth bass, bright and confident, loopable, instrumental, no vocals"},
+  {"key": "mus_drive_night", "seconds": 120, "prompt": "Dark driving Khaleeji synthwave for night drifting under orange street lights: deep mirwas and tabl groove, tight Gulf claps, gated 80s synth leads in maqam hijaz, arpeggiated bass, tension and swagger, loopable, instrumental, no vocals"},
+  {"key": "mus_pursuit", "seconds": 90, "prompt": "Intense police chase music: fast driving percussion with tabl and mirwas, urgent synth stabs and ostinato bass in maqam saba, rising tension, cinematic action, loopable, instrumental, no vocals"}
+ ]
+}

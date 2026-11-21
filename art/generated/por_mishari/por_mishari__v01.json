@@ -1,0 +1,31 @@
+{
+ "asset_id": "por_mishari",
+ "version": 1,
+ "spec": "art/prompts/ui.json",
+ "prompt": "Photorealistic cinematic still, warm film photograph of 1985 Kuwait (Kodak film look, slightly lifted blacks, warm highlights, dust in the air), the quality of key art for a AAA mobile racing game. Fictional cars only: no real manufacturer logos, badges or names.\n\nHead-and-shoulders portrait of Mishari, a confident young Kuwaiti man aged about 22 in 1985: short black hair, thin moustache, cocky half-smile, white dishdasha with open collar, aviator sunglasses pushed up on his head, leaning on a blue sports car at dusk with street lights behind, cinematic.\n\nDo not include: any text, letters, words, logos or watermarks; real car brand logos; religious buildings, mosques, minarets, domes; flags; modern glass skyscrapers; people's faces in close-up.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1024x1024",
+  "quality": "high",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 183,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 183
+  },
+  "output_tokens": 7024,
+  "output_tokens_details": {
+   "image_tokens": 7024,
+   "text_tokens": 0
+  },
+  "total_tokens": 7207
+ },
+ "seconds": 92.6,
+ "created": "2026-11-21T07:41:36+0300",
+ "qa_status": "in_review"
+}

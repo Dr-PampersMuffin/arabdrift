@@ -1,0 +1,31 @@
+{
+ "asset_id": "ui_district_kabd",
+ "version": 1,
+ "spec": "art/prompts/ui.json",
+ "prompt": "Photorealistic cinematic still, warm film photograph of 1985 Kuwait (Kodak film look, slightly lifted blacks, warm highlights, dust in the air), the quality of key art for a AAA mobile racing game. Fictional cars only: no real manufacturer logos, badges or names.\n\nKabd desert in Kuwait at golden hour: a camel race track with white rails, a line of racing camels running with a dust cloud, low spectator stands, flat desert horizon, warm haze.\n\nDo not include: any text, letters, words, logos or watermarks; real car brand logos; religious buildings, mosques, minarets, domes; flags; modern glass skyscrapers; people's faces in close-up.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1024x1024",
+  "quality": "high",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 152,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 152
+  },
+  "output_tokens": 7024,
+  "output_tokens_details": {
+   "image_tokens": 7024,
+   "text_tokens": 0
+  },
+  "total_tokens": 7176
+ },
+ "seconds": 91.4,
+ "created": "2026-11-21T07:41:35+0300",
+ "qa_status": "in_review"
+}

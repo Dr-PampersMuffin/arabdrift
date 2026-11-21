@@ -1,0 +1,31 @@
+{
+ "asset_id": "ui_district_salwa",
+ "version": 2,
+ "spec": "art/prompts/ui.json",
+ "prompt": "Photorealistic cinematic still, warm film photograph of 1985 Kuwait (Kodak film look, slightly lifted blacks, warm highlights, dust in the air), the quality of key art for a AAA mobile racing game. Fictional cars only: no real manufacturer logos, badges or names.\n\nSalwa, Kuwait in 1985 at golden hour: a wide quiet residential street with cream walled villas, steel gates, date palms, street lamps, a water tower in the distance, long shadows across the road. No sports cars and no modern cars: the street is empty except, at most, one old boxy 1980s family sedan parked far away.\n\nDo not include: any text, letters, words, logos or watermarks; real car brand logos; religious buildings, mosques, minarets, domes; flags; modern glass skyscrapers; people's faces in close-up.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1024x1024",
+  "quality": "high",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 188,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 188
+  },
+  "output_tokens": 7024,
+  "output_tokens_details": {
+   "image_tokens": 7024,
+   "text_tokens": 0
+  },
+  "total_tokens": 7212
+ },
+ "seconds": 92.1,
+ "created": "2026-11-21T07:43:39+0300",
+ "qa_status": "in_review"
+}

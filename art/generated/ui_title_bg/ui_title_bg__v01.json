@@ -1,0 +1,31 @@
+{
+ "asset_id": "ui_title_bg",
+ "version": 1,
+ "spec": "art/prompts/ui.json",
+ "prompt": "Photorealistic cinematic still, warm film photograph of 1985 Kuwait (Kodak film look, slightly lifted blacks, warm highlights, dust in the air), the quality of key art for a AAA mobile racing game. Fictional cars only: no real manufacturer logos, badges or names.\n\nA silver early-1980s boxy two-door turbo coupe (four rectangular headlights, black lower body, black deep-dish wheels) drifting sideways towards the camera on a wide residential street in Salwa, Kuwait, at golden hour, thick white tyre smoke pouring from the rear wheels and glowing in the low sun, wet-looking reflective asphalt, cream limestone walled villas with steel gates and bougainvillea, tall date palms, old street lamps, a big concrete neighbourhood water tower on the right against an orange sky with the sun low, two other 80s cars far behind. Composition: car in the left-centre, empty sky area at top-left for a logo, darker right third for menu buttons.\n\nDo not include: any text, letters, words, logos or watermarks; real car brand logos; religious buildings, mosques, minarets, domes; flags; modern glass skyscrapers; people's faces in close-up.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "high",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 256,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 256
+  },
+  "output_tokens": 5488,
+  "output_tokens_details": {
+   "image_tokens": 5488,
+   "text_tokens": 0
+  },
+  "total_tokens": 5744
+ },
+ "seconds": 64.5,
+ "created": "2026-11-21T07:41:08+0300",
+ "qa_status": "in_review"
+}

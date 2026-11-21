@@ -30,7 +30,9 @@ namespace DriftKuwait.Preview
             Debug.Log($"[Preview] graphics {SystemInfo.graphicsDeviceType} {SystemInfo.graphicsDeviceName}, out {OutDir}");
             PreviewHooks.Active = true;
 
-            // Menu and garage first, when the game has them.
+            // Menu and garage first.
+            if (GameFlow.I == null) GameBootstrap.Boot();
+            yield return new WaitForSeconds(1.0f);
             foreach (var shot in PreviewHooks.MenuShots)
             {
                 yield return shot.setup();
@@ -40,8 +42,8 @@ namespace DriftKuwait.Preview
                 yield return null;
             }
 
-            if (Object.FindAnyObjectByType<DriftCarController>() == null) GameBootstrap.Boot();
-            yield return new WaitForSeconds(1.5f);
+            PreviewHooks.StartDrive?.Invoke();
+            yield return new WaitForSeconds(2.0f);
             var car = Object.FindAnyObjectByType<DriftCarController>();
             Assert.IsNotNull(car, "no car spawned");
             Capture("10_start");
@@ -88,6 +90,18 @@ namespace DriftKuwait.Preview
                 cam.transform.LookAt(a.name == "23_car_wheel" ? car.transform.TransformPoint(new Vector3(0.75f, 0.35f, 1.4f)) : c);
                 yield return null;
                 CaptureWith(cam, a.name, false);
+            }
+
+            // Overview of the whole district from above (layout check).
+            {
+                var top = new GameObject("OverviewCam").AddComponent<Camera>();
+                top.orthographic = true; top.orthographicSize = 260f;
+                top.transform.position = new Vector3(0f, 400f, 0f);
+                top.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+                top.farClipPlane = 800f;
+                yield return null;
+                CaptureWith(top, "05_overview", false);
+                Object.Destroy(top.gameObject);
             }
 
             // Night, if the world supports it.

@@ -1,0 +1,31 @@
+{
+ "asset_id": "ui_loading",
+ "version": 1,
+ "spec": "art/prompts/ui.json",
+ "prompt": "Photorealistic cinematic still, warm film photograph of 1985 Kuwait (Kodak film look, slightly lifted blacks, warm highlights, dust in the air), the quality of key art for a AAA mobile racing game. Fictional cars only: no real manufacturer logos, badges or names.\n\nNight on a 1980s Kuwaiti residential street: a boxy silver turbo coupe in a long drift through a roundabout, orange sodium street lamps, glowing white tyre smoke lit orange, a lit corner grocery shop, palm trees silhouetted, wet asphalt reflections, cinematic wide shot.\n\nDo not include: any text, letters, words, logos or watermarks; real car brand logos; religious buildings, mosques, minarets, domes; flags; modern glass skyscrapers; people's faces in close-up.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "high",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 170,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 170
+  },
+  "output_tokens": 5488,
+  "output_tokens_details": {
+   "image_tokens": 5488,
+   "text_tokens": 0
+  },
+  "total_tokens": 5658
+ },
+ "seconds": 68.1,
+ "created": "2026-11-21T07:41:12+0300",
+ "qa_status": "in_review"
+}

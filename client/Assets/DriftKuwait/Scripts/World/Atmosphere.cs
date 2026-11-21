@@ -12,6 +12,8 @@ namespace DriftKuwait
         static Light sun;
         static Material sky;
         static Volume volume;
+        public static bool IsNight { get; private set; }
+        public static Preset Current { get; private set; }
 
         public static void Build(Transform parent)
         {
@@ -52,10 +54,14 @@ namespace DriftKuwait
             grain.intensity.Override(0.18f);
 
             Apply(Preset.GoldenHour);
+            PreviewHooks.SetNight = night => Apply(night ? Preset.Night : Preset.GoldenHour);
         }
 
         public static void Apply(Preset p)
         {
+            Current = p;
+            IsNight = p == Preset.Night;
+            CarLights.NightMode = IsNight;
             var ca = volume != null && volume.sharedProfile.TryGet(out ColorAdjustments c) ? c : null;
             RenderSettings.fog = true;
             RenderSettings.fogMode = FogMode.ExponentialSquared;

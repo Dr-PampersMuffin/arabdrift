@@ -35,8 +35,9 @@ public class DKAssetPostprocessor : AssetPostprocessor
         {
             string f = System.IO.Path.GetFileNameWithoutExtension(p);
             ti.textureType = f == "normal" ? TextureImporterType.NormalMap : TextureImporterType.Default;
-            ti.sRGBTexture = f == "albedo" || f == "thumb";
-            ti.alphaSource = f == "metallic" ? TextureImporterAlphaSource.FromInput : TextureImporterAlphaSource.None;
+            ti.sRGBTexture = f == "albedo" || f == "thumb" || f == "decal";
+            if (f == "decal") ti.alphaIsTransparency = true;
+            ti.alphaSource = (f == "metallic" || f == "decal") ? TextureImporterAlphaSource.FromInput : TextureImporterAlphaSource.None;
             ti.mipmapEnabled = f != "thumb";
             ti.maxTextureSize = 2048;
             ios.overridden = true; ios.maxTextureSize = 2048; ios.format = TextureImporterFormat.ASTC_6x6;

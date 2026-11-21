@@ -259,6 +259,14 @@ namespace DriftKuwait
             m.SetTexture("_MainTex", tex);
             m.SetTextureScale("_BaseMap", tiling);
             m.SetTextureScale("_MainTex", tiling);
+            var nrm = tex != null ? Resources.Load<Texture2D>("DriftKuwait/Tex/" + tex.name + "_n") : null;
+            if (nrm != null)
+            {
+                m.SetTexture("_BumpMap", nrm);
+                m.SetTextureScale("_BumpMap", tiling);
+                m.SetFloat("_BumpScale", 1f);
+                m.EnableKeyword("_NORMALMAP");
+            }
             cache[key] = m;
             return m;
         }

@@ -55,6 +55,7 @@ def main():
     ap.add_argument("glb")
     ap.add_argument("--length", type=float, required=True, help="real car length in metres")
     ap.add_argument("--radius", type=float, default=None, help="override tyre radius (metres)")
+    ap.add_argument("--door-text", action="store_true", help="find the door lettering (patrol car) so the game can cover it with a correct decal")
     ap.add_argument("--unity", default=None, help="also write body.obj, 2K maps and car.json to this Unity Resources folder")
     a = ap.parse_args()
 
@@ -95,8 +96,8 @@ def main():
     kill = np.zeros(len(g.faces), bool)
     for c in centres.values():
         dx, dy = fc[:, 0] - c[0], fc[:, 1] - c[1]
-        inside = (dx * dx + dy * dy) < (radius * 1.0) ** 2
-        outer = (fc[:, 2] * np.sign(c[2])) > (abs(c[2]) - width * 0.75)
+        inside = (dx * dx + dy * dy) < (radius * 1.02) ** 2
+        outer = (fc[:, 2] * np.sign(c[2])) > max(half_w * 0.35, abs(c[2]) - width * 1.8)
         kill |= inside & outer
     g.vertices = v
     g.update_faces(~kill)
@@ -155,6 +156,26 @@ def main():
                     c = (lo + hi) / 2
                     lights[key].append([round(float(c[0]), 3), round(float(c[1]), 3), round(float(hi[2] if key == "head" else lo[2]), 3),
                                         round(float(hi[0] - lo[0]), 3), round(float(max(hi[1] - lo[1], 0.05)), 3)])
+        if a.door_text:
+            tealish = (bb > rr + 25) & (gg > rr + 10) & (rr < 120)
+            side = np.abs(U[:, 0]) > half_w * 0.85
+            band = (U[:, 1] > 0.45) & (U[:, 1] < 1.05) & (np.abs(U[:, 2]) < L * 0.3)
+            for sgn in (-1, 1):
+                q = U[tealish & side & band & (np.sign(U[:, 0]) == sgn)]
+                if len(q) >= 6:
+                    # the long teal stripe is the densest height: lettering sits below it
+                    hist, edges = np.histogram(q[:, 1], bins=24)
+                    stripe_y = (edges[np.argmax(hist)] + edges[np.argmax(hist) + 1]) / 2
+                    q = q[q[:, 1] < stripe_y - 0.07]
+                    q = q[np.abs(q[:, 2] - np.median(q[:, 2])) < 0.7] if len(q) else q
+                if len(q) >= 3:
+                    lo, hi = np.percentile(q, 3, 0), np.percentile(q, 97, 0)
+                    c = (lo + hi) / 2
+                    body = col[side & band & (np.sign(U[:, 0]) == sgn) & (rr > 170) & (gg > 165)]
+                    bc = body.mean(0) / 255 if len(body) else np.array([0.92, 0.9, 0.84])
+                    lights.setdefault("door", []).append([round(float(sgn * half_w), 3), round(float(c[1]), 3), round(float(c[2]), 3),
+                                                          round(float(hi[2] - lo[2]), 3), round(float(hi[1] - lo[1]), 3),
+                                                          round(float(bc[0]), 3), round(float(bc[1]), 3), round(float(bc[2]), 3)])
     except Exception as e:  # lights are optional
         print("light detection skipped:", e)
 

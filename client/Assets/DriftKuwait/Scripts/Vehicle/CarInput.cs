@@ -17,10 +17,21 @@ namespace DriftKuwait
         public static float TouchSteer, TouchThrottle, TouchBrake;
         public static bool TouchHandbrake;
 
+        // AI drivers (الدورية) write these instead of reading the player's controls.
+        public bool ai;
+        public float aiSteer, aiThrottle, aiBrake;
+        public bool aiHandbrake;
+
         float steerSmoothed;
 
         void Update()
         {
+            if (ai)
+            {
+                Steer = Mathf.MoveTowards(Steer, Mathf.Clamp(aiSteer, -1f, 1f), 5f * Time.deltaTime);
+                Throttle = Mathf.Clamp01(aiThrottle); Brake = Mathf.Clamp01(aiBrake); Handbrake = aiHandbrake;
+                return;
+            }
             float steer = 0, thr = 0, brk = 0; bool hb = false;
 
 #if ENABLE_INPUT_SYSTEM
@@ -48,6 +59,13 @@ namespace DriftKuwait
             thr = Mathf.Max(0, v); brk = Mathf.Max(0, -v);
             hb = Input.GetKey(KeyCode.Space);
 #endif
+            if (GameSettings.Layout == GameSettings.Controls.Tilt && !PreviewHooks.Active)
+            {
+#if !ENABLE_INPUT_SYSTEM
+                float tilt = Input.acceleration.x * 2.4f;
+                if (Mathf.Abs(tilt) > 0.06f) steer = Mathf.Clamp(tilt, -1f, 1f);
+#endif
+            }
             if (Mathf.Abs(TouchSteer) > Mathf.Abs(steer)) steer = TouchSteer;
             thr = Mathf.Max(thr, TouchThrottle);
             brk = Mathf.Max(brk, TouchBrake);
@@ -55,6 +73,7 @@ namespace DriftKuwait
 
             // Digital steering feels harsh on a phone: ramp in, snap back faster.
             float rate = (Mathf.Abs(steer) > Mathf.Abs(steerSmoothed) && Mathf.Sign(steer) == Mathf.Sign(steerSmoothed)) ? 4.5f : 7f;
+            if (GameSettings.Layout != GameSettings.Controls.Buttons) rate = 14f;   // analogue wheel / tilt: follow closely
             steerSmoothed = Mathf.MoveTowards(steerSmoothed, steer, rate * Time.deltaTime);
 
             Steer = steerSmoothed;

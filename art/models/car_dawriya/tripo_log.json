@@ -1,0 +1,23 @@
+[
+ {
+  "step": "model",
+  "task_id": "200227ca-8dab-4fa4-8fa6-15251d97b1a8",
+  "status": "success",
+  "credits": 40,
+  "seconds": 59,
+  "body": {
+   "type": "image_to_model",
+   "model_version": "v2.5-20250123",
+   "texture": true,
+   "pbr": true,
+   "texture_quality": "detailed",
+   "face_limit": 30000
+  },
+  "files": {
+   "pbr_model": "art/models/car_dawriya/model_pbr.glb",
+   "rendered_image": "art/models/car_dawriya/preview.webp"
+  },
+  "output_meta": {},
+  "time": "2026-11-21T07:56:43+0300"
+ }
+]

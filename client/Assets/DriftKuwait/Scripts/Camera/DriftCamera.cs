@@ -17,16 +17,26 @@ namespace DriftKuwait
         float shake, punch, fov;
         bool initialised;
 
+        Rigidbody boundTarget;
+
         void Start()
         {
             cam = GetComponent<Camera>();
+            fov = 62f;
+        }
+
+        // The target changes when the player picks another car: re-bind and snap the camera behind it.
+        void Bind()
+        {
+            boundTarget = target;
+            if (target == null) return;
             car = target.GetComponent<DriftCarController>();
-            car.OnImpact += (impulse, point) =>
+            if (car != null) car.OnImpact += (impulse, point) =>
             {
                 if (impulse > 2500f) shake = Mathf.Max(shake, Mathf.Clamp01(impulse / 14000f));
             };
             travelDir = target.transform.forward;
-            fov = 62f;
+            initialised = false;
         }
 
         public void NextMode() => mode = (Mode)(((int)mode + 1) % 4);
@@ -35,6 +45,7 @@ namespace DriftKuwait
 
         void LateUpdate()
         {
+            if (target != boundTarget) Bind();
             if (target == null) return;
             float dt = Time.unscaledDeltaTime;
             Transform t = target.transform;

@@ -1,4 +1,4 @@
-// DRIFT KUWAIT - روح الشارع
+// ARAB DRIFT - روح الشارع
 // Stage 1 prototype bootstrap: builds the whole test level from code when you press Play
 // in an empty scene whose name starts with "Salwa" (or any scene with no camera).
 using UnityEngine;
@@ -11,7 +11,7 @@ namespace DriftKuwait
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void AutoBoot()
         {
-            if (Object.FindAnyObjectByType<DriftCarController>() != null) return;
+            if (Object.FindAnyObjectByType<DriftCarController>() != null || GameFlow.I != null) return;
             if (GameObject.Find("DK_NoAutoBoot") != null) return;
 
             string scene = SceneManager.GetActiveScene().name;
@@ -37,34 +37,27 @@ namespace DriftKuwait
             var root = new GameObject("DK_World");
             Atmosphere.Build(root.transform);
             SalwaBlockBuilder.Build(root.transform);
-
-            var car = CarFactory.Build(CarCatalog.SelectedId, new Vector3(0f, 0.6f, -140f), Quaternion.identity);
+            StreetProps.Build(root.transform);
 
             var camGo = new GameObject("DK_Camera");
             var cam = camGo.AddComponent<Camera>();
             camGo.tag = "MainCamera";
             camGo.AddComponent<AudioListener>();
             var dc = camGo.AddComponent<DriftCamera>();
-            dc.target = car.GetComponent<Rigidbody>();
             Atmosphere.ConfigureCamera(cam);
 
-            // Salwa street ambience (ElevenLabs loop), if generated.
+            // Salwa street ambience under everything (ElevenLabs loop).
             var amb = Resources.Load<AudioClip>("DriftKuwait/Audio/amb_salwa_golden");
             if (amb != null)
             {
                 var a = camGo.AddComponent<AudioSource>();
-                a.clip = amb; a.loop = true; a.volume = 0.45f; a.spatialBlend = 0f;
+                a.clip = amb; a.loop = true; a.volume = 0.35f; a.spatialBlend = 0f;
                 a.Play();
             }
 
-            var scorer = car.AddComponent<DriftScorer>();
-            scorer.cam = dc;
-
-            var hudGo = new GameObject("DK_HUD");
-            var hud = hudGo.AddComponent<HUD>();
-            hud.car = car.GetComponent<DriftCarController>();
-            hud.scorer = scorer;
-            hud.cam = dc;
+            GameSettings.Load();
+            var flow = GameFlow.Create(cam, dc);
+            flow.ShowTitle();
         }
     }
 }

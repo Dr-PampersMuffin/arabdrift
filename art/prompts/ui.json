@@ -1,0 +1,114 @@
+{
+ "version": 1,
+ "batch": 1,
+ "style_header": "Photorealistic cinematic still, warm film photograph of 1985 Kuwait (Kodak film look, slightly lifted blacks, warm highlights, dust in the air), the quality of key art for a AAA mobile racing game. Fictional cars only: no real manufacturer logos, badges or names.",
+ "must_not": [
+  "any text, letters, words, logos or watermarks",
+  "real car brand logos",
+  "religious buildings, mosques, minarets, domes",
+  "flags",
+  "modern glass skyscrapers",
+  "people's faces in close-up"
+ ],
+ "defaults": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "high",
+  "background": "opaque",
+  "output_format": "png",
+  "n": 1
+ },
+ "items": [
+  {
+   "asset_id": "ui_title_bg",
+   "prompt": "A silver early-1980s boxy two-door turbo coupe (four rectangular headlights, black lower body, black deep-dish wheels) drifting sideways towards the camera on a wide residential street in Salwa, Kuwait, at golden hour, thick white tyre smoke pouring from the rear wheels and glowing in the low sun, wet-looking reflective asphalt, cream limestone walled villas with steel gates and bougainvillea, tall date palms, old street lamps, a big concrete neighbourhood water tower on the right against an orange sky with the sun low, two other 80s cars far behind. Composition: car in the left-centre, empty sky area at top-left for a logo, darker right third for menu buttons.",
+   "params": {
+    "size": "1536x1024"
+   }
+  },
+  {
+   "asset_id": "ui_garage_bg",
+   "prompt": "Interior of an old 1980s Kuwaiti car workshop at night, seen from car height: warm tungsten work lamps hanging from the ceiling, a slow ceiling fan, tool boards full of spanners, a red tool chest, stacked tyres, an old boombox on a shelf, a brass Arabic coffee pot (dallah) on a small table, oil-stained concrete floor glossy with reflections, a large empty clear space in the centre of the floor for a car, plain painted walls and blank old signboards. Cinematic, moody, warm.",
+   "params": {
+    "size": "1536x1024"
+   }
+  },
+  {
+   "asset_id": "ui_district_salwa",
+   "prompt": "Salwa, Kuwait in 1985 at golden hour: a wide quiet residential street with cream walled villas, steel gates, date palms, street lamps, a water tower in the distance, long shadows across the road. No sports cars and no modern cars: the street is empty except, at most, one old boxy 1980s family sedan parked far away.",
+   "params": {
+    "size": "1024x1024"
+   }
+  },
+  {
+   "asset_id": "ui_district_rumaithiya",
+   "prompt": "Rumaithiya, Kuwait in 1985 at dusk: a tight residential block with narrow lanes between high villa walls, a 90-degree corner, satellite dish free, rooftop water tanks, a small corner grocery with warm light, first street lamps coming on. No sports cars and no modern cars: the street is empty except, at most, one old boxy 1980s family sedan parked far away.",
+   "params": {
+    "size": "1024x1024"
+   }
+  },
+  {
+   "asset_id": "ui_district_ummniqa",
+   "prompt": "Umm Niqa sand flats north of Kuwait at sunset: open golden desert with low dunes, wide tyre tracks circling in the sand, one small 1980s off-white pickup truck far away kicking up a sand plume, hazy orange sky. No other vehicles.",
+   "params": {
+    "size": "1024x1024"
+   }
+  },
+  {
+   "asset_id": "ui_district_kabd",
+   "prompt": "Kabd desert in Kuwait at golden hour: a camel race track with white rails, a line of racing camels running with a dust cloud, low spectator stands, flat desert horizon, warm haze. No sports cars and no modern cars: the street is empty except, at most, one old boxy 1980s family sedan parked far away.",
+   "params": {
+    "size": "1024x1024"
+   }
+  },
+  {
+   "asset_id": "ui_loading",
+   "prompt": "Night on a 1980s Kuwaiti residential street: a boxy silver turbo coupe in a long drift through a roundabout, orange sodium street lamps, glowing white tyre smoke lit orange, a lit corner grocery shop, palm trees silhouetted, wet asphalt reflections, cinematic wide shot.",
+   "params": {
+    "size": "1536x1024"
+   }
+  },
+  {
+   "asset_id": "ui_cassette",
+   "prompt": "A single 1980s audio cassette tape lying flat at a slight angle on a dark surface, worn black plastic shell with a blank cream paper label (no writing at all), visible tape reels, soft studio light, isolated, photorealistic.",
+   "params": {
+    "size": "1024x1024"
+   }
+  },
+  {
+   "asset_id": "por_abu_rashid",
+   "prompt": "Head-and-shoulders portrait of Abu Rashid, a Kuwaiti car mechanic in his late fifties in 1985: grey-white trimmed beard and moustache, kind tired eyes, white ghutra headdress with black agal, a grey work dishdasha with a few oil marks, standing in a warm-lit workshop with blurred tools behind, cinematic portrait lighting.",
+   "params": {
+    "size": "1024x1024"
+   }
+  },
+  {
+   "asset_id": "por_mishari",
+   "prompt": "Head-and-shoulders portrait of Mishari, a confident young Kuwaiti man aged about 22 in 1985: short black hair, thin moustache, cocky half-smile, white dishdasha with open collar, aviator sunglasses pushed up on his head, leaning on a blue sports car at dusk with street lights behind, cinematic.",
+   "params": {
+    "size": "1024x1024"
+   }
+  },
+  {
+   "asset_id": "por_noura",
+   "prompt": "Head-and-shoulders portrait of Noura, a Kuwaiti woman in her mid twenties in 1985 who runs a car paint and sticker shop: dark hair under a loose patterned shayla scarf, confident friendly expression, holding a paint spray gun, colourful paint swatches and car stickers blurred behind, warm light, cinematic.",
+   "params": {
+    "size": "1024x1024"
+   }
+  },
+  {
+   "asset_id": "por_bader",
+   "prompt": "Head-and-shoulders portrait of Captain Bader, a calm fair-minded patrol officer in his forties in 1985 from a fictional police force: neat moustache, sand-coloured uniform shirt with a teal shoulder stripe and an original eight-point star badge (no real insignia, no flags), cap under his arm, patrol car lights blurred behind at night, cinematic.",
+   "params": {
+    "size": "1024x1024"
+   }
+  },
+  {
+   "asset_id": "por_salem",
+   "prompt": "Head-and-shoulders portrait of Salem, a Kuwaiti desert man in his thirties in 1985: sun-weathered face, short beard, red-and-white shemagh headdress, beige dishdasha, a falcon perched on his gloved hand, desert camp tent and fire glow behind at dusk, cinematic.",
+   "params": {
+    "size": "1024x1024"
+   }
+  }
+ ]
+}

@@ -1,0 +1,161 @@
+{
+ "_note": "Kuwaiti dialect lines (blueprint section 8). No religious phrases, no politics. A Kuwaiti writer should review every line before launch. Numbers are spelt out so the voice reads them naturally.",
+ "model": "eleven_v3",
+ "cast": {
+  "abu_rashid": {
+   "name": "AD Abu Rashid",
+   "voice_id": "KylrHp6ZWnFm3rme6tlU",
+   "owner": "584c0cf170af365d9732b4c08e181fea7a06f3e8330e7516ae72f71ad215a49a",
+   "stability": 0.45,
+   "style": 0.35
+  },
+  "mishari": {
+   "name": "AD Mishari",
+   "voice_id": "lB6K69u17Gb2FSiT9pVV",
+   "owner": "039fddde4bc9379adde862f0aa03b33fa38db2fd5a5d9025f3f4b5cfedb04ad1",
+   "stability": 0.4,
+   "style": 0.45
+  },
+  "noura": {
+   "name": "AD Noura",
+   "voice_id": "3AH0h1SXwwhE8vUUWuQW",
+   "owner": "833391905650381496309f0370792237b286e328522574057b76b95998f3abc9",
+   "stability": 0.5,
+   "style": 0.3
+  },
+  "radio": {
+   "name": "AD Dawriya Radio",
+   "voice_id": "G1QUjBCuRBbLbAmYlTgl",
+   "owner": "6a7fdbc4675eba065f18918936c8db4fe6716b0f4d8c2c329356c1d34b021965",
+   "stability": 0.55,
+   "style": 0.2
+  }
+ },
+ "lines": [
+  {
+   "key": "ab_title",
+   "who": "abu_rashid",
+   "text": "روح الشارع."
+  },
+  {
+   "key": "ab_intro_1",
+   "who": "abu_rashid",
+   "text": "هلا فيك يا ولدي. هذي سلوى... وهذا الشاهين. أول سيارة تعلمت عليها التقحيص."
+  },
+  {
+   "key": "ab_intro_2",
+   "who": "abu_rashid",
+   "text": "الكويت مو بس مدينة... الشارع هني له روح. وروح الشارع ما تنشرى... تنكسب."
+  },
+  {
+   "key": "ab_tut_throttle",
+   "who": "abu_rashid",
+   "text": "دوس البانزين... خل التيربو يصفّر."
+  },
+  {
+   "key": "ab_tut_handbrake",
+   "who": "abu_rashid",
+   "text": "الحين! شد الهاندبريك وخل الصدر يلف... لا تخاف."
+  },
+  {
+   "key": "ab_tut_counter",
+   "who": "abu_rashid",
+   "text": "عاكس الدركسون... إي، جذي. لا تفك الدعسة."
+  },
+  {
+   "key": "ab_good",
+   "who": "abu_rashid",
+   "text": "كفو! هذا التقحيص اللي أبيه."
+  },
+  {
+   "key": "ab_fail",
+   "who": "abu_rashid",
+   "text": "هدّيت بدري... الدعسة لازم تكمل للنهاية."
+  },
+  {
+   "key": "ab_garage",
+   "who": "abu_rashid",
+   "text": "حياك بالكراج. كل سيارة هني لها قصة."
+  },
+  {
+   "key": "ab_abusitta",
+   "who": "abu_rashid",
+   "text": "أبو ستة... هذي سيارتي. سنة أربعة وثمانين أخذت فيها لقب الشارع."
+  },
+  {
+   "key": "cl_kafu",
+   "who": "mishari",
+   "text": "كفو!"
+  },
+  {
+   "key": "cl_yasalam",
+   "who": "mishari",
+   "text": "يا سلااام!"
+  },
+  {
+   "key": "cl_adel",
+   "who": "mishari",
+   "text": "عدل عدل!"
+  },
+  {
+   "key": "cl_mumtaz",
+   "who": "mishari",
+   "text": "تقحيص ممتاز!"
+  },
+  {
+   "key": "cl_wahsh",
+   "who": "mishari",
+   "text": "وحش!"
+  },
+  {
+   "key": "cl_khateer",
+   "who": "mishari",
+   "text": "خطيير!"
+  },
+  {
+   "key": "cl_qarrib",
+   "who": "mishari",
+   "text": "قرّب أكثر!"
+  },
+  {
+   "key": "mi_taunt",
+   "who": "mishari",
+   "text": "شنو هالتقحيص؟ تعال الرميثية وأوريك شلون يصير."
+  },
+  {
+   "key": "no_paint",
+   "who": "noura",
+   "text": "جيبها المحل... عندي لك ألوان ما شفتها بحياتك."
+  },
+  {
+   "key": "rd_spotted",
+   "who": "radio",
+   "radio": true,
+   "text": "دورية اثنعش للعمليات... عندنا سيارة فضية تقحص عند دوار سلوى. متابعين."
+  },
+  {
+   "key": "rd_ahead",
+   "who": "radio",
+   "radio": true,
+   "text": "السيارة الفضية قدامنا... انتبه... انتبه."
+  },
+  {
+   "key": "rd_block",
+   "who": "radio",
+   "radio": true,
+   "text": "العمليات: سكّروا الدوار الثاني. لا تخلونه يطلع."
+  },
+  {
+   "key": "rd_lost",
+   "who": "radio",
+   "radio": true,
+   "text": "فقدناه... ما في أثر للسيارة. نرجع للدورية."
+  },
+  {
+   "key": "pa_stop",
+   "who": "radio",
+   "radio": true,
+   "text": "السيارة الفضية! وقّف على اليمين!"
+  }
+ ]
+}

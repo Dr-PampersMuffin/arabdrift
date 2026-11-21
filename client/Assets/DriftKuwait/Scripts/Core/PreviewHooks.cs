@@ -19,6 +19,7 @@ namespace DriftKuwait
 
         public static readonly List<Shot> MenuShots = new List<Shot>();
         public static Action<bool> SetNight;
+        public static Action StartDrive;
 
         public static void Register(string name, Func<IEnumerator> setup, Action teardown = null)
         {

@@ -25,6 +25,7 @@ namespace DriftKuwait
             public Vector3 fl, fr, rl, rr;
             public List<Vector4> tail = new List<Vector4>();   // x, y, z, width (height ignored)
             public List<Vector4> head = new List<Vector4>();
+            public List<float[]> door = new List<float[]>();     // x, y, z, width, height, body r, g, b (lettering to cover)
         }
 
         public static CarData Load(string id)
@@ -38,6 +39,7 @@ namespace DriftKuwait
             d.rl = ReadVec(ta.text, "\"RL\""); d.rr = ReadVec(ta.text, "\"RR\"");
             d.tail = ReadList(ta.text, "\"tail\"");
             d.head = ReadList(ta.text, "\"head\"");
+            d.door = ReadRows(ta.text, "\"door\"");
             return d;
         }
 
@@ -73,6 +75,32 @@ namespace DriftKuwait
                 }
             }
             return list;
+        }
+
+        static List<float[]> ReadRows(string s, string key)
+        {
+            var rows = new List<float[]>();
+            int i = s.IndexOf(key, StringComparison.Ordinal);
+            if (i < 0) return rows;
+            int a = s.IndexOf('[', i), depth = 0, start = -1;
+            for (int k = a; k < s.Length; k++)
+            {
+                char c = s[k];
+                if (c == '[') { depth++; if (depth == 2) start = k + 1; }
+                else if (c == ']')
+                {
+                    if (depth == 2 && start > 0)
+                    {
+                        var p = s.Substring(start, k - start).Split(',');
+                        var r = new float[p.Length];
+                        for (int j = 0; j < p.Length; j++) r[j] = F(p[j]);
+                        rows.Add(r);
+                    }
+                    depth--;
+                    if (depth == 0) break;
+                }
+            }
+            return rows;
         }
 
         static float F(string t) => float.Parse(t.Trim(), System.Globalization.CultureInfo.InvariantCulture);
@@ -184,6 +212,39 @@ namespace DriftKuwait
                     r.gameObject.layer = root.gameObject.layer;
                 }
                 foreach (var c in body.GetComponentsInChildren<Collider>()) UnityEngine.Object.Destroy(c);
+            }
+
+            // Correct Arabic door lettering over whatever the model's texture painted there (patrol: شرطة).
+            var decalTex = Resources.Load<Texture2D>($"DriftKuwait/Cars/{spec.id}/decal");
+            if (decalTex != null && d.door.Count > 0)
+            {
+                var lit = Shader.Find("Universal Render Pipeline/Lit");
+                var dm = new Material(lit) { name = "DK_Decal_" + spec.id };
+                dm.SetTexture("_BaseMap", decalTex);
+                dm.SetFloat("_Surface", 1f); dm.SetFloat("_Blend", 0f);
+                dm.SetFloat("_Smoothness", 0.75f);
+                dm.SetOverrideTag("RenderType", "Transparent");
+                dm.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+                dm.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                dm.SetInt("_ZWrite", 0);
+                dm.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+                dm.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+                foreach (var r in d.door)
+                {
+                    if (r.Length < 5) continue;
+                    float sgn = Mathf.Sign(r[0]);
+                    var q = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                    UnityEngine.Object.Destroy(q.GetComponent<Collider>());
+                    q.name = "DoorDecal";
+                    q.layer = root.gameObject.layer;
+                    q.transform.SetParent(bodyRoot.transform, false);
+                    q.transform.localPosition = new Vector3(r[0] + sgn * 0.012f, r[1], r[2]);
+                    q.transform.localRotation = Quaternion.Euler(0f, sgn > 0 ? -90f : 90f, 0f);   // face outwards
+                    q.transform.localScale = new Vector3(Mathf.Max(r[3] * 1.3f, 0.7f), Mathf.Max(r[4] * 1.7f, 0.26f), 1f);
+                    var mr = q.GetComponent<MeshRenderer>();
+                    mr.sharedMaterial = dm;
+                    mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                }
             }
 
             // Dark wheel-well liners behind each cut-out, so the arches never show the inside of the shell.

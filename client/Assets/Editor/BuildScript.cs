@@ -158,6 +158,7 @@ public static class BuildScript
         KeepVariant("Universal Render Pipeline/Lit", "lit_normal", "_NORMALMAP");
         KeepVariant("Universal Render Pipeline/Lit", "lit_normal_metal", "_NORMALMAP", "_METALLICSPECGLOSSMAP");
         KeepVariant("Universal Render Pipeline/Lit", "lit_transparent", "_SURFACE_TYPE_TRANSPARENT");
+        KeepVariant("Universal Render Pipeline/Lit", "lit_alphatest", "_ALPHATEST_ON");
         KeepVariant("Universal Render Pipeline/Particles/Unlit", "pu_transparent", "_SURFACE_TYPE_TRANSPARENT");
         KeepVariant("Universal Render Pipeline/Particles/Unlit", "pu_soft", "_SURFACE_TYPE_TRANSPARENT", "_SOFTPARTICLES_ON", "_FADING_ON");
         KeepVariant("Universal Render Pipeline/Particles/Lit", "pl_soft", "_SURFACE_TYPE_TRANSPARENT", "_SOFTPARTICLES_ON", "_FADING_ON");

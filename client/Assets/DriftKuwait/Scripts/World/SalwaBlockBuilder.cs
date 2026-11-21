@@ -515,7 +515,7 @@ namespace DriftKuwait
             glassKit.ToObject("Windows", village, Mat.Paint("M_Window", new Color(0.08f, 0.10f, 0.11f), 0.92f, 0.2f));
             acKit.ToObject("WindowACs", village, Mat.Paint("M_AC", new Color(0.82f, 0.80f, 0.74f), 0.4f, 0.3f));
             tankKit.ToObject("WaterTanks", village, Mat.Paint("M_Tank", new Color(0.90f, 0.88f, 0.80f), 0.35f));
-            pavingKit.ToObject("Pavements", root, Mat.Textured("M_Paving", TextureKit.Paving, Color.white, 0.2f, new Vector2(0.25f, 0.25f)));
+            pavingKit.ToObject("Pavements", root, Mat.Textured("M_Paving", TextureKit.Paving, Color.white, 0.2f, new Vector2(0.6f, 0.6f)));
             kerbYellow.ToObject("Kerb_Yellow", root, Mat.Paint("M_KerbY", new Color(0.95f, 0.75f, 0.10f), 0.35f));
             kerbBlack.ToObject("Kerb_Black", root, Mat.Paint("M_KerbB", new Color(0.06f, 0.06f, 0.06f), 0.35f));
             paintKit.ToObject("RoadPaint", root, Mat.Paint("M_RoadPaint", new Color(0.92f, 0.92f, 0.88f), 0.45f));

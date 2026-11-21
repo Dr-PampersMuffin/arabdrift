@@ -1,0 +1,31 @@
+{
+ "asset_id": "ui_cassette",
+ "version": 1,
+ "spec": "art/prompts/ui.json",
+ "prompt": "Photorealistic cinematic still, warm film photograph of 1985 Kuwait (Kodak film look, slightly lifted blacks, warm highlights, dust in the air), the quality of key art for a AAA mobile racing game. Fictional cars only: no real manufacturer logos, badges or names.\n\nA single 1980s audio cassette tape lying flat at a slight angle on a dark surface, worn black plastic shell with a blank cream paper label (no writing at all), visible tape reels, soft studio light, isolated, photorealistic.\n\nDo not include: any text, letters, words, logos or watermarks; real car brand logos; religious buildings, mosques, minarets, domes; flags; modern glass skyscrapers; people's faces in close-up.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1024x1024",
+  "quality": "high",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 163,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 163
+  },
+  "output_tokens": 7024,
+  "output_tokens_details": {
+   "image_tokens": 7024,
+   "text_tokens": 0
+  },
+  "total_tokens": 7187
+ },
+ "seconds": 92.8,
+ "created": "2026-11-21T07:41:36+0300",
+ "qa_status": "in_review"
+}

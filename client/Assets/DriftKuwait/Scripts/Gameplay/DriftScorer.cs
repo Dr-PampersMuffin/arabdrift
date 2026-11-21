@@ -17,6 +17,11 @@ namespace DriftKuwait
         public long BestRun { get; private set; }
 
         public event Action<string, Color> OnCallout;
+        public event Action<long> OnBank;
+        // Breakdown of the running chain for the HUD (زاوية / سرعة / اقتراب).
+        public float AnglePts { get; private set; }
+        public float SpeedPts { get; private set; }
+        public float ProxPts { get; private set; }
 
         const float MinAngle = 12f, MinKmh = 25f, Grace = 1.4f;
         static readonly Color Gold = new Color(1f, 0.78f, 0.25f);
@@ -48,7 +53,11 @@ namespace DriftKuwait
                 Multiplier = Mathf.Clamp(1 + Mathf.FloorToInt(chainTime / 2.5f), 1, 5);
                 float angleFactor = Mathf.InverseLerp(MinAngle, 65f, angle);
                 float pps = (40f + angleFactor * 160f) * Mathf.Lerp(0.6f, 1.6f, Mathf.InverseLerp(25f, 120f, car.SpeedKmh));
-                Current += pps * Multiplier * dt;
+                float gain = pps * Multiplier * dt;
+                Current += gain;
+                float aShare = (40f + angleFactor * 160f) / Mathf.Max(1f, 40f + angleFactor * 160f + 60f * Mathf.InverseLerp(25f, 120f, car.SpeedKmh));
+                AnglePts += gain * aShare;
+                SpeedPts += gain * (1f - aShare);
                 if (angle > 80f) Current -= pps * 0.5f * dt; // over-rotation is sloppy
                 CheckNearMiss();
             }
@@ -76,6 +85,7 @@ namespace DriftKuwait
                 {
                     if (hit.normal.y > 0.6f) continue; // the ground is not a wall
                     Current += 250f * Multiplier;
+                    ProxPts += 250f * Multiplier;
                     nearMissCooldown = 1.5f;
                     OnCallout?.Invoke("على الشعرة!", Teal);
                     if (cam != null) cam.Punch();
@@ -91,13 +101,23 @@ namespace DriftKuwait
             if (pts > BestRun) BestRun = pts;
             string word = pts < 500 ? "حلو" : pts < 2000 ? "عدل!" : pts < 6000 ? "كفو!" : "يا سلام!";
             OnCallout?.Invoke(word, Gold);
+            if (pts >= 800)
+            {
+                string[] lines = pts < 2000 ? new[] { "cl_adel", "cl_kafu" } : pts < 6000 ? new[] { "cl_kafu", "cl_mumtaz", "cl_wahsh" } : new[] { "cl_yasalam", "cl_khateer" };
+                Sfx.Voice(lines[UnityEngine.Random.Range(0, lines.Length)], 0.9f);
+            }
+            if (pts >= 4000) Sfx.Play("crowd_cheer", 0.5f);
+            Wallet.Add(pts / 4, pts / 100);
+            OnBank?.Invoke(pts);
             Current = 0f; chainTime = 0f; Multiplier = 1;
+            AnglePts = SpeedPts = ProxPts = 0f;
         }
 
         void OnImpact(float impulse, Vector3 point)
         {
             if (impulse < 3000f || Current <= 0f) return;
             Current = 0f; chainTime = 0f; Multiplier = 1;
+            AnglePts = SpeedPts = ProxPts = 0f;
             OnCallout?.Invoke("خربتها!", Red);
         }
     }

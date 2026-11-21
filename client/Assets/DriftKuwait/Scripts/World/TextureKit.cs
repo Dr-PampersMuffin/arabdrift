@@ -8,6 +8,9 @@ namespace DriftKuwait
     {
         static Texture2D sand, asphalt, paving, plaster, smoke;
 
+        // Photographic tileables (tools/art/make_textures.py) replace the procedural fallbacks when present.
+        static Texture2D Res(string n) => Resources.Load<Texture2D>("DriftKuwait/Tex/" + n);
+
         static float Tile(float x, float y, float period, float scale)
         {
             // 4-corner blend of Perlin makes the noise tile seamlessly over 'period'.
@@ -34,13 +37,13 @@ namespace DriftKuwait
             return t;
         }
 
-        public static Texture2D Sand => sand != null ? sand : (sand = Make("DK_Sand", 256, (x, y) =>
+        public static Texture2D Sand => sand != null ? sand : (sand = Res("sand") ?? Make("DK_Sand", 256, (x, y) =>
         {
             float n = Tile(x, y, 256, 0.02f) * 0.6f + Tile(x, y, 256, 0.09f) * 0.3f + Random.value * 0.1f;
             return Color.Lerp(new Color(0.70f, 0.56f, 0.38f), new Color(0.88f, 0.75f, 0.55f), n);
         }));
 
-        public static Texture2D Asphalt => asphalt != null ? asphalt : (asphalt = Make("DK_Asphalt", 256, (x, y) =>
+        public static Texture2D Asphalt => asphalt != null ? asphalt : (asphalt = Res("asphalt") ?? Make("DK_Asphalt", 256, (x, y) =>
         {
             float n = Tile(x, y, 256, 0.05f) * 0.5f + Random.value * 0.5f;
             float g = Mathf.Lerp(0.20f, 0.33f, n);
@@ -48,7 +51,7 @@ namespace DriftKuwait
             return new Color(g * 1.02f, g, g * 0.96f);
         }));
 
-        public static Texture2D Paving => paving != null ? paving : (paving = Make("DK_Paving", 256, (x, y) =>
+        public static Texture2D Paving => paving != null ? paving : (paving = Res("paving") ?? Make("DK_Paving", 256, (x, y) =>
         {
             bool joint = (x % 64) < 2 || (y % 64) < 2;
             float n = Tile(x, y, 256, 0.06f) * 0.3f + Random.value * 0.08f;
@@ -56,7 +59,7 @@ namespace DriftKuwait
             return joint ? c * 0.7f : c;
         }));
 
-        public static Texture2D Plaster => plaster != null ? plaster : (plaster = Make("DK_Plaster", 256, (x, y) =>
+        public static Texture2D Plaster => plaster != null ? plaster : (plaster = Res("plaster") ?? Make("DK_Plaster", 256, (x, y) =>
         {
             float n = Tile(x, y, 256, 0.03f) * 0.5f + Random.value * 0.12f;
             float v = Mathf.Lerp(0.86f, 1f, n);
