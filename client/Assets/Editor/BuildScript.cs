@@ -117,6 +117,7 @@ public static class BuildScript
             AssetDatabase.SaveAssets();
             Debug.Log("[Build] Created " + assetPath);
         }
+        EnsureSsao();
         GraphicsSettings.defaultRenderPipeline = asset;
         int current = QualitySettings.GetQualityLevel();
         for (int i = 0; i < QualitySettings.names.Length; i++)
@@ -126,6 +127,47 @@ public static class BuildScript
         }
         QualitySettings.SetQualityLevel(current, false);
         AssetDatabase.SaveAssets();
+    }
+
+    /// Screen-space ambient occlusion: contact darkening under cars, kerbs, gates and walls. The feature class is
+    /// internal to URP, so it is created by name.
+    static void EnsureSsao()
+    {
+        try
+        {
+            var rd = AssetDatabase.LoadAssetAtPath<UniversalRendererData>(SettingsDir + "/DK_URP_Renderer.asset");
+            if (rd == null) return;
+            foreach (var f in rd.rendererFeatures) if (f != null && f.GetType().Name == "ScreenSpaceAmbientOcclusion") return;
+            var t = typeof(UniversalRendererData).Assembly.GetType("UnityEngine.Rendering.Universal.ScreenSpaceAmbientOcclusion");
+            if (t == null) { Debug.LogWarning("[Build] SSAO type not found"); return; }
+            var feature = (ScriptableRendererFeature)ScriptableObject.CreateInstance(t);
+            feature.name = "SSAO";
+            AssetDatabase.AddObjectToAsset(feature, rd);
+            rd.rendererFeatures.Add(feature);
+            var so = new SerializedObject(rd);
+            var map = so.FindProperty("m_RendererFeatureMap");
+            if (map != null && AssetDatabase.TryGetGUIDAndLocalFileIdentifier(feature, out _, out long id))
+            {
+                map.arraySize++;
+                map.GetArrayElementAtIndex(map.arraySize - 1).longValue = id;
+                so.ApplyModifiedPropertiesWithoutUndo();
+            }
+            // Settings: half-res, moderate radius, works without normals texture on mobile.
+            var fso = new SerializedObject(feature);
+            var settings = fso.FindProperty("m_Settings");
+            if (settings != null)
+            {
+                void SetF(string n, float v) { var p = settings.FindPropertyRelative(n); if (p != null) p.floatValue = v; }
+                void SetB(string n, bool v) { var p = settings.FindPropertyRelative(n); if (p != null) p.boolValue = v; }
+                SetF("Intensity", 1.1f); SetF("Radius", 0.45f); SetF("DirectLightingStrength", 0.2f);
+                SetB("Downsample", true);
+                fso.ApplyModifiedPropertiesWithoutUndo();
+            }
+            rd.SetDirty();
+            EditorUtility.SetDirty(rd);
+            Debug.Log("[Build] SSAO feature added");
+        }
+        catch (System.Exception e) { Debug.LogWarning("[Build] SSAO skipped: " + e.Message); }
     }
 
     static void EnsureShaderRefs()
