@@ -18,6 +18,9 @@ namespace DriftKuwait
         DriftCamera cam;
 
         Image scorePlate;
+        /// Set by the running event (null = free roam text).
+        public string MissionTitle, MissionSub, MissionTime;
+        GameObject shiftUp, shiftDown;
         Text totalTxt, chainTxt, multTxt, calloutTxt, angleTxt, speedTxt, gearTxt, turboTxt, missionTitle, missionSub, missionTime;
         Text[] breakdown = new Text[3];
         GameObject breakdownRoot, multRoot, heatRoot, dialogRoot;
@@ -252,10 +255,21 @@ namespace DriftKuwait
             var bl = UIKit.Label(brake.transform, "L", "فرامل", 28, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Place(bl.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, -40f), new Vector2(160f, 40f));
             UIKit.AddShadow(bl, 2f, 0.8f);
+            // Manual gearbox paddles, beside the gauge
+            shiftUp = UIKit.Button(safe, "ShiftUp", Color.white, () => CarInput.ShiftUpRequest = true, "hud/shift_up").gameObject;
+            UIKit.Place((RectTransform)shiftUp.transform, new Vector2(1f, 0f), new Vector2(-470f, 440f), new Vector2(120f, 120f));
+            shiftDown = UIKit.Button(safe, "ShiftDown", Color.white, () => CarInput.ShiftDownRequest = true, "hud/shift_down").gameObject;
+            UIKit.Place((RectTransform)shiftDown.transform, new Vector2(1f, 0f), new Vector2(-470f, 300f), new Vector2(120f, 120f));
             gas = HoldImage(safe, "Gas", "hud/pedal_gas", new Vector2(1f, 0f), new Vector2(-220f, 40f), new Vector2(150f, 230f));
             var gl = UIKit.Label(gas.transform, "L", "دفع", 28, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Place(gl.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, -40f), new Vector2(160f, 40f));
             UIKit.AddShadow(gl, 2f, 0.8f);
+            foreach (var (go, sp) in new[] { (shiftUp, "hud/shift_up"), (shiftDown, "hud/shift_down") })
+            {
+                var im = go.GetComponent<Image>();
+                im.sprite = UIKit.S(sp); im.type = Image.Type.Simple; im.preserveAspect = true;
+            }
+            ApplyLayout();
         }
 
         public void ApplyLayout()
@@ -263,6 +277,7 @@ namespace DriftKuwait
             var l = GameSettings.Layout;
             steerButtons.SetActive(l == GameSettings.Controls.Buttons);
             wheel.gameObject.SetActive(l == GameSettings.Controls.Wheel);
+            if (shiftUp != null) { shiftUp.SetActive(GameSettings.Manual); shiftDown.SetActive(GameSettings.Manual); }
         }
 
         HoldButton HoldImage(Transform parent, string name, string sprite, Vector2 anchor, Vector2 pos, Vector2 size)
@@ -281,13 +296,14 @@ namespace DriftKuwait
             needle = n.rectTransform;
             UIKit.Stretch(needle);
             speedTxt = UIKit.Label(g.transform, "Speed", UIKit.Num(0), 92, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
-            UIKit.Place(speedTxt.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -40f), new Vector2(240f, 110f));
+            UIKit.Place(speedTxt.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -66f), new Vector2(240f, 96f));
+            speedTxt.fontSize = 78;
             var unit = UIKit.Label(g.transform, "Unit", "كم/س", 26, new Color(1, 1, 1, 0.75f), TextAnchor.MiddleCenter, UIKit.Arabic);
-            UIKit.Place(unit.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -102f), new Vector2(200f, 36f));
+            UIKit.Place(unit.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -118f), new Vector2(200f, 36f));
             turboTxt = UIKit.Label(g.transform, "Turbo", "TURBO", 22, new Color(1, 1, 1, 0.3f), TextAnchor.MiddleCenter, UIKit.Black, false);
             UIKit.Place(turboTxt.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 28f), new Vector2(160f, 30f));
             var gb = UIKit.Panel(g.transform, "GearBox", new Color(0, 0, 0, 0.7f), "hud/panel_sharp");
-            UIKit.Place(gb.rectTransform, new Vector2(1f, 0f), new Vector2(52f, 30f), new Vector2(76f, 96f));
+            UIKit.Place(gb.rectTransform, new Vector2(0f, 0f), new Vector2(-50f, 40f), new Vector2(76f, 96f));
             UIKit.Outline(gb.transform, new Color(1, 1, 1, 0.8f), "hud/panel_sharp_outline");
             gearTxt = UIKit.Label(gb.transform, "T", "١", 62, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Stretch(gearTxt.rectTransform);
@@ -357,9 +373,9 @@ namespace DriftKuwait
             }
             else
             {
-                missionTitle.text = UIKit.Ar("تقحيص حر");
-                missionSub.text = UIKit.Ar("سلوى · قطعة ٥");
-                missionTime.text = "";
+                missionTitle.text = UIKit.Ar(MissionTitle ?? "تقحيص حر");
+                missionSub.text = UIKit.Ar(MissionSub ?? "سلوى · قطعة ٥");
+                missionTime.text = MissionTime ?? "";
             }
 
             if (dialogTimer > 0f) { dialogTimer -= Time.deltaTime; if (dialogTimer <= 0f) { dialogRoot.SetActive(false); Sfx.MusicDuck = 1f; } }
@@ -389,7 +405,7 @@ namespace DriftKuwait
             dialogRoot.SetActive(true);
             dialogPortrait.sprite = UIKit.S(portrait);
             dialogName.text = UIKit.Ar(nameAr);
-            dialogText.text = UIKit.Ar(textAr);
+            dialogText.text = UIKit.Ar(Sfx.Line(voiceKey, textAr));
             dialogTimer = Mathf.Max(2.5f, len + 0.6f);
             Sfx.MusicDuck = 0.45f;
             return dialogTimer;
@@ -442,12 +458,13 @@ namespace DriftKuwait
 
         public static SteeringWheelWidget Build(RectTransform parent)
         {
-            var bg = UIKit.Img(parent, "Wheel", UIKit.S("hud/round_dark"), new Color(1, 1, 1, 0.8f), true);
-            UIKit.Place(bg.rectTransform, new Vector2(0f, 0f), new Vector2(380f, 20f), new Vector2(300f, 300f));
+            // Touch area a little larger than the wheel so a thumb can grab the rim anywhere
+            var bg = UIKit.Img(parent, "Wheel", null, new Color(0, 0, 0, 0), true);
+            UIKit.Place(bg.rectTransform, new Vector2(0f, 0f), new Vector2(330f, 0f), new Vector2(420f, 420f));
             var w = bg.gameObject.AddComponent<SteeringWheelWidget>();
             w.rt = bg.rectTransform;
-            var im = UIKit.Img(bg.transform, "WheelIcon", UIKit.S("hud/ic_wheel"), Color.white);
-            UIKit.Place(im.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(250f, 250f));
+            var im = UIKit.Img(bg.transform, "WheelIcon", UIKit.S("hud/steering_wheel"), new Color(1, 1, 1, 0.92f));
+            UIKit.Place(im.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(360f, 360f));
             w.wheelImg = im.rectTransform;
             return w;
         }
@@ -459,13 +476,15 @@ namespace DriftKuwait
         }
 
         public void OnPointerDown(PointerEventData e) { held = true; startPointer = PointerAngle(e); startAngle = angle; }
-        public void OnDrag(PointerEventData e) { angle = Mathf.Clamp(startAngle + Mathf.DeltaAngle(startPointer, PointerAngle(e)), -135f, 135f); }
+        public void OnDrag(PointerEventData e) { angle = Mathf.Clamp(startAngle + Mathf.DeltaAngle(startPointer, PointerAngle(e)), -Lock, Lock); }
+        // Wheel rotation for full steering lock: 180 degrees (gentle) down to 90 (quick), from the sensitivity setting
+        static float Lock => Mathf.Lerp(180f, 90f, GameSettings.SteerSens);
         public void OnPointerUp(PointerEventData e) { held = false; }
 
         void Update()
         {
             if (!held) angle = Mathf.MoveTowards(angle, 0f, 540f * Time.deltaTime);
-            Value = angle / 135f;
+            Value = Mathf.Clamp(angle / Lock, -1f, 1f);
             wheelImg.localRotation = Quaternion.Euler(0f, 0f, -angle);
         }
     }

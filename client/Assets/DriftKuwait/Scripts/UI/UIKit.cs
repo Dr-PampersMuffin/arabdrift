@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -345,6 +346,22 @@ namespace DriftKuwait
         static int musicIdx;
         static string currentMusic;
         public static float MusicVolume = 0.55f, SfxVolume = 1f;
+
+        static System.Collections.Generic.Dictionary<string, string> lines;
+        /// Subtitle for a voice line, from Resources/DriftKuwait/voice_lines.json (the same script the voices were
+        /// recorded from), so what is heard and what is read always match.
+        public static string Line(string key, string fallback)
+        {
+            if (lines == null)
+            {
+                lines = new System.Collections.Generic.Dictionary<string, string>();
+                var ta = Resources.Load<TextAsset>("DriftKuwait/voice_lines");
+                if (ta != null)
+                    foreach (Match m in Regex.Matches(ta.text, "\"([a-z0-9_]+)\"\\s*:\\s*\"((?:[^\"\\\\]|\\\\.)*)\""))
+                        lines[m.Groups[1].Value] = m.Groups[2].Value;
+            }
+            return key != null && lines.TryGetValue(key, out var t) ? t : fallback;
+        }
 
         static GameObject Host()
         {

@@ -15,7 +15,7 @@ namespace DriftKuwait
 
         DriftCarController car;
         AudioSource[] layers;
-        AudioSource synthSource, blowoff, limiterPop;
+        AudioSource synthSource, blowoff, limiterPop, shiftSrc;
 
         // Values handed to the audio thread
         volatile float aRpm = 900f, aLoad, aBoost;
@@ -51,6 +51,13 @@ namespace DriftKuwait
 
             var bo = Resources.Load<AudioClip>("DriftKuwait/Audio/shaheen_blowoff");
             if (bo != null) blowoff = MakeSource(bo, false, 0.8f);
+            // Manual shifts: a gearbox clunk, and a blow-off on the way up
+            var sh = Resources.Load<AudioClip>("DriftKuwait/Audio/shaheen_shift");
+            if (sh != null)
+            {
+                shiftSrc = MakeSource(sh, false, 0.7f);
+                car.Shifted += up => { shiftSrc.volume = 0.7f * Sfx.SfxVolume; shiftSrc.Play(); if (up && blowoff != null && car.Boost > 0.3f) blowoff.Play(); };
+            }
         }
 
         AudioSource MakeSource(AudioClip clip, bool loop, float vol)

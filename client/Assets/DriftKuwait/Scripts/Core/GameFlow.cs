@@ -18,6 +18,7 @@ namespace DriftKuwait
         GameObject screen;          // current menu screen root
         DriveHUD hud;
         Pursuit pursuit;
+        EventRunner runner;
         Image fade;
 
         public static GameFlow Create(Camera cam, DriftCamera dc)
@@ -37,6 +38,9 @@ namespace DriftKuwait
                 PreviewHooks.Register("03_garage_" + carId, () => f.PreviewScreen(() => { CarCatalog.SelectedId = carId; f.ShowGarage(); }),
                                       () => CarCatalog.SelectedId = "shaheen");
             }
+            PreviewHooks.Register("04_map", () => f.PreviewScreen(() => f.ShowMap()));
+            PreviewHooks.Register("06_howto", () => f.PreviewScreen(() => { f.ShowTitle(); HowToPlay.Show(null); }),
+                                  () => { var h = Object.FindAnyObjectByType<HowToPlay>(); if (h != null) Destroy(h.gameObject); });
             PreviewHooks.StartDrive = () => f.StartDrive("shaheen", false);
             return f;
         }
@@ -69,19 +73,40 @@ namespace DriftKuwait
             Sfx.Music("mus_garage");
         }
 
-        public void StartDrive(string id, bool withFade = true)
+        public void ShowMap()
         {
-            StartCoroutine(DriveRoutine(id, withFade));
+            EndDrive();
+            ClearScreen();
+            screen = MapScreen.Build(this).gameObject;
+            Sfx.Music("mus_menu");
         }
 
-        IEnumerator DriveRoutine(string id, bool withFade)
+        /// PLAY: first time shows how to play, then the map.
+        public void Play()
+        {
+            if (!HowToPlay.Seen) HowToPlay.Show(ShowMap);
+            else ShowMap();
+        }
+
+        public void StartDrive(string id, bool withFade = true)
+        {
+            StartCoroutine(DriveRoutine(id, withFade, Career.Get("salwa_free")));
+        }
+
+        public void StartEvent(Career.EventDef ev)
+        {
+            StartCoroutine(DriveRoutine(CarCatalog.SelectedId, true, ev));
+        }
+
+        IEnumerator DriveRoutine(string id, bool withFade, Career.EventDef ev)
         {
             if (withFade) yield return Fade(1f, 0.35f);
             ClearScreen();
             EndDrive();
             carId = id;
             if (PreviewHooks.Active) Debug.Log("[Drive] building car " + id);
-            car = CarFactory.Build(id, new Vector3(0f, 0.6f, -140f), Quaternion.identity);
+            Vector3 spawn = ev != null ? ev.spawn : new Vector3(0f, 0.6f, -140f);
+            car = CarFactory.Build(id, spawn, Quaternion.Euler(0f, ev != null ? ev.yaw : 0f, 0f));
             car.GetComponent<DriftCarController>().counterSteerAssist = GameSettings.Assist;
             driftCam.target = car.GetComponent<Rigidbody>();
             driftCam.enabled = true;
@@ -96,12 +121,21 @@ namespace DriftKuwait
             pursuit.hud = hud;
             Sfx.Music(Atmosphere.IsNight ? "mus_drive_night" : "mus_drive_day");
             Sfx.Play("shaheen_start", 0.8f);
+            if (ev != null && ev.kind != Career.Kind.FreeRoam)
+            {
+                runner = new GameObject("DK_Event").AddComponent<EventRunner>();
+                runner.ev = ev; runner.car = car.GetComponent<DriftCarController>(); runner.scorer = scorer;
+                runner.hud = hud; runner.pursuit = pursuit; runner.flow = this;
+            }
             if (withFade) yield return Fade(0f, 0.5f);
-            if (!PreviewHooks.Active) hud.PlayIntro();
+            if (!PreviewHooks.Active && runner == null && !HowToPlay.Seen) hud.PlayIntro();
         }
 
         void EndDrive()
         {
+            if (runner != null) Destroy(runner.gameObject);
+            runner = null;
+            foreach (var r in Object.FindObjectsByType<ResultsScreen>(FindObjectsSortMode.None)) Destroy(r.gameObject);
             if (hud != null) Destroy(hud.gameObject);
             if (pursuit != null) { pursuit.Cleanup(); Destroy(pursuit.gameObject); }
             if (car != null) Destroy(car);

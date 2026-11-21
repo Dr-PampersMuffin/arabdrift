@@ -13,6 +13,13 @@ namespace DriftKuwait
         public DriveHUD hud;
 
         readonly List<Patrol> patrols = new List<Patrol>();
+        /// Raised when a chase ends: true = escaped, false = busted.
+        public event System.Action<bool> OnEnd;
+        /// Off during timed events, so the patrol only appears in free roam and the escape event.
+        public bool allowHeat = true;
+
+        /// The escape event starts the chase straight away.
+        public void ForceStart() { if (!active) { cooldown = 0f; StartCoroutine(Begin()); } }
         float heatPoints, escapeTimer, bustTimer, cooldown = 25f, radioCooldown;
         bool active;
 
@@ -39,7 +46,7 @@ namespace DriftKuwait
             radioCooldown -= dt;
             if (!active)
             {
-                if (heatPoints > 6000f && CarFactory.Load("dawriya") != null) StartCoroutine(Begin());
+                if (allowHeat && heatPoints > 6000f && CarFactory.Load("dawriya") != null) StartCoroutine(Begin());
                 return;
             }
 
@@ -159,6 +166,7 @@ namespace DriftKuwait
             }
             Sfx.Music(Atmosphere.IsNight ? "mus_drive_night" : "mus_drive_day", 2f);
             Cleanup();
+            OnEnd?.Invoke(escaped);
         }
 
         IEnumerator Impound()

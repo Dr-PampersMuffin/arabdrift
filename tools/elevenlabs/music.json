@@ -1,10 +1,30 @@
 {
- "_note": "Arab Drift soundtrack (blueprint section 8): oriental Kuwaiti desert tones, oud, qanun, rababa, mirwas and tabl drums, Gulf hand-clap patterns, 1980s analogue synths at night. Instrumental, no vocals.",
+ "_note": "Arab Drift soundtrack v2: high-spirit Kuwaiti party-band energy (original compositions; no artist imitation, no samples). Fast Khaleeji clap rhythms, tabl, darbuka and mirwas, punchy synth brass and leads, electric bass, oud and qanun hooks. Crowd claps and shouts allowed, no lyrics.",
  "tracks": [
-  {"key": "mus_menu", "seconds": 95, "prompt": "Epic cinematic Khaleeji synthwave title theme for a 1980s Kuwait street drifting game: warm analogue synth pads and a pulsing synth bass, a soaring oud melody in maqam hijaz, mirwas and tabl drums with Gulf hand-clap patterns, big reverb, nostalgic sunset mood building to a powerful drop, instrumental, no vocals"},
-  {"key": "mus_garage", "seconds": 70, "prompt": "Slow intimate solo oud taqsim in maqam bayati recorded in an old workshop, soft cassette tape hiss and warmth, gentle frame drum entering later, nostalgic and calm, instrumental, no vocals"},
-  {"key": "mus_drive_day", "seconds": 120, "prompt": "Upbeat Gulf street groove for driving through a sunny residential neighbourhood: Khaleeji hand-clap rhythm, qanun hook, punchy mirwas drums, round analogue synth bass, bright and confident, loopable, instrumental, no vocals"},
-  {"key": "mus_drive_night", "seconds": 120, "prompt": "Dark driving Khaleeji synthwave for night drifting under orange street lights: deep mirwas and tabl groove, tight Gulf claps, gated 80s synth leads in maqam hijaz, arpeggiated bass, tension and swagger, loopable, instrumental, no vocals"},
-  {"key": "mus_pursuit", "seconds": 90, "prompt": "Intense police chase music: fast driving percussion with tabl and mirwas, urgent synth stabs and ostinato bass in maqam saba, rising tension, cinematic action, loopable, instrumental, no vocals"}
+  {
+   "key": "mus_menu",
+   "seconds": 100,
+   "prompt": "Euphoric high-energy Khaleeji pop band anthem, 128 bpm, fast Gulf hand-clap rhythm and darbuka rolls, booming tabl, bright synth brass stabs, funky electric bass, a catchy oud and synth lead hook in maqam hijaz, crowd claps and celebratory shouts, festive Kuwaiti party atmosphere, big chorus drop, instrumental, no lyrics"
+  },
+  {
+   "key": "mus_garage",
+   "seconds": 80,
+   "prompt": "Groovy mid-tempo Khaleeji funk for a car workshop, 100 bpm, tight hand claps and mirwas groove, slap electric bass, wah guitar and oud riffs trading phrases, warm Rhodes keys, confident and cool, loopable, instrumental, no lyrics"
+  },
+  {
+   "key": "mus_drive_day",
+   "seconds": 130,
+   "prompt": "Fast euphoric Gulf dance band track for drifting in daylight, 132 bpm, driving four-on-the-floor kick with Khaleeji clap patterns and darbuka, energetic synth brass and qanun hook, pumping bass, rising builds and explosive drops, crowd cheers, high spirit and joy, loopable, instrumental, no lyrics"
+  },
+  {
+   "key": "mus_drive_night",
+   "seconds": 130,
+   "prompt": "High-energy Khaleeji synth dance track for night drifting under street lights, 126 bpm, heavy tabl and darbuka over a punchy electronic beat, gated 80s synth leads and arpeggios in maqam hijaz, oud hook, deep bass, swagger and adrenaline, loopable, instrumental, no lyrics"
+  },
+  {
+   "key": "mus_pursuit",
+   "seconds": 100,
+   "prompt": "Intense fast Arabic percussion chase track, 145 bpm, rapid darbuka and tabl rolls, urgent synth brass stabs, aggressive bass ostinato in maqam saba, siren-like synth rises, adrenaline and danger, loopable, instrumental, no lyrics"
+  }
  ]
 }

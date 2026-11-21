@@ -16,6 +16,8 @@ namespace DriftKuwait
         // Written by TouchControls every frame.
         public static float TouchSteer, TouchThrottle, TouchBrake;
         public static bool TouchHandbrake;
+        /// Manual gearbox: set true for one shift (paddles, keys, pad); the car consumes it.
+        public static bool ShiftUpRequest, ShiftDownRequest;
 
         // AI drivers (الدورية) write these instead of reading the player's controls.
         public bool ai;
@@ -43,6 +45,8 @@ namespace DriftKuwait
                 if (kb.wKey.isPressed || kb.upArrowKey.isPressed) thr = 1;
                 if (kb.sKey.isPressed || kb.downArrowKey.isPressed) brk = 1;
                 if (kb.spaceKey.isPressed) hb = true;
+                if (kb.eKey.wasPressedThisFrame) ShiftUpRequest = true;
+                if (kb.qKey.wasPressedThisFrame) ShiftDownRequest = true;
             }
             var gp = Gamepad.current;
             if (gp != null)
@@ -51,18 +55,22 @@ namespace DriftKuwait
                 if (Mathf.Abs(gs) > 0.08f) steer = gs;
                 thr = Mathf.Max(thr, gp.rightTrigger.ReadValue());
                 brk = Mathf.Max(brk, gp.leftTrigger.ReadValue());
-                hb |= gp.buttonSouth.isPressed || gp.rightShoulder.isPressed;
+                hb |= gp.buttonSouth.isPressed;
+                if (gp.rightShoulder.wasPressedThisFrame) ShiftUpRequest = true;
+                if (gp.leftShoulder.wasPressedThisFrame) ShiftDownRequest = true;
             }
 #else
             steer = Input.GetAxisRaw("Horizontal");
             float v = Input.GetAxisRaw("Vertical");
             thr = Mathf.Max(0, v); brk = Mathf.Max(0, -v);
             hb = Input.GetKey(KeyCode.Space);
+            if (Input.GetKeyDown(KeyCode.E)) ShiftUpRequest = true;
+            if (Input.GetKeyDown(KeyCode.Q)) ShiftDownRequest = true;
 #endif
             if (GameSettings.Layout == GameSettings.Controls.Tilt && !PreviewHooks.Active)
             {
 #if !ENABLE_INPUT_SYSTEM
-                float tilt = Input.acceleration.x * 2.4f;
+                float tilt = Input.acceleration.x * Mathf.Lerp(1.4f, 3.6f, GameSettings.SteerSens);
                 if (Mathf.Abs(tilt) > 0.06f) steer = Mathf.Clamp(tilt, -1f, 1f);
 #endif
             }

@@ -20,7 +20,13 @@ namespace DriftKuwait
     public static class GameSettings
     {
         public enum Controls { Buttons, Wheel, Tilt }
-        public static Controls Layout { get => (Controls)GetI("dk_ctrl", 0); set => SetI("dk_ctrl", (int)value); }
+        public static Controls Layout { get => (Controls)GetI("dk_ctrl2", (int)Controls.Wheel); set => SetI("dk_ctrl2", (int)value); }
+        /// Manual gearbox: shift paddles on screen, no automatic shifts.
+        public static bool Manual { get => GetI("dk_manual", 1) == 1; set => SetI("dk_manual", value ? 1 : 0); }
+        /// Steering sensitivity 0..1 (wheel turn needed for full lock, tilt gain).
+        public static float SteerSens { get => GetF("dk_sens", 0.6f); set => SetF("dk_sens", value); }
+        /// Tyre smoke density 0..1.
+        public static float Smoke { get => GetF("dk_smoke", 0.55f); set => SetF("dk_smoke", value); }
         public static float Assist { get => GetF("dk_assist", 0.75f); set => SetF("dk_assist", value); }
         public static float Music { get => GetF("dk_music", 0.55f); set { SetF("dk_music", value); Sfx.MusicVolume = value; } }
         public static float Effects { get => GetF("dk_sfx", 1f); set { SetF("dk_sfx", value); Sfx.SfxVolume = value; } }

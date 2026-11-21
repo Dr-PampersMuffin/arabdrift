@@ -42,7 +42,7 @@ namespace DriftKuwait
                 mass = 1320f, baseTorque = 190f, maxRpm = 5400f, turboSpool = 0.1f, boost = 0f, turbo = false,
                 frontGrip = 1.05f, rearGrip = 0.95f, handbrakeGrip = 0.38f,
                 rimSpokes = 5, rimColor = new Color(0.86f, 0.86f, 0.88f), rimLip = new Color(0.86f, 0.86f, 0.88f), engineSet = "wanait" },
-            new CarSpec { id = "abusitta", nameAr = "أبو ستة", nameEn = "ABU SITTA", taglineAr = "قوة هادئة .. زلق طويل", cylinderAr = "٦ سلندر",
+            new CarSpec { id = "abusitta", nameAr = "بو ستة", nameEn = "BO SITTA", taglineAr = "قوة هادئة .. زلق طويل", cylinderAr = "٦ سلندر",
                 topSpeed = 7.0f, accel = 6.5f, handling = 6.0f, braking = 6.8f, drift = 8.5f,
                 mass = 1360f, baseTorque = 240f, maxRpm = 6200f, turboSpool = 0.1f, boost = 0f, turbo = false,
                 frontGrip = 1.12f, rearGrip = 0.97f, handbrakeGrip = 0.44f,

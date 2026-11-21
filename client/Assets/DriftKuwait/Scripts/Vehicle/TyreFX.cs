@@ -12,7 +12,7 @@ namespace DriftKuwait
         int[] lastSkid;
         Vector3[] lastSkidPos;
 
-        static readonly Color AsphaltSmoke = new Color(0.94f, 0.93f, 0.91f, 1f);
+        static readonly Color AsphaltSmoke = new Color(0.94f, 0.93f, 0.91f, 0.62f);
         static readonly Color SandDust = new Color(0.80f, 0.66f, 0.46f, 0.6f);
 
         void Start()
@@ -90,14 +90,14 @@ namespace DriftKuwait
             var main = ps.main;
             main.duration = 1f;
             main.loop = true;
-            main.startLifetime = new ParticleSystem.MinMaxCurve(5.5f, 9f);       // blueprint: lingers 6-10 s
+            main.startLifetime = new ParticleSystem.MinMaxCurve(2.6f, 4.8f);     // trails and clears: the car must stay visible
             main.startSpeed = new ParticleSystem.MinMaxCurve(0.6f, 2.2f);
-            main.startSize = new ParticleSystem.MinMaxCurve(2.0f * scale, 3.6f * scale);
+            main.startSize = new ParticleSystem.MinMaxCurve(1.3f * scale, 2.4f * scale);
             main.startRotation = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
             main.startColor = AsphaltSmoke;
             main.gravityModifier = -0.012f;
             main.simulationSpace = ParticleSystemSimulationSpace.World;
-            main.maxParticles = 900;
+            main.maxParticles = 420;
             main.playOnAwake = true;
 
             var em = ps.emission;
@@ -114,7 +114,7 @@ namespace DriftKuwait
             var inherit = ps.inheritVelocity;
             inherit.enabled = true;
             inherit.mode = ParticleSystemInheritVelocityMode.Initial;
-            inherit.curve = new ParticleSystem.MinMaxCurve(0.45f);
+            inherit.curve = new ParticleSystem.MinMaxCurve(0.3f);
             var limit = ps.limitVelocityOverLifetime;
             limit.enabled = true;
             limit.dampen = 0.06f;
@@ -124,7 +124,7 @@ namespace DriftKuwait
             col.enabled = true;
             var g = new Gradient();
             g.SetKeys(new[] { new GradientColorKey(Color.white, 0f), new GradientColorKey(Color.white, 1f) },
-                      new[] { new GradientAlphaKey(0f, 0f), new GradientAlphaKey(1f, 0.04f), new GradientAlphaKey(0.75f, 0.4f), new GradientAlphaKey(0f, 1f) });
+                      new[] { new GradientAlphaKey(0f, 0f), new GradientAlphaKey(0.8f, 0.05f), new GradientAlphaKey(0.35f, 0.45f), new GradientAlphaKey(0f, 1f) });
             col.color = g;
 
             var rot = ps.rotationOverLifetime;
@@ -173,7 +173,7 @@ namespace DriftKuwait
 
                 var em = ps.emission;
                 float k = w.grounded ? w.skid : 0f;
-                em.rateOverTime = k * k * (w.front ? 18f : 130f) + (w.front ? 0f : car.RearSpin * 8f * (w.grounded ? 1f : 0f));
+                em.rateOverTime = (k * k * (w.front ? 8f : 60f) + (w.front ? 0f : car.RearSpin * 3.5f * (w.grounded ? 1f : 0f))) * Mathf.Lerp(0.25f, 1.6f, GameSettings.Smoke);
 
                 // Skid marks only on hard surfaces (sand gets tracks later)
                 if (w.grounded && w.skid > 0.3f && !sandy)

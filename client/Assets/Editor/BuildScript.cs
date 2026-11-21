@@ -263,7 +263,7 @@ public static class BuildScript
     static void ConfigurePlayer(string version, string buildNumber, string teamId)
     {
         PlayerSettings.companyName = "Embur Inc.";
-        PlayerSettings.productName = "Arab Drift";
+        PlayerSettings.productName = "Q8 Drift";
         PlayerSettings.bundleVersion = version;
         PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.iOS, BundleId);
         PlayerSettings.iOS.buildNumber = buildNumber;

@@ -54,6 +54,9 @@ namespace DriftKuwait
         // Read by camera, HUD, audio, FX, scorer.
         public float Rpm { get; private set; }
         public int Gear { get; private set; } = 1;   // -1 = reverse
+        public int GearCount => gears.Length;
+        /// Raised on a manual shift (true = up), for the shift sound and HUD flash.
+        public event System.Action<bool> Shifted;
         public float SpeedKmh { get; private set; }
         public float DriftAngle { get; private set; } // signed, degrees
         public float Boost { get; private set; }
@@ -105,17 +108,35 @@ namespace DriftKuwait
             float da = flatV.magnitude > 2f ? Vector3.SignedAngle(transform.forward, flatV, transform.up) : 0f;
             DriftAngle = Mathf.Abs(da) > 120f ? 0f : da; // rolling backwards is not a drift
 
-            // ---------- Gear selection (auto, with reverse on held brake) ----------
-            if (input.Brake > 0.5f && fwdSpeed < 1f && input.Throttle < 0.1f && Gear != -1)
+            // ---------- Gear selection ----------
+            bool manual = GameSettings.Manual && !input.ai && !PreviewHooks.Active;
+            if (!input.ai)
+            {
+                if (CarInput.ShiftUpRequest)
+                {
+                    CarInput.ShiftUpRequest = false;
+                    if (Gear == -1) Gear = 1;
+                    else if (manual && Gear < gears.Length) { Gear++; shiftTimer = 0.18f; Shifted?.Invoke(true); }
+                }
+                if (CarInput.ShiftDownRequest)
+                {
+                    CarInput.ShiftDownRequest = false;
+                    if (Gear == 1 && fwdSpeed < 1.5f) Gear = -1;
+                    else if (manual && Gear > 1) { Gear--; shiftTimer = 0.18f; Shifted?.Invoke(false); }
+                }
+            }
+            if (!manual && input.Brake > 0.5f && fwdSpeed < 1f && input.Throttle < 0.1f && Gear != -1)
             {
                 reverseTimer += dt;
                 if (reverseTimer > 0.35f) { Gear = -1; reverseTimer = 0; }
             }
             else reverseTimer = 0;
-            if (Gear == -1 && input.Throttle > 0.1f && fwdSpeed > -1f) Gear = 1;
+            if (!manual && Gear == -1 && input.Throttle > 0.1f && fwdSpeed > -1f) Gear = 1;
 
-            float throttle = Gear == -1 ? input.Brake : input.Throttle;
-            float brake = Gear == -1 ? input.Throttle : input.Brake;
+            // Auto: reverse is driven by holding the brake. Manual: reverse is a gear, the gas pedal drives it.
+            bool autoRev = Gear == -1 && !manual;
+            float throttle = autoRev ? input.Brake : input.Throttle;
+            float brake = autoRev ? input.Throttle : input.Brake;
             Handbrake = input.Handbrake;
             ThrottleInput = throttle;
 
@@ -148,7 +169,7 @@ namespace DriftKuwait
             else limiterTimer = 0;
 
             shiftTimer -= dt;
-            if (Gear > 0 && shiftTimer <= 0f)
+            if (Gear > 0 && shiftTimer <= 0f && !manual)
             {
                 if (Rpm > maxRpm - 350f && Gear < gears.Length && rearSpin < 3f) { Gear++; shiftTimer = 0.35f; }
                 else if (Rpm < 2900f && Gear > 1 && !Handbrake) { Gear--; shiftTimer = 0.35f; }

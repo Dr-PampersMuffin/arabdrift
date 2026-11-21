@@ -40,7 +40,7 @@ namespace DriftKuwait
             var logo = UIKit.Img(safe, "Logo", logoSp, Color.white);
             logo.preserveAspect = true;
             UIKit.Place(logo.rectTransform, new Vector2(0f, 1f), new Vector2(40f, -40f), new Vector2(880f, 400f));
-            var ver = UIKit.Label(safe, "Ver", "VER 0.2  ·  GT SKYLINE PROJECT", 22, new Color(1, 1, 1, 0.55f), TextAnchor.UpperLeft, UIKit.Arabic, false);
+            var ver = UIKit.Label(safe, "Ver", "VER 0.3", 22, new Color(1, 1, 1, 0.55f), TextAnchor.UpperLeft, UIKit.Arabic, false);
             UIKit.Place(ver.rectTransform, new Vector2(0f, 1f), new Vector2(48f, -14f), new Vector2(600f, 30f));
 
             // Top-right: guest profile and wallet
@@ -51,10 +51,10 @@ namespace DriftKuwait
             UIKit.Place(col, new Vector2(1f, 0.5f), new Vector2(-60f, 40f), new Vector2(500f, 640f));
             (string ar, string en, string icon, bool primary, System.Action act)[] items =
             {
-                ("ابدأ اللعبة", "PLAY", "flag", true, () => flow.StartDrive(CarCatalog.SelectedId)),
+                ("ابدأ اللعبة", "PLAY", "flag", true, () => flow.Play()),
                 ("الكراج", "GARAGE", "car", false, () => flow.ShowGarage()),
-                ("المناطق", "DISTRICTS", "pin", false, () => flow.Toast("سلوى مفتوحة .. الباقي قريباً")),
-                ("التجمع", "ONLINE", "people", false, () => flow.Toast("التجمع أونلاين .. قريباً")),
+                ("الخريطة", "MAP", "map", false, () => flow.ShowMap()),
+                ("الترتيب", "LEADERBOARDS", "trophy", false, () => GameCenter.ShowLeaderboards()),
                 ("الإعدادات", "SETTINGS", "gear", false, () => PauseMenu.Open(flow, false)),
             };
             for (int i = 0; i < items.Length; i++)
@@ -76,7 +76,7 @@ namespace DriftKuwait
             {
                 var d = districts[i];
                 var card = UIKit.Button(cards, "Card_" + d.id, new Color(0.08f, 0.07f, 0.06f, 0.9f),
-                    d.open ? (System.Action)(() => flow.StartDrive(CarCatalog.SelectedId)) : () => flow.Toast(d.ar + " .. قريباً"), "hud/panel_sharp");
+                    d.open ? (System.Action)(() => flow.ShowMap()) : () => flow.Toast(d.ar + " .. قريباً"), "hud/panel_sharp");
                 var crt = (RectTransform)card.transform;
                 UIKit.Place(crt, new Vector2(0f, 0f), new Vector2(i * 318f, 0f), new Vector2(300f, 250f));
                 var pic = UIKit.Rect(crt, "PicMask");

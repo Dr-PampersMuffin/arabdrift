@@ -58,6 +58,7 @@ namespace DriftKuwait
             GameSettings.Load();
             var flow = GameFlow.Create(cam, dc);
             flow.ShowTitle();
+            GameCenter.SignIn();
         }
     }
 }

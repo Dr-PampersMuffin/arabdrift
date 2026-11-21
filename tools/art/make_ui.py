@@ -45,9 +45,9 @@ def logo():
     lal = ImageFont.truetype(os.path.join(FONTS, "Lalezar.ttf"), 210)
     small = ImageFont.truetype(os.path.join(FONTS, "Cairo-Bold.ttf"), 46)
 
-    # "ARAB DRIFT": heavy white letters, skewed for speed, with a dark drop shadow and a worn edge.
+    # "Q8 DRIFT": heavy white letters, skewed for speed, with a dark drop shadow and a worn edge.
     txt = Image.new("L", (W, 330), 0)
-    ImageDraw.Draw(txt).text((40, -40), "ARAB DRIFT", font=black, fill=255)
+    ImageDraw.Draw(txt).text((60, -40), "Q8 DRIFT", font=black, fill=255)
     txt = txt.transform(txt.size, Image.AFFINE, (1, 0.28, -60, 0, 1, 0), resample=Image.BICUBIC)
     grain = Image.effect_noise(txt.size, 90).point(lambda v: 255 if v > 18 else 0)
     worn = ImageChops.multiply(txt, grain.point(lambda v: 255 if v else 120))
@@ -69,8 +69,8 @@ def logo():
     sw = sw.filter(ImageFilter.GaussianBlur(0.8))
     im.paste((206, 32, 28, 255), (0, 0), sw)
 
-    # "روح الشارع": Lalezar (an 80s hand-painted shop-sign style), gold to orange, right-aligned under the title.
-    ar = "روح الشارع"
+    # "تقحيص": Lalezar (an 80s hand-painted shop-sign style), gold to orange, right-aligned under the title.
+    ar = "تقحيص"
     layer = Image.new("L", (W, 300), 0)
     dd = ImageDraw.Draw(layer)
     bb = dd.textbbox((0, 0), ar, font=lal, direction="rtl", language="ar")
