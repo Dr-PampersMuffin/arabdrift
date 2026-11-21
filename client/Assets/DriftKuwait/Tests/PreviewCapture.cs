@@ -15,9 +15,9 @@ namespace DriftKuwait.Preview
         public void Setup()
         {
             var t = System.Type.GetType("BuildScript, Assembly-CSharp-Editor");
-            var m = t?.GetMethod("PrepareOnly");
+            var m = t?.GetMethod("PrepareForTests");
             if (m != null) m.Invoke(null, null);
-            else Debug.LogWarning("[Preview] BuildScript.PrepareOnly not found");
+            else Debug.LogWarning("[Preview] BuildScript.PrepareForTests not found");
         }
 
         const int W = 1920, H = 886;   // iPhone landscape aspect (19.5:9)

@@ -76,6 +76,17 @@ public static class BuildScript
         Debug.Log("[Build] PrepareOnly done");
     }
 
+    /// Test-runner variant: same project set-up, but never opens or saves a scene and never refreshes the asset
+    /// database (either one replaces the test runner's own scene and the run hangs).
+    public static void PrepareForTests()
+    {
+        EnsureUrp();
+        EnsureShaderRefs();
+        EnsureCarMaterials();
+        AssetDatabase.SaveAssets();
+        Debug.Log("[Build] PrepareForTests done");
+    }
+
     /// <summary>Creates the URP asset and renderer once, and makes URP the active pipeline for every quality level.</summary>
     [MenuItem("Arab Drift/Set up URP")]
     public static void EnsureUrp()

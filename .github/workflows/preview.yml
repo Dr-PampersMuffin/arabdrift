@@ -41,6 +41,7 @@ jobs:
         id: play
         uses: game-ci/unity-test-runner@v4
         continue-on-error: true
+        timeout-minutes: 55
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
@@ -67,6 +68,8 @@ jobs:
             for f in test-artifacts/*.xml; do [ -f "$f" ] && grep -o '<test-case [^>]*' "$f" | head -20; done
             echo "----- [Preview] / errors from the log -----"
             for f in test-artifacts/*.log client/Logs/*.log; do [ -f "$f" ] && grep -n -E "\[Preview\]|error CS|Exception|NullReference|Shader not found|\[Build\]" "$f" | head -150; done
+            echo "----- log tail -----"
+            for f in test-artifacts/*.log; do [ -f "$f" ] && tail -n 60 "$f"; done
           } > out/preview-$n.txt 2>&1
           # images as JPEG to keep the branch small
           python3 -c "
