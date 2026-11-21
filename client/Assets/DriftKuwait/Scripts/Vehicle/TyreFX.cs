@@ -12,7 +12,7 @@ namespace DriftKuwait
         int[] lastSkid;
         Vector3[] lastSkidPos;
 
-        static readonly Color AsphaltSmoke = new Color(0.92f, 0.91f, 0.89f, 0.8f);
+        static readonly Color AsphaltSmoke = new Color(0.94f, 0.93f, 0.91f, 1f);
         static readonly Color SandDust = new Color(0.80f, 0.66f, 0.46f, 0.6f);
 
         void Start()
@@ -54,9 +54,10 @@ namespace DriftKuwait
         public static Material SmokeMaterial()
         {
             var tex = Resources.Load<Texture2D>("DriftKuwait/FX/smoke_puff");
-            var sh = Shader.Find("Universal Render Pipeline/Particles/Lit");
+            // Unlit, tinted by time of day (see LateUpdate): lit particles read as dark soot at night on phones.
+            var sh = Shader.Find("Universal Render Pipeline/Particles/Unlit");
             if (sh == null || tex == null) return ParticleMaterial("M_Smoke", TextureKit.Smoke, Color.white);
-            var m = new Material(sh) { name = "M_SmokeLit" };
+            var m = new Material(sh) { name = "M_Smoke" };
             m.SetTexture("_BaseMap", tex);
             m.SetColor("_BaseColor", new Color(0.93f, 0.92f, 0.90f, 1f));
             m.SetFloat("_Surface", 1f);
@@ -91,12 +92,12 @@ namespace DriftKuwait
             main.loop = true;
             main.startLifetime = new ParticleSystem.MinMaxCurve(5.5f, 9f);       // blueprint: lingers 6-10 s
             main.startSpeed = new ParticleSystem.MinMaxCurve(0.6f, 2.2f);
-            main.startSize = new ParticleSystem.MinMaxCurve(1.3f * scale, 2.6f * scale);
+            main.startSize = new ParticleSystem.MinMaxCurve(2.0f * scale, 3.6f * scale);
             main.startRotation = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
             main.startColor = AsphaltSmoke;
             main.gravityModifier = -0.012f;
             main.simulationSpace = ParticleSystemSimulationSpace.World;
-            main.maxParticles = 700;
+            main.maxParticles = 900;
             main.playOnAwake = true;
 
             var em = ps.emission;
@@ -113,17 +114,17 @@ namespace DriftKuwait
             var inherit = ps.inheritVelocity;
             inherit.enabled = true;
             inherit.mode = ParticleSystemInheritVelocityMode.Initial;
-            inherit.curve = new ParticleSystem.MinMaxCurve(0.22f);
+            inherit.curve = new ParticleSystem.MinMaxCurve(0.45f);
             var limit = ps.limitVelocityOverLifetime;
             limit.enabled = true;
-            limit.dampen = 0.12f;
+            limit.dampen = 0.06f;
             limit.limit = new ParticleSystem.MinMaxCurve(0.6f);
 
             var col = ps.colorOverLifetime;
             col.enabled = true;
             var g = new Gradient();
             g.SetKeys(new[] { new GradientColorKey(Color.white, 0f), new GradientColorKey(Color.white, 1f) },
-                      new[] { new GradientAlphaKey(0f, 0f), new GradientAlphaKey(0.85f, 0.06f), new GradientAlphaKey(0.55f, 0.45f), new GradientAlphaKey(0f, 1f) });
+                      new[] { new GradientAlphaKey(0f, 0f), new GradientAlphaKey(1f, 0.04f), new GradientAlphaKey(0.75f, 0.4f), new GradientAlphaKey(0f, 1f) });
             col.color = g;
 
             var rot = ps.rotationOverLifetime;
@@ -142,19 +143,29 @@ namespace DriftKuwait
             r.renderMode = ParticleSystemRenderMode.Billboard;
             r.sortMode = ParticleSystemSortMode.Distance;
             r.minParticleSize = 0f;
-            r.maxParticleSize = 4f;
+            r.maxParticleSize = 6f;
 
             ps.Play();
             return ps;
         }
 
+        static bool smokeNight;
+        static bool smokeTinted;
+
         void LateUpdate()
         {
+            if (smokeMat != null && (!smokeTinted || smokeNight != Atmosphere.IsNight))
+            {
+                smokeTinted = true;
+                smokeNight = Atmosphere.IsNight;
+                // Day: warm sunlit white. Night: sodium-washed grey, like smoke under the street lamps.
+                smokeMat.SetColor("_BaseColor", smokeNight ? new Color(0.62f, 0.52f, 0.42f, 0.9f) : new Color(0.95f, 0.91f, 0.85f, 1f));
+            }
             for (int i = 0; i < car.wheels.Length; i++)
             {
                 var w = car.wheels[i];
                 var ps = smoke[i];
-                ps.transform.position = w.grounded ? w.contactPoint + Vector3.up * 0.25f : transform.position;
+                ps.transform.position = w.grounded ? w.contactPoint + Vector3.up * 0.45f : transform.position;
 
                 bool sandy = w.surface != null && w.surface.GetComponent<SurfaceType>() is SurfaceType st && st.grip < 0.8f;
                 var main = ps.main;
@@ -162,7 +173,7 @@ namespace DriftKuwait
 
                 var em = ps.emission;
                 float k = w.grounded ? w.skid : 0f;
-                em.rateOverTime = k * k * (w.front ? 12f : 70f) + (w.front ? 0f : car.RearSpin * 4f * (w.grounded ? 1f : 0f));
+                em.rateOverTime = k * k * (w.front ? 18f : 130f) + (w.front ? 0f : car.RearSpin * 8f * (w.grounded ? 1f : 0f));
 
                 // Skid marks only on hard surfaces (sand gets tracks later)
                 if (w.grounded && w.skid > 0.3f && !sandy)
