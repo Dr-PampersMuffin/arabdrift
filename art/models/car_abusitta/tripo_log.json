@@ -1,0 +1,23 @@
+[
+ {
+  "step": "model",
+  "task_id": "508ca996-186f-4bbb-bdbf-a2ca9cf5d0a2",
+  "status": "success",
+  "credits": 160,
+  "seconds": 88,
+  "body": {
+   "type": "image_to_model",
+   "model_version": "v2.5-20250123",
+   "texture": true,
+   "pbr": true,
+   "texture_quality": "detailed",
+   "face_limit": 30000
+  },
+  "files": {
+   "pbr_model": "art/models/car_abusitta/model_pbr.glb",
+   "rendered_image": "art/models/car_abusitta/preview.webp"
+  },
+  "output_meta": {},
+  "time": "2026-11-21T12:48:15+0300"
+ }
+]

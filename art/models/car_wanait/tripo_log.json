@@ -1,0 +1,23 @@
+[
+ {
+  "step": "model",
+  "task_id": "ce857519-5dcd-4b2e-8f91-d0f84c83ffb9",
+  "status": "success",
+  "credits": 160,
+  "seconds": 115,
+  "body": {
+   "type": "image_to_model",
+   "model_version": "v2.5-20250123",
+   "texture": true,
+   "pbr": true,
+   "texture_quality": "detailed",
+   "face_limit": 30000
+  },
+  "files": {
+   "pbr_model": "art/models/car_wanait/model_pbr.glb",
+   "rendered_image": "art/models/car_wanait/preview.webp"
+  },
+  "output_meta": {},
+  "time": "2026-11-21T12:48:42+0300"
+ }
+]

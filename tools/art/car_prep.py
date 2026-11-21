@@ -56,11 +56,14 @@ def main():
     ap.add_argument("--length", type=float, required=True, help="real car length in metres")
     ap.add_argument("--radius", type=float, default=None, help="override tyre radius (metres)")
     ap.add_argument("--door-text", action="store_true", help="find the door lettering (patrol car) so the game can cover it with a correct decal")
+    ap.add_argument("--yaw", type=float, default=0.0, help="rotate the model about +Y first (degrees) so X = length, front at +X")
     ap.add_argument("--unity", default=None, help="also write body.obj, 2K maps and car.json to this Unity Resources folder")
     a = ap.parse_args()
 
     scene = trimesh.load(a.glb)
     name, g = next(iter(scene.geometry.items()))
+    if a.yaw:
+        g.apply_transform(trimesh.transformations.rotation_matrix(np.radians(a.yaw), [0, 1, 0]))
     v = g.vertices.copy()
     s = a.length / (v[:, 0].max() - v[:, 0].min())
     v *= s

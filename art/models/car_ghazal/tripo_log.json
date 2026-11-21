@@ -1,0 +1,23 @@
+[
+ {
+  "step": "model",
+  "task_id": "077be6ad-f452-42d1-9943-9e1932a7ffe7",
+  "status": "success",
+  "credits": 160,
+  "seconds": 64,
+  "body": {
+   "type": "image_to_model",
+   "model_version": "v2.5-20250123",
+   "texture": true,
+   "pbr": true,
+   "texture_quality": "detailed",
+   "face_limit": 30000
+  },
+  "files": {
+   "pbr_model": "art/models/car_ghazal/model_pbr.glb",
+   "rendered_image": "art/models/car_ghazal/preview.webp"
+  },
+  "output_meta": {},
+  "time": "2026-11-21T12:47:51+0300"
+ }
+]

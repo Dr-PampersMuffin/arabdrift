@@ -31,8 +31,12 @@ namespace DriftKuwait
             UIKit.Stretch(f.fade.rectTransform);
             PreviewHooks.Register("01_title", () => f.PreviewScreen(() => f.ShowTitle()));
             PreviewHooks.Register("02_garage", () => f.PreviewScreen(() => f.ShowGarage()));
-            PreviewHooks.Register("03_garage_abusitta", () => f.PreviewScreen(() => { CarCatalog.SelectedId = "abusitta"; f.ShowGarage(); }),
-                                  () => CarCatalog.SelectedId = "shaheen");
+            foreach (var id in new[] { "ghazal", "faris", "wanait", "abusitta" })
+            {
+                string carId = id;
+                PreviewHooks.Register("03_garage_" + carId, () => f.PreviewScreen(() => { CarCatalog.SelectedId = carId; f.ShowGarage(); }),
+                                      () => CarCatalog.SelectedId = "shaheen");
+            }
             PreviewHooks.StartDrive = () => f.StartDrive("shaheen", false);
             return f;
         }
