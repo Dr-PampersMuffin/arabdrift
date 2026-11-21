@@ -70,6 +70,12 @@ namespace DriftKuwait.Preview
                 foreach (var ps in Object.FindObjectsByType<ParticleSystem>(FindObjectsSortMode.None))
                 {
                     n += ps.particleCount;
+                    if (ps.name == "TyreSmoke" && ps.particleCount > 0)
+                    {
+                        var arr = new ParticleSystem.Particle[1];
+                        ps.GetParticles(arr, 1);
+                        Debug.Log($"[Preview] smoke sample pos {arr[0].position} size {arr[0].GetCurrentSize(ps):F2} colour {arr[0].GetCurrentColor(ps)} car {car.transform.position} renderer enabled {ps.GetComponent<ParticleSystemRenderer>().enabled} layer {ps.gameObject.layer}");
+                    }
                     var pr = ps.GetComponent<ParticleSystemRenderer>();
                     if (ps.name == "TyreSmoke" && pr != null && pr.sharedMaterial != null)
                         mat = pr.sharedMaterial.name + " / " + pr.sharedMaterial.shader.name + " supported=" + pr.sharedMaterial.shader.isSupported;
