@@ -1,0 +1,88 @@
+name: Preview renders
+
+# Runs the real game in Unity play mode on a cloud machine, drives the car with scripted inputs and saves screenshots
+# (menus, garage, driving, showroom angles, night) to the ci-reports branch under previews/run-N/.
+# No Xcode, no signing, no TestFlight build: a cheap way to look at changes before spending a build.
+on:
+  workflow_dispatch:
+  push:
+    tags: ["preview-*"]
+
+concurrency:
+  group: arabdrift-preview
+  cancel-in-progress: true
+
+jobs:
+  render:
+    name: Render previews
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: write
+    steps:
+      - name: Free disk space for the Unity image
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost
+          df -h /
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/cache@v4
+        with:
+          path: client/Library
+          key: Library-preview-${{ hashFiles('client/Packages/manifest.json', 'client/ProjectSettings/ProjectVersion.txt') }}-${{ github.run_number }}
+          restore-keys: |
+            Library-preview-${{ hashFiles('client/Packages/manifest.json', 'client/ProjectSettings/ProjectVersion.txt') }}-
+
+      - name: Clear stale build caches
+        run: rm -rf client/Library/Bee client/Library/Il2cppBuildCache previews
+
+      - name: Play and capture
+        id: play
+        uses: game-ci/unity-test-runner@v4
+        continue-on-error: true
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: client
+          testMode: playmode
+          artifactsPath: test-artifacts
+
+      - name: Publish previews
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          sudo chown -R "$(id -u):$(id -g)" . || true
+          n=${{ github.run_number }}
+          mkdir -p out/previews/run-$n
+          cp previews/*.png out/previews/run-$n/ 2>/dev/null || true
+          {
+            echo "preview run $n ref ${{ github.ref_name }} sha ${{ github.sha }} play=${{ steps.play.outcome }}"
+            ls out/previews/run-$n
+            echo "----- test results -----"
+            for f in test-artifacts/*.xml; do [ -f "$f" ] && grep -o '<test-case [^>]*' "$f" | head -20; done
+            echo "----- [Preview] / errors from the log -----"
+            for f in test-artifacts/*.log client/Logs/*.log; do [ -f "$f" ] && grep -n -E "\[Preview\]|error CS|Exception|NullReference|Shader not found|\[Build\]" "$f" | head -150; done
+          } > out/preview-$n.txt 2>&1
+          # images as JPEG to keep the branch small
+          python3 -c "
+          import glob
+          from PIL import Image
+          for p in glob.glob('out/previews/run-$n/*.png'):
+              Image.open(p).convert('RGB').save(p[:-4]+'.jpg', quality=88); __import__('os').remove(p)
+          " 2>/dev/null || pip install -q pillow && python3 -c "
+          import glob,os
+          from PIL import Image
+          for p in glob.glob('out/previews/run-$n/*.png'):
+              Image.open(p).convert('RGB').save(p[:-4]+'.jpg', quality=88); os.remove(p)
+          " || true
+          git init -q r && cd r
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/$REPO.git"
+          git fetch -q origin ci-reports 2>/dev/null && git checkout -q -b ci-reports FETCH_HEAD || git checkout -q --orphan ci-reports
+          mkdir -p previews && cp -r ../out/previews/run-$n previews/ && cp ../out/preview-$n.txt . && cp ../out/preview-$n.txt latest-preview.txt
+          git add . && git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -q -m "previews run $n"
+          git push -q origin ci-reports

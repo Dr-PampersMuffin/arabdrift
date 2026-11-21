@@ -1,0 +1,48 @@
+{
+ "version": 1,
+ "batch": 2,
+ "style_header": "Photorealistic automotive render, the quality of a modern AAA mobile racing game (CarX Drift Racing 3 level): physically based car paint with clear-coat reflections, real glass, chrome and rubber, accurate early-1980s proportions. Fictional car: it must not show any real manufacturer's logo, badge, name or licence plate.",
+ "must_not": [
+  "real car brand logos or names",
+  "Nissan, Datsun, Toyota, Ford badges",
+  "real licence plates",
+  "text other than the specified Arabic badge",
+  "religious buildings, minarets, domes",
+  "flags",
+  "people"
+ ],
+ "defaults": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "high",
+  "background": "opaque",
+  "output_format": "png",
+  "n": 1
+ },
+ "items": [
+  {
+   "asset_id": "car_shaheen_ref3",
+   "prompt": "الشاهين, an early-1980s Japanese-style two-door hardtop turbo coupe in the spirit of a 1983 boxy sports coupe: long flat bonnet, sharp straight lines, slim black slatted grille with a small original gold falcon emblem and the word TURBO in small red letters, four rectangular headlights (two per side), black front lip spoiler, black rubber bumpers, black window trim, small rear decklid spoiler. Paint: metallic silver upper body over satin black lower body, split by a thin red pinstripe. Black eight-spoke deep-dish wheels with polished lips, chunky tyres, slightly lowered. Three-quarter front view from slightly above (front left corner nearest), the whole car visible and centred with margin, wheels straight, plain light grey seamless studio background with a soft floor shadow, even soft lighting, nothing else in frame. This image is the reference for a 3D model."
+  },
+  {
+   "asset_id": "car_abusitta_ref",
+   "prompt": "أبو ستة, an early-1980s Japanese-style luxury four-door sedan, boxy and long: upright chrome grille with fine horizontal bars and a small original oval emblem, four square headlights, amber corner lamps, chrome bumpers with black rubber strips, chrome window trim and side moulding, wide rear pillar. Paint: champagne beige metallic. Gold-and-chrome cross-spoke mesh wheels with polished lips. Clean, period-correct, well kept. Three-quarter front view from slightly above (front left corner nearest), the whole car visible and centred with margin, wheels straight, plain light grey seamless studio background with a soft floor shadow, even soft lighting, nothing else in frame. This image is the reference for a 3D model."
+  },
+  {
+   "asset_id": "car_ghazal_ref",
+   "prompt": "الغزال, a late-1970s / early-1980s Japanese-style long-nose two-door sports coupe with a fastback hatch: very long bonnet, short rear deck, recessed round-cornered headlights, black louvres on the rear side windows, T-bar roof, slim chrome trim, black rear spoiler. Paint: deep metallic blue. Polished silver turbine-style alloy wheels, slightly lowered. Three-quarter front view from slightly above (front left corner nearest), the whole car visible and centred with margin, wheels straight, plain light grey seamless studio background with a soft floor shadow, even soft lighting, nothing else in frame. This image is the reference for a 3D model."
+  },
+  {
+   "asset_id": "car_faris_ref",
+   "prompt": "الفارس, an early-1980s American-style V8 muscle hatchback: angular wedge body, four rectangular headlights behind a slim slatted grille, bonnet scoop, black rear spoiler, black window trim, a small original horse-free shield emblem, small '5.0' style numerals on the front fender in an original font. Paint: bright red with thin silver side stripes. Ten-hole silver alloy wheels, wide rear tyres. Three-quarter front view from slightly above (front left corner nearest), the whole car visible and centred with margin, wheels straight, plain light grey seamless studio background with a soft floor shadow, even soft lighting, nothing else in frame. This image is the reference for a 3D model."
+  },
+  {
+   "asset_id": "car_wanait_ref",
+   "prompt": "الونيت, an early-1980s Japanese-style compact pickup truck: boxy two-door cab, flat front with a square grille, round headlights, chrome front bumper, long open steel load bed with a tailgate, small side mirrors on stalks, mud flaps. Paint: off-white cream with faded brown side stripes. Steel wheels with chrome hub caps and off-road tyres, sand dust on the lower body. Three-quarter front view from slightly above (front left corner nearest), the whole car visible and centred with margin, wheels straight, plain light grey seamless studio background with a soft floor shadow, even soft lighting, nothing else in frame. This image is the reference for a 3D model."
+  },
+  {
+   "asset_id": "car_dawriya_ref",
+   "prompt": "دورية سيدان, a fictional early-1980s big four-door police sedan of original design: long boxy body, wide grille, rectangular headlights, push bar on the front bumper, a roof light bar with amber and teal lenses. Livery: sand-white body with one single teal stripe along each side, the Arabic word شرطة in clean bold lettering on the front doors, and an original eight-point geometric star crest on the rear doors. Black steel wheels with simple hub caps. No real police force markings, no flags, no birds, no crowns. Three-quarter front view from slightly above (front left corner nearest), the whole car visible and centred with margin, wheels straight, plain light grey seamless studio background with a soft floor shadow, even soft lighting, nothing else in frame. This image is the reference for a 3D model."
+  }
+ ]
+}

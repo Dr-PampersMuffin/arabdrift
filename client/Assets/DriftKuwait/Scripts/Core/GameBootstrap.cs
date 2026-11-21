@@ -38,7 +38,7 @@ namespace DriftKuwait
             Atmosphere.Build(root.transform);
             SalwaBlockBuilder.Build(root.transform);
 
-            var car = ShaheenBuilder.Build(new Vector3(0f, 0.6f, -140f), Quaternion.identity);
+            var car = CarFactory.Build(CarCatalog.SelectedId, new Vector3(0f, 0.6f, -140f), Quaternion.identity);
 
             var camGo = new GameObject("DK_Camera");
             var cam = camGo.AddComponent<Camera>();

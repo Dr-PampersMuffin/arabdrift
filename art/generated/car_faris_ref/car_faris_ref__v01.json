@@ -1,0 +1,31 @@
+{
+ "asset_id": "car_faris_ref",
+ "version": 1,
+ "spec": "art/prompts/cars_v2.json",
+ "prompt": "Photorealistic automotive render, the quality of a modern AAA mobile racing game (CarX Drift Racing 3 level): physically based car paint with clear-coat reflections, real glass, chrome and rubber, accurate early-1980s proportions. Fictional car: it must not show any real manufacturer's logo, badge, name or licence plate.\n\nالفارس, an early-1980s American-style V8 muscle hatchback: angular wedge body, four rectangular headlights behind a slim slatted grille, bonnet scoop, black rear spoiler, black window trim, a small original horse-free shield emblem, small '5.0' style numerals on the front fender in an original font. Paint: bright red with thin silver side stripes. Ten-hole silver alloy wheels, wide rear tyres. Three-quarter front view from slightly above (front left corner nearest), the whole car visible and centred with margin, wheels straight, plain light grey seamless studio background with a soft floor shadow, even soft lighting, nothing else in frame. This image is the reference for a 3D model.\n\nDo not include: real car brand logos or names; Nissan, Datsun, Toyota, Ford badges; real licence plates; text other than the specified Arabic badge; religious buildings, minarets, domes; flags; people.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "high",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 271,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 271
+  },
+  "output_tokens": 5488,
+  "output_tokens_details": {
+   "image_tokens": 5488,
+   "text_tokens": 0
+  },
+  "total_tokens": 5759
+ },
+ "seconds": 78.6,
+ "created": "2026-11-21T07:20:59+0300",
+ "qa_status": "in_review"
+}

@@ -1,0 +1,31 @@
+{
+ "asset_id": "car_shaheen_ref3",
+ "version": 1,
+ "spec": "art/prompts/cars_v2.json",
+ "prompt": "Photorealistic automotive render, the quality of a modern AAA mobile racing game (CarX Drift Racing 3 level): physically based car paint with clear-coat reflections, real glass, chrome and rubber, accurate early-1980s proportions. Fictional car: it must not show any real manufacturer's logo, badge, name or licence plate.\n\nالشاهين, an early-1980s Japanese-style two-door hardtop turbo coupe in the spirit of a 1983 boxy sports coupe: long flat bonnet, sharp straight lines, slim black slatted grille with a small original gold falcon emblem and the word TURBO in small red letters, four rectangular headlights (two per side), black front lip spoiler, black rubber bumpers, black window trim, small rear decklid spoiler. Paint: metallic silver upper body over satin black lower body, split by a thin red pinstripe. Black eight-spoke deep-dish wheels with polished lips, chunky tyres, slightly lowered. Three-quarter front view from slightly above (front left corner nearest), the whole car visible and centred with margin, wheels straight, plain light grey seamless studio background with a soft floor shadow, even soft lighting, nothing else in frame. This image is the reference for a 3D model.\n\nDo not include: real car brand logos or names; Nissan, Datsun, Toyota, Ford badges; real licence plates; text other than the specified Arabic badge; religious buildings, minarets, domes; flags; people.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "high",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 310,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 310
+  },
+  "output_tokens": 5488,
+  "output_tokens_details": {
+   "image_tokens": 5488,
+   "text_tokens": 0
+  },
+  "total_tokens": 5798
+ },
+ "seconds": 79.7,
+ "created": "2026-11-21T07:21:00+0300",
+ "qa_status": "in_review"
+}

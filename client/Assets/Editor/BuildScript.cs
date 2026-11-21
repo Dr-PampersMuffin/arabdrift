@@ -27,7 +27,10 @@ public static class BuildScript
     static readonly string[] RuntimeShaders =
     {
         "Universal Render Pipeline/Lit",
+        "Universal Render Pipeline/Complex Lit",
         "Universal Render Pipeline/Particles/Unlit",
+        "Universal Render Pipeline/Particles/Lit",
+        "Universal Render Pipeline/Unlit",
         "Skybox/Procedural",
         "Sprites/Default",
     };
@@ -42,6 +45,7 @@ public static class BuildScript
 
         EnsureUrp();
         EnsureShaderRefs();
+        EnsureCarMaterials();
         EnsureScene();
         ConfigurePlayer(version, buildNumber, teamId);
 
@@ -59,6 +63,19 @@ public static class BuildScript
         if (report.summary.result != BuildResult.Succeeded && Application.isBatchMode) EditorApplication.Exit(1);
     }
 
+    /// Everything BuildIOS sets up except the build itself (URP, shader keepers, car materials, scene).
+    /// The cloud preview test calls this before play mode (IPrebuildSetup).
+    public static void PrepareOnly()
+    {
+        EnsureUrp();
+        EnsureShaderRefs();
+        EnsureCarMaterials();
+        EnsureScene();
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        Debug.Log("[Build] PrepareOnly done");
+    }
+
     /// <summary>Creates the URP asset and renderer once, and makes URP the active pipeline for every quality level.</summary>
     [MenuItem("Arab Drift/Set up URP")]
     public static void EnsureUrp()
@@ -69,13 +86,23 @@ public static class BuildScript
         {
             Directory.CreateDirectory(SettingsDir);
             var data = ScriptableObject.CreateInstance<UniversalRendererData>();
+            data.postProcessData = AssetDatabase.LoadAssetAtPath<PostProcessData>("Packages/com.unity.render-pipelines.universal/Runtime/Data/PostProcessData.asset");
+            data.renderingMode = RenderingMode.ForwardPlus;   // many street lamps at night
             AssetDatabase.CreateAsset(data, SettingsDir + "/DK_URP_Renderer.asset");
             asset = UniversalRenderPipelineAsset.Create(data);
             asset.supportsHDR = true;
             asset.msaaSampleCount = 2;
             asset.shadowDistance = 90f;
             asset.renderScale = 1f;
+            asset.supportsCameraDepthTexture = true;    // soft particles (smoke meets the road softly)
+            asset.supportsCameraOpaqueTexture = false;
+            asset.shadowCascadeCount = 2;
+            asset.colorGradingMode = ColorGradingMode.HighDynamicRange;
+            asset.maxAdditionalLightsCount = 8;
             AssetDatabase.CreateAsset(asset, assetPath);
+            var so = new SerializedObject(asset);
+            var soft = so.FindProperty("m_SoftShadowsSupported");
+            if (soft != null) { soft.boolValue = true; so.ApplyModifiedPropertiesWithoutUndo(); }
             AssetDatabase.SaveAssets();
             Debug.Log("[Build] Created " + assetPath);
         }
@@ -100,6 +127,71 @@ public static class BuildScript
             string path = ShaderRefDir + "/" + name.Replace('/', '_').Replace(' ', '_') + ".mat";
             if (AssetDatabase.LoadAssetAtPath<Material>(path) == null)
                 AssetDatabase.CreateAsset(new Material(sh), path);
+        }
+        AssetDatabase.SaveAssets();
+    }
+
+    /// Materials made at runtime with keywords (normal maps, emission, transparency) need their shader variants in the
+    /// build: URP strips variants no material uses. These keeper materials sit in Resources so the variants ship.
+    static void KeepVariant(string shader, string name, params string[] keywords)
+    {
+        var sh = Shader.Find(shader);
+        if (sh == null) return;
+        string path = ShaderRefDir + "/keep_" + name + ".mat";
+        var m = AssetDatabase.LoadAssetAtPath<Material>(path);
+        if (m == null) { m = new Material(sh); AssetDatabase.CreateAsset(m, path); }
+        foreach (var k in keywords) m.EnableKeyword(k);
+        if (System.Array.IndexOf(keywords, "_SURFACE_TYPE_TRANSPARENT") >= 0)
+        {
+            m.SetFloat("_Surface", 1f);
+            m.renderQueue = (int)RenderQueue.Transparent;
+        }
+        EditorUtility.SetDirty(m);
+    }
+
+    /// One paint material per car from its generated maps (Complex Lit with clear coat: the CarX-style paint shine).
+    [MenuItem("Arab Drift/Make car materials")]
+    public static void EnsureCarMaterials()
+    {
+        Directory.CreateDirectory(ShaderRefDir);
+        KeepVariant("Universal Render Pipeline/Lit", "lit_emission", "_EMISSION");
+        KeepVariant("Universal Render Pipeline/Lit", "lit_normal", "_NORMALMAP");
+        KeepVariant("Universal Render Pipeline/Lit", "lit_normal_metal", "_NORMALMAP", "_METALLICSPECGLOSSMAP");
+        KeepVariant("Universal Render Pipeline/Lit", "lit_transparent", "_SURFACE_TYPE_TRANSPARENT");
+        KeepVariant("Universal Render Pipeline/Particles/Unlit", "pu_transparent", "_SURFACE_TYPE_TRANSPARENT");
+        KeepVariant("Universal Render Pipeline/Particles/Unlit", "pu_soft", "_SURFACE_TYPE_TRANSPARENT", "_SOFTPARTICLES_ON", "_FADING_ON");
+        KeepVariant("Universal Render Pipeline/Particles/Lit", "pl_soft", "_SURFACE_TYPE_TRANSPARENT", "_SOFTPARTICLES_ON", "_FADING_ON");
+
+        const string carsDir = "Assets/DriftKuwait/Resources/DriftKuwait/Cars";
+        if (!Directory.Exists(carsDir)) return;
+        var complex = Shader.Find("Universal Render Pipeline/Complex Lit");
+        var lit = Shader.Find("Universal Render Pipeline/Lit");
+        foreach (string dir in Directory.GetDirectories(carsDir))
+        {
+            string d = dir.Replace('\\', '/');
+            var albedo = AssetDatabase.LoadAssetAtPath<Texture2D>(d + "/albedo.png");
+            if (albedo == null) continue;
+            var normal = AssetDatabase.LoadAssetAtPath<Texture2D>(d + "/normal.png");
+            var metal = AssetDatabase.LoadAssetAtPath<Texture2D>(d + "/metallic.png");
+            string path = d + "/paint.mat";
+            var m = AssetDatabase.LoadAssetAtPath<Material>(path);
+            if (m == null) { m = new Material(complex != null ? complex : lit); AssetDatabase.CreateAsset(m, path); }
+            m.shader = complex != null ? complex : lit;
+            m.SetTexture("_BaseMap", albedo);
+            m.SetColor("_BaseColor", Color.white);
+            if (normal != null) { m.SetTexture("_BumpMap", normal); m.SetFloat("_BumpScale", 0.8f); m.EnableKeyword("_NORMALMAP"); }
+            if (metal != null) { m.SetTexture("_MetallicGlossMap", metal); m.EnableKeyword("_METALLICSPECGLOSSMAP"); m.SetFloat("_Smoothness", 1f); }
+            else { m.SetFloat("_Metallic", 0.35f); m.SetFloat("_Smoothness", 0.8f); }
+            m.SetFloat("_SmoothnessTextureChannel", 0f);
+            if (complex != null)
+            {
+                m.SetFloat("_ClearCoat", 1f);
+                m.SetFloat("_ClearCoatMask", 0.85f);
+                m.SetFloat("_ClearCoatSmoothness", 0.93f);
+                m.EnableKeyword("_CLEARCOAT");
+            }
+            EditorUtility.SetDirty(m);
+            Debug.Log("[Build] Car material " + path);
         }
         AssetDatabase.SaveAssets();
     }
