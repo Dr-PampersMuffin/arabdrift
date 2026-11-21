@@ -1,30 +1,32 @@
 {
- "_note": "Arab Drift soundtrack v2: high-spirit Kuwaiti party-band energy (original compositions; no artist imitation, no samples). Fast Khaleeji clap rhythms, tabl, darbuka and mirwas, punchy synth brass and leads, electric bass, oud and qanun hooks. Crowd claps and shouts allowed, no lyrics.",
+ "_note": "Soundtrack v3, approved feel = gfunk_a: original mid-1990s West Coast G-funk hip-hop instrumentals. gfunk_b (with darbuka, claps, oud) is kept for the garage. No samples, no imitation of a specific song.",
  "tracks": [
   {
    "key": "mus_menu",
-   "seconds": 100,
-   "prompt": "Euphoric high-energy Khaleeji pop band anthem, 128 bpm, fast Gulf hand-clap rhythm and darbuka rolls, booming tabl, bright synth brass stabs, funky electric bass, a catchy oud and synth lead hook in maqam hijaz, crowd claps and celebratory shouts, festive Kuwaiti party atmosphere, big chorus drop, instrumental, no lyrics"
+   "seconds": 75,
+   "source": "gfunk_a (approved)",
+   "prompt": "Mid-1990s West Coast G-funk hip-hop instrumental, laid-back swung groove, deep rolling round synth bassline, eerie minor-key high synth lead with portamento whine, warm Rhodes chords, crisp snare and finger snaps, smooth lowrider cruising, 84 bpm, cool and menacing, hypnotic loop, instrumental, no vocals"
   },
   {
    "key": "mus_garage",
-   "seconds": 80,
-   "prompt": "Groovy mid-tempo Khaleeji funk for a car workshop, 100 bpm, tight hand claps and mirwas groove, slap electric bass, wah guitar and oud riffs trading phrases, warm Rhodes keys, confident and cool, loopable, instrumental, no lyrics"
+   "seconds": 75,
+   "source": "gfunk_b (approved)",
+   "prompt": "G-funk with darbuka, Khaleeji claps and oud"
   },
   {
    "key": "mus_drive_day",
-   "seconds": 130,
-   "prompt": "Fast euphoric Gulf dance band track for drifting in daylight, 132 bpm, driving four-on-the-floor kick with Khaleeji clap patterns and darbuka, energetic synth brass and qanun hook, pumping bass, rising builds and explosive drops, crowd cheers, high spirit and joy, loopable, instrumental, no lyrics"
+   "seconds": 120,
+   "prompt": "Mid-1990s West Coast G-funk hip-hop instrumental, laid-back swung groove, deep rolling round synth bassline, eerie minor-key high synth lead with portamento whine, warm Rhodes chords, crisp snare and finger snaps, smooth lowrider cruising on a sunny afternoon, 88 bpm, a little brighter, extra talk-box style synth melody, head-nod confidence, loopable, instrumental, no vocals"
   },
   {
    "key": "mus_drive_night",
-   "seconds": 130,
-   "prompt": "High-energy Khaleeji synth dance track for night drifting under street lights, 126 bpm, heavy tabl and darbuka over a punchy electronic beat, gated 80s synth leads and arpeggios in maqam hijaz, oud hook, deep bass, swagger and adrenaline, loopable, instrumental, no lyrics"
+   "seconds": 120,
+   "prompt": "Mid-1990s West Coast G-funk hip-hop instrumental, laid-back swung groove, deep rolling round synth bassline, eerie minor-key high synth lead with portamento whine, warm Rhodes chords, crisp snare and finger snaps, smooth lowrider cruising at night under orange street lights, 86 bpm, darker, ominous minor piano stabs, heavier sub bass, menacing and hypnotic, loopable, instrumental, no vocals"
   },
   {
    "key": "mus_pursuit",
    "seconds": 100,
-   "prompt": "Intense fast Arabic percussion chase track, 145 bpm, rapid darbuka and tabl rolls, urgent synth brass stabs, aggressive bass ostinato in maqam saba, siren-like synth rises, adrenaline and danger, loopable, instrumental, no lyrics"
+   "prompt": "Mid-1990s West Coast G-funk hip-hop instrumental, laid-back swung groove, deep rolling round synth bassline, eerie minor-key high synth lead with portamento whine, warm Rhodes chords, crisp snare and finger snaps, smooth lowrider cruising, chase version, 96 bpm, harder drums, urgent pulsing bass, high whining synth like a siren, tense and dangerous, loopable, instrumental, no vocals"
   }
  ]
 }
