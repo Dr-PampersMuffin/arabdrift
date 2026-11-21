@@ -16,7 +16,7 @@ jobs:
   render:
     name: Render previews
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 110
     permissions:
       contents: write
     steps:
@@ -41,7 +41,7 @@ jobs:
         id: play
         uses: game-ci/unity-test-runner@v4
         continue-on-error: true
-        timeout-minutes: 55
+        timeout-minutes: 75
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}

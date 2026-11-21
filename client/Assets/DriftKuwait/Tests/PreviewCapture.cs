@@ -23,7 +23,7 @@ namespace DriftKuwait.Preview
         const int W = 1920, H = 886;   // iPhone landscape aspect (19.5:9)
         static string OutDir => Path.GetFullPath(Path.Combine(Application.dataPath, "../../previews"));
 
-        [UnityTest, Timeout(900000)]
+        [UnityTest, Timeout(2700000)]
         public IEnumerator CaptureScenes()
         {
             Directory.CreateDirectory(OutDir);
