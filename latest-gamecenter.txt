@@ -1,0 +1,7 @@
+gamecenter run 1 ref gc-1
+app 6837347746
+gameCenterDetail 60b66106-b6d0-44be-ac74-5df17c0da683
+created q8drift.best_run
+created q8drift.best_chain
+created q8drift.total_stars
+done
