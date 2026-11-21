@@ -274,8 +274,8 @@ namespace DriftKuwait
             s.cam.nearClipPlane = 0.3f; s.cam.farClipPlane = 60f;
             s.cam.allowHDR = false;
             s.cam.targetTexture = s.rt;
-            camGo.transform.localPosition = new Vector3(1.25f, 2.0f, -15.2f);   // car sits left of the stats panel
-            camGo.transform.localRotation = Quaternion.Euler(0.5f, 0f, 0f);   // car sits low, on the workshop floor of the backdrop
+            camGo.transform.localPosition = new Vector3(1.25f, 2.0f, -16.5f);   // car sits left of the stats panel
+            camGo.transform.localRotation = Quaternion.Euler(4f, 0f, 0f);   // car sits low, on the workshop floor of the backdrop
             var data = s.cam.GetComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>();
             if (data == null) data = camGo.AddComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>();
             data.renderPostProcessing = false;

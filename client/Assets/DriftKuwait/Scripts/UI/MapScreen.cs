@@ -60,7 +60,7 @@ namespace DriftKuwait
 
             // Map (left), rendered once from an orthographic camera over the real district
             var frame = UIKit.Panel(safe, "MapFrame", new Color(0, 0, 0, 0.6f), "hud/panel_sharp");
-            UIKit.Place(frame.rectTransform, new Vector2(0f, 0f), new Vector2(40f + MapW / 2f, 40f + MapH / 2f), new Vector2(MapW + 16f, MapH + 16f));
+            UIKit.Place(frame.rectTransform, new Vector2(0f, 0f), new Vector2(40f, 40f), new Vector2(MapW + 16f, MapH + 16f));
             rt = new RenderTexture(1380, 760, 24) { name = "DK_MapRT" };
             var img = UIKit.Cover(frame.transform, "Map", rt);
             img.rectTransform.anchorMin = Vector2.zero; img.rectTransform.anchorMax = Vector2.one;
@@ -76,7 +76,7 @@ namespace DriftKuwait
 
             // Side card (right)
             var card = UIKit.Panel(safe, "Card", new Color(0.07f, 0.065f, 0.06f, 0.94f), "hud/panel_sharp");
-            UIKit.Place(card.rectTransform, new Vector2(1f, 0f), new Vector2(-40f - 330f, 40f + MapH / 2f), new Vector2(660f, MapH + 16f));
+            UIKit.Place(card.rectTransform, new Vector2(1f, 0f), new Vector2(-40f, 40f), new Vector2(660f, MapH + 16f));
             UIKit.Outline(card.transform, new Color(1f, 0.7f, 0.2f, 0.4f), "hud/panel_sharp_outline");
             var ct = card.transform;
             cardTitle = UIKit.Label(ct, "Title", "", 58, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Display);

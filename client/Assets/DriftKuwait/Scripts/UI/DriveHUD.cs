@@ -83,7 +83,7 @@ namespace DriftKuwait
         {
             var root = UIKit.Rect(safe, "Score");
             UIKit.Place(root, new Vector2(1f, 1f), new Vector2(-190f, -20f), new Vector2(760f, 470f));   // clear of the side buttons
-            var plate = UIKit.Img(root, "Plate", UIKit.S("hud/grad_h"), new Color(1, 1, 1, 0.32f));
+            var plate = UIKit.Img(root, "Plate", UIKit.S("hud/grad_h"), new Color(1, 1, 1, 0f));   // no box behind the score
             scorePlate = plate;
             UIKit.Place(plate.rectTransform, new Vector2(1f, 1f), new Vector2(40f, -6f), new Vector2(700f, 150f));
 
@@ -257,9 +257,9 @@ namespace DriftKuwait
             UIKit.AddShadow(bl, 2f, 0.8f);
             // Manual gearbox paddles, beside the gauge
             shiftUp = UIKit.Button(safe, "ShiftUp", Color.white, () => CarInput.ShiftUpRequest = true, "hud/shift_up").gameObject;
-            UIKit.Place((RectTransform)shiftUp.transform, new Vector2(1f, 0f), new Vector2(-470f, 440f), new Vector2(120f, 120f));
+            UIKit.Place((RectTransform)shiftUp.transform, new Vector2(1f, 0f), new Vector2(-610f, 440f), new Vector2(120f, 120f));
             shiftDown = UIKit.Button(safe, "ShiftDown", Color.white, () => CarInput.ShiftDownRequest = true, "hud/shift_down").gameObject;
-            UIKit.Place((RectTransform)shiftDown.transform, new Vector2(1f, 0f), new Vector2(-470f, 300f), new Vector2(120f, 120f));
+            UIKit.Place((RectTransform)shiftDown.transform, new Vector2(1f, 0f), new Vector2(-610f, 300f), new Vector2(120f, 120f));
             gas = HoldImage(safe, "Gas", "hud/pedal_gas", new Vector2(1f, 0f), new Vector2(-220f, 40f), new Vector2(150f, 230f));
             var gl = UIKit.Label(gas.transform, "L", "دفع", 28, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Place(gl.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, -40f), new Vector2(160f, 40f));
