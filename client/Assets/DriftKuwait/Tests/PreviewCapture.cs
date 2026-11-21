@@ -46,6 +46,11 @@ namespace DriftKuwait.Preview
             yield return new WaitForSeconds(2.0f);
             var car = Object.FindAnyObjectByType<DriftCarController>();
             Assert.IsNotNull(car, "no car spawned");
+            // Start at the south end of the avenue: a long straight with room for a slide.
+            car.Body.linearVelocity = Vector3.zero; car.Body.angularVelocity = Vector3.zero;
+            car.transform.SetPositionAndRotation(new Vector3(-3f, 0.6f, -390f), Quaternion.identity);
+            car.counterSteerAssist = 1f;
+            yield return new WaitForSeconds(1.0f);
             Capture("10_start");
 
             // Accelerate down the straight, then a handbrake flick into a held drift.
@@ -55,15 +60,26 @@ namespace DriftKuwait.Preview
             CarInput.TouchSteer = 1f; CarInput.TouchHandbrake = true;
             yield return new WaitForSeconds(0.35f);
             CarInput.TouchHandbrake = false;
-            CarInput.TouchSteer = 0.35f;
-            yield return new WaitForSeconds(1.2f);
+            CarInput.TouchSteer = -0.25f;            // catch the slide with counter-steer
+            yield return new WaitForSeconds(0.9f);
             Capture("12_drift");
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.7f);
             Capture("13_drift_smoke");
+            {
+                int n = 0; string mat = "";
+                foreach (var ps in Object.FindObjectsByType<ParticleSystem>(FindObjectsSortMode.None))
+                {
+                    n += ps.particleCount;
+                    var pr = ps.GetComponent<ParticleSystemRenderer>();
+                    if (ps.name == "TyreSmoke" && pr != null && pr.sharedMaterial != null)
+                        mat = pr.sharedMaterial.name + " / " + pr.sharedMaterial.shader.name + " supported=" + pr.sharedMaterial.shader.isSupported;
+                }
+                Debug.Log($"[Preview] particles alive {n}, smoke material {mat}, speed {car.SpeedKmh:F0} angle {car.DriftAngle:F0}");
+            }
             CarInput.TouchSteer = -1f; CarInput.TouchHandbrake = true;
             yield return new WaitForSeconds(0.3f);
-            CarInput.TouchHandbrake = false; CarInput.TouchSteer = -0.4f;
-            yield return new WaitForSeconds(1.5f);
+            CarInput.TouchHandbrake = false; CarInput.TouchSteer = 0.25f;
+            yield return new WaitForSeconds(1.1f);
             Capture("14_transition");
             CarInput.TouchThrottle = 0f; CarInput.TouchSteer = 0f; CarInput.TouchBrake = 1f;
             yield return new WaitForSeconds(1.5f);
@@ -72,6 +88,8 @@ namespace DriftKuwait.Preview
             // Showroom angles of the car itself (front three-quarter, rear three-quarter, side).
             var rb = car.Body;
             rb.isKinematic = true;
+            car.transform.SetPositionAndRotation(new Vector3(-3f, car.transform.position.y, -300f), Quaternion.Euler(0f, 20f, 0f));
+            yield return null;
             var cam = new GameObject("PreviewCam").AddComponent<Camera>();
             cam.fieldOfView = 34f;
             var main = Camera.main;
@@ -109,6 +127,8 @@ namespace DriftKuwait.Preview
             {
                 Object.Destroy(cam.gameObject);
                 rb.isKinematic = false;
+                car.transform.SetPositionAndRotation(new Vector3(-3f, 0.6f, -390f), Quaternion.identity);
+                rb.linearVelocity = car.transform.forward * 16f;
                 PreviewHooks.SetNight(true);
                 yield return new WaitForSeconds(0.5f);
                 CarInput.TouchThrottle = 1f; CarInput.TouchSteer = 0.8f; CarInput.TouchHandbrake = true;

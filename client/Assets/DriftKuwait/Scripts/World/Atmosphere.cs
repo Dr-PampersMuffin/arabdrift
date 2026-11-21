@@ -129,10 +129,10 @@ namespace DriftKuwait
                 case Preset.Night:
                     sun.transform.rotation = Quaternion.Euler(-12f, -40f, 0f);
                     sun.color = new Color(0.55f, 0.66f, 0.9f);    // moonlight
-                    sun.intensity = 0.28f;
+                    sun.intensity = 0.45f;
                     sun.transform.rotation = Quaternion.Euler(42f, -40f, 0f);
-                    RenderSettings.ambientSkyColor = new Color(0.12f, 0.15f, 0.24f);
-                    RenderSettings.ambientEquatorColor = new Color(0.16f, 0.12f, 0.10f);
+                    RenderSettings.ambientSkyColor = new Color(0.19f, 0.22f, 0.33f);
+                    RenderSettings.ambientEquatorColor = new Color(0.22f, 0.17f, 0.14f);
                     RenderSettings.ambientGroundColor = new Color(0.07f, 0.05f, 0.04f);
                     RenderSettings.fogColor = new Color(0.16f, 0.12f, 0.10f);
                     RenderSettings.fogDensity = 0.0055f;

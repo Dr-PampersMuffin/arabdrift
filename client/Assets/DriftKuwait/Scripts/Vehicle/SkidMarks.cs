@@ -49,7 +49,7 @@ namespace DriftKuwait
             mesh.bounds = new Bounds(Vector3.zero, Vector3.one * 5000f);
             gameObject.AddComponent<MeshFilter>().sharedMesh = mesh;
             var mr = gameObject.AddComponent<MeshRenderer>();
-            mr.sharedMaterial = TyreFX.ParticleMaterial("M_Skid", Texture2D.whiteTexture, new Color(0.04f, 0.04f, 0.04f, 1f));
+            mr.sharedMaterial = TyreFX.ParticleMaterial("M_Skid", Texture2D.whiteTexture, new Color(0.05f, 0.045f, 0.04f, 0.62f));
             mr.shadowCastingMode = ShadowCastingMode.Off;
         }
 

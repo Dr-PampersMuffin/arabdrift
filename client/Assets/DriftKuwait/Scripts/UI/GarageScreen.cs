@@ -274,7 +274,7 @@ namespace DriftKuwait
             s.cam.nearClipPlane = 0.3f; s.cam.farClipPlane = 60f;
             s.cam.allowHDR = false;
             s.cam.targetTexture = s.rt;
-            camGo.transform.localPosition = new Vector3(1.35f, 1.9f, -13.4f);   // car sits left of the stats panel
+            camGo.transform.localPosition = new Vector3(1.25f, 2.0f, -15.2f);   // car sits left of the stats panel
             camGo.transform.localRotation = Quaternion.Euler(6.5f, 0f, 0f);
             var data = s.cam.GetComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>();
             if (data == null) data = camGo.AddComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>();
@@ -289,7 +289,7 @@ namespace DriftKuwait
             // Studio reflections: big warm softboxes the probe sees (layer 31) but the camera does not, so the
             // clear coat picks up long highlights like a real workshop shoot.
             const int ReflLayer = 31;
-            var soft = TyreFX.ParticleMaterial("DK_Softbox", Texture2D.whiteTexture, new Color(2.2f, 1.9f, 1.5f, 1f));
+            var soft = TyreFX.ParticleMaterial("DK_Softbox", Texture2D.whiteTexture, new Color(1.25f, 1.1f, 0.9f, 1f));
             foreach (var (pos, rot, scale) in new[]
             {
                 (new Vector3(0f, 5.5f, 0f), Quaternion.Euler(90f, 0f, 0f), new Vector3(3f, 7f, 1f)),

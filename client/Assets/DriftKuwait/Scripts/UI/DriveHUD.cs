@@ -78,7 +78,7 @@ namespace DriftKuwait
         void BuildScore(RectTransform safe)
         {
             var root = UIKit.Rect(safe, "Score");
-            UIKit.Place(root, new Vector2(1f, 1f), new Vector2(-40f, -20f), new Vector2(760f, 470f));
+            UIKit.Place(root, new Vector2(1f, 1f), new Vector2(-190f, -20f), new Vector2(760f, 470f));   // clear of the side buttons
             var plate = UIKit.Img(root, "Plate", UIKit.S("hud/grad_h"), new Color(1, 1, 1, 0.55f));
             UIKit.Place(plate.rectTransform, new Vector2(1f, 1f), new Vector2(40f, 0f), new Vector2(760f, 220f));
 

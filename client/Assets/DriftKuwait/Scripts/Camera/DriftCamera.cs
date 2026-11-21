@@ -77,9 +77,17 @@ namespace DriftKuwait
                 // Never sink below the road.
                 if (pos.y < t.position.y + 0.6f) pos.y = t.position.y + 0.6f;
 
-                transform.position = pos;
+                // Don't go through walls: pull in along the line from the car's roof to the camera.
+                Vector3 pivot = t.position + up * 1.2f;
+                Vector3 toCam = pos - pivot;
+                Vector3 shown = pos;
+                if (Physics.SphereCast(pivot, 0.3f, toCam.normalized, out var wallHit, toCam.magnitude, 1, QueryTriggerInteraction.Ignore)
+                    && wallHit.rigidbody == null)
+                    shown = pivot + toCam.normalized * Mathf.Max(0.8f, wallHit.distance - 0.1f);
+
+                transform.position = shown;
                 Vector3 look = t.position + up * 0.9f + fwd * 1.2f;
-                transform.rotation = Quaternion.LookRotation(look - pos, up);
+                transform.rotation = Quaternion.LookRotation(look - shown, up);
                 baseFov = far ? Mathf.Lerp(58f, 72f, speedT) : Mathf.Lerp(62f, 78f, speedT);
             }
             else if (mode == Mode.Bumper)
