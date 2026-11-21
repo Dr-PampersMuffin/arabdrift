@@ -17,6 +17,7 @@ namespace DriftKuwait
         DriftScorer scorer;
         DriftCamera cam;
 
+        Image scorePlate;
         Text totalTxt, chainTxt, multTxt, calloutTxt, angleTxt, speedTxt, gearTxt, turboTxt, missionTitle, missionSub, missionTime;
         Text[] breakdown = new Text[3];
         GameObject breakdownRoot, multRoot, heatRoot, dialogRoot;
@@ -79,8 +80,9 @@ namespace DriftKuwait
         {
             var root = UIKit.Rect(safe, "Score");
             UIKit.Place(root, new Vector2(1f, 1f), new Vector2(-190f, -20f), new Vector2(760f, 470f));   // clear of the side buttons
-            var plate = UIKit.Img(root, "Plate", UIKit.S("hud/grad_h"), new Color(1, 1, 1, 0.55f));
-            UIKit.Place(plate.rectTransform, new Vector2(1f, 1f), new Vector2(40f, 0f), new Vector2(760f, 220f));
+            var plate = UIKit.Img(root, "Plate", UIKit.S("hud/grad_h"), new Color(1, 1, 1, 0.32f));
+            scorePlate = plate;
+            UIKit.Place(plate.rectTransform, new Vector2(1f, 1f), new Vector2(40f, -6f), new Vector2(700f, 150f));
 
             totalTxt = UIKit.Label(root, "Total", UIKit.Num(0), 124, Color.white, TextAnchor.UpperRight, UIKit.Black);
             UIKit.Place(totalTxt.rectTransform, new Vector2(1f, 1f), new Vector2(-150f, 0f), new Vector2(560f, 140f));
@@ -95,20 +97,20 @@ namespace DriftKuwait
             mb.rectTransform.localRotation = Quaternion.Euler(0, 0, 0);
 
             calloutTxt = UIKit.Label(root, "Callout", "", 62, UIKit.Gold, TextAnchor.MiddleRight, UIKit.Display);
-            UIKit.Place(calloutTxt.rectTransform, new Vector2(1f, 1f), new Vector2(0f, -150f), new Vector2(700f, 80f));
+            UIKit.Place(calloutTxt.rectTransform, new Vector2(1f, 1f), new Vector2(0f, -128f), new Vector2(700f, 80f));
             UIKit.AddShadow(calloutTxt, 3f, 0.8f);
 
             chainTxt = UIKit.Label(root, "Chain", "", 52, Color.white, TextAnchor.MiddleRight, UIKit.Black);
-            UIKit.Place(chainTxt.rectTransform, new Vector2(1f, 1f), new Vector2(0f, -230f), new Vector2(500f, 64f));
+            UIKit.Place(chainTxt.rectTransform, new Vector2(1f, 1f), new Vector2(0f, -200f), new Vector2(500f, 64f));
             UIKit.AddShadow(chainTxt, 3f, 0.7f);
 
             var bd = UIKit.Panel(root, "Breakdown", new Color(0.05f, 0.05f, 0.06f, 0.62f), "hud/panel");
             breakdownRoot = bd.gameObject;
-            UIKit.Place(bd.rectTransform, new Vector2(1f, 1f), new Vector2(0f, -300f), new Vector2(290f, 160f));
+            UIKit.Place(bd.rectTransform, new Vector2(1f, 1f), new Vector2(0f, -266f), new Vector2(290f, 136f));
             for (int i = 0; i < 3; i++)
             {
                 breakdown[i] = UIKit.Label(bd.transform, "B" + i, "", 32, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Arabic);
-                UIKit.Place(breakdown[i].rectTransform, new Vector2(1f, 1f), new Vector2(-22f, -12f - i * 46f), new Vector2(260f, 44f));
+                UIKit.Place(breakdown[i].rectTransform, new Vector2(1f, 1f), new Vector2(-22f, -8f - i * 40f), new Vector2(260f, 40f));
             }
         }
 
@@ -314,6 +316,7 @@ namespace DriftKuwait
             multTxt.text = "x" + scorer.Multiplier;
             chainTxt.text = chain ? "+" + UIKit.Num((long)scorer.Current) : "";
             breakdownRoot.SetActive(chain);
+            scorePlate.enabled = shownTotal >= 0.5f || chain;
             if (chain)
             {
                 breakdown[0].text = UIKit.Ar("زاوية +" + UIKit.Num((long)scorer.AnglePts));

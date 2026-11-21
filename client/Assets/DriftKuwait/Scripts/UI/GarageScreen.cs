@@ -282,9 +282,10 @@ namespace DriftKuwait
             data.renderShadows = true;
 
             // Warm tungsten key lights like the workshop lamps, plus a cool rim.
-            AddLight(go.transform, new Vector3(-3.5f, 4.2f, -2.5f), new Color(1f, 0.82f, 0.6f), 38f);
-            AddLight(go.transform, new Vector3(3.8f, 3.8f, -1.5f), new Color(1f, 0.78f, 0.55f), 30f);
-            AddLight(go.transform, new Vector3(0.5f, 3.0f, 4.5f), new Color(0.7f, 0.8f, 1f), 22f);
+            AddLight(go.transform, new Vector3(-3.5f, 4.2f, -2.5f), new Color(1f, 0.82f, 0.6f), 16f);
+            AddLight(go.transform, new Vector3(3.8f, 3.8f, -1.5f), new Color(1f, 0.78f, 0.55f), 12f);
+            AddLight(go.transform, new Vector3(0.5f, 3.0f, 4.5f), new Color(0.7f, 0.8f, 1f), 10f);
+            AddLight(go.transform, new Vector3(1.5f, 0.7f, -5.5f), new Color(1f, 0.9f, 0.78f), 9f);   // low fill: rims and lower doors
 
             // Studio reflections: big warm softboxes the probe sees (layer 31) but the camera does not, so the
             // clear coat picks up long highlights like a real workshop shoot.

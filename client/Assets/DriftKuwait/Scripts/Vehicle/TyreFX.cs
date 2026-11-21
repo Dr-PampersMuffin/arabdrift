@@ -72,6 +72,10 @@ namespace DriftKuwait
             m.SetVector("_SoftParticleFadeParams", new Vector4(0f, 1f / 1.2f, 0f, 0f));
             m.EnableKeyword("_SOFTPARTICLES_ON");
             m.EnableKeyword("_FADING_ON");
+            // Camera fade: only the inspector normally fills these. Left at zero the smoke is fully transparent.
+            m.SetFloat("_CameraNearFadeDistance", 0.3f);
+            m.SetFloat("_CameraFarFadeDistance", 1.6f);
+            m.SetVector("_CameraFadeParams", new Vector4(0.3f, 1f / (1.6f - 0.3f), 0f, 0f));
             m.SetFloat("_Smoothness", 0f);
             m.renderQueue = (int)RenderQueue.Transparent;
             return m;
