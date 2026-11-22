@@ -272,6 +272,10 @@ namespace DriftKuwait
                 var im = go.GetComponent<Image>();
                 im.sprite = UIKit.S(sp); im.type = Image.Type.Simple; im.preserveAspect = true;
             }
+            // Controls are see-through so the car and the road stay visible: about half opacity at rest, firmer while touched.
+            Ghost.Add(wheel.gameObject, () => wheel.Held);
+            foreach (var h in new[] { hand, brake, gas, left, right }) { var hb = h; Ghost.Add(hb.gameObject, () => hb.Pressed); }
+            Ghost.Add(shiftUp, null, 0.55f); Ghost.Add(shiftDown, null, 0.55f);
             ApplyLayout();
         }
 
@@ -295,6 +299,7 @@ namespace DriftKuwait
         {
             var g = UIKit.Img(safe, "Gauge", UIKit.S("hud/gauge"), Color.white);
             UIKit.Place(g.rectTransform, new Vector2(1f, 0f), new Vector2(-150f, 300f), new Vector2(360f, 360f));
+            Ghost.Add(g.gameObject, null, 0.78f);
             var n = UIKit.Img(g.transform, "Needle", UIKit.S("hud/needle"), Color.white);
             needle = n.rectTransform;
             UIKit.Stretch(needle);
@@ -457,6 +462,7 @@ namespace DriftKuwait
     public class SteeringWheelWidget : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
     {
         public float Value { get; private set; }
+        public bool Held => held;
         RectTransform rt, wheelImg;
         float angle, lastPointer;
         bool held;
@@ -496,6 +502,28 @@ namespace DriftKuwait
             float t = Mathf.Clamp01(Mathf.Abs(angle) / Lock);
             Value = Mathf.Sign(angle) * Mathf.Pow(t, Mathf.Lerp(1f, 0.6f, GameSettings.SteerSens));
             wheelImg.localRotation = Quaternion.Euler(0f, 0f, -angle);
+        }
+    }
+
+    /// Semi-transparent control: a CanvasGroup at rest alpha, brightening while the thumb is on it.
+    public class Ghost : MonoBehaviour
+    {
+        CanvasGroup cg;
+        System.Func<bool> active;
+        float rest;
+        public static void Add(GameObject go, System.Func<bool> active, float rest = 0.5f)
+        {
+            if (go == null) return;
+            var g = go.AddComponent<Ghost>();
+            g.cg = go.GetComponent<CanvasGroup>();
+            if (g.cg == null) g.cg = go.AddComponent<CanvasGroup>();
+            g.active = active; g.rest = rest;
+            g.cg.alpha = rest;
+        }
+        void Update()
+        {
+            float want = active != null && active() ? 0.88f : rest;
+            cg.alpha = Mathf.MoveTowards(cg.alpha, want, 4f * Time.unscaledDeltaTime);
         }
     }
 }
