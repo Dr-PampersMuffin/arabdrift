@@ -451,12 +451,14 @@ namespace DriftKuwait
         }
     }
 
-    /// Virtual steering wheel: drag around its centre; springs back to centre on release. Value -1..1 (±135°).
+    /// Virtual steering wheel: drag around its centre like a real wheel. It turns a full 360° each way (the finger's
+    /// movement is accumulated, so you can wind it round past half a turn), and springs back to centre on release.
+    /// Value -1..1; the sensitivity setting makes small turns bite harder.
     public class SteeringWheelWidget : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
     {
         public float Value { get; private set; }
         RectTransform rt, wheelImg;
-        float angle, startPointer, startAngle;
+        float angle, lastPointer;
         bool held;
 
         public static SteeringWheelWidget Build(RectTransform parent)
@@ -478,16 +480,21 @@ namespace DriftKuwait
             return Mathf.Atan2(lp.x, lp.y) * Mathf.Rad2Deg;
         }
 
-        public void OnPointerDown(PointerEventData e) { held = true; startPointer = PointerAngle(e); startAngle = angle; }
-        public void OnDrag(PointerEventData e) { angle = Mathf.Clamp(startAngle + Mathf.DeltaAngle(startPointer, PointerAngle(e)), -Lock, Lock); }
-        // Wheel rotation for full steering lock: 180 degrees (gentle) down to 90 (quick), from the sensitivity setting
-        static float Lock => Mathf.Lerp(180f, 90f, GameSettings.SteerSens);
+        public void OnPointerDown(PointerEventData e) { held = true; lastPointer = PointerAngle(e); }
+        public void OnDrag(PointerEventData e)
+        {
+            float now = PointerAngle(e);
+            angle = Mathf.Clamp(angle + Mathf.DeltaAngle(lastPointer, now), -Lock, Lock);   // accumulate: no wrap at 180
+            lastPointer = now;
+        }
+        const float Lock = 360f;   // a full turn each way
         public void OnPointerUp(PointerEventData e) { held = false; }
 
         void Update()
         {
-            if (!held) angle = Mathf.MoveTowards(angle, 0f, 540f * Time.deltaTime);
-            Value = Mathf.Clamp(angle / Lock, -1f, 1f);
+            if (!held) angle = Mathf.MoveTowards(angle, 0f, 900f * Time.deltaTime);
+            float t = Mathf.Clamp01(Mathf.Abs(angle) / Lock);
+            Value = Mathf.Sign(angle) * Mathf.Pow(t, Mathf.Lerp(1f, 0.6f, GameSettings.SteerSens));
             wheelImg.localRotation = Quaternion.Euler(0f, 0f, -angle);
         }
     }
