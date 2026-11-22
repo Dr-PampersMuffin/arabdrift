@@ -589,6 +589,21 @@ namespace DriftKuwait
                 kit.QuadUv(l, m, m + Vector3.up * fh, l + Vector3.up * fh, new Vector2(0, 0), new Vector2(1, 0), new Vector2(1, 1), new Vector2(0, 1));
                 kit.QuadUv(m, rgt, rgt + Vector3.up * fh, m + Vector3.up * fh, new Vector2(1, 0), new Vector2(0, 0), new Vector2(0, 1), new Vector2(1, 1));
             }
+            // The back of the house faces the next street or the avenue: give it a real face too (another photo).
+            {
+                var bk = facades[(fi + 1 + (int)(Mathf.Abs(center.x * 7f + center.z * 3f)) % (facades.Count)) % facades.Count];
+                if (bk.two == two)
+                {
+                    Vector3 b0 = center + fwdIn * (hd + 0.03f) + Vector3.up * baseY;
+                    Vector3 l = b0 + right * hw, rgt = b0 - right * hw;      // seen from behind, left and right swap
+                    if (two) bk.kit.QuadUv(l, rgt, rgt + Vector3.up * fh, l + Vector3.up * fh, new Vector2(0, 0), new Vector2(1, 0), new Vector2(1, 1), new Vector2(0, 1));
+                    else
+                    {
+                        bk.kit.QuadUv(l, b0, b0 + Vector3.up * fh, l + Vector3.up * fh, new Vector2(0, 0), new Vector2(1, 0), new Vector2(1, 1), new Vector2(0, 1));
+                        bk.kit.QuadUv(b0, rgt, rgt + Vector3.up * fh, b0 + Vector3.up * fh, new Vector2(1, 0), new Vector2(0, 0), new Vector2(0, 1), new Vector2(1, 1));
+                    }
+                }
+            }
             // Parapet behind the photo's own: sides and back only, same height as the photo top
             float py = baseY + H + 0.45f;
             var cap = houseKits[pal];
@@ -759,7 +774,7 @@ namespace DriftKuwait
             var plaster = sideTex != null ? sideTex : TextureKit.Plaster;
             for (int i = 0; i < houseKits.Length; i++)
                 houseKits[i].ToObject("Houses_" + i, village, Mat.Textured("M_House_" + i, plaster,
-                    sideTex != null ? Color.Lerp(HousePalette[i], Color.white, 0.55f) : HousePalette[i], 0.12f, new Vector2(0.2f, 0.2f)));
+                    sideTex != null ? Color.Lerp(HousePalette[i], Color.white, 0.15f) * 0.92f : HousePalette[i], 0.12f, new Vector2(0.2f, 0.2f)));
             for (int i = 0; i < facades.Count; i++)
             {
                 var fm = Mat.Textured("M_Facade_" + i, facades[i].tex, Color.white, 0.18f, Vector2.one);
@@ -781,12 +796,12 @@ namespace DriftKuwait
                 if (gateTex[i] != null)
                 {
                     var gm = Mat.Textured("M_GatePhoto_" + i, gateTex[i], Color.white, 0.35f, Vector2.one);
-                    gm.SetFloat("_Cull", 0f); gm.SetFloat("_Metallic", 0.4f);
+                    gm.SetFloat("_Cull", 0f); gm.SetFloat("_Metallic", 0f); gm.SetFloat("_Smoothness", 0.25f);
                     gatePhotoKits[i].ToObject("Gates_Photo_" + i, village, gm);
                 }
             for (int i = 0; i < gateKits.Length; i++)
                 gateKits[i].ToObject("Gates_" + i, village, Mat.Paint("M_Gate_" + i, GatePalette[i], 0.45f, 0.7f));
-            glassKit.ToObject("Windows", village, Mat.Paint("M_Window", new Color(0.08f, 0.10f, 0.11f), 0.92f, 0.2f));
+            glassKit.ToObject("Windows", village, Mat.Paint("M_Window", new Color(0.17f, 0.20f, 0.21f), 0.93f, 0.25f));
             litWindowMat = Mat.Glow("M_WindowLit", new Color(1f, 0.72f, 0.42f), 0f);
             litWindowMat.SetFloat("_Smoothness", 0.9f);
             litGlassKit.ToObject("WindowsLit", village, litWindowMat);

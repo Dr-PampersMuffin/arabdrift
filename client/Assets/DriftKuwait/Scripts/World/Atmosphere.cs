@@ -108,14 +108,14 @@ namespace DriftKuwait
                     // pale neutral dust haze (not an orange filter over everything).
                     sun.transform.rotation = Quaternion.Euler(17f, -38f, 0f);
                     sun.color = new Color(1f, 0.80f, 0.60f);
-                    sun.intensity = 2.7f;
+                    sun.intensity = 2.2f;
                     RenderSettings.ambientSkyColor = new Color(0.50f, 0.56f, 0.64f);
                     RenderSettings.ambientEquatorColor = new Color(0.62f, 0.56f, 0.48f);
                     RenderSettings.ambientGroundColor = new Color(0.32f, 0.27f, 0.22f);
                     RenderSettings.fogColor = new Color(0.82f, 0.76f, 0.68f);
                     RenderSettings.fogDensity = 0.0026f;
                     SetSky(new Color(0.62f, 0.62f, 0.62f), 1.3f, 1.2f, 0.05f);
-                    Grade(ca, 0.1f, 14f, 2f, new Color(1f, 0.97f, 0.93f));
+                    Grade(ca, -0.1f, 16f, 4f, new Color(1f, 0.97f, 0.93f));
                     break;
                 case Preset.NoonHaze:
                     sun.transform.rotation = Quaternion.Euler(68f, -20f, 0f);
