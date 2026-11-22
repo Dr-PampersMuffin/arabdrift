@@ -1,0 +1,31 @@
+{
+ "asset_id": "story_ch1_return",
+ "version": 1,
+ "spec": "../../../tmp/claude-0/-home-claude/c8da0280-df33-5500-9e22-db14a2c5d45f/scratchpad/story.json",
+ "prompt": "Cinematic illustrated story panel for a premium mobile racing game, painterly realism like a high-end graphic novel, warm golden-hour light through a dusty workshop door, rich saturated oranges and teal shadows, film grain.\n\nKuwait 1987. Inside an old family car workshop in Salwa: a grey-bearded Kuwaiti mechanic in a white dishdasha with sleeves rolled up pulls a dusty canvas cover off a silver 1980s Japanese sports coupe with pop-up-free square headlights. A young Kuwaiti man in his twenties, in a dishdasha and ghutra, stands beside him looking at the car. Old tools on the walls, a faded workbench, a ceiling fan, sunbeams through the open roller door showing a sandy street, a palm tree and beige villa walls outside.\n\nDo not include: any text, letters, numbers, logos or watermarks; modern objects; women.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 188,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 188
+  },
+  "output_tokens": 1372,
+  "output_tokens_details": {
+   "image_tokens": 1372,
+   "text_tokens": 0
+  },
+  "total_tokens": 1560
+ },
+ "seconds": 30.4,
+ "created": "2026-11-22T18:50:56+0300",
+ "qa_status": "in_review"
+}
