@@ -40,7 +40,7 @@ namespace DriftKuwait
             rb.isKinematic = true;
             if (!PreviewHooks.Active)
             {
-                hud.Say("ev_" + ev.id, "por_abu_rashid", "بو ناصر:", ev.howAr);
+                hud.Say("ev_" + ev.id, "por_abu_rashid", "طبجون عود:", ev.howAr);
                 yield return new WaitForSeconds(Mathf.Clamp(ev.howAr.Length / 15f, 2.5f, 6f));
                 foreach (var n in new[] { "٣", "٢", "١" })
                 {

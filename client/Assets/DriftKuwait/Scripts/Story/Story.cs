@@ -35,11 +35,11 @@ namespace DriftKuwait
 
         public static StoryScene.Beat[] Ch1Intro => new[]
         {
-            new StoryScene.Beat("story_ch1_arrive", "st1_01", "بو ناصر"),
-            new StoryScene.Beat("story_ch1_return", "st1_02", "بو ناصر"),
+            new StoryScene.Beat("story_ch1_arrive", "st1_01", "طبجون عود"),
+            new StoryScene.Beat("story_ch1_return", "st1_02", "طبجون عود"),
             new StoryScene.Beat("story_ch1_uncle", "st1_03", "بو شبيب"),
             new StoryScene.Beat("story_ch1_mutheeb", "st1_04", "مثيب"),
-            new StoryScene.Beat("story_ch1_street", "st1_05", "بو ناصر"),
+            new StoryScene.Beat("story_ch1_street", "st1_05", "طبجون عود"),
         };
 
         public static StoryScene.Beat[] Ch1Done => new[]
