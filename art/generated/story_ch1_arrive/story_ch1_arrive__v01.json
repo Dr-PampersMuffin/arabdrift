@@ -1,0 +1,31 @@
+{
+ "asset_id": "story_ch1_arrive",
+ "version": 1,
+ "spec": "../../../tmp/claude-0/-home-claude/c8da0280-df33-5500-9e22-db14a2c5d45f/scratchpad/story.json",
+ "prompt": "Cinematic illustrated story panel for a premium mobile racing game, painterly realism like a high-end graphic novel, warm golden-hour light through a dusty workshop door, rich saturated oranges and teal shadows, film grain.\n\nKuwait 1987, golden hour. A quiet residential street in Salwa with beige villa boundary walls and date palms. An orange-and-white 1980s taxi has just pulled away; a young Kuwaiti man in a white dishdasha and ghutra stands with a travel bag in front of a closed, faded car workshop with a rusty roller door and an old hand-painted sign board (blank, no letters). Long shadows, warm dusty light.\n\nDo not include: any text, letters, numbers, logos or watermarks; modern objects; women.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 162,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 162
+  },
+  "output_tokens": 1372,
+  "output_tokens_details": {
+   "image_tokens": 1372,
+   "text_tokens": 0
+  },
+  "total_tokens": 1534
+ },
+ "seconds": 29.4,
+ "created": "2026-11-22T18:53:45+0300",
+ "qa_status": "in_review"
+}

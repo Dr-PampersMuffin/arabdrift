@@ -18,12 +18,16 @@ namespace DriftKuwait
         long zonePts, startBest;
         bool running, finished;
         GameObject zoneRing;
+        // What went wrong, for live coaching and for the results screen
+        float slowTime, straightTime, outsideTime, coachCooldown = 3f;
+        int hits;
 
         void Start()
         {
             pursuit.allowHeat = false;
             if (ev.kind == Career.Kind.Zone) zoneRing = ZoneRing(ev.zone, ev.zoneRadius);
             pursuit.OnEnd += escaped => { if (ev.kind == Career.Kind.Escape && running) Finish(escaped ? (long)Mathf.Max(1f, elapsed) : 0); };
+            car.OnImpact += (imp, _) => { if (running && imp > 3000f) hits++; };
             StartCoroutine(Countdown());
         }
 
@@ -36,7 +40,7 @@ namespace DriftKuwait
             rb.isKinematic = true;
             if (!PreviewHooks.Active)
             {
-                hud.Say("ev_" + ev.id, "por_abu_rashid", "أبو راشد:", ev.howAr);
+                hud.Say("ev_" + ev.id, "por_abu_rashid", "بو ناصر:", ev.howAr);
                 yield return new WaitForSeconds(Mathf.Clamp(ev.howAr.Length / 15f, 2.5f, 6f));
                 foreach (var n in new[] { "٣", "٢", "١" })
                 {
@@ -69,7 +73,27 @@ namespace DriftKuwait
             }
             lastValue = value;
 
+            // Live coaching in Kuwaiti: say what to fix, at most every few seconds
+            bool inZone = true;
+            if (ev.kind == Career.Kind.Zone) { Vector3 dz = car.transform.position - ev.zone; dz.y = 0f; inZone = dz.magnitude < ev.zoneRadius; }
+            if (ev.kind != Career.Kind.Escape)
+            {
+                if (!scorer.Drifting)
+                {
+                    if (car.SpeedKmh < 25f) slowTime += dt; else straightTime += dt;
+                }
+                if (!inZone) outsideTime += dt;
+                coachCooldown -= dt;
+                if (coachCooldown <= 0f && !scorer.Drifting)
+                {
+                    string tip = !inZone ? "ارجع داخل الدائرة!" : car.SpeedKmh < 25f ? "أسرع شوي! فوق ٢٥" : "اسحب الهاندبريك وعاكس السكّان";
+                    hud.Callout(tip, UIKit.Cream);
+                    coachCooldown = 4f;
+                }
+            }
+
             long result = Result();
+            hud.JudgedValue = ev.kind == Career.Kind.Escape ? -1 : result;
             long next = NextTarget(result);
             int s = Mathf.Max(0, Mathf.CeilToInt(timeLeft));
             string clock = (s / 60) + ":" + (s % 60).ToString("00");
@@ -89,6 +113,19 @@ namespace DriftKuwait
                 case Career.Kind.Escape: return (long)elapsed;
                 default: return (long)(scorer.Total + scorer.Current);
             }
+        }
+
+        /// The main thing that held the score back, in Kuwaiti.
+        string Why()
+        {
+            if (ev.kind == Career.Kind.Escape) return "ابتعد عن الدورية واستخدم الشوارع الضيقة عشان تفقدك";
+            float t = Mathf.Max(1f, elapsed);
+            if (ev.kind == Career.Kind.Zone && outsideTime / t > 0.35f) return "النقاط تنحسب بس داخل الدائرة الذهبية حول الدوّار";
+            if (hits >= 3) return $"صدمت {hits} مرات .. كل صدمة تمسح السلسلة اللي تجمعها";
+            if (slowTime / t > 0.3f) return "كنت أبطأ من ٢٥ كم/س أغلب الوقت .. التقحيص ما ينحسب تحت هالسرعة";
+            if (straightTime / t > 0.35f) return "السيارة كانت ماشية سيدة .. اسحب الهاندبريك وخلها تنزلق";
+            if (ev.kind == Career.Kind.Chain) return "تنحسب أطول سلسلة وحدة .. لا تخلي السيارة تعتدل";
+            return "طوّل الانزلاق وقرّب من الجدران عشان المضاعف يكبر";
         }
 
         long NextTarget(long result)
@@ -122,7 +159,7 @@ namespace DriftKuwait
             yield return new WaitForSecondsRealtime(0.6f);
             Time.timeScale = 1f;
             car.Body.isKinematic = true;
-            ResultsScreen.Show(flow, ev, result, rec.stars, rec.cash, rec.rep, rec.best);
+            ResultsScreen.Show(flow, ev, result, rec.stars, rec.cash, rec.rep, rec.best, rec.stars < 3 ? Why() : null);
         }
 
         void OnDestroy() { if (zoneRing != null) Destroy(zoneRing); }

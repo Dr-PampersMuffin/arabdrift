@@ -87,7 +87,7 @@ def logo():
 
     # Small tag line, left.
     d2 = ImageDraw.Draw(im)
-    d2.text((70, 560), "KUWAIT · 1985", font=small, fill=(240, 220, 180, 230))
+    d2.text((70, 560), "KUWAIT · 1987", font=small, fill=(240, 220, 180, 230))
     bbox = im.getbbox()
     return im.crop((max(0, bbox[0] - 20), max(0, bbox[1] - 20), min(W, bbox[2] + 20), min(H, bbox[3] + 20)))
 

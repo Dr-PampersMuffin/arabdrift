@@ -29,6 +29,20 @@
    "owner": "6a7fdbc4675eba065f18918936c8db4fe6716b0f4d8c2c329356c1d34b021965",
    "stability": 0.55,
    "style": 0.2
+  },
+  "bo_shbeeb": {
+   "name": "AD Dawriya Radio",
+   "voice_id": "G1QUjBCuRBbLbAmYlTgl",
+   "owner": "6a7fdbc4675eba065f18918936c8db4fe6716b0f4d8c2c329356c1d34b021965",
+   "stability": 0.55,
+   "style": 0.2
+  },
+  "mutheeb": {
+   "name": "AD Mishari",
+   "voice_id": "lB6K69u17Gb2FSiT9pVV",
+   "owner": "039fddde4bc9379adde862f0aa03b33fa38db2fd5a5d9025f3f4b5cfedb04ad1",
+   "stability": 0.4,
+   "style": 0.45
   }
  },
  "lines": [
@@ -176,6 +190,36 @@
    "who": "radio",
    "text": "السيّارة الفضية! وقّف على اليمين!",
    "radio": true
+  },
+  {
+   "key": "st1_01",
+   "who": "abu_rashid",
+   "text": "هلا والله... رجعت أخيراً يا ولدي. أبوك الله يرحمه چان يگول: هالكراج روح سلوى."
+  },
+  {
+   "key": "st1_02",
+   "who": "abu_rashid",
+   "text": "وهذا الشاهين... سيّارة أبوك. نفضنا عنها الغبار، بس تبي لها شغل وايد."
+  },
+  {
+   "key": "st1_03",
+   "who": "bo_shbeeb",
+   "text": "اسمع يا ولد أخوي... الكراج عليه دين خمسين ألف. والبنك ما يرحم. لازم ندفع أول قسط قبل آخر الصيف."
+  },
+  {
+   "key": "st1_04",
+   "who": "mutheeb",
+   "text": "هالأرض أبيها. أدفع لك زين وتفتك من هالخرابة... بالطيب أحسن لك."
+  },
+  {
+   "key": "st1_05",
+   "who": "abu_rashid",
+   "text": "لا تبيع شي يا ولدي. يلّا... اطلع الشارع وورني شنو باقي فيك من أبوك."
+  },
+  {
+   "key": "st1_06",
+   "who": "bo_shbeeb",
+   "text": "عفيه! أول قسط انسدّ. مثيب بيعصب... بس الكراج باقي لنا."
   }
  ]
 }

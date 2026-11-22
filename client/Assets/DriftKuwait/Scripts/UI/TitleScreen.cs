@@ -103,8 +103,29 @@ namespace DriftKuwait
                 }
             }
 
+            // The one goal: save the garage (bottom-right)
+            {
+                var dc = UIKit.Panel(safe, "Debt", UIKit.Ink, "hud/panel_sharp");
+                UIKit.Place(dc.rectTransform, new Vector2(1f, 0f), new Vector2(-40f, 40f), new Vector2(500f, 176f));
+                UIKit.Outline(dc.transform, new Color(0.97f, 0.93f, 0.85f, 0.22f), "hud/panel_sharp_outline");
+                UIKit.Stripe(dc.transform, new Vector2(1f, 1f), new Vector2(-24f, -14f), 160f, 4f, true);
+                bool ch1 = Story.Chapter == 1;
+                var dt = UIKit.Label(dc.transform, "T", ch1 ? "أنقذ الكراج: أول قسط" : "أنقذ الكراج", 34, UIKit.Gold, TextAnchor.MiddleRight, UIKit.Display);
+                UIKit.Place(dt.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -24f), new Vector2(460f, 48f));
+                long goal = ch1 ? Story.Instalment : Story.Debt;
+                long paid = System.Math.Min(Story.Paid, goal);
+                var bar = UIKit.Bar(dc.transform, "Bar", paid / (float)goal, UIKit.Gold, new Vector2(300f, 14f));
+                UIKit.Place((RectTransform)bar.transform.parent, new Vector2(1f, 0f), new Vector2(-24f, 62f), new Vector2(300f, 14f));
+                var dv = UIKit.Label(dc.transform, "V", UIKit.Dig(paid) + " / " + UIKit.Dig(goal), 22, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Digital, false);
+                UIKit.Place(dv.rectTransform, new Vector2(1f, 0f), new Vector2(-24f, 22f), new Vector2(300f, 32f));
+                var pay = UIKit.Button(dc.transform, "Pay", UIKit.Gold, () => flow.PayDebt(), "hud/panel_sharp");
+                UIKit.Place((RectTransform)pay.transform, new Vector2(0f, 0f), new Vector2(20f, 20f), new Vector2(140f, 70f));
+                var pt = UIKit.Label(pay.transform, "T", "سدّد", 32, UIKit.Navy, TextAnchor.MiddleCenter, UIKit.Black);
+                UIKit.Stretch(pt.rectTransform);
+            }
+
             // Strip of words along the bottom edge
-            var strip = UIKit.Label(safe, "Strip", "KUWAIT 1985   |   CARS   |   STREETS   |   DESERT   |   FRIENDS   |   NO LIMITS", 20,
+            var strip = UIKit.Label(safe, "Strip", "KUWAIT 1987   |   CARS   |   STREETS   |   DESERT   |   FRIENDS   |   NO LIMITS", 20,
                 new Color(1, 1, 1, 0.6f), TextAnchor.MiddleLeft, UIKit.Digital, false);
             UIKit.Place(strip.rectTransform, new Vector2(0f, 0f), new Vector2(48f, 22f), new Vector2(1300f, 30f));
 
@@ -121,7 +142,7 @@ namespace DriftKuwait
             UIKit.Place(prof.rectTransform, new Vector2(1f, 0.5f), new Vector2(x, 0f), new Vector2(210f, 72f));
             var pic = UIKit.Img(prof.transform, "Ic", UIKit.S("hud/ic_people"), UIKit.Cream);
             UIKit.Place(pic.rectTransform, new Vector2(1f, 0.5f), new Vector2(-14f, 0f), new Vector2(48f, 48f));
-            var nm = UIKit.Label(prof.transform, "Name", "ضيف", 34, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
+            var nm = UIKit.Label(prof.transform, "Name", GameCenter.PlayerName ?? "ضيف", GameCenter.SignedIn ? 24 : 34, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Place(nm.rectTransform, new Vector2(0f, 0.5f), new Vector2(20f, 2f), new Vector2(130f, 60f));
             x -= 230f;
             x = Chip(bar, x, "hud/ic_rep", UIKit.Dig(Wallet.Rep), 230f);

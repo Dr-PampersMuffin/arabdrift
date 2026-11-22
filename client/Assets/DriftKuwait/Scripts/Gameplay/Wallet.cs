@@ -22,7 +22,7 @@ namespace DriftKuwait
         public enum Controls { Buttons, Wheel, Tilt }
         public static Controls Layout { get => (Controls)GetI("dk_ctrl2", (int)Controls.Wheel); set => SetI("dk_ctrl2", (int)value); }
         /// Manual gearbox: shift paddles on screen, no automatic shifts.
-        public static bool Manual { get => GetI("dk_manual", 1) == 1; set => SetI("dk_manual", value ? 1 : 0); }
+        public static bool Manual { get => GetI("dk_manual2", 0) == 1; set => SetI("dk_manual2", value ? 1 : 0); }
         /// Steering sensitivity 0..1 (wheel turn needed for full lock, tilt gain).
         public static float SteerSens { get => GetF("dk_sens", 0.6f); set => SetF("dk_sens", value); }
         /// Tyre smoke density 0..1.

@@ -421,6 +421,8 @@ namespace DriftKuwait
             return clip.length;
         }
 
+        public static void StopVoice() { if (voice != null) voice.Stop(); }
+
         public static void Music(string key, float fade = 1.5f)
         {
             if (key == currentMusic) return;

@@ -20,6 +20,8 @@ namespace DriftKuwait
         Image scorePlate;
         /// Set by the running event (null = free roam text).
         public string MissionTitle, MissionSub, MissionTime;
+        /// During an event: the number the event is judged on (shown big, top right). -1 = free drive (total score).
+        public long JudgedValue = -1;
         GameObject shiftUp, shiftDown;
         Text totalTxt, chainTxt, multTxt, calloutTxt, angleTxt, speedTxt, gearTxt, turboTxt, missionTitle, missionSub, missionTime;
         Text[] breakdown = new Text[3];
@@ -326,7 +328,7 @@ namespace DriftKuwait
             }
 
             // Score
-            shownTotal = Mathf.Lerp(shownTotal, scorer.Total, 1f - Mathf.Exp(-8f * Time.deltaTime));
+            shownTotal = Mathf.Lerp(shownTotal, JudgedValue >= 0 ? JudgedValue : scorer.Total, 1f - Mathf.Exp(-8f * Time.deltaTime));
             totalTxt.text = shownTotal < 0.5f ? "" : UIKit.Dig((long)Mathf.Round(shownTotal));
             bool chain = scorer.Current > 1f;
             multRoot.SetActive(scorer.Multiplier > 1);
@@ -417,25 +419,25 @@ namespace DriftKuwait
         IEnumerator Intro()
         {
             yield return new WaitForSeconds(1.0f);
-            yield return new WaitForSeconds(Say("ab_intro_1", "por_abu_rashid", "أبو راشد:", "هلا فيك يا ولدي. هذي سلوى .. وهذا الشاهين."));
-            yield return new WaitForSeconds(Say("ab_intro_2", "por_abu_rashid", "أبو راشد:", "الشارع هني له روح .. وروح الشارع ما تنشرى، تنكسب."));
+            yield return new WaitForSeconds(Say("ab_intro_1", "por_abu_rashid", "بو ناصر:", "هلا فيك يا ولدي. هذي سلوى .. وهذا الشاهين."));
+            yield return new WaitForSeconds(Say("ab_intro_2", "por_abu_rashid", "بو ناصر:", "الشارع هني له روح .. وروح الشارع ما تنشرى، تنكسب."));
             float t = 0f;
             while (car != null && car.SpeedKmh < 25f && t < 6f) { t += Time.deltaTime; yield return null; }
             if (car == null) yield break;
-            if (car.SpeedKmh < 25f) yield return new WaitForSeconds(Say("ab_tut_throttle", "por_abu_rashid", "أبو راشد:", "دوس البانزين .. خل التيربو يصفّر."));
+            if (car.SpeedKmh < 25f) yield return new WaitForSeconds(Say("ab_tut_throttle", "por_abu_rashid", "بو ناصر:", "دوس البانزين .. خل التيربو يصفّر."));
             t = 0f;
             while (car != null && car.SpeedKmh < 55f && t < 10f) { t += Time.deltaTime; yield return null; }
             if (car == null) yield break;
-            yield return new WaitForSeconds(Say("ab_tut_handbrake", "por_abu_rashid", "أبو راشد:", "الحين! شد الهاندبريك وخل الصدر يلف .. لا تخاف."));
+            yield return new WaitForSeconds(Say("ab_tut_handbrake", "por_abu_rashid", "بو ناصر:", "الحين! شد الهاندبريك وخل الصدر يلف .. لا تخاف."));
             t = 0f;
             while (car != null && Mathf.Abs(car.DriftAngle) < 20f && t < 8f) { t += Time.deltaTime; yield return null; }
             if (car == null) yield break;
-            yield return new WaitForSeconds(Say("ab_tut_counter", "por_abu_rashid", "أبو راشد:", "عاكس الدركسون .. إي، جذي. لا تفك الدعسة."));
+            yield return new WaitForSeconds(Say("ab_tut_counter", "por_abu_rashid", "بو ناصر:", "عاكس الدركسون .. إي، جذي. لا تفك الدعسة."));
             long before = scorer.Total;
             t = 0f;
             while (car != null && scorer.Total - before < 800 && t < 20f) { t += Time.deltaTime; yield return null; }
             if (car == null) yield break;
-            if (scorer.Total - before >= 800) Say("ab_good", "por_abu_rashid", "أبو راشد:", "كفو! هذا التقحيص اللي أبيه.");
+            if (scorer.Total - before >= 800) Say("ab_good", "por_abu_rashid", "بو ناصر:", "كفو! هذا التقحيص اللي أبيه.");
         }
 
         void OnDestroy()

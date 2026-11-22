@@ -1,0 +1,31 @@
+{
+ "asset_id": "story_ch1_mutheeb",
+ "version": 1,
+ "spec": "../../../tmp/claude-0/-home-claude/c8da0280-df33-5500-9e22-db14a2c5d45f/scratchpad/story.json",
+ "prompt": "Cinematic illustrated story panel for a premium mobile racing game, painterly realism like a high-end graphic novel, warm golden-hour light through a dusty workshop door, rich saturated oranges and teal shadows, film grain.\n\nKuwait 1987, sunset. A shiny black 1980s Mercedes S-Class sedan parked outside an old Salwa car workshop. A confident Kuwaiti businessman in his forties in a crisp white dishdasha, dark bisht over his shoulders, gold watch and dark sunglasses leans on the car door, smiling coldly toward the camera. Behind him the workshop roller door and beige villa walls, palms, long shadows, dramatic low-angle cinematic shot.\n\nDo not include: any text, letters, numbers, logos or watermarks; modern objects; women.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 163,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 163
+  },
+  "output_tokens": 1372,
+  "output_tokens_details": {
+   "image_tokens": 1372,
+   "text_tokens": 0
+  },
+  "total_tokens": 1535
+ },
+ "seconds": 28.4,
+ "created": "2026-11-22T18:54:42+0300",
+ "qa_status": "in_review"
+}

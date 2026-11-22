@@ -18,6 +18,7 @@ namespace DriftKuwait
         GameObject screen;          // current menu screen root
         DriveHUD hud;
         Pursuit pursuit;
+        TrafficSystem traffic;
         EventRunner runner;
         Image fade;
 
@@ -41,6 +42,11 @@ namespace DriftKuwait
             PreviewHooks.Register("04_map", () => f.PreviewScreen(() => f.ShowMap()));
             PreviewHooks.Register("06_howto", () => f.PreviewScreen(() => { f.ShowTitle(); HowToPlay.Show(null); }),
                                   () => { var h = Object.FindAnyObjectByType<HowToPlay>(); if (h != null) Destroy(h.gameObject); });
+            PreviewHooks.Register("07_story", () => f.PreviewScreen(() => StoryScene.Play(new[] { Story.Ch1Intro[3] }, null)),
+                                  () => { var g = GameObject.Find("DK_Story"); if (g != null) Destroy(g); });
+            PreviewHooks.Register("08_results", () => f.PreviewScreen(() => ResultsScreen.Show(f, Career.Events[1], 420, 0, 0, 0, false,
+                                      "كنت أبطأ من ٢٥ كم/س أغلب الوقت .. التقحيص ما ينحسب تحت هالسرعة")),
+                                  () => { foreach (var r in Object.FindObjectsByType<ResultsScreen>(FindObjectsSortMode.None)) Destroy(r.gameObject); });
             PreviewHooks.StartDrive = () => f.StartDrive("shaheen", false);
             return f;
         }
@@ -84,8 +90,28 @@ namespace DriftKuwait
         /// PLAY: first time shows how to play, then the map.
         public void Play()
         {
-            if (!HowToPlay.Seen) HowToPlay.Show(ShowMap);
-            else ShowMap();
+            System.Action next = () => { if (!HowToPlay.Seen) HowToPlay.Show(ShowMap); else ShowMap(); };
+            if (!Story.IntroSeen && !PreviewHooks.Active)
+            {
+                Story.BeginChapter1();
+                StoryScene.Play(Story.Ch1Intro, next);
+            }
+            else next();
+        }
+
+        /// Pays the garage debt from the wallet; the first instalment closes Chapter 1 with its story beat.
+        public void PayDebt()
+        {
+            bool before = Story.ToInstalment > 0;
+            long paid = Story.PayFromWallet();
+            if (paid <= 0) { Toast("ما عندك كاش كافي .. اطلع قحّص واجمع"); return; }
+            Sfx.Play("ui_reward", 0.9f);
+            if (before && Story.ToInstalment == 0 && Story.Chapter == 1)
+            {
+                Story.Chapter = 2;
+                StoryScene.Play(Story.Ch1Done, () => { ShowTitle(); Toast("الفصل الثاني: الكراج .. قريباً"); });
+            }
+            else ShowTitle();
         }
 
         public void StartDrive(string id, bool withFade = true)
@@ -119,6 +145,10 @@ namespace DriftKuwait
             pursuit = new GameObject("DK_Pursuit").AddComponent<Pursuit>();
             pursuit.player = car.GetComponent<DriftCarController>();
             pursuit.hud = hud;
+            traffic = new GameObject("DK_Traffic").AddComponent<TrafficSystem>();
+            traffic.player = pursuit.player; traffic.pursuit = pursuit;
+            traffic.count = (ev != null && ev.kind != Career.Kind.FreeRoam) ? 6 : 14;
+            traffic.patrol = ev == null || ev.kind == Career.Kind.FreeRoam;
             Sfx.Music(Atmosphere.IsNight ? "mus_drive_night" : "mus_drive_day");
             Sfx.Play("shaheen_start", 0.8f);
             if (ev != null && ev.kind != Career.Kind.FreeRoam)
@@ -138,6 +168,7 @@ namespace DriftKuwait
             foreach (var r in Object.FindObjectsByType<ResultsScreen>(FindObjectsSortMode.None)) Destroy(r.gameObject);
             if (hud != null) Destroy(hud.gameObject);
             if (pursuit != null) { pursuit.Cleanup(); Destroy(pursuit.gameObject); }
+            if (traffic != null) Destroy(traffic.gameObject);
             if (car != null) Destroy(car);
             hud = null; pursuit = null; car = null;
             Time.timeScale = 1f;

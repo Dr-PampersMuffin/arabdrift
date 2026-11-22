@@ -72,8 +72,16 @@ namespace DriftKuwait
         }
 
         /// Called by Atmosphere when the time of day changes: some windows glow warm at night.
+        static Material asphaltMat;
+
         public static void SetNight(bool night)
         {
+            // Night streets look freshly washed: wetter, darker asphalt that mirrors the sodium lamps and headlights.
+            if (asphaltMat != null)
+            {
+                asphaltMat.SetFloat("_Smoothness", night ? 0.78f : 0.32f);
+                asphaltMat.SetColor("_BaseColor", night ? new Color(0.62f, 0.62f, 0.64f) : Color.white);
+            }
             if (litWindowMat == null) return;
             litWindowMat.SetColor("_EmissionColor", night ? new Color(1f, 0.72f, 0.42f) * 2.2f : Color.black);
             litWindowMat.SetColor("_BaseColor", night ? new Color(0.35f, 0.26f, 0.16f) : new Color(0.08f, 0.10f, 0.11f));
@@ -121,6 +129,10 @@ namespace DriftKuwait
         }
 
         static void AddRoad(R r, float top) { roads.Add(r); roadTops.Add(top); }
+
+        /// The drivable network for traffic AI: each road as (x0, x1, z0, z1); roundabout islands as (centre, radius).
+        public static IEnumerable<Vector4> RoadRects { get { foreach (var r in roads) yield return new Vector4(r.x0, r.x1, r.z0, r.z1); } }
+        public static IEnumerable<(Vector3 c, float r)> Islands => islands;
         static readonly List<float> roadTops = new List<float>();
 
         static void Roads(Transform root)
@@ -141,6 +153,7 @@ namespace DriftKuwait
             AddRoad(p2, 0.0225f);
 
             var asphalt = Mat.Textured("M_Asphalt", TextureKit.Asphalt, Color.white, 0.32f, new Vector2(0.125f, 0.125f));
+            asphaltMat = asphalt;
             var parent = new GameObject("Roads").transform;
             parent.SetParent(root, false);
             for (int i = 0; i < roads.Count; i++)
@@ -640,7 +653,7 @@ namespace DriftKuwait
             string[] ids = { "ghazal", "faris", "wanait", "abusitta", "shaheen" };
             int placed = 0;
             var used = new List<Vector3>();
-            for (int i = 0; i < parkSpots.Count && placed < 18; i++)
+            for (int i = 0; i < parkSpots.Count && placed < 10; i++)
             {
                 if (Random.value > 0.22f) continue;
                 var (pos, rot) = parkSpots[i];

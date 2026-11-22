@@ -7,7 +7,7 @@ namespace DriftKuwait
     /// After an event: the result, stars won (animated in), best, rewards, and what to do next.
     public class ResultsScreen : MonoBehaviour
     {
-        public static void Show(GameFlow flow, Career.EventDef ev, long result, int stars, int cash, int rep, bool best)
+        public static void Show(GameFlow flow, Career.EventDef ev, long result, int stars, int cash, int rep, bool best, string why = null)
         {
             var c = UIKit.MakeCanvas("DK_Results", 55);
             var r = c.gameObject.AddComponent<ResultsScreen>();
@@ -24,18 +24,23 @@ namespace DriftKuwait
             UIKit.Place(t.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -30f), new Vector2(1200f, 90f));
             string verdict = stars == 3 ? "أسطورة الشارع!" : stars == 2 ? "عفيه عليك!" : stars == 1 ? "مو بطّال .. تقدر أحسن" : "ما وصلت الهدف .. جرّب مرة ثانية";
             var v = UIKit.Label(tr, "Verdict", verdict, 40, stars > 0 ? UIKit.Gold : new Color(1f, 0.45f, 0.35f), TextAnchor.MiddleCenter, UIKit.Black);
-            UIKit.Place(v.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -120f), new Vector2(1200f, 60f));
+            UIKit.Place(v.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -116f), new Vector2(1200f, 56f));
+            if (!string.IsNullOrEmpty(why))
+            {
+                var w = UIKit.Label(tr, "Why", why, 28, new Color(1f, 1f, 1f, 0.8f), TextAnchor.MiddleCenter, UIKit.Arabic);
+                UIKit.Place(w.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -174f), new Vector2(1360f, 40f));
+            }
 
             // Stars
             var starImgs = new Image[3];
             for (int i = 0; i < 3; i++)
             {
                 var s = UIKit.Img(tr, "Star" + i, UIKit.S("hud/ic_star_big"), new Color(1f, 1f, 1f, 0.15f));
-                UIKit.Place(s.rectTransform, new Vector2(0.5f, 1f), new Vector2((1 - i) * 190f, -290f), new Vector2(170f, 170f));
+                UIKit.Place(s.rectTransform, new Vector2(0.5f, 1f), new Vector2((1 - i) * 180f, -232f), new Vector2(150f, 150f));
                 starImgs[i] = s;
             }
 
-            string resLabel = ev.kind == Career.Kind.Escape ? (result > 0 ? "وقت الهروب" : "انحجزت السيارة") : ev.kind == Career.Kind.Chain ? "أطول سلسلة" : "النقاط";
+            string resLabel = ev.kind == Career.Kind.Escape ? (result > 0 ? "وقت الهروب" : "انحجزت السيارة") : ev.kind == Career.Kind.Chain ? "أطول سلسلة" : ev.kind == Career.Kind.Zone ? "نقاط داخل الدائرة" : "النقاط";
             string resValue = ev.kind == Career.Kind.Escape ? (result > 0 ? UIKit.Num(result) + " ث" : "—") : UIKit.Num(result);
             Row(tr, 0, resLabel, resValue, true);
             long bestV = Career.Best(ev.id);

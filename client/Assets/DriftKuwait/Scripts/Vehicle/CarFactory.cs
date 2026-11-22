@@ -179,6 +179,8 @@ namespace DriftKuwait
             var v = BuildVisual(spec, data, root.transform, false);
             for (int i = 0; i < 4; i++)
                 v.wheels[i].localPosition = i == 0 ? data.fl : i == 1 ? data.fr : i == 2 ? data.rl : data.rr;
+            var dw = root.AddComponent<DisplayWheels>();
+            dw.wheels = v.wheels; dw.radius = data.radius;
             return root;
         }
 
@@ -549,6 +551,19 @@ namespace DriftKuwait
             m.RecalculateTangents();
             m.RecalculateBounds();
             return m;
+        }
+    }
+
+    /// Wheels of a non-physics car (traffic, parked, showroom), so AI cars can roll them.
+    public class DisplayWheels : MonoBehaviour
+    {
+        public Transform[] wheels;
+        public float radius = 0.3f;
+        float angle;
+        public void Roll(float metres)
+        {
+            angle += metres / Mathf.Max(0.1f, radius) * Mathf.Rad2Deg;
+            foreach (var w in wheels) if (w != null) w.localRotation = Quaternion.Euler(angle, 0f, 0f);
         }
     }
 }

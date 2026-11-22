@@ -1,0 +1,31 @@
+{
+ "asset_id": "story_ch1_street",
+ "version": 1,
+ "spec": "../../../tmp/claude-0/-home-claude/c8da0280-df33-5500-9e22-db14a2c5d45f/scratchpad/story.json",
+ "prompt": "Cinematic illustrated story panel for a premium mobile racing game, painterly realism like a high-end graphic novel, warm golden-hour light through a dusty workshop door, rich saturated oranges and teal shadows, film grain.\n\nKuwait 1987, dusk. A silver 1980s Japanese coupe drifting through a corner of a wide residential street in Salwa, tyre smoke glowing in the sunset, beige villa walls with black-and-yellow painted kerbs, sodium street lamps just switching on, a few neighbours watching from a doorway. Dynamic cinematic angle, motion blur on the wheels.\n\nDo not include: any text, letters, numbers, logos or watermarks; modern objects; women.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 142,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 142
+  },
+  "output_tokens": 1372,
+  "output_tokens_details": {
+   "image_tokens": 1372,
+   "text_tokens": 0
+  },
+  "total_tokens": 1514
+ },
+ "seconds": 28.2,
+ "created": "2026-11-22T18:55:10+0300",
+ "qa_status": "in_review"
+}
