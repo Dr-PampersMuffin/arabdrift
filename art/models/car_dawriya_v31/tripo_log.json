@@ -1,0 +1,24 @@
+[
+ {
+  "step": "model",
+  "task_id": "d5ddadac-8a0a-49ed-bbbe-a52483e57b1e",
+  "status": "success",
+  "credits": 60,
+  "seconds": 153,
+  "body": {
+   "type": "image_to_model",
+   "model_version": "v3.1-20260211",
+   "texture": true,
+   "pbr": true,
+   "texture_quality": "detailed",
+   "face_limit": 80000,
+   "geometry_quality": "detailed"
+  },
+  "files": {
+   "pbr_model": "art/models/car_dawriya_v31/model_pbr.glb",
+   "rendered_image": "art/models/car_dawriya_v31/preview.webp"
+  },
+  "output_meta": {},
+  "time": "2026-11-22T12:01:54+0300"
+ }
+]

@@ -77,6 +77,14 @@ def save(im, name, jpg=True):
     print("wrote", os.path.relpath(path, ROOT), im.size)
 
 
+def flatten(im):
+    """Remove large-scale light falloff so a tile has no visible bright/dark halves when repeated."""
+    a = np.asarray(im).astype(np.float32)
+    low = np.asarray(im.filter(ImageFilter.GaussianBlur(120))).astype(np.float32)
+    out = a / np.maximum(low, 1) * a.reshape(-1, 3).mean(0)
+    return Image.fromarray(out.clip(0, 255).astype(np.uint8))
+
+
 def seamless_x(im):
     a = np.asarray(im).astype(np.float32)
     h, w = a.shape[:2]
@@ -115,13 +123,19 @@ def main():
         s = src(a)
         if not s:
             continue
-        im = seamless(Image.open(s).convert("RGB").resize((1024, 1024), Image.LANCZOS))
+        im = flatten(Image.open(s).convert("RGB").resize((1024, 1024), Image.LANCZOS))
+        im = seamless(im)
         name = a.replace("tex_", "")
         save(im, name)
         save(normal_map(im, st), name + "_n", jpg=False)
     s = src("palm_frond")
     if s:
         im = Image.open(s).convert("RGBA")
+        if im.getchannel("A").getextrema()[0] == 255:      # shot on white: key the background out
+            arr = np.asarray(im.convert("RGB")).astype(np.float32)
+            d = 255 - arr.min(2)
+            al = np.clip((d - 18) * 6, 0, 255).astype(np.uint8)
+            im.putalpha(Image.fromarray(al))
         bbox = im.getchannel("A").point(lambda v: 255 if v > 24 else 0).getbbox()
         if bbox:
             im = im.crop(bbox)

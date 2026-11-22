@@ -1,0 +1,31 @@
+{
+ "asset_id": "tex_asphalt_v3",
+ "version": 1,
+ "spec": "art/prompts/world_v3.json",
+ "prompt": "Photographic texture source for a photorealistic racing game set in Salwa, Kuwait, in 1985. Real photograph, not a render, not an illustration. Shot perfectly straight-on with a long lens so it reads as an orthographic elevation: no perspective, no vanishing lines, verticals perfectly vertical. Soft, even, shadowless daylight (bright overcast) so the game engine can add its own sun and shadows. True-to-life colours, fine surface detail: hairline cracks, dust, water stains, sun bleaching.\n\nSeamless tileable square texture of an old Kuwaiti residential street asphalt seen from directly above: grey aggregate bleached by the sun, a light dusting of desert sand, faint tyre polish, a few patched repairs and fine cracks, small oil stains. No road markings. Fills the whole frame.\n\nDo not include: any text, letters, numbers, signs, logos or watermarks; people; cars; satellite dishes; modern LED lights or modern glass curtain walls; mosques, minarets, domes; flags; strong cast shadows; perspective distortion.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1024x1024",
+  "quality": "high",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 231,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 231
+  },
+  "output_tokens": 7024,
+  "output_tokens_details": {
+   "image_tokens": 7024,
+   "text_tokens": 0
+  },
+  "total_tokens": 7255
+ },
+ "seconds": 129.3,
+ "created": "2026-11-22T11:55:33+0300",
+ "qa_status": "in_review"
+}

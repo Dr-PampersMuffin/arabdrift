@@ -1,0 +1,31 @@
+{
+ "asset_id": "palm_frond",
+ "version": 1,
+ "spec": "art/prompts/world_v3.json",
+ "prompt": "Photographic texture source for a photorealistic racing game set in Salwa, Kuwait, in 1985. Real photograph, not a render, not an illustration. Shot perfectly straight-on with a long lens so it reads as an orthographic elevation: no perspective, no vanishing lines, verticals perfectly vertical. Soft, even, shadowless daylight (bright overcast) so the game engine can add its own sun and shadows. True-to-life colours, fine surface detail: hairline cracks, dust, water stains, sun bleaching.\n\nOne single complete date palm frond photographed flat from above, isolated on a plain pure white studio background (#FFFFFF), nothing else in the frame: a long central stem running from the bottom centre to the top centre of the image, with stiff green-grey pinnate leaflets on both sides, sun-bleached tips, a few dry yellow leaflets near the base.\n\nDo not include: any text, letters, numbers, signs, logos or watermarks; people; cars; satellite dishes; modern LED lights or modern glass curtain walls; mosques, minarets, domes; flags; strong cast shadows; perspective distortion.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1024x1536",
+  "quality": "high",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 243,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 243
+  },
+  "output_tokens": 5488,
+  "output_tokens_details": {
+   "image_tokens": 5488,
+   "text_tokens": 0
+  },
+  "total_tokens": 5731
+ },
+ "seconds": 61.6,
+ "created": "2026-11-22T12:00:05+0300",
+ "qa_status": "in_review"
+}
