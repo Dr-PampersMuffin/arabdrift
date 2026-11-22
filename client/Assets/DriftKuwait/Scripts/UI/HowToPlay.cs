@@ -33,10 +33,11 @@ namespace DriftKuwait
         {
             var dim = UIKit.Img(root, "Dim", null, new Color(0, 0, 0, 0.7f), true);
             UIKit.Stretch(dim.rectTransform);
-            var p = UIKit.Panel(root, "Panel", new Color(0.06f, 0.055f, 0.05f, 0.97f));
+            var p = UIKit.Panel(root, "Panel", new Color(0.035f, 0.06f, 0.11f, 0.97f));
             UIKit.Place(p.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(1400f, 760f));
-            UIKit.Outline(p.transform, new Color(1f, 0.7f, 0.2f, 0.5f));
+            UIKit.Outline(p.transform, new Color(0.97f, 0.93f, 0.85f, 0.22f));
             var tr = p.transform;
+            UIKit.Stripe(tr, new Vector2(1f, 1f), new Vector2(-48f, -20f), 300f, 6f, true);
             var head = UIKit.Label(tr, "Head", "طريقة اللعب", 40, new Color(1, 1, 1, 0.6f), TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Place(head.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -36f), new Vector2(800f, 50f));
             icon = UIKit.Img(tr, "Icon", null, UIKit.Gold);

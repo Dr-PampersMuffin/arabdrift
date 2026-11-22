@@ -31,7 +31,7 @@ namespace DriftKuwait
         public static float Music { get => GetF("dk_music", 0.55f); set { SetF("dk_music", value); Sfx.MusicVolume = value; } }
         public static float Effects { get => GetF("dk_sfx", 1f); set { SetF("dk_sfx", value); Sfx.SfxVolume = value; } }
         public static bool Haptics { get => GetI("dk_hap", 1) == 1; set => SetI("dk_hap", value ? 1 : 0); }
-        public static bool EasternNumerals { get => GetI("dk_num", 1) == 1; set { SetI("dk_num", value ? 1 : 0); UIKit.EasternNumerals = value; } }
+        public static bool EasternNumerals { get => GetI("dk_num", 0) == 1; set { SetI("dk_num", value ? 1 : 0); UIKit.EasternNumerals = value; } }
 
         public static void Load()
         {

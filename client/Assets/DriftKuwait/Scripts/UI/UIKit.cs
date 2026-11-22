@@ -11,17 +11,42 @@ namespace DriftKuwait
     /// (shaped and wrapped for Unity's left-to-right text), buttons, bars, and the colour palette from the blueprint.
     public static class UIKit
     {
-        // Palette (blueprint section 7) + HUD accents from the reference screens.
-        public static readonly Color Gold = new Color(1f, 0.70f, 0.18f);
-        public static readonly Color GoldDeep = new Color(0.93f, 0.55f, 0.08f);
-        public static readonly Color Ink = new Color(0.07f, 0.065f, 0.06f, 0.86f);
-        public static readonly Color InkSoft = new Color(0.07f, 0.065f, 0.06f, 0.62f);
+        // Q8 DRIFT 1985 design language: deep navy and petrol-blue plates, warm cream and ivory type, mustard for
+        // the primary action, and the racing tri-stripe (red / burnt orange / mustard) from 80s Gulf rally liveries.
+        public static readonly Color Gold = new Color(0.97f, 0.72f, 0.16f);          // mustard
+        public static readonly Color GoldDeep = new Color(0.90f, 0.42f, 0.10f);      // burnt orange
+        public static readonly Color RacingRed = new Color(0.80f, 0.13f, 0.10f);
+        public static readonly Color Petrol = new Color(0.05f, 0.30f, 0.36f);
+        public static readonly Color Navy = new Color(0.035f, 0.06f, 0.11f);
+        public static readonly Color Silver = new Color(0.78f, 0.80f, 0.82f);
+        public static readonly Color Ink = new Color(0.035f, 0.06f, 0.11f, 0.88f);
+        public static readonly Color InkSoft = new Color(0.035f, 0.06f, 0.11f, 0.62f);
         public static readonly Color Cream = new Color(0.97f, 0.93f, 0.85f);
         public static readonly Color Dust = new Color(0.85f, 0.73f, 0.54f);
         public static readonly Color SaduRed = new Color(0.62f, 0.17f, 0.15f);
         public static readonly Color Line = new Color(1f, 1f, 1f, 0.16f);
 
-        static Font arabic, arabicBlack, display;
+        static Font arabic, arabicBlack, display, digital, retro;
+        /// Vintage digital-instrument face for numbers and Latin labels (Orbitron, OFL).
+        public static Font Digital => digital != null ? digital : (digital = LoadFont("Orbitron-Black"));
+        /// 80s motorsport lettering for Latin titles (Audiowide, OFL).
+        public static Font Retro => retro != null ? retro : (retro = LoadFont("Audiowide"));
+
+        /// The racing tri-stripe: three slim bars (red, burnt orange, mustard). Vertical by default.
+        public static RectTransform Stripe(Transform parent, Vector2 anchor, Vector2 pos, float length, float bar = 7f, bool horizontal = false)
+        {
+            var root = Rect(parent, "TriStripe");
+            Place(root, anchor, pos, horizontal ? new Vector2(length, bar * 3 + 6) : new Vector2(bar * 3 + 6, length));
+            Color[] cs = { RacingRed, GoldDeep, Gold };
+            for (int i = 0; i < 3; i++)
+            {
+                var im = Img(root, "S" + i, null, cs[i]);
+                var rt = im.rectTransform;
+                if (horizontal) { rt.anchorMin = new Vector2(0, 1 - (i + 1) / 3f); rt.anchorMax = new Vector2(1, 1 - i / 3f); rt.offsetMin = new Vector2(0, 1); rt.offsetMax = new Vector2(0, -1); }
+                else { rt.anchorMin = new Vector2(i / 3f, 0); rt.anchorMax = new Vector2((i + 1) / 3f, 1); rt.offsetMin = new Vector2(1, 0); rt.offsetMax = new Vector2(-1, 0); }
+            }
+            return root;
+        }
         public static Font Arabic => arabic != null ? arabic : (arabic = LoadFont("Cairo-Bold"));
         public static Font Black => arabicBlack != null ? arabicBlack : (arabicBlack = LoadFont("Cairo-Black"));
         public static Font Display => display != null ? display : (display = LoadFont("Lalezar"));
@@ -221,6 +246,10 @@ namespace DriftKuwait
         static readonly char[] EastDigits = { '٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩' };
         public static bool EasternNumerals = true;
 
+        /// Instrument numbers (speed, gear, score, timers) always use the digital face's Western digits, like a 1985 dash.
+        public static string Dig(long v, bool grouping = true) =>
+            grouping ? v.ToString("N0", System.Globalization.CultureInfo.InvariantCulture) : v.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
         /// 4870 -> "٤٬٨٧٠" (Eastern Arabic digits, the blueprint's option, on by default).
         public static string Num(long v, bool grouping = true)
         {
@@ -258,13 +287,14 @@ namespace DriftKuwait
         {
             var b = Button(parent, "Btn_" + en, primary ? Gold : Ink, onClick, "hud/panel_sharp");
             var tr = b.transform;
-            if (!primary) Outline(tr, new Color(1f, 1f, 1f, 0.22f), "hud/panel_sharp_outline");
-            Color fg = primary ? new Color(0.12f, 0.08f, 0.03f) : Cream;
+            if (!primary) Outline(tr, new Color(0.97f, 0.93f, 0.85f, 0.18f), "hud/panel_sharp_outline");
+            Stripe(tr, new Vector2(1f, 0.5f), new Vector2(0f, 0f), 112f * 0.78f, 5f);
+            Color fg = primary ? Navy : Cream;
             var ic = Img(tr, "Icon", S("hud/ic_" + icon), fg);
-            Place(ic.rectTransform, new Vector2(1f, 0.5f), new Vector2(-34f, 0f), new Vector2(64f, 64f));
+            Place(ic.rectTransform, new Vector2(1f, 0.5f), new Vector2(-46f, 0f), new Vector2(60f, 60f));
             var t1 = Label(tr, "Ar", ar, 50, fg, TextAnchor.MiddleCenter, Black);
             Place(t1.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(10f, 14f), new Vector2(360f, 70f));
-            var t2 = Label(tr, "En", en, 24, new Color(fg.r, fg.g, fg.b, 0.8f), TextAnchor.MiddleCenter, Arabic, false);
+            var t2 = Label(tr, "En", en.ToUpperInvariant(), 18, new Color(fg.r, fg.g, fg.b, 0.75f), TextAnchor.MiddleCenter, Digital, false);
             Place(t2.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(10f, -30f), new Vector2(360f, 30f));
             var ch = Img(tr, "Chevron", S("hud/ic_chev_l"), fg);
             Place(ch.rectTransform, new Vector2(0f, 0.5f), new Vector2(26f, 0f), new Vector2(46f, 46f));

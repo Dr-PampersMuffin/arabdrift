@@ -72,9 +72,9 @@ namespace DriftKuwait
             long result = Result();
             long next = NextTarget(result);
             int s = Mathf.Max(0, Mathf.CeilToInt(timeLeft));
-            string clock = UIKit.Num(s / 60, false) + ":" + (UIKit.EasternNumerals ? UIKit.Num(s % 60 / 10, false) + UIKit.Num(s % 10, false) : (s % 60).ToString("00"));
+            string clock = (s / 60) + ":" + (s % 60).ToString("00");
             if (ev.kind == Career.Kind.Escape) hud.MissionTime = clock;
-            else hud.MissionTime = clock + "     " + UIKit.Ar(next > 0 ? UIKit.Num(result) + " من " + UIKit.Num(next) : UIKit.Num(result));
+            else hud.MissionTime = clock + "     " + (next > 0 ? UIKit.Dig(result) + " / " + UIKit.Dig(next) : UIKit.Dig(result));
 
             if (ev.seconds > 0f && timeLeft <= 0f)
                 Finish(ev.kind == Career.Kind.Escape ? 0 : Result());

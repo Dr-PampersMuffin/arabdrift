@@ -67,16 +67,17 @@ namespace DriftKuwait
             RenderMap();
             var vign = UIKit.Img(frame.transform, "Vignette", UIKit.S("hud/grad_v"), new Color(0, 0, 0, 0.35f));
             UIKit.Stretch(vign.rectTransform, 8, 8, 8, 8);
-            UIKit.Outline(frame.transform, new Color(1f, 0.7f, 0.2f, 0.4f), "hud/panel_sharp_outline");
+            UIKit.Outline(frame.transform, new Color(0.97f, 0.93f, 0.85f, 0.22f), "hud/panel_sharp_outline");
 
             foreach (var ev in Career.Events)
                 if (ev.district == "salwa") Pin(img.rectTransform, ev);
 
             // Side card (right)
-            var card = UIKit.Panel(safe, "Card", new Color(0.07f, 0.065f, 0.06f, 0.94f), "hud/panel_sharp");
+            var card = UIKit.Panel(safe, "Card", new Color(0.035f, 0.06f, 0.11f, 0.94f), "hud/panel_sharp");
             UIKit.Place(card.rectTransform, new Vector2(1f, 0f), new Vector2(-40f, 40f), new Vector2(660f, MapH + 16f));
-            UIKit.Outline(card.transform, new Color(1f, 0.7f, 0.2f, 0.4f), "hud/panel_sharp_outline");
+            UIKit.Outline(card.transform, new Color(0.97f, 0.93f, 0.85f, 0.22f), "hud/panel_sharp_outline");
             var ct = card.transform;
+            UIKit.Stripe(ct, new Vector2(1f, 1f), new Vector2(-48f, -20f), 300f, 6f, true);
             cardTitle = UIKit.Label(ct, "Title", "", 58, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Display);
             UIKit.Place(cardTitle.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -24f), new Vector2(600f, 80f));
             cardGoal = UIKit.Label(ct, "Goal", "", 34, UIKit.Gold, TextAnchor.UpperRight, UIKit.Black);
@@ -148,7 +149,7 @@ namespace DriftKuwait
             UIKit.Stretch((RectTransform)pin.transform);
             var ic = UIKit.Img(pin.transform, "Icon", UIKit.S(open ? IconFor(ev.kind) : "hud/ic_lock"), Color.white);
             UIKit.Place(ic.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -26f), new Vector2(44f, 44f));
-            var tag = UIKit.Panel(root, "Tag", new Color(0.05f, 0.045f, 0.04f, 0.85f), "hud/pill");
+            var tag = UIKit.Panel(root, "Tag", new Color(0.035f, 0.06f, 0.11f, 0.85f), "hud/pill");
             UIKit.Place(tag.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, pins.Count % 2 == 0 ? -78f : 124f), new Vector2(210f, 74f));   // alternate below / above so neighbours never collide
             var nm = UIKit.Label(tag.transform, "N", ev.titleAr, 22, open ? UIKit.Cream : new Color(1, 1, 1, 0.55f), TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Place(nm.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -2f), new Vector2(210f, 36f));

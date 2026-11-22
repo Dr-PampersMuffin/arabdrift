@@ -62,20 +62,21 @@ namespace DriftKuwait
         // ---------------- layout ----------------
         void BuildTopLeft(RectTransform safe)
         {
-            var pause = UIKit.Button(safe, "Pause", new Color(0.06f, 0.06f, 0.07f, 0.7f), () => PauseMenu.Open(flow, true), "hud/panel");
+            var pause = UIKit.Button(safe, "Pause", new Color(0.035f, 0.06f, 0.11f, 0.7f), () => PauseMenu.Open(flow, true), "hud/panel");
             UIKit.Place((RectTransform)pause.transform, new Vector2(0f, 1f), new Vector2(34f, -30f), new Vector2(104f, 104f));
             UIKit.Outline(pause.transform, new Color(1, 1, 1, 0.25f));
             var pi = UIKit.Img(pause.transform, "I", UIKit.S("hud/ic_pause"), Color.white);
             UIKit.Place(pi.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(56f, 56f));
 
-            var mp = UIKit.Panel(safe, "Mission", new Color(0.06f, 0.06f, 0.07f, 0.7f));
+            var mp = UIKit.Panel(safe, "Mission", new Color(0.035f, 0.06f, 0.11f, 0.7f));
             UIKit.Place(mp.rectTransform, new Vector2(0f, 1f), new Vector2(156f, -30f), new Vector2(400f, 150f));
             UIKit.Outline(mp.transform, new Color(1, 1, 1, 0.2f));
+            UIKit.Stripe(mp.transform, new Vector2(1f, 0f), new Vector2(0f, 0f), 150f, 4f);
             missionTitle = UIKit.Label(mp.transform, "T", "تقحيص حر", 40, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Black);
             UIKit.Place(missionTitle.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -10f), new Vector2(360f, 50f));
             missionSub = UIKit.Label(mp.transform, "S", "سلوى · قطعة ٥", 28, new Color(1, 1, 1, 0.8f), TextAnchor.MiddleRight, UIKit.Arabic);
             UIKit.Place(missionSub.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -62f), new Vector2(360f, 40f));
-            missionTime = UIKit.Label(mp.transform, "Time", "", 40, Color.white, TextAnchor.MiddleRight, UIKit.Black, false);
+            missionTime = UIKit.Label(mp.transform, "Time", "", 34, Color.white, TextAnchor.MiddleRight, UIKit.Digital, false);
             UIKit.Place(missionTime.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -100f), new Vector2(360f, 44f));
         }
 
@@ -87,15 +88,15 @@ namespace DriftKuwait
             scorePlate = plate;
             UIKit.Place(plate.rectTransform, new Vector2(1f, 1f), new Vector2(40f, -6f), new Vector2(700f, 150f));
 
-            totalTxt = UIKit.Label(root, "Total", UIKit.Num(0), 124, Color.white, TextAnchor.UpperRight, UIKit.Black);
+            totalTxt = UIKit.Label(root, "Total", "", 104, Color.white, TextAnchor.UpperRight, UIKit.Digital, false);
             UIKit.Place(totalTxt.rectTransform, new Vector2(1f, 1f), new Vector2(-150f, 0f), new Vector2(560f, 140f));
             UIKit.AddShadow(totalTxt, 4f, 0.7f);
 
-            var mb = UIKit.Panel(root, "Mult", new Color(0.06f, 0.05f, 0.04f, 0.6f), "hud/panel_sharp");
+            var mb = UIKit.Panel(root, "Mult", new Color(0.035f, 0.06f, 0.11f, 0.6f), "hud/panel_sharp");
             multRoot = mb.gameObject;
             UIKit.Place(mb.rectTransform, new Vector2(1f, 1f), new Vector2(0f, -22f), new Vector2(126f, 96f));
             UIKit.Outline(mb.transform, UIKit.Gold, "hud/panel_sharp_outline");
-            multTxt = UIKit.Label(mb.transform, "T", "x1", 62, UIKit.Gold, TextAnchor.MiddleCenter, UIKit.Black, false);
+            multTxt = UIKit.Label(mb.transform, "T", "x1", 50, UIKit.Gold, TextAnchor.MiddleCenter, UIKit.Digital, false);
             UIKit.Stretch(multTxt.rectTransform);
             mb.rectTransform.localRotation = Quaternion.Euler(0, 0, 0);
 
@@ -103,11 +104,11 @@ namespace DriftKuwait
             UIKit.Place(calloutTxt.rectTransform, new Vector2(1f, 1f), new Vector2(0f, -128f), new Vector2(700f, 80f));
             UIKit.AddShadow(calloutTxt, 3f, 0.8f);
 
-            chainTxt = UIKit.Label(root, "Chain", "", 52, Color.white, TextAnchor.MiddleRight, UIKit.Black);
+            chainTxt = UIKit.Label(root, "Chain", "", 44, Color.white, TextAnchor.MiddleRight, UIKit.Digital, false);
             UIKit.Place(chainTxt.rectTransform, new Vector2(1f, 1f), new Vector2(0f, -200f), new Vector2(500f, 64f));
             UIKit.AddShadow(chainTxt, 3f, 0.7f);
 
-            var bd = UIKit.Panel(root, "Breakdown", new Color(0.05f, 0.05f, 0.06f, 0.62f), "hud/panel");
+            var bd = UIKit.Panel(root, "Breakdown", new Color(0.035f, 0.06f, 0.11f, 0.62f), "hud/panel");
             breakdownRoot = bd.gameObject;
             UIKit.Place(bd.rectTransform, new Vector2(1f, 1f), new Vector2(0f, -266f), new Vector2(290f, 136f));
             for (int i = 0; i < 3; i++)
@@ -131,7 +132,7 @@ namespace DriftKuwait
             for (int i = 0; i < items.Length; i++)
             {
                 var it = items[i];
-                var b = UIKit.Button(col, "S" + i, new Color(0.06f, 0.06f, 0.07f, 0.68f), it.act, "hud/panel");
+                var b = UIKit.Button(col, "S" + i, new Color(0.035f, 0.06f, 0.11f, 0.68f), it.act, "hud/panel");
                 UIKit.Place((RectTransform)b.transform, new Vector2(0.5f, 1f), new Vector2(0f, -i * 124f), new Vector2(104f, 112f));
                 UIKit.Outline(b.transform, new Color(1, 1, 1, 0.2f));
                 var ic = UIKit.Img(b.transform, "I", UIKit.S("hud/ic_" + it.icon), Color.white);
@@ -148,7 +149,7 @@ namespace DriftKuwait
         {
             var c = UIKit.Rect(safe, "Centre");
             UIKit.Place(c, new Vector2(0.5f, 0f), new Vector2(-40f, 150f), new Vector2(620f, 130f));
-            angleTxt = UIKit.Label(c, "Angle", "", 58, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
+            angleTxt = UIKit.Label(c, "Angle", "", 50, Color.white, TextAnchor.MiddleCenter, UIKit.Digital, false);
             UIKit.Place(angleTxt.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, 0f), new Vector2(300f, 70f));
             UIKit.AddShadow(angleTxt, 3f, 0.7f);
             var segRoot = UIKit.Rect(c, "Segs");
@@ -164,7 +165,7 @@ namespace DriftKuwait
             }
 
             // Radio / dialogue subtitle box
-            var d = UIKit.Panel(safe, "Dialog", new Color(0.04f, 0.04f, 0.05f, 0.82f), "hud/panel");
+            var d = UIKit.Panel(safe, "Dialog", new Color(0.035f, 0.06f, 0.11f, 0.82f), "hud/panel");
             dialogRoot = d.gameObject;
             UIKit.Place(d.rectTransform, new Vector2(0.5f, 0f), new Vector2(-40f, 26f), new Vector2(980f, 112f));
             UIKit.Outline(d.transform, new Color(1, 1, 1, 0.18f));
@@ -199,7 +200,7 @@ namespace DriftKuwait
             UIKit.Place(mapArrow, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(44f, 44f));
             mapArrow.pivot = new Vector2(0.5f, 0.5f);
 
-            var loc = UIKit.Panel(safe, "Loc", new Color(0.05f, 0.05f, 0.06f, 0.75f), "hud/panel");
+            var loc = UIKit.Panel(safe, "Loc", new Color(0.035f, 0.06f, 0.11f, 0.75f), "hud/panel");
             UIKit.Place(loc.rectTransform, new Vector2(0f, 0f), new Vector2(64f, 214f), new Vector2(240f, 92f));
             var l1 = UIKit.Label(loc.transform, "A", "سلوى", 34, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Place(l1.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -4f), new Vector2(240f, 46f));
@@ -295,9 +296,9 @@ namespace DriftKuwait
             var n = UIKit.Img(g.transform, "Needle", UIKit.S("hud/needle"), Color.white);
             needle = n.rectTransform;
             UIKit.Stretch(needle);
-            speedTxt = UIKit.Label(g.transform, "Speed", UIKit.Num(0), 92, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
+            speedTxt = UIKit.Label(g.transform, "Speed", "0", 92, Color.white, TextAnchor.MiddleCenter, UIKit.Digital, false);
             UIKit.Place(speedTxt.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -46f), new Vector2(240f, 96f));
-            speedTxt.fontSize = 78;
+            speedTxt.fontSize = 64;
             var unit = UIKit.Label(g.transform, "Unit", "كم/س", 26, new Color(1, 1, 1, 0.75f), TextAnchor.MiddleCenter, UIKit.Arabic);
             UIKit.Place(unit.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -98f), new Vector2(200f, 36f));
             turboTxt = UIKit.Label(g.transform, "Turbo", "تيربو", 22, new Color(1, 1, 1, 0.3f), TextAnchor.MiddleCenter, UIKit.Black);
@@ -305,7 +306,7 @@ namespace DriftKuwait
             var gb = UIKit.Panel(g.transform, "GearBox", new Color(0, 0, 0, 0.7f), "hud/panel_sharp");
             UIKit.Place(gb.rectTransform, new Vector2(0f, 0f), new Vector2(-50f, 40f), new Vector2(76f, 96f));
             UIKit.Outline(gb.transform, new Color(1, 1, 1, 0.8f), "hud/panel_sharp_outline");
-            gearTxt = UIKit.Label(gb.transform, "T", "١", 62, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
+            gearTxt = UIKit.Label(gb.transform, "T", "1", 52, UIKit.Gold, TextAnchor.MiddleCenter, UIKit.Digital, false);
             UIKit.Stretch(gearTxt.rectTransform);
         }
 
@@ -326,11 +327,11 @@ namespace DriftKuwait
 
             // Score
             shownTotal = Mathf.Lerp(shownTotal, scorer.Total, 1f - Mathf.Exp(-8f * Time.deltaTime));
-            totalTxt.text = shownTotal < 0.5f ? "" : UIKit.Num((long)Mathf.Round(shownTotal));
+            totalTxt.text = shownTotal < 0.5f ? "" : UIKit.Dig((long)Mathf.Round(shownTotal));
             bool chain = scorer.Current > 1f;
             multRoot.SetActive(scorer.Multiplier > 1);
             multTxt.text = "x" + scorer.Multiplier;
-            chainTxt.text = chain ? "+" + UIKit.Num((long)scorer.Current) : "";
+            chainTxt.text = chain ? "+" + UIKit.Dig((long)scorer.Current) : "";
             breakdownRoot.SetActive(chain);
             scorePlate.enabled = shownTotal >= 0.5f || chain;
             if (chain)
@@ -349,7 +350,7 @@ namespace DriftKuwait
             // Drift angle
             float ang = Mathf.Abs(car.DriftAngle);
             bool drifting = ang > 8f && car.SpeedKmh > 15f;
-            angleTxt.text = drifting ? UIKit.Num((long)ang) + "°" : "";
+            angleTxt.text = drifting ? UIKit.Dig((long)ang) + "°" : "";
             int lit = drifting ? Mathf.Clamp(Mathf.RoundToInt(ang / 90f * 14f), 0, 14) : 0;
             for (int i = 0; i < angleSegs.Length; i++)
                 angleSegs[i].color = i < lit ? Color.Lerp(AngleLow, AngleHigh, i / 13f) : SegOff;
@@ -357,8 +358,8 @@ namespace DriftKuwait
             // Gauge
             float rpmT = Mathf.Clamp01(car.Rpm / 8000f);
             needle.localRotation = Quaternion.Euler(0f, 0f, 135f - rpmT * 270f);
-            speedTxt.text = UIKit.Num((long)car.SpeedKmh, false);
-            gearTxt.text = car.Gear < 0 ? "R" : UIKit.Num(car.Gear, false);
+            speedTxt.text = UIKit.Dig((long)car.SpeedKmh, false);
+            gearTxt.text = car.Gear < 0 ? "R" : car.Gear == 0 ? "N" : UIKit.Dig(car.Gear, false);
             turboTxt.color = new Color(1f, 0.55f, 0.15f, 0.25f + car.Boost * 0.75f);
 
             // Mission panel / pursuit
@@ -368,7 +369,7 @@ namespace DriftKuwait
                 missionTitle.text = UIKit.Ar("ملاحقة");
                 missionSub.text = UIKit.Ar("اهرب من الدورية");
                 int s = Mathf.FloorToInt(PursuitTime);
-                missionTime.text = UIKit.Num(s / 60, false) + ":" + (UIKit.EasternNumerals ? UIKit.Num(s % 60 / 10, false) + UIKit.Num(s % 10, false) : (s % 60).ToString("00"));
+                missionTime.text = (s / 60) + ":" + (s % 60).ToString("00");
                 for (int i = 0; i < 5; i++) flames[i].color = i < Heat ? Color.white : new Color(1f, 1f, 1f, 0.2f);
             }
             else

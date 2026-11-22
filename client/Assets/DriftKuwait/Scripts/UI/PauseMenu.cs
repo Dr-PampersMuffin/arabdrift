@@ -27,10 +27,11 @@ namespace DriftKuwait
         {
             var dim = UIKit.Img(root, "Dim", null, new Color(0, 0, 0, 0.6f), true);
             UIKit.Stretch(dim.rectTransform);
-            var panel = UIKit.Panel(root, "Panel", new Color(0.06f, 0.055f, 0.05f, 0.96f));
+            var panel = UIKit.Panel(root, "Panel", new Color(0.035f, 0.06f, 0.11f, 0.96f));
             UIKit.Place(panel.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(1900f, 880f));
-            UIKit.Outline(panel.transform, new Color(1f, 0.7f, 0.2f, 0.45f));
+            UIKit.Outline(panel.transform, new Color(0.97f, 0.93f, 0.85f, 0.22f));
             var tr = panel.transform;
+            UIKit.Stripe(tr, new Vector2(1f, 1f), new Vector2(-48f, -20f), 300f, 6f, true);
             var title = UIKit.Label(tr, "Title", inDrive ? "إيقاف مؤقت" : "الإعدادات", 64, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Display);
             UIKit.Place(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -24f), new Vector2(800f, 84f));
 

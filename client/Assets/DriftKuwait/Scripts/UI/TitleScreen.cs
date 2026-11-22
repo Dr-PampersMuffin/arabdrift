@@ -40,7 +40,7 @@ namespace DriftKuwait
             var logo = UIKit.Img(safe, "Logo", logoSp, Color.white);
             logo.preserveAspect = true;
             UIKit.Place(logo.rectTransform, new Vector2(0f, 1f), new Vector2(40f, -40f), new Vector2(880f, 400f));
-            var ver = UIKit.Label(safe, "Ver", "VER 0.3", 22, new Color(1, 1, 1, 0.55f), TextAnchor.UpperLeft, UIKit.Arabic, false);
+            var ver = UIKit.Label(safe, "Ver", "VER 0.4", 18, new Color(1, 1, 1, 0.55f), TextAnchor.UpperLeft, UIKit.Digital, false);
             UIKit.Place(ver.rectTransform, new Vector2(0f, 1f), new Vector2(48f, -14f), new Vector2(600f, 30f));
 
             // Top-right: guest profile and wallet
@@ -75,7 +75,7 @@ namespace DriftKuwait
             for (int i = 0; i < districts.Length; i++)
             {
                 var d = districts[i];
-                var card = UIKit.Button(cards, "Card_" + d.id, new Color(0.08f, 0.07f, 0.06f, 0.9f),
+                var card = UIKit.Button(cards, "Card_" + d.id, new Color(0.035f, 0.06f, 0.11f, 0.9f),
                     d.open ? (System.Action)(() => flow.ShowMap()) : () => flow.Toast(d.ar + " .. قريباً"), "hud/panel_sharp");
                 var crt = (RectTransform)card.transform;
                 UIKit.Place(crt, new Vector2(0f, 0f), new Vector2(i * 318f, 0f), new Vector2(300f, 250f));
@@ -86,7 +86,7 @@ namespace DriftKuwait
                 if (!d.open) img.color = new Color(0.55f, 0.55f, 0.55f);
                 var n1 = UIKit.Label(crt, "Ar", d.ar, 38, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
                 UIKit.Place(n1.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 38f), new Vector2(290f, 46f));
-                var n2 = UIKit.Label(crt, "En", d.en, 18, new Color(1, 1, 1, 0.7f), TextAnchor.MiddleCenter, UIKit.Arabic, false);
+                var n2 = UIKit.Label(crt, "En", d.en, 15, new Color(1, 1, 1, 0.7f), TextAnchor.MiddleCenter, UIKit.Digital, false);
                 UIKit.Place(n2.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 10f), new Vector2(290f, 24f));
                 if (d.open)
                 {
@@ -105,7 +105,7 @@ namespace DriftKuwait
 
             // Strip of words along the bottom edge
             var strip = UIKit.Label(safe, "Strip", "KUWAIT 1985   |   CARS   |   STREETS   |   DESERT   |   FRIENDS   |   NO LIMITS", 20,
-                new Color(1, 1, 1, 0.6f), TextAnchor.MiddleLeft, UIKit.Arabic, false);
+                new Color(1, 1, 1, 0.6f), TextAnchor.MiddleLeft, UIKit.Digital, false);
             UIKit.Place(strip.rectTransform, new Vector2(0f, 0f), new Vector2(48f, 22f), new Vector2(1300f, 30f));
 
             if (!PreviewHooks.Active) Sfx.Voice("ab_title", 0.9f);
@@ -124,8 +124,8 @@ namespace DriftKuwait
             var nm = UIKit.Label(prof.transform, "Name", "ضيف", 34, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Place(nm.rectTransform, new Vector2(0f, 0.5f), new Vector2(20f, 2f), new Vector2(130f, 60f));
             x -= 230f;
-            x = Chip(bar, x, "hud/ic_rep", UIKit.Num(Wallet.Rep), 230f);
-            Chip(bar, x, "hud/ic_coin", UIKit.Num(Wallet.Cash), 300f);
+            x = Chip(bar, x, "hud/ic_rep", UIKit.Dig(Wallet.Rep), 230f);
+            Chip(bar, x, "hud/ic_coin", UIKit.Dig(Wallet.Cash), 300f);
         }
 
         public static float Chip(RectTransform bar, float x, string icon, string value, float w)
@@ -134,7 +134,7 @@ namespace DriftKuwait
             UIKit.Place(p.rectTransform, new Vector2(1f, 0.5f), new Vector2(x, 0f), new Vector2(w, 64f));
             var ic = UIKit.Img(p.transform, "Ic", UIKit.S(icon), Color.white);
             UIKit.Place(ic.rectTransform, new Vector2(0f, 0.5f), new Vector2(12f, 0f), new Vector2(44f, 44f));
-            var v = UIKit.Label(p.transform, "V", value, 32, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Black);
+            var v = UIKit.Label(p.transform, "V", value, 28, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Digital, false);
             UIKit.Place(v.rectTransform, new Vector2(1f, 0.5f), new Vector2(-22f, 2f), new Vector2(w - 70f, 60f));
             return x - w - 16f;
         }

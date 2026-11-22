@@ -90,16 +90,17 @@ namespace DriftKuwait
             var gi = UIKit.Img(set.transform, "G", UIKit.S("hud/ic_gear"), UIKit.Cream);
             UIKit.Place(gi.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(42f, 42f));
             x -= 86f;
-            x = TitleScreen.Chip(bar, x, "hud/ic_rep", UIKit.Num(Wallet.Rep), 190f);
-            TitleScreen.Chip(bar, x, "hud/ic_coin", UIKit.Num(Wallet.Cash), 250f);
+            x = TitleScreen.Chip(bar, x, "hud/ic_rep", UIKit.Dig(Wallet.Rep), 190f);
+            TitleScreen.Chip(bar, x, "hud/ic_coin", UIKit.Dig(Wallet.Cash), 250f);
         }
 
         void BuildStats(RectTransform safe)
         {
-            var p = UIKit.Panel(safe, "Stats", new Color(0.05f, 0.045f, 0.04f, 0.88f));
+            var p = UIKit.Panel(safe, "Stats", new Color(0.035f, 0.06f, 0.11f, 0.88f));
             UIKit.Place(p.rectTransform, new Vector2(1f, 0.5f), new Vector2(-34f, 40f), new Vector2(600f, 520f));
             UIKit.Outline(p.transform, new Color(1f, 1f, 1f, 0.12f));
             var tr = p.transform;
+            UIKit.Stripe(tr, new Vector2(1f, 1f), new Vector2(-30f, -14f), 220f, 5f, true);
             nameTxt = UIKit.Label(tr, "Name", "", 72, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Display);
             UIKit.Place(nameTxt.rectTransform, new Vector2(1f, 1f), new Vector2(-34f, -18f), new Vector2(540f, 90f));
             tagTxt = UIKit.Label(tr, "Tag", "", 30, new Color(1, 1, 1, 0.75f), TextAnchor.MiddleRight, UIKit.Arabic);
@@ -148,7 +149,7 @@ namespace DriftKuwait
             {
                 var c = cars[i];
                 string id = c.id;
-                var b = UIKit.Button(row, "Tile_" + id, new Color(0.06f, 0.055f, 0.05f, 0.92f), () => Select(id, true), "hud/panel_sharp");
+                var b = UIKit.Button(row, "Tile_" + id, new Color(0.035f, 0.06f, 0.11f, 0.92f), () => Select(id, true), "hud/panel_sharp");
                 var rt = (RectTransform)b.transform;
                 // RTL order: first car on the right
                 UIKit.Place(rt, new Vector2(0.5f, 0.5f), new Vector2(total / 2f - w / 2f - i * (w + gap), 0f), new Vector2(w, 210f));
