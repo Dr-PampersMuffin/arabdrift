@@ -1,0 +1,31 @@
+{
+ "asset_id": "fac_villa2_c",
+ "version": 1,
+ "spec": "art/prompts/world_v3.json",
+ "prompt": "Photographic texture source for a photorealistic racing game set in Salwa, Kuwait, in 1985. Real photograph, not a render, not an illustration. Shot perfectly straight-on with a long lens so it reads as an orthographic elevation: no perspective, no vanishing lines, verticals perfectly vertical. Soft, even, shadowless daylight (bright overcast) so the game engine can add its own sun and shadows. True-to-life colours, fine surface detail: hairline cracks, dust, water stains, sun bleaching.\n\nFront elevation of a two-storey 1980s Kuwaiti villa, filling the whole frame edge to edge from the ground line to the top of the parapet. Light sandstone-coloured plaster with brown brick-tile accent panels in a geometric pattern between the windows. Wide horizontal ribbon windows with dark brown aluminium frames and folding shutters. A projecting first-floor bay supported on square pillars over a car porch with a pale terrazzo floor. Water stains under the roof line.\n\nDo not include: any text, letters, numbers, signs, logos or watermarks; people; cars; satellite dishes; modern LED lights or modern glass curtain walls; mosques, minarets, domes; flags; strong cast shadows; perspective distortion.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "high",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 263,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 263
+  },
+  "output_tokens": 5488,
+  "output_tokens_details": {
+   "image_tokens": 5488,
+   "text_tokens": 0
+  },
+  "total_tokens": 5751
+ },
+ "seconds": 68.1,
+ "created": "2026-11-22T11:45:07+0300",
+ "qa_status": "in_review"
+}

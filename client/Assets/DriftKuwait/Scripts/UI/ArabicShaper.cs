@@ -47,6 +47,10 @@ namespace DriftKuwait
             ['و'] = new[] { 'ﻭ', 'ﻮ', '\0', '\0' },
             ['ى'] = new[] { 'ﻯ', 'ﻰ', '\0', '\0' },
             ['ي'] = new[] { 'ﻱ', 'ﻲ', 'ﻳ', 'ﻴ' },
+            ['ی'] = new[] { 'ﻯ', 'ﻰ', 'ﯾ', 'ﯿ' },
+            ['گ'] = new[] { 'گ', '\uFB93', '\uFB94', '\uFB95' },
+            ['چ'] = new[] { 'چ', '\uFB7B', '\uFB7C', '\uFB7D' },
+            ['ـ'] = new[] { 'ـ', 'ـ', 'ـ', 'ـ' },
         };
 
         // lam + (alef variant) -> isolated, final ligature
@@ -92,32 +96,43 @@ namespace DriftKuwait
                 if (joinPrev && joinNext && f[3] != '\0') form = f[3];
                 else if (joinPrev && f[1] != '\0') form = f[1];
                 else if (joinNext && f[2] != '\0') form = f[2];
-                else form = f[0];
+                else form = c;          // isolated: the base letter (fonts draw it isolated; some lack the FExx isolated forms)
                 shaped.Add(form);
             }
 
-            // Reverse for LTR rendering, but keep runs of Latin digits/letters in order.
-            var sb = new StringBuilder(shaped.Count);
-            int k = shaped.Count - 1;
+            // Bidi for an RTL paragraph: split into runs. Latin letters and all digits are strong LTR; Arabic letters
+            // strong RTL; everything else is neutral. A neutral run sitting between two LTR runs (": " inside "0:59",
+            // " / " inside "0 / 1,500") becomes LTR; any other neutral follows the paragraph (RTL). Then the run order is
+            // reversed, RTL runs are reversed character by character (with mirrored brackets), LTR runs keep their order.
+            int n = shaped.Count;
+            var dir = new int[n];               // 1 = LTR, -1 = RTL, 0 = neutral
+            for (int i = 0; i < n; i++) dir[i] = IsLtr(shaped[i]) ? 1 : IsNeutral(shaped[i]) ? 0 : -1;
+            for (int i = 0; i < n; i++)
+            {
+                if (dir[i] != 0) continue;
+                int j = i; while (j < n && dir[j] == 0) j++;
+                int before = i > 0 ? dir[i - 1] : -1, after = j < n ? dir[j] : -1;
+                int d = (before == 1 && after == 1) ? 1 : -1;
+                for (int q = i; q < j; q++) dir[q] = d;
+                i = j - 1;
+            }
+            var sb = new StringBuilder(n);
+            int k = n - 1;
             while (k >= 0)
             {
-                if (IsLtr(shaped[k]))
+                if (dir[k] == 1)
                 {
                     int end = k;
-                    while (k >= 0 && (IsLtr(shaped[k]) || (shaped[k] == ' ' && k > 0 && IsLtr(shaped[k - 1])))) k--;
+                    while (k >= 0 && dir[k] == 1) k--;
                     for (int j = k + 1; j <= end; j++) sb.Append(shaped[j]);
                 }
-                else
-                {
-                    char ch = shaped[k];
-                    sb.Append(Mirror(ch));
-                    k--;
-                }
+                else { sb.Append(Mirror(shaped[k])); k--; }
             }
             return sb.ToString();
         }
 
-        static bool IsLtr(char c) => (c >= '0' && c <= '9') || (c >= '\u0660' && c <= '\u0669') || c == '\u066B' || c == '\u066C' || c == '+' || c == '%' || c == ':' || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '.' || c == ',';
+        static bool IsLtr(char c) => (c >= '0' && c <= '9') || (c >= '\u0660' && c <= '\u066C') || (c >= '\u06F0' && c <= '\u06F9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+        static bool IsNeutral(char c) => !IsLtr(c) && !(c >= '\u0600' && c <= '\u06FF') && !(c >= '\uFB50' && c <= '\uFEFF');
 
         static char Mirror(char c)
         {

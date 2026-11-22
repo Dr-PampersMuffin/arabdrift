@@ -132,6 +132,23 @@ namespace DriftKuwait.Preview
                 CaptureWith(cam, a.name, false);
             }
 
+            // Street-level realism checks: a residential street of villas, the avenue, the dallah roundabout.
+            (string name, Vector3 pos, Vector3 look)[] streets =
+            {
+                ("15_street_villas", new Vector3(-140f, 1.5f, -162f), new Vector3(-60f, 3.5f, -158f)),
+                ("16_street_gate", new Vector3(-120f, 1.4f, -78f), new Vector3(-112f, 2.6f, -70f)),
+                ("17_avenue", new Vector3(4f, 2.2f, -200f), new Vector3(-6f, 3f, -90f)),
+                ("18_roundabout", new Vector3(30f, 4f, -32f), new Vector3(0f, 5f, 0f)),
+            };
+            cam.fieldOfView = 62f;
+            foreach (var s in streets)
+            {
+                cam.transform.position = s.pos;
+                cam.transform.LookAt(s.look);
+                yield return null;
+                CaptureWith(cam, s.name, false);
+            }
+
             // Overview of the whole district from above (layout check).
             {
                 var top = new GameObject("OverviewCam").AddComponent<Camera>();

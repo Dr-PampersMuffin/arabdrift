@@ -43,6 +43,34 @@ namespace DriftKuwait
         static MeshKit stoneKit, trimKit, woodKit, litGlassKit, railKit, dateKit;
         static Material litWindowMat;
 
+        // Photo facades (tools/art/make_world_v3.py): each is a straight-on photo of a real-style 1980s Salwa villa front,
+        // laid on the street face of the house. Boundary walls and gates use photo textures too.
+        struct Facade { public Texture2D tex; public float aspect; public bool two; public MeshKit kit; }
+        static readonly List<Facade> facades = new List<Facade>();
+        static MeshKit wallKit;
+        static MeshKit[] gatePhotoKits;
+        static Texture2D wallTex, sideTex;
+        static Texture2D[] gateTex;
+        static readonly List<(Vector3 pos, Quaternion rot)> parkSpots = new List<(Vector3, Quaternion)>();
+
+        static Texture2D Tex(string n) => Resources.Load<Texture2D>("DriftKuwait/Tex/" + n);
+
+        static void LoadPhotoSet()
+        {
+            facades.Clear();
+            foreach (var n in new[] { "fac_villa2_a", "fac_villa2_b", "fac_villa2_c", "fac_villa2_d", "fac_villa1_a" })
+            {
+                var t = Tex(n);
+                if (t == null) continue;
+                facades.Add(new Facade { tex = t, aspect = t.width / (float)t.height, two = n.StartsWith("fac_villa2"), kit = new MeshKit() });
+            }
+            wallTex = Tex("wall_boundary");
+            sideTex = Tex("wall_side");
+            gateTex = new[] { Tex("gate_steel_a"), Tex("gate_steel_b") };
+            gatePhotoKits = new[] { new MeshKit(), new MeshKit() };
+            wallKit = new MeshKit();
+        }
+
         /// Called by Atmosphere when the time of day changes: some windows glow warm at night.
         public static void SetNight(bool night)
         {
@@ -67,6 +95,8 @@ namespace DriftKuwait
             trunkKit = new MeshKit(); frondKit = new MeshKit(); pavingKit = new MeshKit();
             stoneKit = new MeshKit(); trimKit = new MeshKit(); woodKit = new MeshKit(); litGlassKit = new MeshKit();
             railKit = new MeshKit(); dateKit = new MeshKit();
+            LoadPhotoSet();
+            parkSpots.Clear();
 
             Ground(root);
             Roads(root);
@@ -76,6 +106,7 @@ namespace DriftKuwait
             Lamps(root);
             Skyline(root);
             Flush(root);
+            ParkedCars(root);
         }
 
         // ------------------------------------------------------------------ ground & roads
@@ -342,10 +373,11 @@ namespace DriftKuwait
             {
                 if (s1 - s0 < 0.05f) return;
                 Vector3 c = a + dir * ((s0 + s1) * 0.5f) + Vector3.up * (baseY + H * 0.5f);
-                houseKits[palette].Box(c, new Vector3(T, H, s1 - s0), rot, true);
+                if (wallTex != null) wallKit.Box(c, new Vector3(T, H, s1 - s0), rot, true);
+                else houseKits[palette].Box(c, new Vector3(T, H, s1 - s0), rot, true);
                 trimKit.Box(c + Vector3.up * (H * 0.5f + 0.06f), new Vector3(T + 0.12f, 0.12f, s1 - s0), rot, true);
-                // Limestone plinth along the foot of the wall
-                stoneKit.Box(a + dir * ((s0 + s1) * 0.5f) + Vector3.up * (baseY + 0.3f), new Vector3(T + 0.06f, 0.6f, s1 - s0), rot, true);
+                // Limestone plinth along the foot of the wall (the photo wall already has its stone band)
+                if (wallTex == null) stoneKit.Box(a + dir * ((s0 + s1) * 0.5f) + Vector3.up * (baseY + 0.3f), new Vector3(T + 0.06f, 0.6f, s1 - s0), rot, true);
                 // Pillars every ~3.6 m, slightly proud and taller, with a white cap
                 // Street-facing walls get pillars every ~3.6 m, side and back walls every ~8 m (cheaper)
                 int n = Mathf.Max(1, Mathf.RoundToInt((s1 - s0) / (gateAt >= 0f ? 3.6f : 8f)));
@@ -364,7 +396,20 @@ namespace DriftKuwait
             Seg(gateAt + G * 0.5f, len);
             // Steel gate, slightly lower than the wall, with a pedestrian door beside it.
             Vector3 gc = a + dir * gateAt + Vector3.up * (baseY + 1.15f);
-            gateKits[gateColour].Box(gc, new Vector3(0.08f, 2.3f, G), rot, true);
+            int gi = gateColour % 2;
+            if (gateTex[gi] != null)
+            {
+                Vector3 side = Vector3.Cross(Vector3.up, dir).normalized;
+                foreach (float sg in new[] { -1f, 1f })
+                {
+                    Vector3 o = gc + side * (sg * 0.045f);
+                    Vector3 l = o - dir * (G * 0.5f) - Vector3.up * 1.15f, rr = o + dir * (G * 0.5f) - Vector3.up * 1.15f;
+                    Vector3 up = Vector3.up * 2.3f;
+                    gatePhotoKits[gi].QuadUv(l, rr, rr + up, l + up, new Vector2(0, 0), new Vector2(1, 0), new Vector2(1, 1), new Vector2(0, 1));
+                }
+                gateKits[gateColour].Box(gc, new Vector3(0.06f, 2.3f, G), rot, true);
+            }
+            else gateKits[gateColour].Box(gc, new Vector3(0.08f, 2.3f, G), rot, true);
             for (int i = -3; i <= 3; i++)
                 gateKits[gateColour].Box(gc + dir * (i * 0.55f) + Vector3.up * 1.2f, new Vector3(0.05f, 0.25f, 0.05f), rot, true);
             collKit.Box(gc, new Vector3(0.1f, 2.3f, G), rot);
@@ -384,7 +429,14 @@ namespace DriftKuwait
             else { fa = c10; fb = c11; ba = c00; bb = c01; }
 
             float frontLen = Vector3.Distance(fa, fb);
-            Wall(fa, fb, baseY, pal, Random.Range(4f, frontLen - 4f), gateCol);
+            float gateAt = Random.Range(4f, frontLen - 4f);
+            Wall(fa, fb, baseY, pal, gateAt, gateCol);
+            // Kerbside parking spot in the road, beside the gate (some get a parked car later)
+            {
+                Vector3 alongF = (fb - fa).normalized;
+                Vector3 g = fa + alongF * gateAt;
+                parkSpots.Add((new Vector3(g.x, 0f, g.z) + face * 3.9f + alongF * Random.Range(-5f, 5f), Quaternion.LookRotation(Random.value > 0.5f ? alongF : -alongF)));
+            }
             // Each plot owns its side-A wall; the last plot in a row also closes side B.
             Wall(fa, ba, baseY, pal);
             if (lastInRow) Wall(fb, bb, baseY, pal);
@@ -397,13 +449,39 @@ namespace DriftKuwait
             float hw = frontLen * 0.5f - 2.5f;
             float hd = (depth - 5f - 3f) * 0.5f;
             if (hw < 4f || hd < 4f) return;
-            Vector3 center = (fa + fb) * 0.5f + fwdIn * (5f + hd);
             bool twoStorey = Random.value > 0.3f;
             float H = twoStorey ? 6.8f : 3.6f;
+
+            // Photo facade: the house takes the photo's proportions (two-storey ~8 m to the parapet top, single-storey
+            // 4.6 m, mirrored twice across so it reads as one wide bungalow), sits inside the plot with a side yard.
+            int fi = -1;
+            float fw = 0f, fh = 0f;
+            if (facades.Count > 0)
+            {
+                var pickList = new List<int>();
+                for (int i = 0; i < facades.Count; i++) if (facades[i].two == twoStorey) pickList.Add(i);
+                if (pickList.Count == 0) for (int i = 0; i < facades.Count; i++) pickList.Add(i);
+                fi = pickList[Random.Range(0, pickList.Count)];
+                twoStorey = facades[fi].two;
+                fh = twoStorey ? Random.Range(7.8f, 8.4f) : 4.6f;
+                fw = facades[fi].aspect * fh * (twoStorey ? 1f : 2f);
+                if (fw > hw * 2f) { float k = hw * 2f / fw; fw *= k; fh *= k; }
+                hw = fw * 0.5f;
+                H = fh - 0.9f;            // the photo includes the parapet
+            }
+            float slack = (frontLen * 0.5f - 2.5f) - hw;
+            Vector3 center = (fa + fb) * 0.5f + fwdIn * (5f + hd) + along * Random.Range(-slack, slack);
             var rot = Quaternion.LookRotation(fwdIn, Vector3.up);       // local +z = into the plot, local +x = along
             Vector3 size = new Vector3(hw * 2f, H, hd * 2f);
             houseKits[pal].Box(center + Vector3.up * (baseY + H * 0.5f), size, rot, true);
             collKit.Box(center + Vector3.up * (baseY + H * 0.5f), size, rot);
+            if (fi >= 0)
+            {
+                PhotoHouse(center, fwdIn, along, hw, hd, H, fw, fh, baseY, pal, fi, twoStorey);
+                if (Random.value > 0.45f)
+                    Palm((fa + fb) * 0.5f + fwdIn * 2.6f + along * Random.Range(-hw, hw) + Vector3.up * baseY, Random.Range(6f, 9f));
+                return;
+            }
             // Stone-clad ground floor on the street side (or just a plinth), white floor band and cornice
             bool clad = Random.value > 0.45f;
             float cladH = clad ? 3.3f : 0.8f;
@@ -488,13 +566,95 @@ namespace DriftKuwait
                 Palm((fa + fb) * 0.5f + fwdIn * 2.6f + along * Random.Range(-hw, hw) + Vector3.up * baseY, Random.Range(6f, 9f));
         }
 
+        /// The street face is the photo; the other three sides are plaster with a few small windows; parapet on the
+        /// sides and back (the photo carries the front one), roof stair room and water tanks.
+        static void PhotoHouse(Vector3 center, Vector3 fwdIn, Vector3 along, float hw, float hd, float H, float fw, float fh, float baseY, int pal, int fi, bool two)
+        {
+            var rot = Quaternion.LookRotation(fwdIn, Vector3.up);
+            houseKits[pal].Box(center + Vector3.up * (baseY + H * 0.5f), new Vector3(hw * 2f, H, hd * 2f), rot, true);
+            collKit.Box(center + Vector3.up * (baseY + H * 0.5f), new Vector3(hw * 2f, H, hd * 2f), rot);
+
+            // Photo quad(s) a hair in front of the street face
+            Vector3 f0 = center - fwdIn * (hd + 0.03f) + Vector3.up * baseY;
+            var kit = facades[fi].kit;
+            Vector3 right = Vector3.Cross(Vector3.up, fwdIn);           // the viewer's right, standing in the street looking in
+            if (two)
+            {
+                Vector3 l = f0 - right * hw, rgt = f0 + right * hw;
+                kit.QuadUv(l, rgt, rgt + Vector3.up * fh, l + Vector3.up * fh, new Vector2(0, 0), new Vector2(1, 0), new Vector2(1, 1), new Vector2(0, 1));
+            }
+            else
+            {
+                Vector3 l = f0 - right * hw, m = f0, rgt = f0 + right * hw;
+                kit.QuadUv(l, m, m + Vector3.up * fh, l + Vector3.up * fh, new Vector2(0, 0), new Vector2(1, 0), new Vector2(1, 1), new Vector2(0, 1));
+                kit.QuadUv(m, rgt, rgt + Vector3.up * fh, m + Vector3.up * fh, new Vector2(1, 0), new Vector2(0, 0), new Vector2(0, 1), new Vector2(1, 1));
+            }
+            // Parapet behind the photo's own: sides and back only, same height as the photo top
+            float py = baseY + H + 0.45f;
+            var cap = houseKits[pal];
+            cap.Box(center + fwdIn * hd + Vector3.up * py, new Vector3(0.25f, 0.9f, hw * 2f + 0.25f), rot * Quaternion.Euler(0, 90, 0), true);
+            cap.Box(center - along * hw + Vector3.up * py + fwdIn * 0.1f, new Vector3(0.25f, 0.9f, hd * 2f - 0.2f), rot, true);
+            cap.Box(center + along * hw + Vector3.up * py + fwdIn * 0.1f, new Vector3(0.25f, 0.9f, hd * 2f - 0.2f), rot, true);
+            trimKit.Box(center + Vector3.up * (py + 0.47f) + fwdIn * hd, new Vector3(hw * 2f + 0.35f, 0.06f, 0.33f), rot, true);
+
+            Vector3 roofC = center + Vector3.up * (baseY + H);
+            houseKits[pal].Box(roofC + along * (hw * 0.4f) + fwdIn * (hd * 0.35f) + Vector3.up * 1.3f, new Vector3(3.2f, 2.6f, 3.2f), rot, true);
+            int tanks = Random.Range(1, 3);
+            for (int i = 0; i < tanks; i++)
+                tankKit.Lathe(roofC - along * (hw * 0.3f + i * 1.6f) + fwdIn * (hd * 0.45f),
+                    new[] { new Vector2(0, 0), new Vector2(0.65f, 0), new Vector2(0.65f, 1.3f), new Vector2(0.5f, 1.5f), new Vector2(0, 1.55f) }, 14);
+
+            // Small side windows with frames (seen when driving past the side yards)
+            int floors = two ? 2 : 1;
+            for (int f = 0; f < floors; f++)
+                foreach (float sgn in new[] { -1f, 1f })
+                    for (int k = 0; k < 2; k++)
+                    {
+                        Vector3 wc = center + along * sgn * (hw + 0.02f) + fwdIn * ((k == 0 ? -0.45f : 0.35f) * hd) + Vector3.up * (baseY + 1.7f + f * 3.4f);
+                        trimKit.Box(wc, new Vector3(0.1f, 1.5f, 1.2f), rot, true);
+                        (Random.value < 0.3f ? litGlassKit : glassKit).Box(wc + along * sgn * 0.02f, new Vector3(0.1f, 1.3f, 1.0f), rot, true);
+                        if (Random.value > 0.65f) acKit.Box(wc - Vector3.up * 0.95f + along * sgn * 0.3f, new Vector3(0.55f, 0.45f, 0.7f), rot, true);
+                    }
+        }
+
+        /// Cars parked at the kerb outside some gates: the garage models, no physics, solid to hit.
+        static void ParkedCars(Transform root)
+        {
+            var parent = new GameObject("ParkedCars").transform;
+            parent.SetParent(root, false);
+            string[] ids = { "ghazal", "faris", "wanait", "abusitta", "shaheen" };
+            int placed = 0;
+            var used = new List<Vector3>();
+            for (int i = 0; i < parkSpots.Count && placed < 18; i++)
+            {
+                if (Random.value > 0.22f) continue;
+                var (pos, rot) = parkSpots[i];
+                if (InPlaza(pos.x, pos.z, 6f)) continue;
+                int on = 0;
+                foreach (var rd in roads) if (rd.Contains(pos.x, pos.z, 7f)) on++;
+                if (on != 1) continue;                    // keep junctions clear
+                if (Mathf.Abs(pos.x) < 12f && Mathf.Abs(pos.z + 390f) < 60f) continue;   // drive start
+                bool near = false;
+                foreach (var u in used) if ((u - pos).sqrMagnitude < 100f) near = true;
+                if (near) continue;
+                var car = CarFactory.BuildDisplay(ids[placed % ids.Length], parent);
+                if (car == null) continue;
+                car.transform.SetPositionAndRotation(pos + Vector3.up * 0.02f, rot);
+                var bc = car.AddComponent<BoxCollider>();
+                bc.center = new Vector3(0f, 0.75f, 0f); bc.size = new Vector3(1.8f, 1.4f, 4.6f);
+                used.Add(pos);
+                placed++;
+            }
+            Debug.Log($"[World] parked cars: {placed} of {parkSpots.Count} spots");
+        }
+
         // ------------------------------------------------------------------ props
         static void Palm(Vector3 b, float height)
         {
             trunkKit.Lathe(b, new[] { new Vector2(0, 0), new Vector2(0.34f, 0), new Vector2(0.27f, 0.6f), new Vector2(0.22f, height * 0.5f),
-                                      new Vector2(0.19f, height), new Vector2(0, height + 0.05f) }, 8);
+                                      new Vector2(0.19f, height), new Vector2(0, height + 0.05f) }, 12);
             Vector3 top = b + Vector3.up * height;
-            int fronds = 13;
+            int fronds = 20;
             float twist = Random.Range(0f, 360f);
             for (int i = 0; i < fronds; i++)
             {
@@ -596,9 +756,34 @@ namespace DriftKuwait
         {
             var village = new GameObject("Villas").transform;
             village.SetParent(root, false);
-            var plaster = TextureKit.Plaster;
+            var plaster = sideTex != null ? sideTex : TextureKit.Plaster;
             for (int i = 0; i < houseKits.Length; i++)
-                houseKits[i].ToObject("Houses_" + i, village, Mat.Textured("M_House_" + i, plaster, HousePalette[i], 0.15f, new Vector2(0.18f, 0.18f)));
+                houseKits[i].ToObject("Houses_" + i, village, Mat.Textured("M_House_" + i, plaster,
+                    sideTex != null ? Color.Lerp(HousePalette[i], Color.white, 0.55f) : HousePalette[i], 0.12f, new Vector2(0.2f, 0.2f)));
+            for (int i = 0; i < facades.Count; i++)
+            {
+                var fm = Mat.Textured("M_Facade_" + i, facades[i].tex, Color.white, 0.18f, Vector2.one);
+                fm.SetFloat("_Cull", 0f);
+                fm.SetFloat("_AlphaClip", 1f); fm.SetFloat("_Cutoff", 0.5f); fm.EnableKeyword("_ALPHATEST_ON");   // sky cut out round the parapet
+                fm.renderQueue = 2450;
+                if (fm.HasProperty("_BumpScale")) fm.SetFloat("_BumpScale", 0.6f);
+                facades[i].kit.ToObject("Facade_" + facades[i].tex.name, village, fm);
+            }
+            if (wallTex != null)
+            {
+                // Band texture: u repeats every 3.9 m along the wall, v spans the 2.6 m height (walls start 0.14 m up).
+                var wm = Mat.Textured("M_BoundaryWall", wallTex, Color.white, 0.12f, new Vector2(1f / 3.9f, 1f / 2.6f));
+                wm.SetTextureOffset("_BaseMap", new Vector2(0f, -0.14f / 2.6f));
+                wm.SetTextureOffset("_BumpMap", new Vector2(0f, -0.14f / 2.6f));
+                wallKit.ToObject("BoundaryWalls", village, wm);
+            }
+            for (int i = 0; i < gatePhotoKits.Length; i++)
+                if (gateTex[i] != null)
+                {
+                    var gm = Mat.Textured("M_GatePhoto_" + i, gateTex[i], Color.white, 0.35f, Vector2.one);
+                    gm.SetFloat("_Cull", 0f); gm.SetFloat("_Metallic", 0.4f);
+                    gatePhotoKits[i].ToObject("Gates_Photo_" + i, village, gm);
+                }
             for (int i = 0; i < gateKits.Length; i++)
                 gateKits[i].ToObject("Gates_" + i, village, Mat.Paint("M_Gate_" + i, GatePalette[i], 0.45f, 0.7f));
             glassKit.ToObject("Windows", village, Mat.Paint("M_Window", new Color(0.08f, 0.10f, 0.11f), 0.92f, 0.2f));
@@ -616,7 +801,9 @@ namespace DriftKuwait
             kerbYellow.ToObject("Kerb_Yellow", root, Mat.Paint("M_KerbY", new Color(0.95f, 0.75f, 0.10f), 0.35f));
             kerbBlack.ToObject("Kerb_Black", root, Mat.Paint("M_KerbB", new Color(0.06f, 0.06f, 0.06f), 0.35f));
             paintKit.ToObject("RoadPaint", root, Mat.Paint("M_RoadPaint", new Color(0.92f, 0.92f, 0.88f), 0.45f));
-            trunkKit.ToObject("PalmTrunks", root, Mat.Paint("M_PalmTrunk", new Color(0.42f, 0.33f, 0.24f), 0.15f));
+            trunkKit.ToObject("PalmTrunks", root, TextureKit.Trunk != null
+                ? Mat.Textured("M_PalmTrunkTex", TextureKit.Trunk, Color.white, 0.1f, new Vector2(1.4f, 0.9f))
+                : Mat.Paint("M_PalmTrunk", new Color(0.42f, 0.33f, 0.24f), 0.15f));
             var frondMat = Mat.Textured("M_PalmFrondTex", TextureKit.Frond, Color.white, 0.2f, Vector2.one);
             frondMat.SetFloat("_AlphaClip", 1f); frondMat.SetFloat("_Cutoff", 0.4f); frondMat.EnableKeyword("_ALPHATEST_ON");
             frondMat.SetFloat("_Cull", 0f);

@@ -108,22 +108,6 @@ namespace DriftKuwait
                 new Color(1, 1, 1, 0.6f), TextAnchor.MiddleLeft, UIKit.Arabic, false);
             UIKit.Place(strip.rectTransform, new Vector2(0f, 0f), new Vector2(48f, 22f), new Vector2(1300f, 30f));
 
-            // Campaign cassette (bottom-right)
-            var cas = UIKit.Button(safe, "Cassette", new Color(1, 1, 1, 0f), () => flow.Toast("آخر صيف بالثمانينات .. القصة قريباً"));
-            var crt2 = (RectTransform)cas.transform;
-            UIKit.Place(crt2, new Vector2(1f, 0f), new Vector2(-70f, 40f), new Vector2(430f, 290f));
-            crt2.localRotation = Quaternion.Euler(0f, 0f, 4f);
-            var tape = UIKit.Img(crt2, "Tape", UIKit.S("cassette"), Color.white);
-            tape.preserveAspect = true;
-            UIKit.Stretch(tape.rectTransform);
-            var l1 = UIKit.Label(crt2, "T1", "آخر صيف بالثمانينات", 34, new Color(0.62f, 0.12f, 0.1f), TextAnchor.MiddleCenter, UIKit.Display);
-            UIKit.Place(l1.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 72f), new Vector2(330f, 44f));
-            var l2 = UIKit.Label(crt2, "T2", "THE LAST SUMMER OF THE EIGHTIES", 15, new Color(0.15f, 0.12f, 0.1f), TextAnchor.MiddleCenter, UIKit.Arabic, false);
-            UIKit.Place(l2.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 40f), new Vector2(330f, 22f));
-            var l3 = UIKit.Label(crt2, "T3", "الذكريات ما تنتهي .. نرجع لها", 22, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Display);
-            UIKit.Place(l3.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, -8f), new Vector2(400f, 34f));
-            UIKit.AddShadow(l3, 2f, 0.8f);
-
             if (!PreviewHooks.Active) Sfx.Voice("ab_title", 0.9f);
             return ts;
         }

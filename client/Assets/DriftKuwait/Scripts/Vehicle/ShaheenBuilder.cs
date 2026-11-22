@@ -13,7 +13,7 @@ namespace DriftKuwait
 
         public static GameObject Build(Vector3 pos, Quaternion rot)
         {
-            var root = new GameObject("الشاهين_Shaheen");
+            var root = new GameObject("Shaheen");
             root.layer = 2; // Ignore Raycast: wheel rays and near-miss rays skip the car
             root.transform.SetPositionAndRotation(pos, rot);
 

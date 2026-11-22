@@ -10,7 +10,7 @@ namespace DriftKuwait
     {
         public enum Preset { GoldenHour, NoonHaze, Ghubar, Night }
         static Light sun;
-        static Material sky;
+        static Material sky, photoSky;
         static Volume volume;
         static ReflectionProbe probe;
         static Bloom bloomFx;
@@ -34,6 +34,18 @@ namespace DriftKuwait
                 sky = new Material(skyShader) { name = "DK_Sky" };
                 RenderSettings.skybox = sky;
             }
+            // Photographed golden-hour sky (tools/art/make_world_v3.py), used for the day presets.
+            var skyTex = Resources.Load<Texture2D>("DriftKuwait/Tex/sky_golden");
+            var pano = Shader.Find("Skybox/Panoramic");
+            if (skyTex != null && pano != null)
+            {
+                photoSky = new Material(pano) { name = "DK_PhotoSky" };
+                photoSky.SetTexture("_MainTex", skyTex);
+                photoSky.SetFloat("_Mapping", 1f);      // latitude-longitude
+                photoSky.SetFloat("_ImageType", 0f);    // 360
+                photoSky.SetFloat("_Exposure", 1.05f);
+                photoSky.SetFloat("_Rotation", 0f);
+            }
 
             var volGo = new GameObject("DK_PostFX");
             volGo.transform.SetParent(parent, false);
@@ -55,7 +67,7 @@ namespace DriftKuwait
             vig.smoothness.Override(0.45f);
             var grain = profile.Add<FilmGrain>(true);
             grain.type.Override(FilmGrainLookup.Thin1);
-            grain.intensity.Override(0.18f);
+            grain.intensity.Override(0.12f);
 
             // Realtime reflections of the street and sky for the car paint (no baked lighting in a runtime-built world).
             QualitySettings.realtimeReflectionProbes = true;
@@ -92,16 +104,18 @@ namespace DriftKuwait
             switch (p)
             {
                 case Preset.GoldenHour:
-                    sun.transform.rotation = Quaternion.Euler(13f, -38f, 0f);
-                    sun.color = new Color(1f, 0.74f, 0.48f);
-                    sun.intensity = 2.3f;
-                    RenderSettings.ambientSkyColor = new Color(0.62f, 0.55f, 0.48f);
-                    RenderSettings.ambientEquatorColor = new Color(0.66f, 0.50f, 0.36f);
-                    RenderSettings.ambientGroundColor = new Color(0.30f, 0.24f, 0.18f);
-                    RenderSettings.fogColor = new Color(0.86f, 0.70f, 0.52f);
-                    RenderSettings.fogDensity = 0.0042f;
-                    SetSky(new Color(0.78f, 0.62f, 0.45f), 1.9f, 1.15f, 0.06f);
-                    Grade(ca, 0.15f, 14f, -6f, new Color(1f, 0.93f, 0.84f));
+                    // Real late-afternoon light: a warm low sun, but cool blue-grey sky fill in the shadows, and a
+                    // pale neutral dust haze (not an orange filter over everything).
+                    sun.transform.rotation = Quaternion.Euler(17f, -38f, 0f);
+                    sun.color = new Color(1f, 0.80f, 0.60f);
+                    sun.intensity = 2.7f;
+                    RenderSettings.ambientSkyColor = new Color(0.50f, 0.56f, 0.64f);
+                    RenderSettings.ambientEquatorColor = new Color(0.62f, 0.56f, 0.48f);
+                    RenderSettings.ambientGroundColor = new Color(0.32f, 0.27f, 0.22f);
+                    RenderSettings.fogColor = new Color(0.82f, 0.76f, 0.68f);
+                    RenderSettings.fogDensity = 0.0026f;
+                    SetSky(new Color(0.62f, 0.62f, 0.62f), 1.3f, 1.2f, 0.05f);
+                    Grade(ca, 0.1f, 14f, 2f, new Color(1f, 0.97f, 0.93f));
                     break;
                 case Preset.NoonHaze:
                     sun.transform.rotation = Quaternion.Euler(68f, -20f, 0f);
@@ -112,7 +126,7 @@ namespace DriftKuwait
                     RenderSettings.ambientGroundColor = new Color(0.45f, 0.38f, 0.30f);
                     RenderSettings.fogColor = new Color(0.90f, 0.86f, 0.78f);
                     RenderSettings.fogDensity = 0.0035f;
-                    SetSky(new Color(0.70f, 0.66f, 0.60f), 1.6f, 1.25f, 0.04f);
+                    SetSky(new Color(0.60f, 0.62f, 0.64f), 1.2f, 1.25f, 0.04f);
                     Grade(ca, 0.1f, 8f, -12f, new Color(1f, 0.98f, 0.94f));
                     break;
                 case Preset.Ghubar:
@@ -141,6 +155,7 @@ namespace DriftKuwait
                     Grade(ca, 0.3f, 18f, -8f, new Color(1f, 0.90f, 0.80f));
                     break;
             }
+            RenderSettings.skybox = (photoSky != null && (p == Preset.GoldenHour || p == Preset.NoonHaze)) ? photoSky : sky;
             foreach (var l in Object.FindObjectsByType<StreetLamp>(FindObjectsSortMode.None))
                 l.SetOn(p == Preset.Night);
             SalwaBlockBuilder.SetNight(p == Preset.Night);

@@ -162,7 +162,7 @@ namespace DriftKuwait
         {
             var c = UIKit.MakeCanvas("DK_Toast", 90);
             var p = UIKit.Panel(c.transform, "Toast", UIKit.Ink);
-            UIKit.Place(p.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -320f), new Vector2(620f, 110f));
+            UIKit.Place(p.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -150f), new Vector2(760f, 110f));
             UIKit.Outline(p.transform, new Color(1f, 0.7f, 0.2f, 0.6f));
             var t = UIKit.Label(p.transform, "T", ar, 46, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Stretch(t.rectTransform);

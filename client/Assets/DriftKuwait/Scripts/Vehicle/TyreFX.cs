@@ -12,8 +12,8 @@ namespace DriftKuwait
         int[] lastSkid;
         Vector3[] lastSkidPos;
 
-        static readonly Color AsphaltSmoke = new Color(0.94f, 0.93f, 0.91f, 0.62f);
-        static readonly Color SandDust = new Color(0.80f, 0.66f, 0.46f, 0.6f);
+        static readonly Color AsphaltSmoke = new Color(0.94f, 0.93f, 0.91f, 0.42f);
+        static readonly Color SandDust = new Color(0.80f, 0.68f, 0.50f, 0.28f);
 
         void Start()
         {
@@ -90,14 +90,14 @@ namespace DriftKuwait
             var main = ps.main;
             main.duration = 1f;
             main.loop = true;
-            main.startLifetime = new ParticleSystem.MinMaxCurve(2.6f, 4.8f);     // trails and clears: the car must stay visible
+            main.startLifetime = new ParticleSystem.MinMaxCurve(1.1f, 2.2f);     // short trail that clears fast: the car and road must stay visible
             main.startSpeed = new ParticleSystem.MinMaxCurve(0.6f, 2.2f);
-            main.startSize = new ParticleSystem.MinMaxCurve(1.3f * scale, 2.4f * scale);
+            main.startSize = new ParticleSystem.MinMaxCurve(0.6f * scale, 1.1f * scale);
             main.startRotation = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
             main.startColor = AsphaltSmoke;
             main.gravityModifier = -0.012f;
             main.simulationSpace = ParticleSystemSimulationSpace.World;
-            main.maxParticles = 420;
+            main.maxParticles = 140;
             main.playOnAwake = true;
 
             var em = ps.emission;
@@ -109,7 +109,7 @@ namespace DriftKuwait
 
             var sol = ps.sizeOverLifetime;
             sol.enabled = true;
-            sol.size = new ParticleSystem.MinMaxCurve(1f, new AnimationCurve(new Keyframe(0f, 0.45f), new Keyframe(0.25f, 2.2f), new Keyframe(1f, 4.6f)));
+            sol.size = new ParticleSystem.MinMaxCurve(1f, new AnimationCurve(new Keyframe(0f, 0.5f), new Keyframe(0.3f, 1.6f), new Keyframe(1f, 2.8f)));
 
             var inherit = ps.inheritVelocity;
             inherit.enabled = true;
@@ -118,13 +118,13 @@ namespace DriftKuwait
             var limit = ps.limitVelocityOverLifetime;
             limit.enabled = true;
             limit.dampen = 0.06f;
-            limit.limit = new ParticleSystem.MinMaxCurve(0.6f);
+            limit.limit = new ParticleSystem.MinMaxCurve(1.2f);
 
             var col = ps.colorOverLifetime;
             col.enabled = true;
             var g = new Gradient();
             g.SetKeys(new[] { new GradientColorKey(Color.white, 0f), new GradientColorKey(Color.white, 1f) },
-                      new[] { new GradientAlphaKey(0f, 0f), new GradientAlphaKey(0.8f, 0.05f), new GradientAlphaKey(0.35f, 0.45f), new GradientAlphaKey(0f, 1f) });
+                      new[] { new GradientAlphaKey(0f, 0f), new GradientAlphaKey(0.6f, 0.06f), new GradientAlphaKey(0.18f, 0.4f), new GradientAlphaKey(0f, 1f) });
             col.color = g;
 
             var rot = ps.rotationOverLifetime;
@@ -143,7 +143,7 @@ namespace DriftKuwait
             r.renderMode = ParticleSystemRenderMode.Billboard;
             r.sortMode = ParticleSystemSortMode.Distance;
             r.minParticleSize = 0f;
-            r.maxParticleSize = 6f;
+            r.maxParticleSize = 0.22f;   // fraction of the screen: a puff next to the camera can never blind the player
 
             ps.Play();
             return ps;
@@ -173,7 +173,10 @@ namespace DriftKuwait
 
                 var em = ps.emission;
                 float k = w.grounded ? w.skid : 0f;
-                em.rateOverTime = (k * k * (w.front ? 8f : 60f) + (w.front ? 0f : car.RearSpin * 3.5f * (w.grounded ? 1f : 0f))) * Mathf.Lerp(0.25f, 1.6f, GameSettings.Smoke);
+                float rate = k * k * (w.front ? 3f : 26f) + (w.front ? 0f : car.RearSpin * 1.2f * (w.grounded ? 1f : 0f));
+                rate *= Mathf.Lerp(0.35f, 1f, Mathf.InverseLerp(5f, 45f, car.SpeedKmh));   // standing burnouts stay modest
+                if (sandy) rate *= 0.5f;
+                em.rateOverTime = rate * Mathf.Lerp(0.25f, 1.4f, GameSettings.Smoke);
 
                 // Skid marks only on hard surfaces (sand gets tracks later)
                 if (w.grounded && w.skid > 0.3f && !sandy)

@@ -61,8 +61,14 @@ public class DKAssetPostprocessor : AssetPostprocessor
             ti.wrapMode = TextureWrapMode.Repeat;
             ti.mipmapEnabled = true;
             ti.anisoLevel = 4;
-            ti.maxTextureSize = 1024;
-            ios.overridden = true; ios.maxTextureSize = 1024; ios.format = TextureImporterFormat.ASTC_6x6;
+            // Photo facades, gates, boundary walls and the sky are seen big: keep them sharp.
+            bool hero = f.StartsWith("fac_") || f.StartsWith("gate_") || f.StartsWith("wall_") || f.StartsWith("sky_") || f.StartsWith("frond");
+            int size = hero ? 2048 : 1024;
+            if (f.StartsWith("fac_") || f.StartsWith("gate_") || f.StartsWith("sky_")) ti.wrapMode = TextureWrapMode.Clamp;
+            if (f.StartsWith("sky_")) { ti.mipmapEnabled = false; ti.wrapModeU = TextureWrapMode.Repeat; }
+            if (f.StartsWith("frond")) ti.alphaIsTransparency = true;
+            ti.maxTextureSize = size;
+            ios.overridden = true; ios.maxTextureSize = size; ios.format = f.EndsWith("_n") ? TextureImporterFormat.ASTC_6x6 : TextureImporterFormat.ASTC_5x5;
             ti.SetPlatformTextureSettings(ios);
         }
     }

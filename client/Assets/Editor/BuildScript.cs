@@ -32,6 +32,7 @@ public static class BuildScript
         "Universal Render Pipeline/Particles/Lit",
         "Universal Render Pipeline/Unlit",
         "Skybox/Procedural",
+        "Skybox/Panoramic",
         "Sprites/Default",
     };
 

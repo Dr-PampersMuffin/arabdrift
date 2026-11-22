@@ -11,7 +11,9 @@ namespace DriftKuwait
         // Photographic tileables (tools/art/make_textures.py) replace the procedural fallbacks when present.
         static Texture2D stone, frond;
         public static Texture2D Stone => stone != null ? stone : (stone = Res("stone") ?? Plaster);
-        public static Texture2D Frond => frond != null ? frond : (frond = Res("frond"));
+        public static Texture2D Frond => frond != null ? frond : (frond = Res("frond_v3") ?? Res("frond"));
+        static Texture2D trunk;
+        public static Texture2D Trunk => trunk != null ? trunk : (trunk = Res("palm_trunk"));
         static Texture2D Res(string n) => Resources.Load<Texture2D>("DriftKuwait/Tex/" + n);
 
         static float Tile(float x, float y, float period, float scale)
@@ -46,7 +48,7 @@ namespace DriftKuwait
             return Color.Lerp(new Color(0.70f, 0.56f, 0.38f), new Color(0.88f, 0.75f, 0.55f), n);
         }));
 
-        public static Texture2D Asphalt => asphalt != null ? asphalt : (asphalt = Res("asphalt") ?? Make("DK_Asphalt", 256, (x, y) =>
+        public static Texture2D Asphalt => asphalt != null ? asphalt : (asphalt = Res("asphalt_v3") ?? Res("asphalt") ?? Make("DK_Asphalt", 256, (x, y) =>
         {
             float n = Tile(x, y, 256, 0.05f) * 0.5f + Random.value * 0.5f;
             float g = Mathf.Lerp(0.20f, 0.33f, n);
