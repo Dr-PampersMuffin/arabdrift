@@ -118,7 +118,7 @@ namespace DriftKuwait
                     // Real late-afternoon light: a warm low sun, but cool blue-grey sky fill in the shadows, and a
                     // pale neutral dust haze (not an orange filter over everything).
                     sun.transform.rotation = Quaternion.Euler(13f, -38f, 0f);
-                    sun.color = new Color(1f, 0.72f, 0.46f);
+                    sun.color = new Color(1f, 0.76f, 0.54f);
                     sun.intensity = 2.3f;
                     RenderSettings.ambientSkyColor = new Color(0.50f, 0.56f, 0.64f);
                     RenderSettings.ambientEquatorColor = new Color(0.62f, 0.56f, 0.48f);
@@ -126,8 +126,8 @@ namespace DriftKuwait
                     RenderSettings.fogColor = new Color(0.82f, 0.76f, 0.68f);
                     RenderSettings.fogDensity = 0.0026f;
                     SetSky(new Color(0.62f, 0.62f, 0.62f), 1.3f, 1.2f, 0.05f);
-                    Grade(ca, -0.05f, 22f, 18f, new Color(1f, 0.96f, 0.92f));
-                    Tone(new Color(0.36f, 0.52f, 0.58f), new Color(0.78f, 0.58f, 0.40f));
+                    Grade(ca, -0.05f, 20f, 8f, new Color(1f, 0.98f, 0.95f));
+                    Tone(new Color(0.42f, 0.52f, 0.56f), new Color(0.60f, 0.53f, 0.46f));
                     break;
                 case Preset.NoonHaze:
                     sun.transform.rotation = Quaternion.Euler(68f, -20f, 0f);

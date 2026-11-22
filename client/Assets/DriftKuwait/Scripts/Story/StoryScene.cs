@@ -45,12 +45,12 @@ namespace DriftKuwait
             band.rectTransform.anchorMin = new Vector2(0f, 0f); band.rectTransform.anchorMax = new Vector2(1f, 0f);
             band.rectTransform.pivot = new Vector2(0.5f, 0f); band.rectTransform.sizeDelta = new Vector2(0f, 250f); band.rectTransform.anchoredPosition = Vector2.zero;
             var safe = UIKit.SafeArea(root);
-            UIKit.Stripe(safe, new Vector2(1f, 0f), new Vector2(-60f, 214f), 220f, 5f, true);
+            UIKit.Stripe(safe, new Vector2(1f, 0f), new Vector2(-60f, 206f), 220f, 5f, true);
             who = UIKit.Label(safe, "Who", "", 46, UIKit.Gold, TextAnchor.MiddleRight, UIKit.Display);
-            UIKit.Place(who.rectTransform, new Vector2(1f, 0f), new Vector2(-60f, 150f), new Vector2(700f, 60f));
+            UIKit.Place(who.rectTransform, new Vector2(1f, 0f), new Vector2(-60f, 140f), new Vector2(700f, 60f));
             line = UIKit.Label(safe, "Line", "", 36, UIKit.Cream, TextAnchor.UpperRight, UIKit.Arabic);
             line.lineSpacing = 1.15f;
-            UIKit.Place(line.rectTransform, new Vector2(1f, 0f), new Vector2(-60f, 128f), new Vector2(1900f, 110f));
+            UIKit.Place(line.rectTransform, new Vector2(1f, 0f), new Vector2(-60f, 22f), new Vector2(1900f, 110f));
             UIKit.AddShadow(line, 2f, 0.7f);
 
             var skip = UIKit.Button(safe, "Skip", UIKit.Ink, Finish, "hud/pill");
@@ -67,7 +67,7 @@ namespace DriftKuwait
                 img.texture = Resources.Load<Texture2D>("DriftKuwait/Story/" + b.panel);
                 img.rectTransform.localScale = Vector3.one;
                 who.text = UIKit.Ar(b.speaker);
-                line.text = UIKit.Ar(UIKit.ArWrap(Sfx.Line(b.voice, ""), 62));
+                line.text = UIKit.ArWrap(Sfx.Line(b.voice, ""), 70);
                 beatLen = PreviewHooks.Active ? 600f : Mathf.Max(3f, Sfx.Voice(b.voice, 1f) + 0.8f);
                 beatTime = 0f; tapped = false;
                 while (beatTime < beatLen && !tapped)
