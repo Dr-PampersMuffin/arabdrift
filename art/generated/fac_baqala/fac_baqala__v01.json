@@ -1,0 +1,31 @@
+{
+ "asset_id": "fac_baqala",
+ "version": 1,
+ "spec": "art/prompts/landmarks.json",
+ "prompt": "Photographic texture source for a photorealistic racing game set in Salwa, Kuwait, in 1985. Real photograph, not a render, not an illustration. Shot perfectly straight-on with a long lens so it reads as an orthographic elevation: no perspective, no vanishing lines, verticals perfectly vertical. Soft, even, shadowless daylight (bright overcast) so the game engine can add its own sun and shadows. True-to-life colours, fine surface detail: hairline cracks, dust, water stains, sun bleaching.\n\nFront elevation of a row of three small 1980s Kuwaiti neighbourhood shops under one flat roof (a baqala grocery, a tailor, a barber), filling the whole frame edge to edge from the pavement line to the top of the parapet: beige plaster, each shop with a half-raised steel roller shutter, glass shop window, and a blank painted sign board above with no lettering; crates of soft drinks and a fruit stand outside the grocery, a small window AC unit, a fluorescent tube light over each door.\n\nDo not include: any text, letters, numbers, signs, logos or watermarks; people; cars; satellite dishes; modern LED lights or modern glass curtain walls; flags; strong cast shadows; perspective distortion; any writing on signs.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "high",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 270,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 270
+  },
+  "output_tokens": 5488,
+  "output_tokens_details": {
+   "image_tokens": 5488,
+   "text_tokens": 0
+  },
+  "total_tokens": 5758
+ },
+ "seconds": 76.9,
+ "created": "2026-11-23T10:11:45+0300",
+ "qa_status": "in_review"
+}

@@ -439,14 +439,14 @@ namespace DriftKuwait
         static void Shops(R slab, float h)
         {
             shopTex = shopTex != null ? shopTex : Tex("fac_baqala");
-            float sh = 5.2f, aspect = shopTex != null ? shopTex.width / (float)shopTex.height : 1.5f;
-            float len = Mathf.Min(slab.D - 10f, aspect * sh * 3f), dep = 10f;
+            float sh = 6.4f, aspect = shopTex != null ? shopTex.width / (float)shopTex.height : 1.5f;
+            float len = Mathf.Min(slab.D - 10f, aspect * sh * 2f), dep = 10f;
             Vector3 c = new Vector3(slab.x0 + 10f + dep * 0.5f, h, (slab.z0 + slab.z1) * 0.5f);     // faces -x, the avenue
             houseKits[1].Box(c + Vector3.up * (sh * 0.5f), new Vector3(dep, sh, len), Quaternion.identity, true);
             collKit.Box(c + Vector3.up * (sh * 0.5f), new Vector3(dep, sh, len));
-            if (shopTex != null) PhotoFront(shopKit, c - Vector3.right * (dep * 0.5f + 0.03f), Vector3.left, len, sh, 3);
+            if (shopTex != null) PhotoFront(shopKit, c - Vector3.right * (dep * 0.5f + 0.03f), Vector3.left, len, sh, 2);
             // Shade canopy along the shopfronts
-            trimKit.Box(c - Vector3.right * (dep * 0.5f + 1.2f) + Vector3.up * 3.3f, new Vector3(2.4f, 0.15f, len), Quaternion.identity, true);
+            trimKit.Box(c - Vector3.right * (dep * 0.5f + 1.2f) + Vector3.up * 3.9f, new Vector3(2.4f, 0.15f, len), Quaternion.identity, true);
             for (int i = 0; i < 3; i++)
                 parkSpots.Add((new Vector3(slab.x0 + 4f, h, c.z - len * 0.3f + i * len * 0.3f), Quaternion.LookRotation(Vector3.right)));
         }
