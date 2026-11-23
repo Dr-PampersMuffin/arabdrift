@@ -17,6 +17,8 @@ namespace DriftKuwait
         Image[] bars = new Image[5];
         Text[] vals = new Text[5];
         Image[] tileOutlines;
+        RectTransform[] tileRects;
+        CanvasGroup[] tileGroups;
         Button driveBtn;
         string selected;
 
@@ -145,10 +147,12 @@ namespace DriftKuwait
         void BuildTiles(RectTransform safe)
         {
             var row = UIKit.Rect(safe, "Tiles");
-            UIKit.Place(row, new Vector2(0.5f, 0f), new Vector2(0f, 112f), new Vector2(1900f, 270f));
+            UIKit.Place(row, new Vector2(0.5f, 0f), new Vector2(0f, 104f), new Vector2(1900f, 190f));   // a low carousel: the car above stays clear
             var cars = CarCatalog.Garage;
             tileOutlines = new Image[cars.Length];
-            float w = 350f, gap = 20f;
+            tileRects = new RectTransform[cars.Length];
+            tileGroups = new CanvasGroup[cars.Length];
+            float w = 230f, gap = 34f;
             float total = cars.Length * w + (cars.Length - 1) * gap;
             for (int i = 0; i < cars.Length; i++)
             {
@@ -157,29 +161,29 @@ namespace DriftKuwait
                 var b = UIKit.Button(row, "Tile_" + id, new Color(0.035f, 0.06f, 0.11f, 0.92f), () => Select(id, true), "hud/panel_sharp");
                 var rt = (RectTransform)b.transform;
                 // RTL order: first car on the right
-                UIKit.Place(rt, new Vector2(0.5f, 0.5f), new Vector2(total / 2f - w / 2f - i * (w + gap), 0f), new Vector2(w, 262f));
+                UIKit.Place(rt, new Vector2(0.5f, 0.5f), new Vector2(total / 2f - w / 2f - i * (w + gap), 0f), new Vector2(w, 150f));
+                tileRects[i] = rt;
+                tileGroups[i] = b.gameObject.AddComponent<CanvasGroup>();
                 var art = UIKit.Img(rt, "Art", UIKit.S("car_" + id), Color.white);
                 art.preserveAspect = true;
-                UIKit.Place(art.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -6f), new Vector2(w - 20f, 158f));
-                var n = UIKit.Label(rt, "N", c.nameAr, 42, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
-                UIKit.Place(n.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 46f), new Vector2(w, 54f));
-                var tg = UIKit.Label(rt, "Tg", c.taglineAr, 25, new Color(1, 1, 1, 0.7f), TextAnchor.MiddleCenter, UIKit.Arabic);
-                UIKit.Place(tg.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 12f), new Vector2(w, 34f));
+                UIKit.Place(art.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -4f), new Vector2(w - 16f, 92f));
+                var n = UIKit.Label(rt, "N", c.nameAr, 32, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
+                UIKit.Place(n.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 6f), new Vector2(w, 46f));
                 if (!CarCatalog.Has3D(id))
                 {
                     var soon = UIKit.Panel(rt, "Soon", new Color(0, 0, 0, 0.7f), "hud/pill");
-                    UIKit.Place(soon.rectTransform, new Vector2(0f, 1f), new Vector2(10f, -10f), new Vector2(100f, 36f));
+                    UIKit.Place(soon.rectTransform, new Vector2(0f, 1f), new Vector2(6f, -6f), new Vector2(84f, 30f));
                     var st = UIKit.Label(soon.transform, "T", "قريباً", 20, UIKit.Gold, TextAnchor.MiddleCenter, UIKit.Black);
                     UIKit.Stretch(st.rectTransform);
                 }
                 tileOutlines[i] = UIKit.Outline(rt, UIKit.Gold, "hud/panel_sharp_outline");
             }
             var la = UIKit.Button(safe, "PrevCar", UIKit.InkSoft, () => Step(1), "hud/pill");
-            UIKit.Place((RectTransform)la.transform, new Vector2(0f, 0f), new Vector2(18f, 200f), new Vector2(70f, 110f));
+            UIKit.Place((RectTransform)la.transform, new Vector2(0f, 0f), new Vector2(18f, 180f), new Vector2(64f, 96f));
             var li = UIKit.Img(la.transform, "I", UIKit.S("hud/ic_chev_l"), UIKit.Cream);
             UIKit.Place(li.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(44f, 44f));
             var ra = UIKit.Button(safe, "NextCar", UIKit.InkSoft, () => Step(-1), "hud/pill");
-            UIKit.Place((RectTransform)ra.transform, new Vector2(1f, 0f), new Vector2(-18f, 200f), new Vector2(70f, 110f));
+            UIKit.Place((RectTransform)ra.transform, new Vector2(1f, 0f), new Vector2(-18f, 180f), new Vector2(64f, 96f));
             var ri = UIKit.Img(ra.transform, "I", UIKit.S("hud/ic_chev_r"), UIKit.Cream);
             UIKit.Place(ri.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(44f, 44f));
         }
@@ -241,6 +245,21 @@ namespace DriftKuwait
             carArt.sprite = UIKit.S("car_" + id);
             driveTxt.text = UIKit.Ar(has3D ? "قيادة" : "قريباً");
             if (user && id == "abusitta") Sfx.Voice("ab_abusitta", 0.9f);
+        }
+
+        /// Carousel: the chosen card grows and lights up, the rest shrink back and dim.
+        void LateUpdate()
+        {
+            if (tileRects == null) return;
+            var cars = CarCatalog.Garage;
+            float k = 1f - Mathf.Exp(-12f * Time.unscaledDeltaTime);
+            for (int i = 0; i < tileRects.Length; i++)
+            {
+                bool on = cars[i].id == selected;
+                tileRects[i].localScale = Vector3.Lerp(tileRects[i].localScale, Vector3.one * (on ? 1.18f : 0.9f), k);
+                tileGroups[i].alpha = Mathf.Lerp(tileGroups[i].alpha, on ? 1f : 0.62f, k);
+                if (on) tileRects[i].SetAsLastSibling();
+            }
         }
 
         void OnDestroy()
