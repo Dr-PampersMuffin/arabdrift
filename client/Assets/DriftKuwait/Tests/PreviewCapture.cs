@@ -139,6 +139,8 @@ namespace DriftKuwait.Preview
                 ("16_street_gate", new Vector3(-120f, 1.4f, -78f), new Vector3(-112f, 2.6f, -70f)),
                 ("17_avenue", new Vector3(4f, 2.2f, -200f), new Vector3(-6f, 3f, -90f)),
                 ("18_roundabout", new Vector3(30f, 4f, -32f), new Vector3(0f, 5f, 0f)),
+                ("19_mosque", new Vector3(6f, 2.2f, -100f), new Vector3(-26f, 8f, -122f)),
+                ("19b_shops", new Vector3(-6f, 2f, -104f), new Vector3(18f, 3f, -122f)),
             };
             cam.fieldOfView = 62f;
             foreach (var s in streets)
