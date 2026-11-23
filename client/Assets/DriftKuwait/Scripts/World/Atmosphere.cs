@@ -124,7 +124,7 @@ namespace DriftKuwait
                     RenderSettings.ambientEquatorColor = new Color(0.62f, 0.56f, 0.48f);
                     RenderSettings.ambientGroundColor = new Color(0.32f, 0.27f, 0.22f);
                     RenderSettings.fogColor = new Color(0.86f, 0.62f, 0.52f);
-                    RenderSettings.fogDensity = 0.0026f;
+                    RenderSettings.fogDensity = 0.0016f;   // lighter haze: Kuwait Towers read on the horizon
                     SetSky(new Color(0.62f, 0.62f, 0.62f), 1.3f, 1.2f, 0.05f);
                     Grade(ca, 0f, 22f, 14f, new Color(1f, 0.96f, 0.94f));
                     Tone(new Color(0.42f, 0.52f, 0.56f), new Color(0.60f, 0.53f, 0.46f));

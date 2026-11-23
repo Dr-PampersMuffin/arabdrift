@@ -1,0 +1,32 @@
+{
+ "version": 1,
+ "batch": "m15",
+ "style_header": "Cinematic illustrated story panel for a premium mobile racing game, painterly realism like a high-end graphic novel, warm golden-hour light through a dusty workshop door, rich saturated oranges and teal shadows, film grain.",
+ "must_not": [
+  "any text, letters, numbers, logos or watermarks",
+  "modern objects",
+  "women"
+ ],
+ "defaults": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png",
+  "n": 1
+ },
+ "items": [
+  {
+   "asset_id": "garage_bg_v2",
+   "prompt": "Wide interior of an old 1980s Kuwaiti car workshop at night, seen from the middle of the floor at car-bumper height: a large EMPTY polished wet concrete floor in the centre foreground that reflects the warm lamps (leave it empty for a car), pegboard walls with spanners on the left, a red tool chest, a boombox and stacked tyres, warm hanging industrial lamps, a ceiling fan, a large plain cream sign board high on the back wall with nothing written on it, a brass dallah coffee pot on a shelf, cinematic warm tungsten light with deep shadows, rich detail, photorealistic."
+  },
+  {
+   "asset_id": "story_desert_camp",
+   "prompt": "Kuwait 1987, night in the desert south of the city: a Bedouin-style black goat-hair tent glowing from inside, a campfire with a brass dallah and small tea glasses, five young Kuwaiti men in dishdashas and ghutras sitting on rugs laughing, three dusty 1980s cars and a pickup parked behind them with headlights on, a sky full of stars, warm firelight against deep blue night, cinematic."
+  },
+  {
+   "asset_id": "story_desert_run",
+   "prompt": "Kuwait 1987, sunset on a straight two-lane desert highway leaving the city: a silver 1980s coupe and two rival cars racing side by side, sand blowing across the road, a white police patrol car with blue lights far behind, only open desert with rolling dunes and wooden power-line poles, absolutely no city, no skyline, no towers, no buildings, dramatic orange and magenta sky, dynamic low cinematic angle, motion blur."
+  }
+ ]
+}

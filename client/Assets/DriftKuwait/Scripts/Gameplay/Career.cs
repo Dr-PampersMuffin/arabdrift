@@ -7,7 +7,7 @@ namespace DriftKuwait
     /// (and later districts). Saved locally; the server validates results once online competition arrives.
     public static class Career
     {
-        public enum Kind { FreeRoam, Score, Zone, Chain, Escape }
+        public enum Kind { FreeRoam, Score, Zone, Chain, Escape, Run }
 
         public class EventDef
         {
@@ -41,6 +41,10 @@ namespace DriftKuwait
             new EventDef { id = "salwa_escape", district = "salwa", kind = Kind.Escape, titleAr = "هروب من الدورية", goalAr = "اهرب من الدورية بأسرع وقت",
                 howAr = "الدورية وراك من البداية. ابتعد عنها لين تفقدك. لو وقفت جنبها تنحجز السيارة.", seconds = 150f, stars = new long[] { 150, 80, 45 },
                 cash = 5000, rep = 80, needStars = 7, spawn = new Vector3(3f, 0.6f, 200f), yaw = 180f, mapPos = new Vector2(0.82f, 0.3f) },
+            // Need for Speed style: race the crew out of Salwa down the desert highway to the camp, lose the patrol on the way.
+            new EventDef { id = "salwa_desert_run", district = "salwa", kind = Kind.Run, titleAr = "سباق البر", goalAr = "اسبق الربع للمخيم واهرب من الدورية",
+                howAr = "اطلع من سلوى جنوب للبر. اسبقهم للمخيم، ولو لحقتك الدورية لا توقف.", seconds = 210f, stars = new long[] { 1, 2, 3 },
+                cash = 6000, rep = 90, needStars = 2, spawn = new Vector3(2f, 0.6f, -392f), yaw = 180f, mapPos = new Vector2(0.5f, 0.98f) },
         };
 
         public static EventDef Get(string id) => Events.Find(e => e.id == id);

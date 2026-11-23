@@ -40,11 +40,11 @@ namespace DriftKuwait
                 starImgs[i] = s;
             }
 
-            string resLabel = ev.kind == Career.Kind.Escape ? (result > 0 ? "وقت الهروب" : "انحجزت السيارة") : ev.kind == Career.Kind.Chain ? "أطول سلسلة" : ev.kind == Career.Kind.Zone ? "نقاط داخل الدائرة" : "النقاط";
-            string resValue = ev.kind == Career.Kind.Escape ? (result > 0 ? UIKit.Num(result) + " ث" : "—") : UIKit.Num(result);
+            string resLabel = ev.kind == Career.Kind.Run ? (result > 0 ? "المركز" : "خسرت السباق") : ev.kind == Career.Kind.Escape ? (result > 0 ? "وقت الهروب" : "انحجزت السيارة") : ev.kind == Career.Kind.Chain ? "أطول سلسلة" : ev.kind == Career.Kind.Zone ? "نقاط داخل الدائرة" : "النقاط";
+            string resValue = ev.kind == Career.Kind.Run ? (result > 0 ? UIKit.Num(4 - result) + " / ٣" : "—") : ev.kind == Career.Kind.Escape ? (result > 0 ? UIKit.Num(result) + " ث" : "—") : UIKit.Num(result);
             Row(tr, 0, resLabel, resValue, true);
             long bestV = Career.Best(ev.id);
-            Row(tr, 1, best ? "رقم قياسي جديد!" : "أفضل نتيجة", ev.kind == Career.Kind.Escape ? (bestV > 0 ? UIKit.Num(bestV) + " ث" : "—") : UIKit.Num(bestV), false);
+            Row(tr, 1, best ? "رقم قياسي جديد!" : "أفضل نتيجة", ev.kind == Career.Kind.Run ? (bestV > 0 ? UIKit.Num(4 - bestV) + " / ٣" : "—") : ev.kind == Career.Kind.Escape ? (bestV > 0 ? UIKit.Num(bestV) + " ث" : "—") : UIKit.Num(bestV), false);
             Row(tr, 2, "الجايزة", "+" + UIKit.Num(cash) + " كاش   +" + UIKit.Num(rep) + " سمعة", false);
             if (ev.stars != null)
             {

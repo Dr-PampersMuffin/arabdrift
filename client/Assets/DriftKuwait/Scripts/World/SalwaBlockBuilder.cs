@@ -858,12 +858,38 @@ namespace DriftKuwait
                 band.Lathe(p + Vector3.up * 37.4f, new[] { new Vector2(0, 0), new Vector2(12.62f, 0), new Vector2(12.62f, 1.2f), new Vector2(0, 1.2f) }, 40);
             band.ToObject("TowerBands", root, Mat.Paint("M_TowerBand", new Color(0.12f, 0.42f, 0.48f), 0.55f));
 
+            // Kuwait Towers (1979) on the northern horizon, seen down the main avenue: the city's signature in 1987.
+            {
+                var spire = new MeshKit(); var balls = new MeshKit();
+                Vector3 baseP = new Vector3(70f, 0f, 820f);
+                System.Func<float, float, Vector2[]> ball = (y0, r) =>
+                {
+                    var pr = new List<Vector2>();
+                    for (int i = 0; i <= 14; i++) { float a = -Mathf.PI * 0.5f + i / 14f * Mathf.PI; pr.Add(new Vector2(Mathf.Cos(a) * r, y0 + r + Mathf.Sin(a) * r)); }
+                    pr[0] = new Vector2(0f, pr[0].y); pr[pr.Count - 1] = new Vector2(0f, pr[pr.Count - 1].y);
+                    return pr.ToArray();
+                };
+                // Main tower: 187 m spire, a big sphere and a smaller one above it
+                spire.Lathe(baseP, new[] { new Vector2(0, 0), new Vector2(5f, 0), new Vector2(2.6f, 80f), new Vector2(1.4f, 130f), new Vector2(0.15f, 187f), new Vector2(0, 187f) }, 16);
+                balls.Lathe(baseP + Vector3.up * 68f, ball(0f, 16.5f), 24);
+                balls.Lathe(baseP + Vector3.up * 116f, ball(0f, 10f), 20);
+                // Second tower: 147 m with one sphere
+                Vector3 b2 = baseP + new Vector3(-34f, 0f, -14f);
+                spire.Lathe(b2, new[] { new Vector2(0, 0), new Vector2(4f, 0), new Vector2(2f, 70f), new Vector2(0.15f, 147f), new Vector2(0, 147f) }, 16);
+                balls.Lathe(b2 + Vector3.up * 58f, ball(0f, 14f), 24);
+                // Third: the slim 113 m needle
+                spire.Lathe(baseP + new Vector3(-16f, 0f, 22f), new[] { new Vector2(0, 0), new Vector2(2.4f, 0), new Vector2(0.12f, 113f), new Vector2(0, 113f) }, 12);
+                spire.ToObject("KuwaitTowers_Spires", root, Mat.Paint("M_KT_Spire", new Color(0.86f, 0.86f, 0.84f), 0.45f));
+                balls.ToObject("KuwaitTowers_Spheres", root, Mat.Paint("M_KT_Sphere", new Color(0.12f, 0.36f, 0.44f), 0.85f, 0.6f));
+            }
+
             // Low distant houses fading into the haze.
             var far = new MeshKit();
             for (int i = 0; i < 260; i++)
             {
                 float a = Random.Range(0f, Mathf.PI * 2f), r = Random.Range(470f, 900f);
                 Vector3 p = new Vector3(Mathf.Cos(a) * r, 0f, Mathf.Sin(a) * r);
+                if (p.z < -380f && p.x > -120f && p.x < 260f) continue;   // keep the desert highway clear
                 Vector3 s = new Vector3(Random.Range(12f, 26f), Random.Range(4f, 8f), Random.Range(12f, 26f));
                 far.Box(p + Vector3.up * s.y * 0.5f, s, Quaternion.Euler(0f, Random.Range(0f, 90f), 0f), true);
             }

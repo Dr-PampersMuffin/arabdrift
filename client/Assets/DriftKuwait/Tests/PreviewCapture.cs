@@ -141,6 +141,9 @@ namespace DriftKuwait.Preview
                 ("18_roundabout", new Vector3(30f, 4f, -32f), new Vector3(0f, 5f, 0f)),
                 ("19_mosque", new Vector3(6f, 2.2f, -100f), new Vector3(-26f, 8f, -122f)),
                 ("19b_shops", new Vector3(-6f, 2f, -104f), new Vector3(18f, 3f, -122f)),
+                ("40_desert_highway", new Vector3(8f, 2.2f, -640f), new Vector3(40f, 2f, -820f)),
+                ("41_desert_camp", new Vector3(10f, 3.5f, -1680f), new Vector3(-14f, 1f, -1734f)),
+                ("42_kuwait_towers", new Vector3(4f, 2.2f, 380f), new Vector3(70f, 60f, 820f)),
             };
             cam.fieldOfView = 62f;
             foreach (var s in streets)

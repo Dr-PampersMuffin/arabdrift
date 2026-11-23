@@ -37,6 +37,7 @@ namespace DriftKuwait
             var root = new GameObject("DK_World");
             Atmosphere.Build(root.transform);
             SalwaBlockBuilder.Build(root.transform);
+            DesertBuilder.Build(root.transform);
             StreetProps.Build(root.transform);
 
             var camGo = new GameObject("DK_Camera");

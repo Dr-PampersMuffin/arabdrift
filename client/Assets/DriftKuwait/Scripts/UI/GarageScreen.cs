@@ -27,6 +27,11 @@ namespace DriftKuwait
             g.flow = flow;
             var root = canvas.transform;
             UIKit.Cover(root, "Workshop", Resources.Load<Texture2D>("DriftKuwait/UI/garage_bg"));
+            // The workshop's own sign, painted on the board on the back wall
+            var sign = UIKit.Label(root, "Sign", "كراج بو نبيل", 84, new Color(0.46f, 0.11f, 0.08f, 0.92f), TextAnchor.MiddleCenter, UIKit.Display);
+            UIKit.Place(sign.rectTransform, new Vector2(0.6f, 1f), new Vector2(0f, -196f), new Vector2(640f, 110f));
+            var sign2 = UIKit.Label(root, "Sign2", "لصيانة السيارات", 34, new Color(0.30f, 0.18f, 0.12f, 0.85f), TextAnchor.MiddleCenter, UIKit.Black);
+            UIKit.Place(sign2.rectTransform, new Vector2(0.6f, 1f), new Vector2(0f, -272f), new Vector2(640f, 50f));
             var shadeB = UIKit.Img(root, "ShadeB", UIKit.S("hud/grad_v"), new Color(1, 1, 1, 0.85f));
             shadeB.rectTransform.anchorMin = Vector2.zero; shadeB.rectTransform.anchorMax = new Vector2(1f, 0.42f);
             shadeB.rectTransform.offsetMin = shadeB.rectTransform.offsetMax = Vector2.zero;

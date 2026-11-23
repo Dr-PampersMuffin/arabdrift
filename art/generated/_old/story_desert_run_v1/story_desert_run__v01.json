@@ -1,0 +1,31 @@
+{
+ "asset_id": "story_desert_run",
+ "version": 1,
+ "spec": "art/prompts/m15.json",
+ "prompt": "Cinematic illustrated story panel for a premium mobile racing game, painterly realism like a high-end graphic novel, warm golden-hour light through a dusty workshop door, rich saturated oranges and teal shadows, film grain.\n\nKuwait 1987, sunset on a straight two-lane desert highway leaving the city: a silver 1980s coupe and two rival cars racing side by side, sand blowing across the road, a white police patrol car with blue lights far behind, rolling dunes and power-line poles, dramatic orange and magenta sky, dynamic low cinematic angle, motion blur.\n\nDo not include: any text, letters, numbers, logos or watermarks; modern objects; women.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 144,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 144
+  },
+  "output_tokens": 1372,
+  "output_tokens_details": {
+   "image_tokens": 1372,
+   "text_tokens": 0
+  },
+  "total_tokens": 1516
+ },
+ "seconds": 26.9,
+ "created": "2026-11-23T18:57:14+0300",
+ "qa_status": "in_review"
+}

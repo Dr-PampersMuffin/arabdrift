@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
@@ -21,6 +22,10 @@ namespace DriftKuwait
         // What went wrong, for live coaching and for the results screen
         float slowTime, straightTime, outsideTime, coachCooldown = 3f;
         int hits;
+        // Desert Run
+        readonly List<RivalRacer> rivals = new List<RivalRacer>();
+        int playerIdx, place = 3;
+        bool copsCalled;
 
         void Start()
         {
@@ -28,6 +33,16 @@ namespace DriftKuwait
             if (ev.kind == Career.Kind.Zone) zoneRing = ZoneRing(ev.zone, ev.zoneRadius);
             pursuit.OnEnd += escaped => { if (ev.kind == Career.Kind.Escape && running) Finish(escaped ? (long)Mathf.Max(1f, elapsed) : 0); };
             car.OnImpact += (imp, _) => { if (running && imp > 3000f) hits++; };
+            if (ev.kind == Career.Kind.Run)
+            {
+                pursuit.OnEnd += escaped => { if (running && !escaped) Finish(0); };   // caught = race lost
+                var route = DesertBuilder.Route;
+                var rot = car.transform.rotation;
+                var right = car.transform.right;
+                var r1 = RivalRacer.Spawn("faris", car.transform.position + right * -3.4f + car.transform.forward * 7f, rot, route, -3f, 0.97f, car);
+                var r2 = RivalRacer.Spawn("ghazal", car.transform.position + right * 3.4f + car.transform.forward * 3f, rot, route, 3f, 1.0f, car);
+                foreach (var r in new[] { r1, r2 }) if (r != null) { r.car.Body.isKinematic = true; rivals.Add(r); }
+            }
             StartCoroutine(Countdown());
         }
 
@@ -40,8 +55,18 @@ namespace DriftKuwait
             rb.isKinematic = true;
             if (!PreviewHooks.Active)
             {
-                hud.Say("ev_" + ev.id, "por_abu_rashid", "بو نبيل:", ev.howAr);
-                yield return new WaitForSeconds(Mathf.Clamp(ev.howAr.Length / 15f, 2.5f, 6f));
+                if (ev.kind == Career.Kind.Run)
+                {
+                    // Cinematic intro card, Need for Speed style
+                    bool shown = false;
+                    StoryScene.Play(new[] { new StoryScene.Beat("story_desert_run", "run_intro", "بو نبيل") }, () => shown = true);
+                    while (!shown) yield return null;
+                }
+                else
+                {
+                    hud.Say("ev_" + ev.id, "por_abu_rashid", "بو نبيل:", ev.howAr);
+                    yield return new WaitForSeconds(Mathf.Clamp(ev.howAr.Length / 15f, 2.5f, 6f));
+                }
                 foreach (var n in new[] { "٣", "٢", "١" })
                 {
                     hud.Pop(n, UIKit.Cream);
@@ -51,6 +76,7 @@ namespace DriftKuwait
                 hud.Pop("يلّا!", UIKit.Gold);
             }
             rb.isKinematic = false;
+            foreach (var r in rivals) r.car.Body.isKinematic = false;
             timeLeft = ev.seconds;
             lastValue = scorer.Total + scorer.Current;
             startBest = scorer.BestRun;
@@ -92,12 +118,19 @@ namespace DriftKuwait
                 }
             }
 
+            if (ev.kind == Career.Kind.Run)
+            {
+                RunUpdate();
+                if (finished) return;
+            }
+
             long result = Result();
-            hud.JudgedValue = ev.kind == Career.Kind.Escape ? -1 : result;
+            hud.JudgedValue = ev.kind == Career.Kind.Escape || ev.kind == Career.Kind.Run ? -1 : result;
             long next = NextTarget(result);
             int s = Mathf.Max(0, Mathf.CeilToInt(timeLeft));
             string clock = (s / 60) + ":" + (s % 60).ToString("00");
             if (ev.kind == Career.Kind.Escape) hud.MissionTime = clock;
+            else if (ev.kind == Career.Kind.Run) hud.MissionTime = clock + "     " + UIKit.Ar("المركز ") + place + "/3";
             else hud.MissionTime = clock + "     " + (next > 0 ? UIKit.Dig(result) + " / " + UIKit.Dig(next) : UIKit.Dig(result));
 
             if (ev.seconds > 0f && timeLeft <= 0f)
@@ -111,6 +144,7 @@ namespace DriftKuwait
                 case Career.Kind.Zone: return zonePts;
                 case Career.Kind.Chain: return (long)Mathf.Max(scorer.BestRun > startBest ? scorer.BestRun : 0, scorer.Current);
                 case Career.Kind.Escape: return (long)elapsed;
+                case Career.Kind.Run: return 0;
                 default: return (long)(scorer.Total + scorer.Current);
             }
         }
@@ -119,6 +153,7 @@ namespace DriftKuwait
         string Why()
         {
             if (ev.kind == Career.Kind.Escape) return "ابتعد عن الدورية واستخدم الشوارع الضيقة عشان تفقدك";
+            if (ev.kind == Career.Kind.Run) return hits >= 3 ? $"صدمت {hits} مرات .. كل صدمة تبطّئك" : "خذ المنعطفات بتقحيصة قصيرة وخلك على الإسفلت .. الرمل يبطّئ";
             float t = Mathf.Max(1f, elapsed);
             if (ev.kind == Career.Kind.Zone && outsideTime / t > 0.35f) return "النقاط تنحسب بس داخل الدائرة الذهبية حول الدوّار";
             if (hits >= 3) return $"صدمت {hits} مرات .. كل صدمة تمسح السلسلة اللي تجمعها";
@@ -130,7 +165,7 @@ namespace DriftKuwait
 
         long NextTarget(long result)
         {
-            if (ev.stars == null || ev.kind == Career.Kind.Escape) return 0;
+            if (ev.stars == null || ev.kind == Career.Kind.Escape || ev.kind == Career.Kind.Run) return 0;
             foreach (var t in ev.stars) if (result < t) return t;
             return 0;
         }
@@ -150,6 +185,29 @@ namespace DriftKuwait
             StartCoroutine(ShowResults(result, rec));
         }
 
+        /// Desert Run: race position, the patrol joining half way, the finish at the camp.
+        void RunUpdate()
+        {
+            var route = DesertBuilder.Route;
+            RivalRacer.ProgressOf(car.transform.position, route, ref playerIdx);
+            int ahead = 0;
+            foreach (var r in rivals) if (r != null && (r.finished || r.index > playerIdx)) ahead++;
+            if (ahead + 1 < place) hud.Pop(ahead == 0 ? "الأول!" : "تقدّمت!", UIKit.Gold);
+            place = ahead + 1;
+            if (!copsCalled && playerIdx > route.Count * 0.35f)
+            {
+                copsCalled = true;
+                pursuit.ForceStart();
+                hud.Pop("دورية!", new Color(0.4f, 0.85f, 1f));
+            }
+            Vector3 dc = car.transform.position - DesertBuilder.Camp; dc.y = 0f;
+            if (playerIdx >= route.Count - 3 || dc.magnitude < 26f)
+            {
+                pursuit.Cleanup();
+                Finish(4 - place);   // 1st = 3 stars
+            }
+        }
+
         IEnumerator ShowResults(long result, (int stars, int cash, int rep, bool best) rec)
         {
             // Let the car roll to a stop under the brakes before the results come up.
@@ -159,10 +217,25 @@ namespace DriftKuwait
             yield return new WaitForSecondsRealtime(0.6f);
             Time.timeScale = 1f;
             car.Body.isKinematic = true;
+            if (ev.kind == Career.Kind.Run && result > 0 && !PreviewHooks.Active)
+            {
+                // Chill at the camp: the crew round the fire, then the results
+                bool done = false;
+                StoryScene.Play(new[]
+                {
+                    new StoryScene.Beat("story_desert_camp", "camp_01", "بو نبيل"),
+                    new StoryScene.Beat("story_desert_camp", "camp_02", "الربع"),
+                }, () => done = true);
+                while (!done) yield return null;
+            }
             ResultsScreen.Show(flow, ev, result, rec.stars, rec.cash, rec.rep, rec.best, rec.stars < 3 ? Why() : null);
         }
 
-        void OnDestroy() { if (zoneRing != null) Destroy(zoneRing); }
+        void OnDestroy()
+        {
+            if (zoneRing != null) Destroy(zoneRing);
+            foreach (var r in rivals) if (r != null) Destroy(r.gameObject);
+        }
 
         static GameObject ZoneRing(Vector3 c, float r)
         {
