@@ -127,10 +127,12 @@ namespace DriftKuwait
                 var pos = new Vector2(-62f - col * 108f, -186f - row * 112f);
                 var sw = UIKit.Button(tr, "Paint" + i, i == 0 ? new Color(0.25f, 0.25f, 0.27f) : Tuning.Paints[i].c, () => PickPaint(idx), "hud/circle_mask");
                 UIKit.Place((RectTransform)sw.transform, new Vector2(1f, 1f), pos, new Vector2(74f, 74f));
+                var swi = sw.GetComponent<Image>(); swi.sprite = UIKit.S("hud/circle_mask"); swi.type = Image.Type.Simple; swi.preserveAspect = true;
                 if (i == cur)
                 {
                     var ring = UIKit.Img(tr, "Sel", UIKit.S("hud/circle_mask"), new Color(UIKit.Gold.r, UIKit.Gold.g, UIKit.Gold.b, 0.9f));
-                    UIKit.Place(ring.rectTransform, new Vector2(1f, 1f), pos, new Vector2(90f, 90f));
+                    UIKit.Place(ring.rectTransform, new Vector2(1f, 1f), pos, new Vector2(92f, 92f));
+                    ring.type = Image.Type.Simple; ring.preserveAspect = true;
                     ring.transform.SetSiblingIndex(sw.transform.GetSiblingIndex());
                 }
                 var lb = UIKit.Label(tr, "PL" + i, Tuning.Paints[i].ar, 18, new Color(1, 1, 1, 0.75f), TextAnchor.MiddleCenter, UIKit.Arabic);

@@ -113,7 +113,7 @@ namespace DriftKuwait
         void BuildStats(RectTransform safe)
         {
             var p = UIKit.Panel(safe, "Stats", new Color(0.035f, 0.06f, 0.11f, 0.88f));
-            UIKit.Place(p.rectTransform, new Vector2(1f, 1f), new Vector2(-34f, -160f), new Vector2(600f, 500f));   // clear of the car tiles below
+            UIKit.Place(p.rectTransform, new Vector2(1f, 1f), new Vector2(-34f, -160f), new Vector2(600f, 610f));   // tall enough that the drive button sits under the five bars, clear of the car strip
             UIKit.Outline(p.transform, new Color(1f, 1f, 1f, 0.12f));
             var tr = p.transform;
             UIKit.Stripe(tr, new Vector2(1f, 1f), new Vector2(-30f, -14f), 220f, 5f, true);

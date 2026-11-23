@@ -132,6 +132,8 @@ namespace DriftKuwait
             mapCam.enabled = false;
         }
 
+        readonly System.Collections.Generic.List<Rect> tagRects = new System.Collections.Generic.List<Rect>();
+
         void Pin(RectTransform map, Career.EventDef ev)
         {
             Vector3 vp = mapCam.WorldToViewportPoint(ev.kind == Career.Kind.Zone ? ev.zone : ev.spawn);
@@ -151,7 +153,21 @@ namespace DriftKuwait
             var ic = UIKit.Img(pin.transform, "Icon", UIKit.S(open ? IconFor(ev.kind) : "hud/ic_lock"), Color.white);
             UIKit.Place(ic.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -26f), new Vector2(44f, 44f));
             var tag = UIKit.Panel(root, "Tag", new Color(0.035f, 0.06f, 0.11f, 0.85f), "hud/pill");
-            UIKit.Place(tag.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, pins.Count % 2 == 0 ? -86f : 128f), new Vector2(240f, 82f));   // alternate below / above so neighbours never collide
+            // Put the name tag on whichever side of the pin is free: below, above, then left or right.
+            Vector2 tip = new Vector2(root.anchorMin.x * MapW, root.anchorMin.y * MapH);
+            Vector2[] offs = { new Vector2(0f, -86f), new Vector2(0f, 128f), new Vector2(-250f, 20f), new Vector2(250f, 20f), new Vector2(0f, -176f), new Vector2(0f, 218f) };
+            Vector2 chosen = offs[0];
+            foreach (var o in offs)
+            {
+                var r = new Rect(tip.x + o.x - 128f, tip.y + o.y - 4f, 256f, 90f);
+                bool inside = r.xMin > -10f && r.xMax < MapW + 10f && r.yMin > -10f && r.yMax < MapH + 10f;
+                bool clash = !inside;
+                foreach (var t in tagRects) if (t.Overlaps(r)) { clash = true; break; }
+                if (!clash) { chosen = o; break; }
+            }
+            tagRects.Add(new Rect(tip.x + chosen.x - 128f, tip.y + chosen.y - 4f, 256f, 90f));
+            tagRects.Add(new Rect(tip.x - 50f, tip.y, 100f, 120f));   // the pin itself
+            UIKit.Place(tag.rectTransform, new Vector2(0.5f, 0f), chosen, new Vector2(240f, 82f));
             var nm = UIKit.Label(tag.transform, "N", ev.titleAr, 27, open ? UIKit.Cream : new Color(1, 1, 1, 0.55f), TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Place(nm.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -2f), new Vector2(240f, 42f));
             if (ev.stars != null)
