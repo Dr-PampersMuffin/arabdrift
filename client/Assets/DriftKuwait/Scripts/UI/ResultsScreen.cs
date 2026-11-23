@@ -40,16 +40,28 @@ namespace DriftKuwait
                 starImgs[i] = s;
             }
 
+            if (ev.kind == Career.Kind.Delivery)
+            {
+                string dl = result > 0 ? "حالة السيارة" : "تأخرت على الزبون";
+                string dv = result > 0 ? UIKit.Num(result) + "٪" : "—";
+                Row(tr, 0, dl, dv, true);
+                long bd = Career.Best(ev.id);
+                Row(tr, 1, best ? "رقم قياسي جديد!" : "أفضل نتيجة", bd > 0 ? UIKit.Num(bd) + "٪" : "—", false);
+            }
+            else
+            {
             string resLabel = ev.kind == Career.Kind.Run ? (result > 0 ? "المركز" : "خسرت السباق") : ev.kind == Career.Kind.Escape ? (result > 0 ? "وقت الهروب" : "انحجزت السيارة") : ev.kind == Career.Kind.Chain ? "أطول سلسلة" : ev.kind == Career.Kind.Zone ? "نقاط داخل الدائرة" : "النقاط";
             string resValue = ev.kind == Career.Kind.Run ? (result > 0 ? UIKit.Num(4 - result) + " / ٣" : "—") : ev.kind == Career.Kind.Escape ? (result > 0 ? UIKit.Num(result) + " ث" : "—") : UIKit.Num(result);
             Row(tr, 0, resLabel, resValue, true);
             long bestV = Career.Best(ev.id);
             Row(tr, 1, best ? "رقم قياسي جديد!" : "أفضل نتيجة", ev.kind == Career.Kind.Run ? (bestV > 0 ? UIKit.Num(4 - bestV) + " / ٣" : "—") : ev.kind == Career.Kind.Escape ? (bestV > 0 ? UIKit.Num(bestV) + " ث" : "—") : UIKit.Num(bestV), false);
+            }
             Row(tr, 2, "الجايزة", "+" + UIKit.Num(cash) + " كاش   +" + UIKit.Num(rep) + " سمعة", false);
             if (ev.stars != null)
             {
                 string targets = ev.kind == Career.Kind.Escape
                     ? $"النجوم: أقل من {UIKit.Num(ev.stars[0])} · {UIKit.Num(ev.stars[1])} · {UIKit.Num(ev.stars[2])} ثانية"
+                    : ev.kind == Career.Kind.Delivery ? $"النجوم: حالة السيارة {UIKit.Num(ev.stars[0])}٪ · {UIKit.Num(ev.stars[1])}٪ · {UIKit.Num(ev.stars[2])}٪"
                     : $"النجوم: {UIKit.Num(ev.stars[0])} · {UIKit.Num(ev.stars[1])} · {UIKit.Num(ev.stars[2])}";
                 var tg = UIKit.Label(tr, "Targets", targets, 30, new Color(1, 1, 1, 0.6f), TextAnchor.MiddleCenter, UIKit.Arabic);
                 UIKit.Place(tg.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 170f), new Vector2(1300f, 44f));

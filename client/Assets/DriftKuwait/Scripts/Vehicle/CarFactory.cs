@@ -106,9 +106,10 @@ namespace DriftKuwait
         static float F(string t) => float.Parse(t.Trim(), System.Globalization.CultureInfo.InvariantCulture);
 
         /// A drivable car with physics, input, FX and audio.
-        public static GameObject Build(string id, Vector3 pos, Quaternion rot)
+        public static GameObject Build(string id, Vector3 pos, Quaternion rot, bool tuned = false)
         {
             var spec = CarCatalog.Get(id);
+            if (tuned) spec = Tuning.Effective(spec);   // the player's car as it leaves the workshop
             var data = Load(spec.id);
             if (data == null) return ShaheenBuilder.Build(pos, rot);
 
@@ -136,7 +137,7 @@ namespace DriftKuwait
             root.AddComponent<CarInput>();
             var car = root.AddComponent<DriftCarController>();
             car.wheelRadius = data.radius;
-            car.restLength = 0.30f;
+            car.restLength = 0.30f - spec.rideDrop;   // lowered springs sit the body closer to the wheels
             car.baseTorque = spec.baseTorque;
             car.maxRpm = spec.maxRpm;
             car.turboSpoolTime = spec.turboSpool;
@@ -144,8 +145,9 @@ namespace DriftKuwait
             car.frontGrip = spec.frontGrip;
             car.rearGrip = spec.rearGrip;
             car.handbrakeGripFactor = spec.handbrakeGrip;
-            car.springRate = 42000f * spec.mass / 1150f;
-            car.damperRate = 3800f * spec.mass / 1150f;
+            car.springRate = 42000f * spec.mass / 1150f * spec.springMul;
+            car.damperRate = 3800f * spec.mass / 1150f * Mathf.Sqrt(spec.springMul);
+            car.antiRoll *= spec.antiRollMul;
 
             // Raycast suspension mounts sit restLength above the wheel centre at full droop.
             float mountY = data.radius + car.restLength - 0.065f;   // static sag ~6.5 cm (spring scaled by mass)
@@ -169,9 +171,10 @@ namespace DriftKuwait
         }
 
         /// A car for the garage turntable or the menu: looks only, no physics.
-        public static GameObject BuildDisplay(string id, Transform parent)
+        public static GameObject BuildDisplay(string id, Transform parent, bool tuned = false)
         {
             var spec = CarCatalog.Get(id);
+            if (tuned) spec = Tuning.Effective(spec);
             var data = Load(spec.id);
             if (data == null) return null;
             var root = new GameObject("Display_" + spec.id);
@@ -179,6 +182,7 @@ namespace DriftKuwait
             var v = BuildVisual(spec, data, root.transform, false);
             for (int i = 0; i < 4; i++)
                 v.wheels[i].localPosition = i == 0 ? data.fl : i == 1 ? data.fr : i == 2 ? data.rl : data.rr;
+            if (spec.rideDrop > 0f) { var body = root.transform.Find("Body"); if (body != null) body.localPosition += Vector3.down * spec.rideDrop; }
             var dw = root.AddComponent<DisplayWheels>();
             dw.wheels = v.wheels; dw.radius = data.radius;
             return root;
@@ -203,6 +207,8 @@ namespace DriftKuwait
 
             var prefab = Resources.Load<GameObject>($"DriftKuwait/Cars/{spec.id}/body");
             var paint = Resources.Load<Material>($"DriftKuwait/Cars/{spec.id}/paint");
+            var custom = Tuning.PaintMaterial(spec.id, spec.paintIndex);   // the paint shop's colour, if any
+            if (custom != null) paint = custom;
             if (prefab != null)
             {
                 var body = UnityEngine.Object.Instantiate(prefab, bodyRoot.transform, false);
@@ -431,12 +437,12 @@ namespace DriftKuwait
 
         public static Part[] Build(CarSpec spec, float R, float W)
         {
-            string key = spec.id + R.ToString("F3");
+            string key = spec.id + R.ToString("F3") + "_" + spec.rimSpokes + "_" + ColorUtility.ToHtmlStringRGB(spec.rimColor) + ColorUtility.ToHtmlStringRGB(spec.rimLip);
             if (cache.TryGetValue(key, out var parts)) return parts;
             float rimR = R * 0.64f;
             var tyreMat = Mat.Paint("DK_Tyre", new Color(0.035f, 0.035f, 0.037f), 0.28f);
-            var rimMat = Mat.Paint("DK_Rim_" + spec.id, spec.rimColor, 0.86f, 0.9f);
-            var lipMat = Mat.Paint("DK_RimLip_" + spec.id, spec.rimLip, 0.94f, 1f);
+            var rimMat = Mat.Paint("DK_Rim_" + spec.id + ColorUtility.ToHtmlStringRGB(spec.rimColor), spec.rimColor, 0.86f, 0.9f);
+            var lipMat = Mat.Paint("DK_RimLip_" + spec.id + ColorUtility.ToHtmlStringRGB(spec.rimLip), spec.rimLip, 0.94f, 1f);
             var discMat = Mat.Paint("DK_Disc", new Color(0.42f, 0.42f, 0.44f), 0.7f, 1f);
             var calMat = Mat.Paint("DK_Caliper", new Color(0.55f, 0.06f, 0.05f), 0.6f, 0.2f);
 

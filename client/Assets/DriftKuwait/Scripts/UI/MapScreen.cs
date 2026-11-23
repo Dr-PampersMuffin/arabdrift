@@ -163,7 +163,7 @@ namespace DriftKuwait
             pins.Add((ev, ring));
         }
 
-        static string IconFor(Career.Kind k) => k == Career.Kind.Escape ? "hud/ic_flame" : k == Career.Kind.Zone ? "hud/ic_pin" : k == Career.Kind.Chain ? "hud/ic_trophy" : k == Career.Kind.FreeRoam ? "hud/ic_car" : "hud/ic_flag";
+        static string IconFor(Career.Kind k) => k == Career.Kind.Delivery ? "hud/ic_wrench" : k == Career.Kind.Escape ? "hud/ic_flame" : k == Career.Kind.Zone ? "hud/ic_pin" : k == Career.Kind.Chain ? "hud/ic_trophy" : k == Career.Kind.FreeRoam ? "hud/ic_car" : "hud/ic_flag";
 
         void Select(Career.EventDef ev)
         {
@@ -179,8 +179,8 @@ namespace DriftKuwait
                 cardStars[i].color = i < st ? UIKit.Gold : new Color(1, 1, 1, 0.15f);
             }
             long best = Career.Best(ev.id);
-            cardBest.text = ev.stars == null ? "" : UIKit.Ar("أفضل نتيجة: " + (best > 0 ? UIKit.Num(best) + (ev.kind == Career.Kind.Escape ? " ثانية" : "") : "—"));
-            cardLock.text = open ? "" : UIKit.Ar("تحتاج " + UIKit.Num(ev.needStars) + " نجوم عشان تفتحه");
+            cardBest.text = ev.stars == null ? "" : UIKit.Ar("أفضل نتيجة: " + (best > 0 ? UIKit.Num(best) + (ev.kind == Career.Kind.Escape ? " ثانية" : ev.kind == Career.Kind.Delivery ? "٪" : "") : "—"));
+            cardLock.text = open ? "" : UIKit.Ar(Story.Chapter < ev.chapter ? "تنفتح بالفصل الثاني" : "تحتاج " + UIKit.Num(ev.needStars) + " نجوم عشان تفتحه");
             startBtn.interactable = open;
             cardStartTxt.text = UIKit.Ar(open ? "ابدأ" : "مقفول");
             foreach (var (pev, ring) in pins) ring.color = pev == ev ? new Color(1f, 0.85f, 0.3f, 0.45f) : new Color(1, 1, 1, 0f);

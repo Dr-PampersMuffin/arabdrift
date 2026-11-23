@@ -26,6 +26,9 @@ namespace DriftKuwait
         readonly List<RivalRacer> rivals = new List<RivalRacer>();
         int playerIdx, place = 3;
         bool copsCalled;
+        // Repair jobs (delivery)
+        float condition = 100f;
+        GameObject dropBeacon;
 
         void Start()
         {
@@ -33,6 +36,17 @@ namespace DriftKuwait
             if (ev.kind == Career.Kind.Zone) zoneRing = ZoneRing(ev.zone, ev.zoneRadius);
             pursuit.OnEnd += escaped => { if (ev.kind == Career.Kind.Escape && running) Finish(escaped ? (long)Mathf.Max(1f, elapsed) : 0); };
             car.OnImpact += (imp, _) => { if (running && imp > 3000f) hits++; };
+            if (ev.kind == Career.Kind.Delivery)
+            {
+                dropBeacon = FreeRoam.MakeBeacon("DK_DropOff", ev.dest, TyreFX.ParticleMaterial("DK_DropMat", Texture2D.whiteTexture, new Color(0.35f, 1f, 0.55f, 0.4f)));
+                car.OnImpact += (imp, _) =>
+                {
+                    if (!running || imp < 1500f) return;
+                    float dmg = Mathf.Clamp((imp - 1500f) / 400f, 2f, 30f);
+                    condition = Mathf.Max(0f, condition - dmg);
+                    hud.Callout("-" + UIKit.Num((long)Mathf.Round(dmg)) + "٪ حالة السيارة", new Color(1f, 0.45f, 0.35f));
+                };
+            }
             if (ev.kind == Career.Kind.Run)
             {
                 pursuit.OnEnd += escaped => { if (running && !escaped) Finish(0); };   // caught = race lost
@@ -102,6 +116,17 @@ namespace DriftKuwait
             // Live coaching in Kuwaiti: say what to fix, at most every few seconds
             bool inZone = true;
             if (ev.kind == Career.Kind.Zone) { Vector3 dz = car.transform.position - ev.zone; dz.y = 0f; inZone = dz.magnitude < ev.zoneRadius; }
+            if (ev.kind == Career.Kind.Delivery)
+            {
+                Vector3 dd = car.transform.position - ev.dest; dd.y = 0f;
+                float dist = dd.magnitude;
+                int sl = Mathf.Max(0, Mathf.CeilToInt(timeLeft));
+                hud.JudgedValue = -1;
+                hud.MissionTime = (sl / 60) + ":" + (sl % 60).ToString("00") + "     " + UIKit.Ar("الحالة ") + UIKit.Num((long)Mathf.Round(condition)) + "٪     " + UIKit.Num((long)dist) + UIKit.Ar(" م");
+                if (dist < 9f && car.SpeedKmh < 50f) { Finish((long)Mathf.Max(1f, Mathf.Round(condition))); return; }
+                if (timeLeft <= 0f) Finish(0);
+                return;
+            }
             if (ev.kind != Career.Kind.Escape)
             {
                 if (!scorer.Drifting)
@@ -153,6 +178,7 @@ namespace DriftKuwait
         string Why()
         {
             if (ev.kind == Career.Kind.Escape) return "ابتعد عن الدورية واستخدم الشوارع الضيقة عشان تفقدك";
+            if (ev.kind == Career.Kind.Delivery) return timeLeft <= 0f ? "تأخرت على الزبون .. خذ الشارع العام وخل التقحيص لبعدين" : "كل صدمة تنقص من حالة السيارة .. الزبون يبيها سليمة";
             if (ev.kind == Career.Kind.Run) return hits >= 3 ? $"صدمت {hits} مرات .. كل صدمة تبطّئك" : "خذ المنعطفات بتقحيصة قصيرة وخلك على الإسفلت .. الرمل يبطّئ";
             float t = Mathf.Max(1f, elapsed);
             if (ev.kind == Career.Kind.Zone && outsideTime / t > 0.35f) return "النقاط تنحسب بس داخل الدائرة الذهبية حول الدوّار";
@@ -177,7 +203,7 @@ namespace DriftKuwait
             hud.MissionTime = "";
             var rec = Career.Record(ev, result);
             if (ev.kind == Career.Kind.Chain) GameCenter.Report(GameCenter.BestChain, result);
-            else if (ev.kind != Career.Kind.Escape) GameCenter.Report(GameCenter.BestRun, result);
+            else if (ev.kind != Career.Kind.Escape && ev.kind != Career.Kind.Delivery) GameCenter.Report(GameCenter.BestRun, result);
             GameCenter.Report(GameCenter.TotalStars, Career.TotalStars);
             if (rec.stars == 3) Sfx.Voice("ab_stars3", 1f);
             else if (rec.stars > 0) Sfx.Voice("ab_good", 1f);
@@ -234,6 +260,7 @@ namespace DriftKuwait
         void OnDestroy()
         {
             if (zoneRing != null) Destroy(zoneRing);
+            if (dropBeacon != null) Destroy(dropBeacon);
             foreach (var r in rivals) if (r != null) Destroy(r.gameObject);
         }
 

@@ -122,7 +122,7 @@ namespace DriftKuwait
 
         public void StartEvent(Career.EventDef ev)
         {
-            StartCoroutine(DriveRoutine(CarCatalog.SelectedId, true, ev));
+            StartCoroutine(DriveRoutine(ev.carId ?? CarCatalog.SelectedId, true, ev));   // repair jobs hand you the customer's car
         }
 
         IEnumerator DriveRoutine(string id, bool withFade, Career.EventDef ev)
@@ -133,7 +133,7 @@ namespace DriftKuwait
             carId = id;
             if (PreviewHooks.Active) Debug.Log("[Drive] building car " + id);
             Vector3 spawn = ev != null ? ev.spawn : new Vector3(0f, 0.6f, -140f);
-            car = CarFactory.Build(id, spawn, Quaternion.Euler(0f, ev != null ? ev.yaw : 0f, 0f));
+            car = CarFactory.Build(id, spawn, Quaternion.Euler(0f, ev != null ? ev.yaw : 0f, 0f), ev == null || ev.carId == null);
             car.GetComponent<DriftCarController>().counterSteerAssist = GameSettings.Assist;
             driftCam.target = car.GetComponent<Rigidbody>();
             driftCam.enabled = true;

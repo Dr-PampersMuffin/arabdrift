@@ -41,6 +41,14 @@ public class DKAssetPostprocessor : AssetPostprocessor
             ti.mipmapEnabled = f != "thumb";
             ti.maxTextureSize = 2048;
             ios.overridden = true; ios.maxTextureSize = 2048; ios.format = TextureImporterFormat.ASTC_6x6;
+            if (f == "paintmask")
+            {
+                // Paint-shop source: albedo + body mask, read on the CPU to repaint the car, so it stays uncompressed.
+                ti.sRGBTexture = true; ti.isReadable = true; ti.mipmapEnabled = false;
+                ti.alphaSource = TextureImporterAlphaSource.FromInput; ti.maxTextureSize = 1024;
+                ti.textureCompression = TextureImporterCompression.Uncompressed;
+                ios.maxTextureSize = 1024; ios.format = TextureImporterFormat.RGBA32;
+            }
             ti.SetPlatformTextureSettings(ios);
         }
         else if (p.Contains("/DriftKuwait/UI/"))

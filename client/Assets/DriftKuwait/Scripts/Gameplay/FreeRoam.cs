@@ -26,9 +26,18 @@ namespace DriftKuwait
                 if (ev.kind == Career.Kind.FreeRoam || !Career.Unlocked(ev)) continue;
                 if ((new Vector3(ev.spawn.x, 0f, ev.spawn.z) - new Vector3(car.transform.position.x, 0f, car.transform.position.z)).sqrMagnitude < 400f) continue;   // not on top of the start
                 var b = new Beacon { ev = ev, pos = new Vector3(ev.spawn.x, 0f, ev.spawn.z) };
-                b.go = new GameObject("Beacon_" + ev.id);
-                b.go.transform.position = b.pos;
-                // A soft gold light column and a ring on the road
+                b.go = MakeBeacon("Beacon_" + ev.id, b.pos, mat);
+                beacons.Add(b);
+            }
+        }
+
+        /// A soft light column with a ring on the road and a warm glow: event starts, delivery drop-offs.
+        public static GameObject MakeBeacon(string name, Vector3 pos, Material mat)
+        {
+            var go = new GameObject(name);
+            go.transform.position = pos;
+            {
+                var b = new Beacon { go = go };
                 var col = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                 Destroy(col.GetComponent<Collider>());
                 col.transform.SetParent(b.go.transform, false);
@@ -46,8 +55,8 @@ namespace DriftKuwait
                 var l = new GameObject("Glow").AddComponent<Light>();
                 l.transform.SetParent(b.go.transform, false); l.transform.localPosition = Vector3.up * 3f;
                 l.type = LightType.Point; l.color = new Color(1f, 0.72f, 0.3f); l.range = 14f; l.intensity = 6f; l.shadows = LightShadows.None;
-                beacons.Add(b);
             }
+            return go;
         }
 
         void Update()

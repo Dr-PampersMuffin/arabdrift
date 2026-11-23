@@ -16,6 +16,10 @@ namespace DriftKuwait
         public Color rimColor, rimLip;
         public string engineSet;       // ElevenLabs engine loop set (Audio/Engines/<set>_*)
         public bool police;
+        // workshop tuning (Tuning.Effective)
+        public float rideDrop, springMul = 1f, antiRollMul = 1f;
+        public int paintIndex;
+        public CarSpec Clone() => (CarSpec)MemberwiseClone();
     }
 
     public static class CarCatalog
@@ -57,10 +61,23 @@ namespace DriftKuwait
             rimSpokes = 0, rimColor = new Color(0.08f, 0.08f, 0.08f), rimLip = new Color(0.6f, 0.6f, 0.62f), engineSet = "dawriya",
         };
 
+        static readonly System.Collections.Generic.Dictionary<string, CarSpec> extra = new System.Collections.Generic.Dictionary<string, CarSpec>();
+
         public static CarSpec Get(string id)
         {
             foreach (var c in Garage) if (c.id == id) return c;
-            return id == Patrol.id ? Patrol : Garage[0];
+            if (id == Patrol.id) return Patrol;
+            // Everyday traffic cars (tr_*): their own bodies, plain steel wheels, a generic engine.
+            if (id != null && id.StartsWith("tr_") && Has3D(id))
+            {
+                if (!extra.TryGetValue(id, out var t))
+                    extra[id] = t = new CarSpec { id = id, nameAr = "", nameEn = id, taglineAr = "", cylinderAr = "",
+                        mass = 1350f, baseTorque = 200f, maxRpm = 5800f, turboSpool = 0.1f, boost = 0f,
+                        frontGrip = 1.1f, rearGrip = 1.0f, handbrakeGrip = 0.45f,
+                        rimSpokes = 0, rimColor = new Color(0.62f, 0.62f, 0.64f), rimLip = new Color(0.7f, 0.7f, 0.72f), engineSet = "abusitta" };
+                return t;
+            }
+            return Garage[0];
         }
 
         public static bool Has3D(string id) => Resources.Load<TextAsset>($"DriftKuwait/Cars/{id}/car") != null;

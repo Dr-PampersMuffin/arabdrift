@@ -21,6 +21,9 @@ namespace DriftKuwait
         CanvasGroup[] tileGroups;
         Button driveBtn;
         string selected;
+        RectTransform safeRoot;
+        Text cashTxt;
+        WorkshopPanel workshop;
 
         public static GarageScreen Build(GameFlow flow)
         {
@@ -52,6 +55,7 @@ namespace DriftKuwait
             UIKit.Place(g.carArt.rectTransform, new Vector2(0.42f, 0.5f), new Vector2(0f, -20f), new Vector2(1250f, 600f));
 
             var safe = UIKit.SafeArea(root);
+            g.safeRoot = safe;
             g.BuildTop(safe);
             g.BuildStats(safe);
             g.BuildTiles(safe);
@@ -78,7 +82,8 @@ namespace DriftKuwait
                 int idx = i;
                 bool active = i == 0;
                 var b = UIKit.Button(tabs, "Tab" + i, active ? new Color(0.1f, 0.08f, 0.05f, 0.92f) : new Color(0, 0, 0, 0),
-                    () => { if (idx > 1) flow.Toast("قريباً"); }, "hud/panel_sharp");
+                    () => { if (idx == 2) OpenWorkshop(WorkshopPanel.Mode.Parts); else if (idx == 3) OpenWorkshop(WorkshopPanel.Mode.Look);
+                            else if (idx == 4) flow.ShowMap(); else if (idx > 4) flow.Toast("قريباً"); else CloseWorkshop(); }, "hud/panel_sharp");
                 var rt = (RectTransform)b.transform;
                 // RTL: first tab on the right
                 UIKit.Place(rt, new Vector2(1f, 0.5f), new Vector2(-i * (w + 6f), 0f), new Vector2(w, 124f));
@@ -99,6 +104,7 @@ namespace DriftKuwait
             x -= 86f;
             x = TitleScreen.Chip(bar, x, "hud/ic_rep", UIKit.Dig(Wallet.Rep), 190f);
             TitleScreen.Chip(bar, x, "hud/ic_coin", UIKit.Dig(Wallet.Cash), 250f);
+            cashTxt = bar.GetChild(bar.childCount - 1).Find("V").GetComponent<Text>();
         }
 
         void BuildStats(RectTransform safe)
@@ -199,12 +205,21 @@ namespace DriftKuwait
 
             var row = UIKit.Rect(safe, "Actions");
             UIKit.Place(row, new Vector2(1f, 0f), new Vector2(-30f, 24f), new Vector2(1250f, 80f));
-            (string ar, string icon)[] acts = { ("مواصفات السيارة", "more"), ("القطع", "wheel"), ("الطلاء", "spray"), ("وضع التصوير", "camera") };
+            (string ar, string icon)[] acts = { ("الداينو", "gear"), ("القطع", "wrench"), ("الصبغ والجنوط", "spray"), ("وضع التصوير", "camera") };
             float x = 0f;
-            foreach (var a in acts)
+            for (int ai = 0; ai < acts.Length; ai++)
             {
+                var a = acts[ai];
+                int which = ai;
                 float w = 70f + a.ar.Length * 22f;
-                var b = UIKit.Button(row, a.ar, UIKit.Ink, () => flow.Toast("قريباً"), "hud/pill");
+                var b = UIKit.Button(row, a.ar, UIKit.Ink, () =>
+                {
+                    Sfx.Play("ui_click");
+                    if (which == 0) OpenWorkshop(WorkshopPanel.Mode.Dyno);
+                    else if (which == 1) OpenWorkshop(WorkshopPanel.Mode.Parts);
+                    else if (which == 2) OpenWorkshop(WorkshopPanel.Mode.Look);
+                    else flow.Toast("قريباً");
+                }, "hud/pill");
                 UIKit.Place((RectTransform)b.transform, new Vector2(1f, 0.5f), new Vector2(x, 0f), new Vector2(w, 72f));
                 var ic = UIKit.Img(b.transform, "I", UIKit.S("hud/ic_" + a.icon), UIKit.Cream);
                 UIKit.Place(ic.rectTransform, new Vector2(0f, 0.5f), new Vector2(18f, 0f), new Vector2(38f, 38f));
@@ -225,7 +240,7 @@ namespace DriftKuwait
         void Select(string id, bool user)
         {
             selected = id;
-            var spec = CarCatalog.Get(id);
+            var spec = Tuning.Effective(CarCatalog.Get(id));   // the bars show the car as tuned
             bool has3D = CarCatalog.Has3D(id);
             if (has3D) CarCatalog.SelectedId = id;
             nameTxt.text = UIKit.Ar(spec.nameAr);
@@ -245,6 +260,7 @@ namespace DriftKuwait
             carArt.sprite = UIKit.S("car_" + id);
             driveTxt.text = UIKit.Ar(has3D ? "قيادة" : "قريباً");
             if (user && id == "abusitta") Sfx.Voice("ab_abusitta", 0.9f);
+            if (user && workshop != null) workshop.SetCar(id);
         }
 
         /// Carousel: the chosen card grows and lights up, the rest shrink back and dim.
@@ -261,6 +277,23 @@ namespace DriftKuwait
                 if (on) tileRects[i].SetAsLastSibling();
             }
         }
+
+        void OpenWorkshop(WorkshopPanel.Mode m)
+        {
+            workshop = WorkshopPanel.Open(this, flow, safeRoot, m, selected);
+        }
+
+        void CloseWorkshop() { if (workshop != null) Destroy(workshop.gameObject); }
+
+        /// After a purchase: rebuild the turntable car and the bars, update the cash chip.
+        public void Refresh()
+        {
+            string keep = selected;
+            Select(keep, false);
+            if (cashTxt != null) cashTxt.text = UIKit.Dig(Wallet.Cash);
+        }
+
+        public void SpinWheels(float metres) { if (showroom != null) showroom.Spin(metres); }
 
         void OnDestroy()
         {
@@ -393,12 +426,18 @@ namespace DriftKuwait
             if (current != null) Destroy(current);
             current = null;
             if (id == null) return;
-            current = CarFactory.BuildDisplay(id, turntable);
+            current = CarFactory.BuildDisplay(id, turntable, true);
             if (current == null) return;
             foreach (var tr in current.GetComponentsInChildren<Transform>(true)) tr.gameObject.layer = Layer;
         }
 
         public void Drag(float dx) { yaw -= dx * 0.25f; idle = 0f; }
+
+        public void Spin(float metres)
+        {
+            var dw = current != null ? current.GetComponent<DisplayWheels>() : null;
+            if (dw != null) dw.Roll(metres);
+        }
 
         void Update()
         {

@@ -7,7 +7,7 @@ namespace DriftKuwait
     /// (and later districts). Saved locally; the server validates results once online competition arrives.
     public static class Career
     {
-        public enum Kind { FreeRoam, Score, Zone, Chain, Escape, Run }
+        public enum Kind { FreeRoam, Score, Zone, Chain, Escape, Run, Delivery }
 
         public class EventDef
         {
@@ -20,6 +20,10 @@ namespace DriftKuwait
             public Vector3 spawn; public float yaw;
             public Vector3 zone; public float zoneRadius;
             public Vector2 mapPos;             // 0..1 on the district map
+            public int chapter = 1;            // story chapter that opens it
+            public string carId;               // repair jobs: the customer's car you drive (null = your own)
+            public Vector3 dest;               // repair jobs: where the customer waits
+            public string clientAr;            // repair jobs: who the car belongs to
         }
 
         public static readonly List<EventDef> Events = new List<EventDef>
@@ -45,13 +49,28 @@ namespace DriftKuwait
             new EventDef { id = "salwa_desert_run", district = "salwa", kind = Kind.Run, titleAr = "سباق البر", goalAr = "اسبق الربع للمخيم واهرب من الدورية",
                 howAr = "اطلع من سلوى جنوب للبر. اسبقهم للمخيم، ولو لحقتك الدورية لا توقف.", seconds = 210f, stars = new long[] { 1, 2, 3 },
                 cash = 6000, rep = 90, needStars = 2, spawn = new Vector3(2f, 0.6f, -392f), yaw = 180f, mapPos = new Vector2(0.5f, 0.98f) },
+
+            // Chapter 2, the workshop's own work: deliver repaired customer cars across Salwa, on time and without a scratch.
+            // Result = the car's condition in % on arrival (0 = late). Stars at 60 / 80 / 95 %.
+            new EventDef { id = "salwa_job_taxi", district = "salwa", kind = Kind.Delivery, chapter = 2, titleAr = "تاكسي بو فهد", clientAr = "بو فهد",
+                goalAr = "وصّل التاكسي لبو فهد .. ينتظرك عند العلامة الخضرا", howAr = "بو فهد ينتظر سيارته. لا تصدم ولا تتأخر .. الزبون يبي سيارته مثل ما سلّمها.",
+                seconds = 60f, stars = new long[] { 60, 80, 95 }, cash = 5000, rep = 50, carId = "tr_taxi",
+                spawn = new Vector3(-95f, 0.6f, -120f), yaw = 0f, dest = new Vector3(90f, 0f, 160f), mapPos = new Vector2(0.5f, 0.68f) },
+            new EventDef { id = "salwa_job_pickup", district = "salwa", kind = Kind.Delivery, chapter = 2, titleAr = "ونيت أبو صالح", clientAr = "أبو صالح",
+                goalAr = "رجّع الونيت لأبو صالح .. العلامة الخضرا", howAr = "الونيت ثقيل ومحمّل. خفف عند الدوّارات .. وصّله قبل ما يقفل المحل.",
+                seconds = 80f, stars = new long[] { 60, 80, 95 }, cash = 6500, rep = 60, carId = "tr_pickup",
+                spawn = new Vector3(90f, 0.6f, 40f), yaw = 180f, dest = new Vector3(-190f, 0f, -160f), mapPos = new Vector2(0.5f, 0.1f) },
+            new EventDef { id = "salwa_job_sedan", district = "salwa", kind = Kind.Delivery, chapter = 2, titleAr = "سيارة الشيخ", clientAr = "الشيخ",
+                goalAr = "وصّل سيارة الشيخ للعلامة الخضرا .. ولا خدش واحد", howAr = "هذي أغلى سيارة دخلت الكراج. لو وصلت سليمة اسمنا يكبر بالديرة.",
+                seconds = 110f, stars = new long[] { 70, 88, 97 }, cash = 9000, rep = 90, carId = "tr_sedan_big", needStars = 2,
+                spawn = new Vector3(180f, 0.6f, -200f), yaw = 0f, dest = new Vector3(-95f, 0f, 242f), mapPos = new Vector2(0.18f, 0.78f) },
         };
 
         public static EventDef Get(string id) => Events.Find(e => e.id == id);
         public static int Stars(string id) { try { return PlayerPrefs.GetInt("dk_star_" + id, 0); } catch { return 0; } }
         public static long Best(string id) { try { return long.Parse(PlayerPrefs.GetString("dk_best_" + id, "0")); } catch { return 0; } }
         public static int TotalStars { get { int n = 0; foreach (var e in Events) n += Stars(e.id); return n; } }
-        public static bool Unlocked(EventDef e) => TotalStars >= e.needStars;
+        public static bool Unlocked(EventDef e) => TotalStars >= e.needStars && Story.Chapter >= e.chapter;
 
         public static int StarsFor(EventDef e, long result)
         {
