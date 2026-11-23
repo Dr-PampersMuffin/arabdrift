@@ -46,5 +46,21 @@ namespace DriftKuwait
         {
             new StoryScene.Beat("story_ch1_uncle", "st1_06", "بو شبيب"),
         };
+
+        /// Chapter 2, The Workshop: هيفي comes back, the workshop takes customers again, مثيب keeps the pressure on.
+        public static StoryScene.Beat[] Ch2Intro => new[]
+        {
+            new StoryScene.Beat("story_ch2_haifi", "st2_01", "هيفي"),
+            new StoryScene.Beat("story_ch2_jobs", "st2_02", "بو نبيل"),
+            new StoryScene.Beat("story_ch2_phone", "st2_03", "مثيب"),
+            new StoryScene.Beat("story_ch2_parts", "st2_04", "بو شبيب"),
+        };
+
+        /// The debt cleared, and the first sign that هيفي is not what he seems.
+        public static StoryScene.Beat[] Ch2Done => new[]
+        {
+            new StoryScene.Beat("story_ch2_paid", "st2_05", "بو شبيب"),
+            new StoryScene.Beat("story_ch2_betrayal", "st2_06", "مثيب"),
+        };
     }
 }

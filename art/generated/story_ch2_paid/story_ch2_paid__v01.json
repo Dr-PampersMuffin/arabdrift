@@ -1,0 +1,31 @@
+{
+ "asset_id": "story_ch2_paid",
+ "version": 1,
+ "spec": "art/prompts/story_ch2.json",
+ "prompt": "Cinematic illustrated story panel for a premium mobile racing game, painterly realism like a high-end graphic novel, warm golden-hour light, rich saturated oranges and teal shadows, film grain. Same world and characters as Chapter 1: Kuwait, Salwa district, 1987.\n\nGolden hour. The old Salwa car workshop fully reopened: the roller door wide open, the floor swept, a silver 1980s sports coupe gleaming inside under the lamps. A heavyset Kuwaiti man in his fifties with a grey moustache and ghutra hugs a young Kuwaiti man in a dishdasha with tears of joy, while a grey-bearded mechanic in a dishdasha with rolled sleeves smiles proudly beside them. Warm, triumphant, dust glittering in the sunbeams.\n\nDo not include: any text, letters, numbers, logos or watermarks; modern objects; women; weapons.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 190,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 190
+  },
+  "output_tokens": 1372,
+  "output_tokens_details": {
+   "image_tokens": 1372,
+   "text_tokens": 0
+  },
+  "total_tokens": 1562
+ },
+ "seconds": 25.1,
+ "created": "2026-11-23T20:23:49+0300",
+ "qa_status": "in_review"
+}

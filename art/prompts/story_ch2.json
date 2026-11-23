@@ -1,0 +1,21 @@
+{
+ "version": 1,
+ "batch": "story_ch2",
+ "style_header": "Cinematic illustrated story panel for a premium mobile racing game, painterly realism like a high-end graphic novel, warm golden-hour light, rich saturated oranges and teal shadows, film grain. Same world and characters as Chapter 1: Kuwait, Salwa district, 1987.",
+ "must_not": ["any text, letters, numbers, logos or watermarks", "modern objects", "women", "weapons"],
+ "defaults": {"model": "gpt-image-2", "size": "1536x1024", "quality": "medium", "background": "opaque", "output_format": "png", "n": 1},
+ "items": [
+  {"asset_id": "story_ch2_haifi",
+   "prompt": "Late afternoon outside an old Salwa car workshop with its rusty roller door half open. A slim Kuwaiti man in his mid-twenties with a short trimmed beard and a cheeky wide grin, white dishdasha, no head cloth, aviator sunglasses pushed up on his head, leans on the bonnet of his dark maroon 1980s two-door coupe and spreads his arms in welcome toward a young Kuwaiti man in a dishdasha and ghutra standing in the workshop doorway (seen from behind). Beige villa walls, a date palm, long golden shadows."},
+  {"asset_id": "story_ch2_jobs",
+   "prompt": "Inside the old family car workshop, busy again: a grey-bearded Kuwaiti mechanic in a white dishdasha with rolled sleeves hands a set of car keys to a young Kuwaiti man in a dishdasha and ghutra. Behind them three customer cars wait in the workshop with bonnets closed: an orange-and-white 1980s taxi, a white 1980s pickup truck and a long dark-blue 1980s luxury sedan. Hanging work lamps, tools on pegboards, sunbeams through the open roller door."},
+  {"asset_id": "story_ch2_phone",
+   "prompt": "Night. Inside a luxurious 1980s Kuwaiti majlis office with dark wood panelling and a heavy desk: a confident Kuwaiti businessman in his forties in a crisp white dishdasha with a dark bisht and a gold watch, dark sunglasses folded in his hand, speaks on an old cream rotary telephone with a cold smile. Through the window behind him, the lit Kuwait Towers on the night skyline far away. Warm lamp light, deep teal shadows."},
+  {"asset_id": "story_ch2_parts",
+   "prompt": "Inside a small cluttered workshop office at dusk, a heavyset Kuwaiti man in his fifties with a grey moustache, white dishdasha and ghutra, points at a box of shiny new car parts on the worn wooden desk (a turbocharger, a set of spark plugs, coil springs) while a young Kuwaiti man in a dishdasha leans over to look. Open ledger book, tea glass, rotary telephone, desk lamp, sunset window."},
+  {"asset_id": "story_ch2_paid",
+   "prompt": "Golden hour. The old Salwa car workshop fully reopened: the roller door wide open, the floor swept, a silver 1980s sports coupe gleaming inside under the lamps. A heavyset Kuwaiti man in his fifties with a grey moustache and ghutra hugs a young Kuwaiti man in a dishdasha with tears of joy, while a grey-bearded mechanic in a dishdasha with rolled sleeves smiles proudly beside them. Warm, triumphant, dust glittering in the sunbeams."},
+  {"asset_id": "story_ch2_betrayal",
+   "prompt": "Night, a dark empty parking lot behind shops in Salwa lit by a single orange sodium street lamp. A shiny black 1980s Mercedes S-Class sedan with its rear window rolled down; a confident businessman in a white dishdasha and dark bisht with a gold watch hands an envelope out of the window to a slim young Kuwaiti man with a short beard and aviator sunglasses pushed up on his head, who glances nervously over his shoulder. A dark maroon 1980s coupe parked nearby. Moody, suspicious, film noir framing seen from behind a wall."}
+ ]
+}

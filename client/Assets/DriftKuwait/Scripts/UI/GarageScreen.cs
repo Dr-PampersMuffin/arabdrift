@@ -25,11 +25,14 @@ namespace DriftKuwait
         Text cashTxt;
         WorkshopPanel workshop;
 
+        public static GarageScreen Current { get; private set; }
+
         public static GarageScreen Build(GameFlow flow)
         {
             var canvas = UIKit.MakeCanvas("DK_Garage", 10);
             var g = canvas.gameObject.AddComponent<GarageScreen>();
             g.flow = flow;
+            Current = g;
             var root = canvas.transform;
             UIKit.Cover(root, "Workshop", Resources.Load<Texture2D>("DriftKuwait/UI/garage_bg"));
             // The workshop's own sign, painted on the board on the back wall
@@ -282,6 +285,8 @@ namespace DriftKuwait
         {
             workshop = WorkshopPanel.Open(this, flow, safeRoot, m, selected);
         }
+
+        public void Open(WorkshopPanel.Mode m) => OpenWorkshop(m);
 
         void CloseWorkshop() { if (workshop != null) Destroy(workshop.gameObject); }
 

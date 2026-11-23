@@ -110,7 +110,9 @@ namespace DriftKuwait
                 UIKit.Outline(dc.transform, new Color(0.97f, 0.93f, 0.85f, 0.22f), "hud/panel_sharp_outline");
                 UIKit.Stripe(dc.transform, new Vector2(1f, 1f), new Vector2(-24f, -14f), 160f, 4f, true);
                 bool ch1 = Story.Chapter == 1;
-                var dt = UIKit.Label(dc.transform, "T", ch1 ? "أنقذ الكراج: أول قسط" : "أنقذ الكراج", 34, UIKit.Gold, TextAnchor.MiddleRight, UIKit.Display);
+                bool done = Story.Chapter >= 3 || Story.Remaining <= 0;
+                var dt = UIKit.Label(dc.transform, "T", done ? "الكراج حلالك .. الفصل الثالث قريباً" : ch1 ? "أنقذ الكراج: أول قسط" : "الفصل الثاني: سدّد باقي الدين", 34, UIKit.Gold, TextAnchor.MiddleRight, UIKit.Display);
+                dt.resizeTextForBestFit = true; dt.resizeTextMinSize = 20; dt.resizeTextMaxSize = 34;
                 UIKit.Place(dt.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -24f), new Vector2(460f, 48f));
                 long goal = ch1 ? Story.Instalment : Story.Debt;
                 long paid = System.Math.Min(Story.Paid, goal);
@@ -119,6 +121,7 @@ namespace DriftKuwait
                 var dv = UIKit.Label(dc.transform, "V", UIKit.Dig(paid) + " / " + UIKit.Dig(goal), 22, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Digital, false);
                 UIKit.Place(dv.rectTransform, new Vector2(1f, 0f), new Vector2(-24f, 22f), new Vector2(300f, 32f));
                 var pay = UIKit.Button(dc.transform, "Pay", UIKit.Gold, () => flow.PayDebt(), "hud/panel_sharp");
+                pay.gameObject.SetActive(!done);
                 UIKit.Place((RectTransform)pay.transform, new Vector2(0f, 0f), new Vector2(20f, 20f), new Vector2(140f, 70f));
                 var pt = UIKit.Label(pay.transform, "T", "سدّد", 32, UIKit.Navy, TextAnchor.MiddleCenter, UIKit.Black);
                 UIKit.Stretch(pt.rectTransform);

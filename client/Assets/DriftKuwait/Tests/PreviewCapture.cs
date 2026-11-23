@@ -166,6 +166,25 @@ namespace DriftKuwait.Preview
                 Object.Destroy(top.gameObject);
             }
 
+            // Repair job car: a customer's taxi built as a drivable car (traffic body + physics), driven a few seconds.
+            {
+                var taxi = CarFactory.Build("tr_taxi", new Vector3(-95f, 0.6f, -120f), Quaternion.identity);
+                if (taxi != null)
+                {
+                    var ti = taxi.GetComponent<CarInput>(); ti.ai = true; ti.aiThrottle = 0.7f;
+                    foreach (var c2 in taxi.GetComponents<MonoBehaviour>()) if (c2 is EngineAudio || c2 is TyreAudio) Object.Destroy(c2);
+                    yield return new WaitForSeconds(2.5f);
+                    var tc = new GameObject("TaxiCam").AddComponent<Camera>();
+                    tc.fieldOfView = 55f;
+                    tc.transform.position = taxi.transform.TransformPoint(new Vector3(2.5f, 2.2f, -7.5f));
+                    tc.transform.LookAt(taxi.transform.position + Vector3.up * 0.8f);
+                    yield return null;
+                    CaptureWith(tc, "50_job_taxi", false);
+                    Debug.Log($"[Preview] taxi speed {taxi.GetComponent<DriftCarController>().SpeedKmh:F0} km/h at {taxi.transform.position}");
+                    Object.Destroy(tc.gameObject); Object.Destroy(taxi);
+                }
+            }
+
             // Night, if the world supports it.
             if (PreviewHooks.SetNight != null)
             {

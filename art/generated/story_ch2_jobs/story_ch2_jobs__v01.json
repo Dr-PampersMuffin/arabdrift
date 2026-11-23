@@ -1,0 +1,31 @@
+{
+ "asset_id": "story_ch2_jobs",
+ "version": 1,
+ "spec": "art/prompts/story_ch2.json",
+ "prompt": "Cinematic illustrated story panel for a premium mobile racing game, painterly realism like a high-end graphic novel, warm golden-hour light, rich saturated oranges and teal shadows, film grain. Same world and characters as Chapter 1: Kuwait, Salwa district, 1987.\n\nInside the old family car workshop, busy again: a grey-bearded Kuwaiti mechanic in a white dishdasha with rolled sleeves hands a set of car keys to a young Kuwaiti man in a dishdasha and ghutra. Behind them three customer cars wait in the workshop with bonnets closed: an orange-and-white 1980s taxi, a white 1980s pickup truck and a long dark-blue 1980s luxury sedan. Hanging work lamps, tools on pegboards, sunbeams through the open roller door.\n\nDo not include: any text, letters, numbers, logos or watermarks; modern objects; women; weapons.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 194,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 194
+  },
+  "output_tokens": 1372,
+  "output_tokens_details": {
+   "image_tokens": 1372,
+   "text_tokens": 0
+  },
+  "total_tokens": 1566
+ },
+ "seconds": 26.8,
+ "created": "2026-11-23T20:22:21+0300",
+ "qa_status": "in_review"
+}

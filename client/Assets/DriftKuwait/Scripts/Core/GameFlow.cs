@@ -48,6 +48,20 @@ namespace DriftKuwait
             PreviewHooks.Register("08_results", () => f.PreviewScreen(() => ResultsScreen.Show(f, Career.Events[1], 420, 0, 0, 0, false,
                                       "كنت أبطأ من ٢٥ كم/س أغلب الوقت .. التقحيص ما ينحسب تحت هالسرعة")),
                                   () => { foreach (var r in Object.FindObjectsByType<ResultsScreen>(FindObjectsSortMode.None)) Destroy(r.gameObject); });
+            // M2 workshop: parts, paint + rims (shaheen in red on gold mesh), the dyno with a tuned engine, faris repainted
+            System.Action resetTune = () =>
+            {
+                foreach (var k in new[] { "dk_paint_shaheen", "dk_rim_shaheen", "dk_paint_faris", "dk_t_shaheen_0", "dk_t_shaheen_1", "dk_t_shaheen_3", "dk_rimown_shaheen_1" }) PlayerPrefs.DeleteKey(k);
+                CarCatalog.SelectedId = "shaheen";
+            };
+            PreviewHooks.Register("09a_parts", () => f.PreviewScreen(() => { PlayerPrefs.SetInt("dk_t_shaheen_0", 1); f.ShowGarage(); GarageScreen.Current?.Open(WorkshopPanel.Mode.Parts); }), resetTune);
+            PreviewHooks.Register("09b_paint", () => f.PreviewScreen(() => { PlayerPrefs.SetInt("dk_paint_shaheen", 2); PlayerPrefs.SetInt("dk_rimown_shaheen_1", 1); PlayerPrefs.SetInt("dk_rim_shaheen", 1);
+                                      PlayerPrefs.SetInt("dk_t_shaheen_3", 3); f.ShowGarage(); GarageScreen.Current?.Open(WorkshopPanel.Mode.Look); }), resetTune);
+            PreviewHooks.Register("09c_dyno", () => f.PreviewScreen(() => { PlayerPrefs.SetInt("dk_t_shaheen_0", 2); PlayerPrefs.SetInt("dk_t_shaheen_1", 1); f.ShowGarage(); GarageScreen.Current?.Open(WorkshopPanel.Mode.Dyno); }), resetTune);
+            PreviewHooks.Register("09d_faris_navy", () => f.PreviewScreen(() => { PlayerPrefs.SetInt("dk_paint_faris", 4); CarCatalog.SelectedId = "faris"; f.ShowGarage(); }), resetTune);
+            PreviewHooks.Register("07b_story_ch2", () => f.PreviewScreen(() => StoryScene.Play(new[] { Story.Ch2Intro[0] }, null)),
+                                  () => { var g = GameObject.Find("DK_Story"); if (g != null) Destroy(g); });
+            PreviewHooks.Register("04b_map_ch2", () => f.PreviewScreen(() => { Story.Chapter = 2; f.ShowMap(); }), () => Story.Chapter = 1);
             PreviewHooks.StartDrive = () => f.StartDrive("shaheen", false);
             return f;
         }
@@ -110,7 +124,14 @@ namespace DriftKuwait
             if (before && Story.ToInstalment == 0 && Story.Chapter == 1)
             {
                 Story.Chapter = 2;
-                StoryScene.Play(Story.Ch1Done, () => { ShowTitle(); Toast("الفصل الثاني: الكراج .. قريباً"); });
+                var beats = new System.Collections.Generic.List<StoryScene.Beat>(Story.Ch1Done);
+                beats.AddRange(Story.Ch2Intro);
+                StoryScene.Play(beats.ToArray(), () => { ShowTitle(); Toast("الفصل الثاني: الكراج .. شغل الزباين انفتح بالخريطة"); });
+            }
+            else if (Story.Chapter == 2 && Story.Remaining <= 0)
+            {
+                Story.Chapter = 3;
+                StoryScene.Play(Story.Ch2Done, () => { ShowTitle(); Toast("الفصل الثالث: الذيب .. قريباً"); });
             }
             else ShowTitle();
         }

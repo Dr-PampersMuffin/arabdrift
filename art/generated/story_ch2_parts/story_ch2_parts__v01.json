@@ -1,0 +1,31 @@
+{
+ "asset_id": "story_ch2_parts",
+ "version": 1,
+ "spec": "art/prompts/story_ch2.json",
+ "prompt": "Cinematic illustrated story panel for a premium mobile racing game, painterly realism like a high-end graphic novel, warm golden-hour light, rich saturated oranges and teal shadows, film grain. Same world and characters as Chapter 1: Kuwait, Salwa district, 1987.\n\nInside a small cluttered workshop office at dusk, a heavyset Kuwaiti man in his fifties with a grey moustache, white dishdasha and ghutra, points at a box of shiny new car parts on the worn wooden desk (a turbocharger, a set of spark plugs, coil springs) while a young Kuwaiti man in a dishdasha leans over to look. Open ledger book, tea glass, rotary telephone, desk lamp, sunset window.\n\nDo not include: any text, letters, numbers, logos or watermarks; modern objects; women; weapons.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 181,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 181
+  },
+  "output_tokens": 1372,
+  "output_tokens_details": {
+   "image_tokens": 1372,
+   "text_tokens": 0
+  },
+  "total_tokens": 1553
+ },
+ "seconds": 36.7,
+ "created": "2026-11-23T20:23:23+0300",
+ "qa_status": "in_review"
+}

@@ -1,0 +1,31 @@
+{
+ "asset_id": "story_ch2_phone",
+ "version": 1,
+ "spec": "art/prompts/story_ch2.json",
+ "prompt": "Cinematic illustrated story panel for a premium mobile racing game, painterly realism like a high-end graphic novel, warm golden-hour light, rich saturated oranges and teal shadows, film grain. Same world and characters as Chapter 1: Kuwait, Salwa district, 1987.\n\nNight. Inside a luxurious 1980s Kuwaiti majlis office with dark wood panelling and a heavy desk: a confident Kuwaiti businessman in his forties in a crisp white dishdasha with a dark bisht and a gold watch, dark sunglasses folded in his hand, speaks on an old cream rotary telephone with a cold smile. Through the window behind him, the lit Kuwait Towers on the night skyline far away. Warm lamp light, deep teal shadows.\n\nDo not include: any text, letters, numbers, logos or watermarks; modern objects; women; weapons.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 179,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 179
+  },
+  "output_tokens": 1372,
+  "output_tokens_details": {
+   "image_tokens": 1372,
+   "text_tokens": 0
+  },
+  "total_tokens": 1551
+ },
+ "seconds": 25.6,
+ "created": "2026-11-23T20:22:47+0300",
+ "qa_status": "in_review"
+}

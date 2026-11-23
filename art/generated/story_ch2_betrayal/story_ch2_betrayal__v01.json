@@ -1,0 +1,31 @@
+{
+ "asset_id": "story_ch2_betrayal",
+ "version": 1,
+ "spec": "art/prompts/story_ch2.json",
+ "prompt": "Cinematic illustrated story panel for a premium mobile racing game, painterly realism like a high-end graphic novel, warm golden-hour light, rich saturated oranges and teal shadows, film grain. Same world and characters as Chapter 1: Kuwait, Salwa district, 1987.\n\nNight, a dark empty parking lot behind shops in Salwa lit by a single orange sodium street lamp. A shiny black 1980s Mercedes S-Class sedan with its rear window rolled down; a confident businessman in a white dishdasha and dark bisht with a gold watch hands an envelope out of the window to a slim young Kuwaiti man with a short beard and aviator sunglasses pushed up on his head, who glances nervously over his shoulder. A dark maroon 1980s coupe parked nearby. Moody, suspicious, film noir framing seen from behind a wall.\n\nDo not include: any text, letters, numbers, logos or watermarks; modern objects; women; weapons.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 203,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 203
+  },
+  "output_tokens": 1372,
+  "output_tokens_details": {
+   "image_tokens": 1372,
+   "text_tokens": 0
+  },
+  "total_tokens": 1575
+ },
+ "seconds": 26.7,
+ "created": "2026-11-23T20:24:15+0300",
+ "qa_status": "in_review"
+}
