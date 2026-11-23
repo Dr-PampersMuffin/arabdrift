@@ -1,0 +1,23 @@
+[
+ {
+  "step": "model",
+  "task_id": "4a4c65e0-4e61-42f5-8e39-b389602a00a0",
+  "status": "success",
+  "credits": 40,
+  "seconds": 62,
+  "body": {
+   "type": "image_to_model",
+   "model_version": "v2.5-20250123",
+   "texture": true,
+   "pbr": true,
+   "texture_quality": "detailed",
+   "face_limit": 30000
+  },
+  "files": {
+   "pbr_model": "art/models/car_tr_sedan_big/model_pbr.glb",
+   "rendered_image": "art/models/car_tr_sedan_big/preview.webp"
+  },
+  "output_meta": {},
+  "time": "2026-11-23T10:13:49+0300"
+ }
+]

@@ -1,0 +1,23 @@
+[
+ {
+  "step": "model",
+  "task_id": "f1867860-a998-4d49-bcaf-81aab70165e7",
+  "status": "success",
+  "credits": 40,
+  "seconds": 63,
+  "body": {
+   "type": "image_to_model",
+   "model_version": "v2.5-20250123",
+   "texture": true,
+   "pbr": true,
+   "texture_quality": "detailed",
+   "face_limit": 30000
+  },
+  "files": {
+   "pbr_model": "art/models/car_tr_suv/model_pbr.glb",
+   "rendered_image": "art/models/car_tr_suv/preview.webp"
+  },
+  "output_meta": {},
+  "time": "2026-11-23T10:15:11+0300"
+ }
+]
