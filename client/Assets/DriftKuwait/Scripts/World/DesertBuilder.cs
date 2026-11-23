@@ -53,8 +53,9 @@ namespace DriftKuwait
                 Vector3 f = (b - a); f.y = 0f; float len = f.magnitude; f /= Mathf.Max(0.01f, len);
                 Vector3 r = Vector3.Cross(Vector3.up, f);
                 Vector3 y = Vector3.up * 0.03f;
-                road.QuadUv(a - r * RoadW * 0.5f + y, a + r * RoadW * 0.5f + y, b + r * RoadW * 0.5f + y, b - r * RoadW * 0.5f + y,
-                    new Vector2(0, i * len / 8f), new Vector2(RoadW / 8f, i * len / 8f), new Vector2(RoadW / 8f, (i + 1) * len / 8f), new Vector2(0, (i + 1) * len / 8f));
+                // wound clockwise seen from above so the surface faces up
+                road.QuadUv(a - r * RoadW * 0.5f + y, b - r * RoadW * 0.5f + y, b + r * RoadW * 0.5f + y, a + r * RoadW * 0.5f + y,
+                    new Vector2(0, i * len / 8f), new Vector2(0, (i + 1) * len / 8f), new Vector2(RoadW / 8f, (i + 1) * len / 8f), new Vector2(RoadW / 8f, i * len / 8f));
                 // sand blown over the edges
                 foreach (float s in new[] { -1f, 1f })
                 {
@@ -92,9 +93,9 @@ namespace DriftKuwait
                 float rad = Random.Range(22f, 70f), h = Random.Range(3f, 13f);
                 if (NearRoad(p, rad + 18f) || (p - Camp).magnitude < rad + 50f) continue;
                 var prof = new List<Vector2>();
-                for (int k = 0; k <= 8; k++) { float t = k / 8f; prof.Add(new Vector2(rad * (1f - t), h * Mathf.Sin(t * Mathf.PI * 0.5f) * (0.6f + 0.4f * t))); }
+                for (int k = 0; k <= 12; k++) { float t = k / 12f; prof.Add(new Vector2(rad * (1f - t), h * (0.5f - 0.5f * Mathf.Cos(t * Mathf.PI)))); }   // rounded, wind-blown mound
                 prof.Add(new Vector2(0f, h));
-                dunes.Lathe(p + Vector3.down * 0.4f, prof.ToArray(), 18);
+                dunes.Lathe(p + Vector3.down * 0.4f, prof.ToArray(), 24);
             }
             var dgo = dunes.ToObject("Dunes", root, sand);
             var mc = dgo.AddComponent<MeshCollider>(); mc.sharedMesh = dgo.GetComponent<MeshFilter>().sharedMesh;
@@ -124,8 +125,7 @@ namespace DriftKuwait
         static void CampSite(Transform root)
         {
             var camp = new GameObject("DesertCamp").transform;
-            camp.SetParent(root, false);
-            camp.position = Camp;
+            camp.SetParent(root, false);   // left at the origin: everything below is placed in world coordinates
             var tent = new MeshKit(); var rug = new MeshKit(); var stones = new MeshKit();
             Vector3 t0 = Camp + new Vector3(-14f, 0f, -12f);
             // low pitched roof on poles

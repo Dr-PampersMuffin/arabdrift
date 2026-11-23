@@ -880,7 +880,7 @@ namespace DriftKuwait
                 // Third: the slim 113 m needle
                 spire.Lathe(baseP + new Vector3(-16f, 0f, 22f), new[] { new Vector2(0, 0), new Vector2(2.4f, 0), new Vector2(0.12f, 113f), new Vector2(0, 113f) }, 12);
                 spire.ToObject("KuwaitTowers_Spires", root, Mat.Paint("M_KT_Spire", new Color(0.86f, 0.86f, 0.84f), 0.45f));
-                balls.ToObject("KuwaitTowers_Spheres", root, Mat.Paint("M_KT_Sphere", new Color(0.12f, 0.36f, 0.44f), 0.85f, 0.6f));
+                balls.ToObject("KuwaitTowers_Spheres", root, Mat.Paint("M_KT_Sphere", new Color(0.16f, 0.5f, 0.62f), 0.75f, 0.25f));
             }
 
             // Low distant houses fading into the haze.

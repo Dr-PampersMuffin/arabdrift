@@ -138,7 +138,8 @@ namespace DriftKuwait
             bool open = Career.Unlocked(ev);
             int st = Career.Stars(ev.id);
             var root = UIKit.Rect(map, "Pin_" + ev.id);
-            root.anchorMin = root.anchorMax = new Vector2(Mathf.Clamp01(vp.x), Mathf.Clamp01(vp.y));
+            if (ev.kind == Career.Kind.Run) vp = new Vector3(0.07f, 0.16f, 0f);   // the desert is off the map to the south: pin it at the edge
+            root.anchorMin = root.anchorMax = new Vector2(Mathf.Clamp(vp.x, 0.1f, 0.9f), Mathf.Clamp(vp.y, 0.06f, 0.8f));   // pin and tag stay inside the frame
             root.sizeDelta = new Vector2(96f, 120f);
             root.pivot = new Vector2(0.5f, 0f);          // the pin tip sits on the spot
             root.anchoredPosition = Vector2.zero;
