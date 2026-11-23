@@ -32,6 +32,16 @@ namespace DriftKuwait
         /// 80s motorsport lettering for Latin titles (Audiowide, OFL).
         public static Font Retro => retro != null ? retro : (retro = LoadFont("Audiowide"));
 
+        /// Makes every dark plate (navy / ink panels and buttons) under root see-through to the given alpha.
+        public static void Translucent(Transform root, float alpha)
+        {
+            foreach (var im in root.GetComponentsInChildren<Image>(true))
+            {
+                var c = im.color;
+                if (c.a > 0.55f && c.r < 0.2f && c.g < 0.2f && c.b < 0.25f) { c.a = alpha; im.color = c; }
+            }
+        }
+
         /// The racing tri-stripe: three slim bars (red, burnt orange, mustard). Vertical by default.
         public static RectTransform Stripe(Transform parent, Vector2 anchor, Vector2 pos, float length, float bar = 7f, bool horizontal = false)
         {

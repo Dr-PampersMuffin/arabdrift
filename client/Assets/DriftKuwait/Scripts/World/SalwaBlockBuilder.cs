@@ -103,8 +103,10 @@ namespace DriftKuwait
             trunkKit = new MeshKit(); frondKit = new MeshKit(); pavingKit = new MeshKit();
             stoneKit = new MeshKit(); trimKit = new MeshKit(); woodKit = new MeshKit(); litGlassKit = new MeshKit();
             railKit = new MeshKit(); dateKit = new MeshKit();
+            mosqueKit = new MeshKit(); shopKit = new MeshKit(); domeKit = new MeshKit();
             LoadPhotoSet();
             parkSpots.Clear();
+            mosqueBuilt = shopsBuilt = false;
 
             Ground(root);
             Roads(root);
@@ -320,6 +322,7 @@ namespace DriftKuwait
                     }
                     foreach (var r in pieces)
                         if (r.W > 18f && r.D > 18f) Block(r);
+                        else if (r.W > 5f && r.D > 5f) PavedLot(r);
                 }
         }
 
@@ -334,6 +337,10 @@ namespace DriftKuwait
             KerbEdge(new Vector3(slab.x1, 0, slab.z0), new Vector3(slab.x1, 0, slab.z1), Vector3.right, h);
             KerbEdge(new Vector3(slab.x1, 0, slab.z1), new Vector3(slab.x0, 0, slab.z1), Vector3.forward, h);
             KerbEdge(new Vector3(slab.x0, 0, slab.z1), new Vector3(slab.x0, 0, slab.z0), Vector3.left, h);
+
+            // Neighbourhood landmarks on two blocks by the avenue: the mosque, and a row of shops with a baqala
+            if (!mosqueBuilt && r.Contains(-50f, -120f, 0f)) { mosqueBuilt = true; Mosque(slab, h); return; }
+            if (!shopsBuilt && r.Contains(50f, -120f, 0f)) { shopsBuilt = true; Shops(slab, h); return; }
 
             var inner = slab.Shrink(2.5f);
             bool alongX = inner.W >= inner.D;
@@ -358,6 +365,90 @@ namespace DriftKuwait
                     pos += w;
                 }
             }
+        }
+
+        static bool mosqueBuilt, shopsBuilt;
+        static MeshKit mosqueKit, shopKit, domeKit;
+        static Texture2D mosqueTex, shopTex;
+
+        /// Leftover narrow lots beside the plazas: paved with kerbs and a palm or two, never bare sand.
+        static void PavedLot(R r)
+        {
+            const float h = 0.14f;
+            var slab = new R(r.x0 + 0.25f, r.x1 - 0.25f, r.z0 + 0.25f, r.z1 - 0.25f);
+            pavingKit.Box(slab.Center(h * 0.5f), new Vector3(slab.W, h, slab.D), Quaternion.identity, true);
+            collKit.Box(slab.Center(h * 0.5f), new Vector3(slab.W, h, slab.D));
+            KerbEdge(new Vector3(slab.x0, 0, slab.z0), new Vector3(slab.x1, 0, slab.z0), Vector3.back, h);
+            KerbEdge(new Vector3(slab.x1, 0, slab.z0), new Vector3(slab.x1, 0, slab.z1), Vector3.right, h);
+            KerbEdge(new Vector3(slab.x1, 0, slab.z1), new Vector3(slab.x0, 0, slab.z1), Vector3.forward, h);
+            KerbEdge(new Vector3(slab.x0, 0, slab.z1), new Vector3(slab.x0, 0, slab.z0), Vector3.left, h);
+            float len = Mathf.Max(slab.W, slab.D);
+            for (float t = 6f; t < len - 4f; t += 14f)
+            {
+                Vector3 c = slab.W > slab.D ? new Vector3(slab.x0 + t, h, (slab.z0 + slab.z1) * 0.5f) : new Vector3((slab.x0 + slab.x1) * 0.5f, h, slab.z0 + t);
+                Palm(c, Random.Range(6.5f, 9f));
+            }
+        }
+
+        static void PhotoFront(MeshKit kit, Vector3 baseCentre, Vector3 outward, float width, float height, int copies)
+        {
+            Vector3 right = Vector3.Cross(Vector3.up, -outward);   // viewer looks along -outward
+            float w = width / copies;
+            for (int i = 0; i < copies; i++)
+            {
+                Vector3 l = baseCentre - right * (width * 0.5f) + right * (w * i), rr = l + right * w;
+                bool flip = i % 2 == 1;
+                kit.QuadUv(l, rr, rr + Vector3.up * height, l + Vector3.up * height,
+                    new Vector2(flip ? 1 : 0, 0), new Vector2(flip ? 0 : 1, 0), new Vector2(flip ? 0 : 1, 1), new Vector2(flip ? 1 : 0, 1));
+            }
+        }
+
+        /// A 1980s neighbourhood mosque: prayer hall facing the avenue (photo front, mirrored to twice the width), a dome on
+        /// the roof and an octagonal minaret with a balcony.
+        static void Mosque(R slab, float h)
+        {
+            mosqueTex = mosqueTex != null ? mosqueTex : Tex("fac_mosque");
+            float hallH = 7.5f, aspect = mosqueTex != null ? mosqueTex.width / (float)mosqueTex.height : 1.5f;
+            float hallW = Mathf.Min(slab.D - 16f, aspect * hallH * 2f), hallD = 20f;
+            Vector3 c = new Vector3(slab.x1 - 10f - hallD * 0.5f, h, (slab.z0 + slab.z1) * 0.5f);   // faces +x, the avenue
+            houseKits[0].Box(c + Vector3.up * (hallH * 0.5f), new Vector3(hallD, hallH, hallW), Quaternion.identity, true);
+            collKit.Box(c + Vector3.up * (hallH * 0.5f), new Vector3(hallD, hallH, hallW));
+            if (mosqueTex != null)
+            {
+                PhotoFront(mosqueKit, c + Vector3.right * (hallD * 0.5f + 0.03f), Vector3.right, hallW, hallH, 2);
+                PhotoFront(mosqueKit, c - Vector3.right * (hallD * 0.5f + 0.03f), Vector3.left, hallW, hallH, 2);
+            }
+            // Dome on a short drum
+            Vector3 roof = c + Vector3.up * hallH;
+            trimKit.Lathe(roof, new[] { new Vector2(0, 0), new Vector2(5.4f, 0), new Vector2(5.4f, 1.2f), new Vector2(0, 1.2f) }, 24);
+            var prof = new List<Vector2>();
+            for (int i = 0; i <= 10; i++) { float a = i / 10f * Mathf.PI * 0.5f; prof.Add(new Vector2(Mathf.Cos(a) * 5.2f, 1.2f + Mathf.Sin(a) * 5.6f)); }
+            prof.Add(new Vector2(0f, 7.4f));
+            domeKit.Lathe(roof, prof.ToArray(), 28);
+            // Minaret at the front corner
+            Vector3 m = new Vector3(slab.x1 - 6f, h, c.z + hallW * 0.5f + 3f);
+            houseKits[0].Lathe(m, new[] { new Vector2(0, 0), new Vector2(2.2f, 0), new Vector2(2.2f, 2f), new Vector2(1.6f, 2.4f), new Vector2(1.6f, 22f), new Vector2(0, 22f) }, 8);
+            trimKit.Lathe(m + Vector3.up * 21.5f, new[] { new Vector2(0, 0), new Vector2(2.4f, 0), new Vector2(2.4f, 1.1f), new Vector2(0, 1.1f) }, 8);
+            houseKits[0].Lathe(m + Vector3.up * 22.6f, new[] { new Vector2(0, 0), new Vector2(1.2f, 0), new Vector2(1.2f, 4f), new Vector2(0, 4f) }, 8);
+            domeKit.Lathe(m + Vector3.up * 26.6f, new[] { new Vector2(0, 0), new Vector2(1.4f, 0), new Vector2(0.9f, 1.6f), new Vector2(0.2f, 3.2f), new Vector2(0, 3.6f) }, 8);
+            collKit.Box(m + Vector3.up * 11f, new Vector3(4f, 22f, 4f));
+            for (int i = 0; i < 4; i++) Palm(new Vector3(slab.x1 - 4f, h, slab.z0 + 6f + i * (slab.D - 12f) / 3f), Random.Range(7f, 9.5f));
+        }
+
+        /// A row of small shops (baqala, tailor, barber) facing the avenue, with a paved forecourt.
+        static void Shops(R slab, float h)
+        {
+            shopTex = shopTex != null ? shopTex : Tex("fac_baqala");
+            float sh = 5.2f, aspect = shopTex != null ? shopTex.width / (float)shopTex.height : 1.5f;
+            float len = Mathf.Min(slab.D - 10f, aspect * sh * 3f), dep = 10f;
+            Vector3 c = new Vector3(slab.x0 + 10f + dep * 0.5f, h, (slab.z0 + slab.z1) * 0.5f);     // faces -x, the avenue
+            houseKits[1].Box(c + Vector3.up * (sh * 0.5f), new Vector3(dep, sh, len), Quaternion.identity, true);
+            collKit.Box(c + Vector3.up * (sh * 0.5f), new Vector3(dep, sh, len));
+            if (shopTex != null) PhotoFront(shopKit, c - Vector3.right * (dep * 0.5f + 0.03f), Vector3.left, len, sh, 3);
+            // Shade canopy along the shopfronts
+            trimKit.Box(c - Vector3.right * (dep * 0.5f + 1.2f) + Vector3.up * 3.3f, new Vector3(2.4f, 0.15f, len), Quaternion.identity, true);
+            for (int i = 0; i < 3; i++)
+                parkSpots.Add((new Vector3(slab.x0 + 4f, h, c.z - len * 0.3f + i * len * 0.3f), Quaternion.LookRotation(Vector3.right)));
         }
 
         static void KerbEdge(Vector3 a, Vector3 b, Vector3 outward, float h)
@@ -448,7 +539,7 @@ namespace DriftKuwait
             {
                 Vector3 alongF = (fb - fa).normalized;
                 Vector3 g = fa + alongF * gateAt;
-                parkSpots.Add((new Vector3(g.x, 0f, g.z) + face * 3.9f + alongF * Random.Range(-5f, 5f), Quaternion.LookRotation(Random.value > 0.5f ? alongF : -alongF)));
+                parkSpots.Add((new Vector3(g.x, baseY, g.z) + face * 1.35f + alongF * Random.Range(-5f, 5f), Quaternion.LookRotation(Random.value > 0.5f ? alongF : -alongF)));   // on the pavement by the wall, the Kuwaiti way: never in the traffic lane
             }
             // Each plot owns its side-A wall; the last plot in a row also closes side B.
             Wall(fa, ba, baseY, pal);
@@ -650,7 +741,7 @@ namespace DriftKuwait
         {
             var parent = new GameObject("ParkedCars").transform;
             parent.SetParent(root, false);
-            string[] ids = { "ghazal", "faris", "wanait", "abusitta", "shaheen" };
+            string[] ids = { "tr_sedan_big", "tr_suv", "tr_pickup", "tr_compact", "tr_taxi" };
             int placed = 0;
             var used = new List<Vector3>();
             for (int i = 0; i < parkSpots.Count && placed < 10; i++)
@@ -665,7 +756,7 @@ namespace DriftKuwait
                 bool near = false;
                 foreach (var u in used) if ((u - pos).sqrMagnitude < 100f) near = true;
                 if (near) continue;
-                var car = CarFactory.BuildDisplay(ids[placed % ids.Length], parent);
+                var car = CarFactory.BuildDisplay(ids[placed % ids.Length], parent) ?? CarFactory.BuildDisplay("ghazal", parent);
                 if (car == null) continue;
                 car.transform.SetPositionAndRotation(pos + Vector3.up * 0.02f, rot);
                 var bc = car.AddComponent<BoxCollider>();
@@ -797,6 +888,9 @@ namespace DriftKuwait
                 if (fm.HasProperty("_BumpScale")) fm.SetFloat("_BumpScale", 0.6f);
                 facades[i].kit.ToObject("Facade_" + facades[i].tex.name, village, fm);
             }
+            if (mosqueTex != null) { var mm = Mat.Textured("M_MosquePhoto", mosqueTex, Color.white, 0.15f, Vector2.one); mm.SetFloat("_Cull", 0f); mosqueKit.ToObject("Mosque_Front", village, mm); }
+            if (shopTex != null) { var sm = Mat.Textured("M_ShopsPhoto", shopTex, Color.white, 0.15f, Vector2.one); sm.SetFloat("_Cull", 0f); shopKit.ToObject("Shops_Front", village, sm); }
+            domeKit.ToObject("Mosque_Dome", village, Mat.Paint("M_Dome", new Color(0.86f, 0.84f, 0.78f), 0.35f));
             if (wallTex != null)
             {
                 // Band texture: u repeats every 3.9 m along the wall, v spans the 2.6 m height (walls start 0.14 m up).

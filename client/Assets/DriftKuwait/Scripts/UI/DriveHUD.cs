@@ -57,7 +57,7 @@ namespace DriftKuwait
             h.BuildMinimap(safe);
             h.BuildControls(safe);
             h.BuildGauge(safe);
-            scorer.OnCallout += h.Callout;
+            scorer.OnCallout += h.Pop;
             return h;
         }
 
@@ -399,6 +399,48 @@ namespace DriftKuwait
             mapCam.enabled = Time.frameCount % 2 == 0;
         }
 
+        /// The big moment word, mid-screen, like a fighting game's finisher: thick painted letters with a dark outline,
+        /// slammed in oversized and tilted, a beat of hold, then it bursts up and fades. For praise, crashes, escapes.
+        public void Pop(string text, Color c)
+        {
+            if (popRoutine != null) StopCoroutine(popRoutine);
+            popRoutine = StartCoroutine(PopAnim(text, c));
+        }
+
+        Coroutine popRoutine;
+        Text popTxt;
+
+        IEnumerator PopAnim(string text, Color c)
+        {
+            if (popTxt == null)
+            {
+                popTxt = UIKit.Label(transform, "PopWord", "", 170, Color.white, TextAnchor.MiddleCenter, UIKit.Display);
+                UIKit.Place(popTxt.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 150f), new Vector2(1800f, 260f));
+                popTxt.horizontalOverflow = HorizontalWrapMode.Overflow;
+                var o1 = popTxt.gameObject.AddComponent<Outline>(); o1.effectColor = new Color(0.03f, 0.03f, 0.05f, 1f); o1.effectDistance = new Vector2(6f, -6f);
+                var o2 = popTxt.gameObject.AddComponent<Outline>(); o2.effectColor = new Color(0.03f, 0.03f, 0.05f, 1f); o2.effectDistance = new Vector2(-6f, 6f);
+                var sh = popTxt.gameObject.AddComponent<Shadow>(); sh.effectColor = new Color(0f, 0f, 0f, 0.6f); sh.effectDistance = new Vector2(12f, -14f);
+                popTxt.raycastTarget = false;
+            }
+            popTxt.text = UIKit.Ar(text);
+            popTxt.color = c;
+            var rt = popTxt.rectTransform;
+            float tilt = Random.Range(-7f, -3f);
+            for (float t = 0f; t < 1.5f; t += Time.unscaledDeltaTime)
+            {
+                float s, a = 1f;
+                if (t < 0.16f) s = Mathf.Lerp(2.4f, 0.92f, t / 0.16f);              // slam in
+                else if (t < 0.26f) s = Mathf.Lerp(0.92f, 1.05f, (t - 0.16f) / 0.1f); // bounce
+                else if (t < 1.15f) s = 1.05f + (t - 0.26f) * 0.04f;                   // hold, slow creep
+                else { float k = (t - 1.15f) / 0.35f; s = 1.09f + k * 0.5f; a = 1f - k; }   // burst and fade
+                rt.localScale = Vector3.one * s;
+                rt.localRotation = Quaternion.Euler(0f, 0f, tilt);
+                var col = c; col.a = a; popTxt.color = col;
+                yield return null;
+            }
+            popTxt.text = "";
+        }
+
         public void Callout(string text, Color c)
         {
             calloutTxt.text = UIKit.Ar(text);
@@ -447,7 +489,7 @@ namespace DriftKuwait
 
         void OnDestroy()
         {
-            if (scorer != null) scorer.OnCallout -= Callout;
+            if (scorer != null) scorer.OnCallout -= Pop;
             if (mapCam != null) Destroy(mapCam.gameObject);
             if (mapRT != null) mapRT.Release();
             CarInput.TouchThrottle = CarInput.TouchBrake = CarInput.TouchSteer = 0f;
@@ -499,8 +541,11 @@ namespace DriftKuwait
         void Update()
         {
             if (!held) angle = Mathf.MoveTowards(angle, 0f, 900f * Time.deltaTime);
-            float t = Mathf.Clamp01(Mathf.Abs(angle) / Lock);
-            Value = Mathf.Sign(angle) * Mathf.Pow(t, Mathf.Lerp(1f, 0.6f, GameSettings.SteerSens));
+            // Calibrated: the wheel turns a full 360 each way, but full steering lock arrives earlier (220 degrees on the
+            // gentlest setting, 110 on the quickest; default 0.6 = about 155), with a mild curve so small corrections are fine.
+            float full = Mathf.Lerp(220f, 110f, GameSettings.SteerSens);
+            float t = Mathf.Clamp01(Mathf.Abs(angle) / full);
+            Value = Mathf.Sign(angle) * Mathf.Pow(t, 0.85f);
             wheelImg.localRotation = Quaternion.Euler(0f, 0f, -angle);
         }
     }

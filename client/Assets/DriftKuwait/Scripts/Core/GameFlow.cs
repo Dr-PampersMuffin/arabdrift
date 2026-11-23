@@ -19,6 +19,7 @@ namespace DriftKuwait
         DriveHUD hud;
         Pursuit pursuit;
         TrafficSystem traffic;
+        FreeRoam freeRoam;
         EventRunner runner;
         Image fade;
 
@@ -158,6 +159,11 @@ namespace DriftKuwait
                 runner.hud = hud; runner.pursuit = pursuit; runner.flow = this;
             }
             if (withFade) yield return Fade(0f, 0.5f);
+            if (runner == null)
+            {
+                freeRoam = new GameObject("DK_FreeRoam").AddComponent<FreeRoam>();
+                freeRoam.car = car.GetComponent<DriftCarController>(); freeRoam.scorer = scorer; freeRoam.hud = hud;
+            }
             if (!PreviewHooks.Active && runner == null && !HowToPlay.Seen) hud.PlayIntro();
         }
 
@@ -169,6 +175,7 @@ namespace DriftKuwait
             if (hud != null) Destroy(hud.gameObject);
             if (pursuit != null) { pursuit.Cleanup(); Destroy(pursuit.gameObject); }
             if (traffic != null) Destroy(traffic.gameObject);
+            if (freeRoam != null) Destroy(freeRoam.gameObject);
             if (car != null) Destroy(car);
             hud = null; pursuit = null; car = null;
             Time.timeScale = 1f;

@@ -1,0 +1,31 @@
+{
+ "asset_id": "tr_sedan_big",
+ "version": 1,
+ "spec": "art/prompts/traffic.json",
+ "prompt": "Photorealistic automotive render, the quality of a modern AAA mobile racing game (CarX Drift Racing 3 level): physically based car paint with clear-coat reflections, real glass, chrome and rubber, accurate early-1980s proportions. Fictional car: it must not show any real manufacturer's logo, badge, name or licence plate.\n\nA big early-1980s American full-size four-door family sedan, boxy and long, chrome bumpers and grille, square quad headlights, whitewall-free steel wheels with hubcaps, faded cream white paint, slightly dusty. Three-quarter front view from the left at eye level, whole car in frame, plain light grey studio background, soft even lighting, no people, no text.\n\nDo not include: real car brand logos or names; Nissan, Datsun, Toyota, Ford badges; real licence plates; text other than the specified Arabic badge; religious buildings, minarets, domes; flags; people.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "high",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 203,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 203
+  },
+  "output_tokens": 5488,
+  "output_tokens_details": {
+   "image_tokens": 5488,
+   "text_tokens": 0
+  },
+  "total_tokens": 5691
+ },
+ "seconds": 67.0,
+ "created": "2026-11-23T10:07:09+0300",
+ "qa_status": "in_review"
+}

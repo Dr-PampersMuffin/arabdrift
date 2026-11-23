@@ -81,7 +81,7 @@ namespace DriftKuwait
 
             // Digital steering feels harsh on a phone: ramp in, snap back faster.
             float rate = (Mathf.Abs(steer) > Mathf.Abs(steerSmoothed) && Mathf.Sign(steer) == Mathf.Sign(steerSmoothed)) ? 4.5f : 7f;
-            if (GameSettings.Layout != GameSettings.Controls.Buttons) rate = 14f;   // analogue wheel / tilt: follow closely
+            if (GameSettings.Layout != GameSettings.Controls.Buttons) rate = GameSettings.Layout == GameSettings.Controls.Wheel ? 28f : 14f;   // wheel: near-instant; tilt: close
             steerSmoothed = Mathf.MoveTowards(steerSmoothed, steer, rate * Time.deltaTime);
 
             Steer = steerSmoothed;

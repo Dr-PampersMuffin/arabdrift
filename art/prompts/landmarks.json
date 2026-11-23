@@ -1,0 +1,34 @@
+{
+ "version": 3,
+ "batch": "landmarks_v1",
+ "style_header": "Photographic texture source for a photorealistic racing game set in Salwa, Kuwait, in 1985. Real photograph, not a render, not an illustration. Shot perfectly straight-on with a long lens so it reads as an orthographic elevation: no perspective, no vanishing lines, verticals perfectly vertical. Soft, even, shadowless daylight (bright overcast) so the game engine can add its own sun and shadows. True-to-life colours, fine surface detail: hairline cracks, dust, water stains, sun bleaching.",
+ "must_not": [
+  "any text, letters, numbers, signs, logos or watermarks",
+  "people",
+  "cars",
+  "satellite dishes",
+  "modern LED lights or modern glass curtain walls",
+  "flags",
+  "strong cast shadows",
+  "perspective distortion",
+  "any writing on signs"
+ ],
+ "defaults": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "high",
+  "background": "opaque",
+  "output_format": "png",
+  "n": 1
+ },
+ "items": [
+  {
+   "asset_id": "fac_mosque",
+   "prompt": "Front elevation of the prayer hall of a 1980s Kuwaiti neighbourhood mosque, filling the whole frame edge to edge from the ground line to the top of the parapet: cream-white plaster walls, a row of tall pointed-arch windows with green glass and white geometric grilles, a central carved dark timber double door under a pointed arch with a simple stone surround, a crenellated decorative parapet along the top. No dome and no minaret in the frame."
+  },
+  {
+   "asset_id": "fac_baqala",
+   "prompt": "Front elevation of a row of three small 1980s Kuwaiti neighbourhood shops under one flat roof (a baqala grocery, a tailor, a barber), filling the whole frame edge to edge from the pavement line to the top of the parapet: beige plaster, each shop with a half-raised steel roller shutter, glass shop window, and a blank painted sign board above with no lettering; crates of soft drinks and a fruit stand outside the grocery, a small window AC unit, a fluorescent tube light over each door."
+  }
+ ]
+}

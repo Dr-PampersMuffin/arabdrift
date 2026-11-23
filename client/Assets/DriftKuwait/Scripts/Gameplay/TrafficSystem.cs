@@ -19,12 +19,13 @@ namespace DriftKuwait
             public DisplayWheels wheels;
             public Vector4 road;          // x0, x1, z0, z1
             public bool alongX;
-            public float dir, speed, cruise, stopTimer, turnCooldown;
+            public float dir, speed, cruise, stopTimer, turnCooldown, blocked;
             public bool police;
         }
 
         public const int TrafficLayer = 29;
-        static readonly string[] Ids = { "ghazal", "faris", "wanait", "abusitta", "shaheen" };
+        // Everyday 1980s Kuwaiti traffic (not the player's garage cars): family sedan, 4x4, pickup, compact, taxi
+        static readonly string[] Ids = { "tr_sedan_big", "tr_suv", "tr_pickup", "tr_compact", "tr_taxi" };
         readonly List<Vector4> roads = new List<Vector4>();
         readonly List<Agent> agents = new List<Agent>();
         readonly List<(Vector3 c, float r)> islands = new List<(Vector3, float)>();
@@ -42,6 +43,7 @@ namespace DriftKuwait
             {
                 bool cop = patrol && i == 0 && CarFactory.Load("dawriya") != null;
                 var go = CarFactory.BuildDisplay(cop ? "dawriya" : Ids[i % Ids.Length], transform);
+                if (go == null && !cop) go = CarFactory.BuildDisplay("ghazal", transform);
                 if (go == null) continue;
                 foreach (var t in go.GetComponentsInChildren<Transform>(true)) t.gameObject.layer = TrafficLayer;
                 var rb = go.AddComponent<Rigidbody>();
@@ -91,6 +93,14 @@ namespace DriftKuwait
             }
         }
 
+        static bool OnScreen(Vector3 p)
+        {
+            var cam = Camera.main;
+            if (cam == null) return false;
+            var v = cam.WorldToViewportPoint(p);
+            return v.z > 0f && v.z < 160f && v.x > -0.1f && v.x < 1.1f && v.y > -0.1f && v.y < 1.1f;
+        }
+
         Vector3 Ground(Vector3 p)
         {
             if (Physics.Raycast(p + Vector3.up * 20f, Vector3.down, out var hit, 40f, groundMask, QueryTriggerInteraction.Ignore) && hit.normal.y > 0.8f)
@@ -128,6 +138,11 @@ namespace DriftKuwait
                     want = Mathf.Min(want, Mathf.Max(0f, (hit.distance - 3f) / 13f) * a.cruise);
                 if (a.stopTimer > 0f) { a.stopTimer -= dt; want = 0f; }
                 a.speed = Mathf.MoveTowards(a.speed, want, (want < a.speed ? 9f : 3f) * dt);
+
+                // Never drive through things: a car that stays blocked by something solid is quietly moved elsewhere
+                // as soon as the camera is not looking at it.
+                if (a.speed < 0.5f && a.stopTimer <= 0f) a.blocked += dt; else a.blocked = 0f;
+                if (a.blocked > 3f && !OnScreen(pos)) { Place(a, 70f, 180f); continue; }
 
                 // Steer toward a point on the lane a few metres ahead; round the roundabout islands
                 Vector3 ahead = pos + Fwd(a) * 8f;
@@ -175,7 +190,11 @@ namespace DriftKuwait
                         a.dir = Mathf.Abs(here - mid) < 10f ? (Random.value > 0.5f ? 1f : -1f) : (here < mid ? 1f : -1f);
                         a.turnCooldown = 4f;
                     }
-                    else if (atEnd) { a.dir = -a.dir; a.turnCooldown = 4f; }   // dead end: turn round
+                    else if (atEnd)
+                    {
+                        if (!OnScreen(next)) { Place(a, 70f, 180f); continue; }   // dead end: reappear elsewhere
+                        a.stopTimer = 1f; a.turnCooldown = 1f;                        // on camera: wait, then try again
+                    }
                     else a.turnCooldown = 1.2f;
                 }
 

@@ -44,11 +44,11 @@ namespace DriftKuwait
                 yield return new WaitForSeconds(Mathf.Clamp(ev.howAr.Length / 15f, 2.5f, 6f));
                 foreach (var n in new[] { "٣", "٢", "١" })
                 {
-                    hud.Callout(n, UIKit.Cream);
+                    hud.Pop(n, UIKit.Cream);
                     Sfx.Play("ui_click", 1f);
                     yield return new WaitForSeconds(0.8f);
                 }
-                hud.Callout("يلّا!", UIKit.Gold);
+                hud.Pop("يلّا!", UIKit.Gold);
             }
             rb.isKinematic = false;
             timeLeft = ev.seconds;

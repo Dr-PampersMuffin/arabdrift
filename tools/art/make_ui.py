@@ -69,7 +69,7 @@ def logo():
     sw = sw.filter(ImageFilter.GaussianBlur(0.8))
     im.paste((206, 32, 28, 255), (0, 0), sw)
 
-    # "تقحيص": Lalezar (an 80s hand-painted shop-sign style), gold to orange, right-aligned under the title.
+    # "تقحيص": Lalezar (an 80s hand-painted shop-sign style), bold white with a dark outline, right-aligned under the title.
     ar = "تقحيص"
     layer = Image.new("L", (W, 300), 0)
     dd = ImageDraw.Draw(layer)
@@ -80,9 +80,13 @@ def logo():
     gd = ImageDraw.Draw(grad)
     for y in range(layer.size[1]):
         t = y / layer.size[1]
-        gd.line([(0, y), (W, y)], fill=(int(255 - 10 * t), int(206 - 90 * t), int(92 - 60 * t), 255))
-    ar_shadow = layer.filter(ImageFilter.GaussianBlur(8))
-    im.paste((0, 0, 0, 210), (10, 352), ar_shadow)
+        gd.line([(0, y), (W, y)], fill=(255, 255, int(255 - 12 * t), 255))      # bold white, a touch warm at the foot
+    # Heavier: thicken the strokes and give it a dark outline + drop shadow so it reads over any background.
+    layer = layer.filter(ImageFilter.MaxFilter(5))
+    outline = layer.filter(ImageFilter.MaxFilter(11))
+    ar_shadow = layer.filter(ImageFilter.GaussianBlur(10))
+    im.paste((0, 0, 0, 230), (12, 354), ar_shadow)
+    im.paste((10, 14, 22, 255), (0, 340), outline)
     im.paste(grad, (0, 340), layer)
 
     # Small tag line, left.

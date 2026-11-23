@@ -129,6 +129,8 @@ namespace DriftKuwait
                 new Color(1, 1, 1, 0.6f), TextAnchor.MiddleLeft, UIKit.Digital, false);
             UIKit.Place(strip.rectTransform, new Vector2(0f, 0f), new Vector2(48f, 22f), new Vector2(1300f, 30f));
 
+            // See-through plates so the car and the street show behind the menu
+            UIKit.Translucent(safe, 0.45f);
             if (!PreviewHooks.Active) Sfx.Voice("ab_title", 0.9f);
             return ts;
         }

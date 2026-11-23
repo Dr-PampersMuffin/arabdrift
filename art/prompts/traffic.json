@@ -1,0 +1,44 @@
+{
+ "version": 1,
+ "batch": "traffic_v1",
+ "style_header": "Photorealistic automotive render, the quality of a modern AAA mobile racing game (CarX Drift Racing 3 level): physically based car paint with clear-coat reflections, real glass, chrome and rubber, accurate early-1980s proportions. Fictional car: it must not show any real manufacturer's logo, badge, name or licence plate.",
+ "must_not": [
+  "real car brand logos or names",
+  "Nissan, Datsun, Toyota, Ford badges",
+  "real licence plates",
+  "text other than the specified Arabic badge",
+  "religious buildings, minarets, domes",
+  "flags",
+  "people"
+ ],
+ "defaults": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "high",
+  "background": "opaque",
+  "output_format": "png",
+  "n": 1
+ },
+ "items": [
+  {
+   "asset_id": "tr_sedan_big",
+   "prompt": "A big early-1980s American full-size four-door family sedan, boxy and long, chrome bumpers and grille, square quad headlights, whitewall-free steel wheels with hubcaps, faded cream white paint, slightly dusty. Three-quarter front view from the left at eye level, whole car in frame, plain light grey studio background, soft even lighting, no people, no text."
+  },
+  {
+   "asset_id": "tr_suv",
+   "prompt": "An early-1980s boxy Japanese four-wheel-drive station wagon SUV, square body, round headlights, spare tyre on the back door, roof rack, steel wheels, two-tone beige and white paint, desert dust on the lower body. Three-quarter front view from the left at eye level, whole car in frame, plain light grey studio background, soft even lighting, no people, no text."
+  },
+  {
+   "asset_id": "tr_pickup",
+   "prompt": "A small early-1980s Japanese single-cab pickup truck, flat bed with a canvas tarp, round headlights, chrome front bumper, steel wheels, pale blue paint, sun-faded and dusty. Three-quarter front view from the left at eye level, whole car in frame, plain light grey studio background, soft even lighting, no people, no text."
+  },
+  {
+   "asset_id": "tr_compact",
+   "prompt": "A small early-1980s Japanese four-door compact saloon, simple boxy shape, rectangular headlights, black plastic bumpers, small steel wheels with hubcaps, maroon red paint, everyday family car. Three-quarter front view from the left at eye level, whole car in frame, plain light grey studio background, soft even lighting, no people, no text."
+  },
+  {
+   "asset_id": "tr_taxi",
+   "prompt": "An early-1980s mid-size four-door saloon used as a Kuwaiti taxi: orange lower body and white upper body two-tone paint, a small plain white roof sign with no lettering, chrome bumpers, steel wheels with hubcaps. Three-quarter front view from the left at eye level, whole car in frame, plain light grey studio background, soft even lighting, no people, no text."
+  }
+ ]
+}
