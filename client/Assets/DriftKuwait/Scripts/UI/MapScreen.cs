@@ -16,7 +16,7 @@ namespace DriftKuwait
         Camera mapCam;
         readonly System.Collections.Generic.List<(Career.EventDef ev, Image ring)> pins = new System.Collections.Generic.List<(Career.EventDef, Image)>();
 
-        const float MapW = 1380f, MapH = 740f;
+        const float MapW = 1440f, MapH = 860f;
 
         public static MapScreen Build(GameFlow flow)
         {
@@ -74,16 +74,16 @@ namespace DriftKuwait
 
             // Side card (right)
             var card = UIKit.Panel(safe, "Card", new Color(0.035f, 0.06f, 0.11f, 0.94f), "hud/panel_sharp");
-            UIKit.Place(card.rectTransform, new Vector2(1f, 0f), new Vector2(-40f, 40f), new Vector2(660f, MapH + 16f));
+            UIKit.Place(card.rectTransform, new Vector2(1f, 0f), new Vector2(-40f, 40f), new Vector2(600f, MapH + 16f));
             UIKit.Outline(card.transform, new Color(0.97f, 0.93f, 0.85f, 0.22f), "hud/panel_sharp_outline");
             var ct = card.transform;
             UIKit.Stripe(ct, new Vector2(1f, 1f), new Vector2(-48f, -20f), 300f, 6f, true);
             cardTitle = UIKit.Label(ct, "Title", "", 58, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Display);
-            UIKit.Place(cardTitle.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -24f), new Vector2(600f, 80f));
+            UIKit.Place(cardTitle.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -24f), new Vector2(540f, 80f));
             cardGoal = UIKit.Label(ct, "Goal", "", 34, UIKit.Gold, TextAnchor.UpperRight, UIKit.Black);
-            UIKit.Place(cardGoal.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -110f), new Vector2(600f, 100f));
+            UIKit.Place(cardGoal.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -110f), new Vector2(540f, 100f));
             cardHow = UIKit.Label(ct, "How", "", 28, new Color(1, 1, 1, 0.8f), TextAnchor.UpperRight, UIKit.Arabic);
-            UIKit.Place(cardHow.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -210f), new Vector2(600f, 180f));
+            UIKit.Place(cardHow.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -210f), new Vector2(540f, 200f));
             for (int i = 0; i < 3; i++)
             {
                 var s = UIKit.Img(ct, "Star" + i, UIKit.S("hud/ic_star_big"), Color.white);
@@ -91,9 +91,9 @@ namespace DriftKuwait
                 cardStars[i] = s;
             }
             cardBest = UIKit.Label(ct, "Best", "", 30, Color.white, TextAnchor.MiddleRight, UIKit.Black);
-            UIKit.Place(cardBest.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -520f), new Vector2(600f, 50f));
+            UIKit.Place(cardBest.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -520f), new Vector2(540f, 50f));
             cardLock = UIKit.Label(ct, "Lock", "", 30, new Color(1f, 0.5f, 0.4f), TextAnchor.MiddleRight, UIKit.Black);
-            UIKit.Place(cardLock.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -570f), new Vector2(600f, 50f));
+            UIKit.Place(cardLock.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -570f), new Vector2(540f, 50f));
             startBtn = UIKit.Button(ct, "Start", UIKit.Gold, () => { if (selected != null && Career.Unlocked(selected)) flow.StartEvent(selected); }, "hud/panel_sharp");
             UIKit.Place((RectTransform)startBtn.transform, new Vector2(0.5f, 0f), new Vector2(0f, 30f), new Vector2(600f, 110f));
             cardStartTxt = UIKit.Label(startBtn.transform, "T", "ابدأ", 52, new Color(0.12f, 0.08f, 0.03f), TextAnchor.MiddleCenter, UIKit.Black);
@@ -118,7 +118,7 @@ namespace DriftKuwait
             mapCam.orthographic = true;
             // The district runs north-south (z); on screen it runs right to left, like the reference map.
             mapCam.transform.SetPositionAndRotation(new Vector3(0f, 300f, 0f), Quaternion.Euler(90f, -90f, 0f));
-            mapCam.orthographicSize = 245f;
+            mapCam.orthographicSize = 218f;   // fill the frame with the district
             mapCam.aspect = MapW / MapH;
             mapCam.cullingMask = ~((1 << 2) | (1 << Showroom.Layer) | (1 << 31));
             mapCam.clearFlags = CameraClearFlags.SolidColor;
@@ -150,9 +150,9 @@ namespace DriftKuwait
             var ic = UIKit.Img(pin.transform, "Icon", UIKit.S(open ? IconFor(ev.kind) : "hud/ic_lock"), Color.white);
             UIKit.Place(ic.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -26f), new Vector2(44f, 44f));
             var tag = UIKit.Panel(root, "Tag", new Color(0.035f, 0.06f, 0.11f, 0.85f), "hud/pill");
-            UIKit.Place(tag.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, pins.Count % 2 == 0 ? -78f : 124f), new Vector2(210f, 74f));   // alternate below / above so neighbours never collide
-            var nm = UIKit.Label(tag.transform, "N", ev.titleAr, 22, open ? UIKit.Cream : new Color(1, 1, 1, 0.55f), TextAnchor.MiddleCenter, UIKit.Black);
-            UIKit.Place(nm.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -2f), new Vector2(210f, 36f));
+            UIKit.Place(tag.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, pins.Count % 2 == 0 ? -86f : 128f), new Vector2(240f, 82f));   // alternate below / above so neighbours never collide
+            var nm = UIKit.Label(tag.transform, "N", ev.titleAr, 27, open ? UIKit.Cream : new Color(1, 1, 1, 0.55f), TextAnchor.MiddleCenter, UIKit.Black);
+            UIKit.Place(nm.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -2f), new Vector2(240f, 42f));
             if (ev.stars != null)
                 for (int i = 0; i < 3; i++)
                 {

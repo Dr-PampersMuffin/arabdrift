@@ -2,7 +2,7 @@
  "asset_id": "sky_golden",
  "version": 1,
  "spec": "art/prompts/world_v3.json",
- "prompt": "Photographic texture source for a photorealistic racing game set in Salwa, Kuwait, in 1985. Real photograph, not a render, not an illustration. Shot perfectly straight-on with a long lens so it reads as an orthographic elevation: no perspective, no vanishing lines, verticals perfectly vertical. Soft, even, shadowless daylight (bright overcast) so the game engine can add its own sun and shadows. True-to-life colours, fine surface detail: hairline cracks, dust, water stains, sun bleaching.\n\nWide photograph of the sky over Kuwait at golden hour in summer, taken from a rooftop looking at the horizon, the horizon line exactly at the bottom edge of the frame with nothing but sky above: pale dusty blue at the top fading to warm peach and soft gold near the horizon, a few thin high streaks of cirrus, the haze of fine desert dust. No sun disc, no buildings, no birds.\n\nDo not include: any text, letters, numbers, signs, logos or watermarks; people; cars; satellite dishes; modern LED lights or modern glass curtain walls; mosques, minarets, domes; flags; strong cast shadows; perspective distortion; buildings; ground.",
+ "prompt": "Photographic texture source for a photorealistic racing game set in Salwa, Kuwait, in 1985. Real photograph, not a render, not an illustration. Shot perfectly straight-on with a long lens so it reads as an orthographic elevation: no perspective, no vanishing lines, verticals perfectly vertical. Soft, even, shadowless daylight (bright overcast) so the game engine can add its own sun and shadows. True-to-life colours, fine surface detail: hairline cracks, dust, water stains, sun bleaching.\n\nWide photograph of a dramatic summer sunset sky over Kuwait, taken from a rooftop looking at the horizon, the horizon line exactly at the bottom edge of the frame with nothing but sky above: deep dusty blue at the top, rich magenta and rose clouds in the middle, blazing orange and gold streaks of cloud glowing near the horizon where the sun has just set, fine desert haze. Cinematic, saturated, like a film still. No sun disc, no buildings, no birds.\n\nDo not include: any text, letters, numbers, signs, logos or watermarks; people; cars; satellite dishes; modern LED lights or modern glass curtain walls; mosques, minarets, domes; flags; strong cast shadows; perspective distortion; buildings; ground.",
  "params": {
   "model": "gpt-image-2",
   "size": "1536x1024",
@@ -13,19 +13,19 @@
  "reference_images": [],
  "revised_prompt": null,
  "usage": {
-  "input_tokens": 256,
+  "input_tokens": 270,
   "input_tokens_details": {
    "image_tokens": 0,
-   "text_tokens": 256
+   "text_tokens": 270
   },
   "output_tokens": 5488,
   "output_tokens_details": {
    "image_tokens": 5488,
    "text_tokens": 0
   },
-  "total_tokens": 5744
+  "total_tokens": 5758
  },
- "seconds": 59.2,
- "created": "2026-11-22T11:58:44+0300",
+ "seconds": 71.1,
+ "created": "2026-11-23T18:45:12+0300",
  "qa_status": "in_review"
 }

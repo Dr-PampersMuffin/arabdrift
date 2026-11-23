@@ -117,16 +117,16 @@ namespace DriftKuwait
                 case Preset.GoldenHour:
                     // Real late-afternoon light: a warm low sun, but cool blue-grey sky fill in the shadows, and a
                     // pale neutral dust haze (not an orange filter over everything).
-                    sun.transform.rotation = Quaternion.Euler(13f, -38f, 0f);
-                    sun.color = new Color(1f, 0.76f, 0.54f);
+                    sun.transform.rotation = Quaternion.Euler(9f, -38f, 0f);
+                    sun.color = new Color(1f, 0.66f, 0.42f);
                     sun.intensity = 2.3f;
-                    RenderSettings.ambientSkyColor = new Color(0.50f, 0.56f, 0.64f);
+                    RenderSettings.ambientSkyColor = new Color(0.50f, 0.48f, 0.64f);
                     RenderSettings.ambientEquatorColor = new Color(0.62f, 0.56f, 0.48f);
                     RenderSettings.ambientGroundColor = new Color(0.32f, 0.27f, 0.22f);
-                    RenderSettings.fogColor = new Color(0.82f, 0.76f, 0.68f);
+                    RenderSettings.fogColor = new Color(0.86f, 0.62f, 0.52f);
                     RenderSettings.fogDensity = 0.0026f;
                     SetSky(new Color(0.62f, 0.62f, 0.62f), 1.3f, 1.2f, 0.05f);
-                    Grade(ca, -0.05f, 20f, 8f, new Color(1f, 0.98f, 0.95f));
+                    Grade(ca, 0f, 22f, 14f, new Color(1f, 0.96f, 0.94f));
                     Tone(new Color(0.42f, 0.52f, 0.56f), new Color(0.60f, 0.53f, 0.46f));
                     break;
                 case Preset.NoonHaze:

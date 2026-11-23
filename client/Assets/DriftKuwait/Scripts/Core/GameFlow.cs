@@ -200,11 +200,12 @@ namespace DriftKuwait
         {
             var c = UIKit.MakeCanvas("DK_Toast", 90);
             var p = UIKit.Panel(c.transform, "Toast", UIKit.Ink);
-            UIKit.Place(p.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -150f), new Vector2(760f, 110f));
+            UIKit.Place(p.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -150f), new Vector2(1240f, 110f));
             UIKit.Outline(p.transform, new Color(1f, 0.7f, 0.2f, 0.6f));
-            var t = UIKit.Label(p.transform, "T", ar, 46, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
-            UIKit.Stretch(t.rectTransform);
-            Destroy(c.gameObject, 1.6f);
+            var t = UIKit.Label(p.transform, "T", ar, 42, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
+            UIKit.Stretch(t.rectTransform, 30f, 30f, 8f, 8f);
+            t.resizeTextForBestFit = true; t.resizeTextMinSize = 24; t.resizeTextMaxSize = 42;   // always inside the box
+            Destroy(c.gameObject, 2.4f);
         }
     }
 }

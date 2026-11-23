@@ -59,13 +59,13 @@ namespace DriftKuwait
         {
             var logo = UIKit.Img(safe, "Logo", UIKit.S("logo"), Color.white);
             logo.preserveAspect = true;
-            UIKit.Place(logo.rectTransform, new Vector2(0f, 1f), new Vector2(30f, -18f), new Vector2(330f, 150f));
+            UIKit.Place(logo.rectTransform, new Vector2(0f, 1f), new Vector2(24f, -14f), new Vector2(250f, 116f));
 
             var tabs = UIKit.Rect(safe, "Tabs");
-            UIKit.Place(tabs, new Vector2(0.5f, 1f), new Vector2(-170f, -20f), new Vector2(1180f, 128f));
+            UIKit.Place(tabs, new Vector2(1f, 1f), new Vector2(-640f, -20f), new Vector2(1100f, 128f));
             (string ar, string icon)[] items = { ("الكراج", "car"), ("السيارات", "car"), ("التعديلات", "wrench"), ("المظهر", "spray"),
                                                  ("الخرائط", "map"), ("الفعاليات", "flag"), ("الطاقم", "people") };
-            float w = 160f;
+            float w = 150f;
             for (int i = 0; i < items.Length; i++)
             {
                 int idx = i;
@@ -97,7 +97,7 @@ namespace DriftKuwait
         void BuildStats(RectTransform safe)
         {
             var p = UIKit.Panel(safe, "Stats", new Color(0.035f, 0.06f, 0.11f, 0.88f));
-            UIKit.Place(p.rectTransform, new Vector2(1f, 0.5f), new Vector2(-34f, 40f), new Vector2(600f, 520f));
+            UIKit.Place(p.rectTransform, new Vector2(1f, 1f), new Vector2(-34f, -160f), new Vector2(600f, 500f));   // clear of the car tiles below
             UIKit.Outline(p.transform, new Color(1f, 1f, 1f, 0.12f));
             var tr = p.transform;
             UIKit.Stripe(tr, new Vector2(1f, 1f), new Vector2(-30f, -14f), 220f, 5f, true);
@@ -140,10 +140,10 @@ namespace DriftKuwait
         void BuildTiles(RectTransform safe)
         {
             var row = UIKit.Rect(safe, "Tiles");
-            UIKit.Place(row, new Vector2(0.5f, 0f), new Vector2(0f, 120f), new Vector2(1820f, 220f));
+            UIKit.Place(row, new Vector2(0.5f, 0f), new Vector2(0f, 112f), new Vector2(1900f, 270f));
             var cars = CarCatalog.Garage;
             tileOutlines = new Image[cars.Length];
-            float w = 330f, gap = 22f;
+            float w = 350f, gap = 20f;
             float total = cars.Length * w + (cars.Length - 1) * gap;
             for (int i = 0; i < cars.Length; i++)
             {
@@ -152,14 +152,14 @@ namespace DriftKuwait
                 var b = UIKit.Button(row, "Tile_" + id, new Color(0.035f, 0.06f, 0.11f, 0.92f), () => Select(id, true), "hud/panel_sharp");
                 var rt = (RectTransform)b.transform;
                 // RTL order: first car on the right
-                UIKit.Place(rt, new Vector2(0.5f, 0.5f), new Vector2(total / 2f - w / 2f - i * (w + gap), 0f), new Vector2(w, 210f));
+                UIKit.Place(rt, new Vector2(0.5f, 0.5f), new Vector2(total / 2f - w / 2f - i * (w + gap), 0f), new Vector2(w, 262f));
                 var art = UIKit.Img(rt, "Art", UIKit.S("car_" + id), Color.white);
                 art.preserveAspect = true;
-                UIKit.Place(art.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -8f), new Vector2(w - 30f, 120f));
-                var n = UIKit.Label(rt, "N", c.nameAr, 36, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
-                UIKit.Place(n.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 44f), new Vector2(w, 46f));
-                var tg = UIKit.Label(rt, "Tg", c.taglineAr, 20, new Color(1, 1, 1, 0.7f), TextAnchor.MiddleCenter, UIKit.Arabic);
-                UIKit.Place(tg.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 14f), new Vector2(w, 30f));
+                UIKit.Place(art.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -6f), new Vector2(w - 20f, 158f));
+                var n = UIKit.Label(rt, "N", c.nameAr, 42, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
+                UIKit.Place(n.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 46f), new Vector2(w, 54f));
+                var tg = UIKit.Label(rt, "Tg", c.taglineAr, 25, new Color(1, 1, 1, 0.7f), TextAnchor.MiddleCenter, UIKit.Arabic);
+                UIKit.Place(tg.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 12f), new Vector2(w, 34f));
                 if (!CarCatalog.Has3D(id))
                 {
                     var soon = UIKit.Panel(rt, "Soon", new Color(0, 0, 0, 0.7f), "hud/pill");
@@ -275,8 +275,8 @@ namespace DriftKuwait
             s.cam.nearClipPlane = 0.3f; s.cam.farClipPlane = 60f;
             s.cam.allowHDR = false;
             s.cam.targetTexture = s.rt;
-            camGo.transform.localPosition = new Vector3(1.25f, 2.0f, -16.5f);   // car sits left of the stats panel
-            camGo.transform.localRotation = Quaternion.Euler(4f, 0f, 0f);   // car sits low, on the workshop floor of the backdrop
+            camGo.transform.localPosition = new Vector3(0.9f, 1.55f, -11.2f);   // closer: the car fills the left of the screen, like the hero shot
+            camGo.transform.localRotation = Quaternion.Euler(2f, 0f, 0f);   // car sits low, on the workshop floor of the backdrop
             var data = s.cam.GetComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>();
             if (data == null) data = camGo.AddComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>();
             data.renderPostProcessing = false;

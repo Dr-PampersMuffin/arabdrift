@@ -79,7 +79,7 @@ namespace DriftKuwait
             // Night streets look freshly washed: wetter, darker asphalt that mirrors the sodium lamps and headlights.
             if (asphaltMat != null)
             {
-                asphaltMat.SetFloat("_Smoothness", night ? 0.78f : 0.32f);
+                asphaltMat.SetFloat("_Smoothness", night ? 0.78f : 0.48f);   // a sheen that catches the sunset
                 asphaltMat.SetColor("_BaseColor", night ? new Color(0.62f, 0.62f, 0.64f) : Color.white);
             }
             if (litWindowMat == null) return;

@@ -73,3 +73,4 @@
 {"kind": "voice", "key": "st1_04", "who": "mutheeb", "voice": "AD Mishari", "text": "هالأرض أبيها. أدفع لك زين وتفتك من هالخرابة... بالطيب أحسن لك.", "model": "eleven_v3", "date": "2026-11-22T15:53:42.253567Z"}
 {"kind": "voice", "key": "st1_05", "who": "abu_rashid", "voice": "AD Abu Rashid", "text": "لا تبيع شي يا ولدي. يلّا... اطلع الشارع وورني شنو باقي فيك من أبوك.", "model": "eleven_v3", "date": "2026-11-22T15:53:44.666310Z"}
 {"kind": "voice", "key": "st1_06", "who": "bo_shbeeb", "voice": "AD Dawriya Radio", "text": "عفيه! أول قسط انسدّ. مثيب بيعصب... بس الكراج باقي لنا.", "model": "eleven_v3", "date": "2026-11-22T15:53:47.261244Z"}
+{"kind": "voice", "key": "ab_title", "who": "abu_rashid", "voice": "AD Abu Rashid", "text": "كويت دريفت... تقحيص!", "model": "eleven_v3", "date": "2026-11-23T15:42:54.559454Z"}

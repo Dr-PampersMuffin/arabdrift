@@ -141,12 +141,15 @@ namespace DriftKuwait
             UIKit.Place(bar, new Vector2(1f, 1f), new Vector2(-40f, -28f), new Vector2(900f, 84f));
             float x = 0f;
             var prof = UIKit.Panel(bar, "Profile", UIKit.InkSoft, "hud/pill");
-            UIKit.Place(prof.rectTransform, new Vector2(1f, 0.5f), new Vector2(x, 0f), new Vector2(210f, 72f));
+            UIKit.Place(prof.rectTransform, new Vector2(1f, 0.5f), new Vector2(x, 0f), new Vector2(300f, 72f));
             var pic = UIKit.Img(prof.transform, "Ic", UIKit.S("hud/ic_people"), UIKit.Cream);
             UIKit.Place(pic.rectTransform, new Vector2(1f, 0.5f), new Vector2(-14f, 0f), new Vector2(48f, 48f));
-            var nm = UIKit.Label(prof.transform, "Name", GameCenter.PlayerName ?? "ضيف", GameCenter.SignedIn ? 24 : 34, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
-            UIKit.Place(nm.rectTransform, new Vector2(0f, 0.5f), new Vector2(20f, 2f), new Vector2(130f, 60f));
-            x -= 230f;
+            string who = GameCenter.PlayerName ?? "ضيف";
+            if (who.Length > 16) who = who.Substring(0, 15) + "…";
+            var nm = UIKit.Label(prof.transform, "Name", who, 30, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
+            UIKit.Place(nm.rectTransform, new Vector2(0f, 0.5f), new Vector2(18f, 2f), new Vector2(214f, 60f));
+            nm.resizeTextForBestFit = true; nm.resizeTextMinSize = 16; nm.resizeTextMaxSize = 30; nm.horizontalOverflow = HorizontalWrapMode.Wrap;
+            x -= 316f;
             x = Chip(bar, x, "hud/ic_rep", UIKit.Dig(Wallet.Rep), 230f);
             Chip(bar, x, "hud/ic_coin", UIKit.Dig(Wallet.Cash), 300f);
         }

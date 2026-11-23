@@ -84,7 +84,7 @@
   },
   {
    "asset_id": "sky_golden",
-   "prompt": "Wide photograph of the sky over Kuwait at golden hour in summer, taken from a rooftop looking at the horizon, the horizon line exactly at the bottom edge of the frame with nothing but sky above: pale dusty blue at the top fading to warm peach and soft gold near the horizon, a few thin high streaks of cirrus, the haze of fine desert dust. No sun disc, no buildings, no birds.",
+   "prompt": "Wide photograph of a dramatic summer sunset sky over Kuwait, taken from a rooftop looking at the horizon, the horizon line exactly at the bottom edge of the frame with nothing but sky above: deep dusty blue at the top, rich magenta and rose clouds in the middle, blazing orange and gold streaks of cloud glowing near the horizon where the sun has just set, fine desert haze. Cinematic, saturated, like a film still. No sun disc, no buildings, no birds.",
    "must_not": [
     "buildings",
     "ground"
