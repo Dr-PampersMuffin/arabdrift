@@ -154,7 +154,7 @@ namespace DriftKuwait
             AddRoad(p1, 0.022f);
             AddRoad(p2, 0.0225f);
 
-            var asphalt = Mat.Textured("M_Asphalt", TextureKit.Asphalt, new Color(0.72f, 0.72f, 0.74f), 0.16f, new Vector2(0.125f, 0.125f));
+            var asphalt = Mat.Textured("M_Asphalt", TextureKit.Asphalt, TextureKit.Pbr ? new Color(0.92f, 0.92f, 0.93f) : new Color(0.72f, 0.72f, 0.74f), 0.16f, TextureKit.Pbr ? new Vector2(0.25f, 0.25f) : new Vector2(0.125f, 0.125f));
             asphaltMat = asphalt;
             var parent = new GameObject("Roads").transform;
             parent.SetParent(root, false);

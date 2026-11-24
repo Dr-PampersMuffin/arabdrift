@@ -9,3 +9,8 @@ build/
 *.sln
 .DS_Store
 node_modules/
+
+# CC0 assets fetched at build time (tools/art/fetch_cc0.py)
+client/Assets/DriftKuwait/Resources/DriftKuwait/Tex/pbr_*
+client/Assets/DriftKuwait/Resources/DriftKuwait/Tex/sky_hdri.hdr*
+client/Assets/DriftKuwait/Resources/DriftKuwait/Tex/cc0_credits.txt*

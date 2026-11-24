@@ -101,6 +101,9 @@ jobs:
         env:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
 
+      - name: Fetch CC0 photo materials and HDR sky (Poly Haven)
+        run: python3 tools/art/fetch_cc0.py
+
       - name: Build with Unity
         id: unity1
         continue-on-error: true

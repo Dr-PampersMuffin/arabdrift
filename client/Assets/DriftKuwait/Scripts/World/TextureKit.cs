@@ -14,6 +14,8 @@ namespace DriftKuwait
         public static Texture2D Frond => frond != null ? frond : (frond = Res("frond_v3") ?? Res("frond"));
         static Texture2D trunk;
         public static Texture2D Trunk => trunk != null ? trunk : (trunk = Res("palm_trunk"));
+        /// True when the build fetched the CC0 photo-scanned set (tools/art/fetch_cc0.py).
+        public static bool Pbr => Res("pbr_asphalt") != null;
         static Texture2D Res(string n) => Resources.Load<Texture2D>("DriftKuwait/Tex/" + n);
 
         static float Tile(float x, float y, float period, float scale)
@@ -42,13 +44,13 @@ namespace DriftKuwait
             return t;
         }
 
-        public static Texture2D Sand => sand != null ? sand : (sand = Res("sand") ?? Make("DK_Sand", 256, (x, y) =>
+        public static Texture2D Sand => sand != null ? sand : (sand = Res("pbr_sand") ?? Res("sand") ?? Make("DK_Sand", 256, (x, y) =>
         {
             float n = Tile(x, y, 256, 0.02f) * 0.6f + Tile(x, y, 256, 0.09f) * 0.3f + Random.value * 0.1f;
             return Color.Lerp(new Color(0.70f, 0.56f, 0.38f), new Color(0.88f, 0.75f, 0.55f), n);
         }));
 
-        public static Texture2D Asphalt => asphalt != null ? asphalt : (asphalt = Res("asphalt_v3") ?? Res("asphalt") ?? Make("DK_Asphalt", 256, (x, y) =>
+        public static Texture2D Asphalt => asphalt != null ? asphalt : (asphalt = Res("pbr_asphalt") ?? Res("asphalt_v3") ?? Res("asphalt") ?? Make("DK_Asphalt", 256, (x, y) =>
         {
             float n = Tile(x, y, 256, 0.05f) * 0.5f + Random.value * 0.5f;
             float g = Mathf.Lerp(0.20f, 0.33f, n);
@@ -56,7 +58,7 @@ namespace DriftKuwait
             return new Color(g * 1.02f, g, g * 0.96f);
         }));
 
-        public static Texture2D Paving => paving != null ? paving : (paving = Res("paving") ?? Make("DK_Paving", 256, (x, y) =>
+        public static Texture2D Paving => paving != null ? paving : (paving = Res("pbr_paving") ?? Res("paving") ?? Make("DK_Paving", 256, (x, y) =>
         {
             bool joint = (x % 64) < 2 || (y % 64) < 2;
             float n = Tile(x, y, 256, 0.06f) * 0.3f + Random.value * 0.08f;
@@ -64,7 +66,7 @@ namespace DriftKuwait
             return joint ? c * 0.7f : c;
         }));
 
-        public static Texture2D Plaster => plaster != null ? plaster : (plaster = Res("plaster") ?? Make("DK_Plaster", 256, (x, y) =>
+        public static Texture2D Plaster => plaster != null ? plaster : (plaster = Res("pbr_plaster") ?? Res("plaster") ?? Make("DK_Plaster", 256, (x, y) =>
         {
             float n = Tile(x, y, 256, 0.03f) * 0.5f + Random.value * 0.12f;
             float v = Mathf.Lerp(0.86f, 1f, n);

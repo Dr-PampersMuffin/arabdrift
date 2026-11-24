@@ -37,6 +37,9 @@ jobs:
       - name: Clear stale build caches
         run: rm -rf client/Library/Bee client/Library/Il2cppBuildCache previews
 
+      - name: Fetch CC0 photo materials and HDR sky (Poly Haven)
+        run: python3 tools/art/fetch_cc0.py
+
       - name: Play and capture
         id: play
         uses: game-ci/unity-test-runner@v4

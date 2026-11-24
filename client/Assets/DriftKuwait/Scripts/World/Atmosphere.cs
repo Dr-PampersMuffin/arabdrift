@@ -13,6 +13,7 @@ namespace DriftKuwait
         public const Preset Day = Preset.ClearDay;
         static Light sun;
         static Material sky, photoSky, clearSky;
+        static bool hdrSky;
         static SplitToning split;
 
         /// Film-style split tone: cool teal into the shadows, warm amber into the highlights (grey = off).
@@ -58,14 +59,17 @@ namespace DriftKuwait
                 photoSky.SetFloat("_Exposure", 1.05f);
                 photoSky.SetFloat("_Rotation", 0f);
             }
-            var clearTex = Resources.Load<Texture2D>("DriftKuwait/Tex/sky_clear");
+            // A real photographed HDR sky (CC0, fetched at build time) lights the scene and the reflections; else our sky photo
+            var hdri = Resources.Load<Texture2D>("DriftKuwait/Tex/sky_hdri");
+            hdrSky = hdri != null;
+            var clearTex = hdri != null ? hdri : Resources.Load<Texture2D>("DriftKuwait/Tex/sky_clear");
             if (clearTex != null && pano != null)
             {
                 clearSky = new Material(pano) { name = "DK_ClearSky" };
                 clearSky.SetTexture("_MainTex", clearTex);
                 clearSky.SetFloat("_Mapping", 1f);
                 clearSky.SetFloat("_ImageType", 0f);
-                clearSky.SetFloat("_Exposure", 1.15f);   // the sky itself stays bright after the scene exposure is pulled down
+                clearSky.SetFloat("_Exposure", hdrSky ? 1.0f : 1.15f);   // the sky itself stays bright after the scene exposure is pulled down
                 clearSky.SetFloat("_Rotation", 40f);
             }
 
@@ -195,6 +199,13 @@ namespace DriftKuwait
             }
             if (p != Preset.GoldenHour) Tone(new Color(0.5f, 0.5f, 0.5f), new Color(0.5f, 0.5f, 0.5f));
             RenderSettings.skybox = p == Preset.ClearDay && clearSky != null ? clearSky : (photoSky != null && (p == Preset.GoldenHour || p == Preset.NoonHaze)) ? photoSky : sky;
+            if (p == Preset.ClearDay && hdrSky)
+            {
+                // Image-based light: the real sky's colours fill every shadow and the car paint reflects it
+                RenderSettings.ambientMode = AmbientMode.Skybox;
+                RenderSettings.ambientIntensity = 1f;
+                DynamicGI.UpdateEnvironment();
+            }
             foreach (var l in Object.FindObjectsByType<StreetLamp>(FindObjectsSortMode.None))
                 l.SetOn(p == Preset.Night);
             SalwaBlockBuilder.SetNight(p == Preset.Night);
