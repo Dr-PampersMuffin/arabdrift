@@ -1,0 +1,12 @@
+{
+ "version": 1,
+ "batch": "title_clear",
+ "style_header": "Photorealistic cinematic still, crisp natural daylight photograph of 1987 Kuwait, the quality of key art for a AAA mobile racing game, like a high-end in-game screenshot from a realistic driving simulator. Fictional cars only: no real manufacturer logos, badges or names.",
+ "must_not": ["any text, letters, words, logos or watermarks", "real car brand logos", "flags", "modern glass skyscrapers", "people's faces in close-up", "orange or red sky", "sunset"],
+ "defaults": {"model": "gpt-image-2", "size": "1536x1024", "quality": "high", "background": "opaque", "output_format": "png", "n": 1},
+ "items": [
+  {"asset_id": "ui_title_bg_clear",
+   "reference_images": ["art/generated/ui_title_bg/ui_title_bg__v01.png"],
+   "prompt": "Recreate this exact composition and the same silver early-1980s boxy two-door turbo coupe drifting sideways towards the camera, but on a clear bright spring afternoon: deep blue sky with scattered white fluffy cumulus clouds, white sunlight from high on the left with crisp shadows under the car, natural true-to-life colours with no orange or warm filter. The street is neutral grey textured asphalt with crisp white lane markings and a painted white turn arrow, kerbs painted black and yellow, overhead power lines on wooden poles crossing the sky, a traffic light on the corner. Cream limestone walled villas with steel gates, tall green date palms, the concrete neighbourhood water tower on the right. A huge thick billowing cloud of bright white tyre smoke pours from the rear wheels and drifts across the street behind the car. Two other 1980s cars far behind. Keep empty sky at top-left for a logo and the right third calmer for menu buttons."}
+ ]
+}
