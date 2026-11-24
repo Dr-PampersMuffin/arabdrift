@@ -9,7 +9,7 @@ namespace DriftKuwait
     public class TyreAudio : MonoBehaviour
     {
         DriftCarController car;
-        AudioSource squeal, burnout, sand, synth;
+        AudioSource squeal, burnout, sand, synth, scrub, roar, heavy;
         volatile float aSlip, aSpin;
         int sr;
         double ph1, ph2;
@@ -26,6 +26,14 @@ namespace DriftKuwait
             if (sq != null) squeal = Loop(sq);
             if (bo != null) burnout = Loop(bo);
             if (sd != null) sand = Loop(sd);
+            // Heavier slide: three layers like a real recording. Low rubber scrub/roar (the weight of the car on the
+            // tyre), the mid screech, and the high heavy squeal that only opens up at big angle and speed.
+            var sc = Resources.Load<AudioClip>("DriftKuwait/Audio/tyre_scrub_loop");
+            var ro = Resources.Load<AudioClip>("DriftKuwait/Audio/tyre_drift_roar");
+            var hv = Resources.Load<AudioClip>("DriftKuwait/Audio/tyre_squeal_heavy");
+            if (sc != null) scrub = Loop(sc);
+            if (ro != null) roar = Loop(ro);
+            if (hv != null) heavy = Loop(hv);
             if (sq == null) synth = Loop(AudioClip.Create("TyreSynth", sr, 1, sr, true, OnRead));
         }
 
@@ -47,7 +55,14 @@ namespace DriftKuwait
             float spin = Mathf.Clamp01(car.RearSpin / 8f) * (car.SpeedKmh < 30f ? 1f : 0.4f);
             aSlip = slip; aSpin = onSand ? 0f : spin;
 
-            if (squeal != null) { squeal.volume = Mathf.Lerp(squeal.volume, slip * 0.9f, 0.2f); squeal.pitch = 0.9f + slip * 0.2f; }
+            float v = Sfx.SfxVolume;
+            float angle = Mathf.Clamp01((Mathf.Abs(car.DriftAngle) - 8f) / 35f);
+            float speed = Mathf.Clamp01(car.SpeedKmh / 90f);
+            float body = slip * (0.5f + 0.5f * speed);                         // load on the tyres
+            if (scrub != null) { scrub.volume = Mathf.Lerp(scrub.volume, Mathf.Clamp01(slip * 1.6f) * 0.7f * v, 0.2f); scrub.pitch = 0.75f + speed * 0.25f; }
+            if (roar != null) { roar.volume = Mathf.Lerp(roar.volume, Mathf.Clamp01(body * 1.3f + aSpin * 0.5f) * 1f * v, 0.2f); roar.pitch = 0.82f + speed * 0.2f; }
+            if (squeal != null) { squeal.volume = Mathf.Lerp(squeal.volume, slip * 0.75f * v, 0.2f); squeal.pitch = 0.88f + slip * 0.18f; }
+            if (heavy != null) { heavy.volume = Mathf.Lerp(heavy.volume, slip * angle * speed * 1.4f * v, 0.15f); heavy.pitch = 0.95f + angle * 0.12f; }
             if (burnout != null) burnout.volume = Mathf.Lerp(burnout.volume, aSpin * 0.9f, 0.2f);
             if (sand != null) sand.volume = Mathf.Lerp(sand.volume, onSand ? Mathf.Clamp01(car.RearSlip + car.SpeedKmh / 80f) * 0.8f : 0f, 0.1f);
             if (synth != null) synth.volume = 1f;

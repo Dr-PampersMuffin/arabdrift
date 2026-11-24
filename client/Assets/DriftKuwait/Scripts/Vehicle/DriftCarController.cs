@@ -19,6 +19,7 @@ namespace DriftKuwait
             [NonSerialized] public Vector3 contactPoint, contactNormal;
             [NonSerialized] public Collider surface;
             [NonSerialized] public float compression, lastCompression, load, spinDeg, skid, latSpeed;
+            [NonSerialized] public float gripMul = 1f;   // tyre condition (TyreWear): 1 = fresh, lower = shredded / blown
         }
 
         public Wheel[] wheels;
@@ -145,14 +146,14 @@ namespace DriftKuwait
             // driver can counter-steer as far as the slide needs; the assist only nudges toward the right angle.
             float speedT = Mathf.Clamp01(Mathf.Abs(fwdSpeed) / steerSpeedRef);
             float driftT = Gear != -1 ? Mathf.Clamp01((Mathf.Abs(DriftAngle) - 6f) / 14f) : 0f;
-            float maxSteer = Mathf.Lerp(Mathf.Lerp(maxSteerLow, maxSteerHigh, speedT), maxDriftSteer, driftT);
+            float maxSteer = Mathf.Lerp(Mathf.Lerp(maxSteerLow, maxSteerHigh, speedT), maxDriftSteer, Mathf.Max(driftT, Handbrake ? 0.55f : 0f));
             float target = input.Steer * maxSteer;
             if (driftT > 0f)
             {
                 float cs = Mathf.Clamp(DriftAngle, -maxDriftSteer, maxDriftSteer) + input.Steer * maxSteerHigh;
                 target = Mathf.Clamp(Mathf.Lerp(target, cs, counterSteerAssist * 0.7f * driftT), -maxDriftSteer, maxDriftSteer);
             }
-            steer = Mathf.MoveTowards(steer, target, 300f * dt);
+            steer = Mathf.MoveTowards(steer, target, (Handbrake ? 420f : 300f) * dt);
 
             // ---------- Engine ----------
             float ratio = Gear == -1 ? reverseRatio : gears[Gear - 1];
@@ -235,7 +236,9 @@ namespace DriftKuwait
                 w.latSpeed = vLat;
 
                 float grip = (w.front ? frontGrip : rearGrip) * SurfaceGrip(w.surface);
-                if (!w.front && Handbrake) grip *= handbrakeGripFactor;
+                grip *= w.gripMul;
+                // Handbrake locks the rears: they lose most of their side grip so the tail steps out right away
+                if (!w.front && Handbrake) grip *= handbrakeGripFactor * 0.68f;
                 float fMax = grip * w.load;
 
                 // Lateral: slip angle -> force, past the peak the grip drops so slides can be held.
@@ -253,7 +256,7 @@ namespace DriftKuwait
                 if (!w.front) fx += drivePerRear;
                 float stopT = Mathf.Clamp01(Mathf.Abs(vLong) / 1.5f);
                 if (brake > 0f) fx -= Mathf.Sign(vLong) * brakeForce * 0.25f * brake * stopT * (w.front ? 1.2f : 0.8f);
-                if (!w.front && Handbrake) fx -= Mathf.Sign(vLong) * fMax * 0.5f * stopT;   // a flick, not an anchor: the slide keeps its speed
+                if (!w.front && Handbrake) fx -= Mathf.Sign(vLong) * fMax * 0.35f * stopT;   // a flick, not an anchor: the slide keeps its speed
                 fx -= vLong * 12f;                                    // rolling resistance
                 if (!w.front && throttle < 0.05f) fx -= vLong * 35f;   // engine braking
 
@@ -291,7 +294,7 @@ namespace DriftKuwait
                 float a = DriftAngle, absA = Mathf.Abs(a);
                 float yawRate = Vector3.Dot(rb.angularVelocity, transform.up);
                 // 1) Damp the yaw rate so the tail swings smoothly instead of snapping into a spin
-                rb.AddTorque(-transform.up * yawRate * Mathf.Lerp(0.6f, 2.4f, counterSteerAssist) * driftT, ForceMode.Acceleration);
+                rb.AddTorque(-transform.up * yawRate * Mathf.Lerp(0.6f, 2.4f, counterSteerAssist) * driftT * (Handbrake ? 0.25f : 1f), ForceMode.Acceleration);
                 // 2) Past ~55 degrees the nose is pulled back toward the direction of travel (no spin-outs unless you really mean it)
                 float limit = Mathf.Lerp(70f, 52f, counterSteerAssist);
                 if (absA > limit) rb.AddTorque(transform.up * Mathf.Sign(a) * (absA - limit) * 0.09f, ForceMode.Acceleration);
@@ -300,6 +303,23 @@ namespace DriftKuwait
                 // 4) A committed, on-throttle slide keeps its momentum instead of scrubbing to a stop
                 if (throttle > 0.3f && flatV.sqrMagnitude > 1f)
                     rb.AddForce(flatV.normalized * throttle * 2.2f * driftT, ForceMode.Acceleration);
+            }
+
+            // ---------- Handbrake entry ----------
+            // Real e-brake entry: locked rears + steering = the car pivots round the front axle. The tyre model alone
+            // made it lazy on a phone (no weight transfer feel), so add the rotation a real flick gives, toward the
+            // steering, fading out as the angle builds so it hands over to throttle and counter-steer.
+            if (Handbrake && GroundedCount >= 3 && Gear != -1 && SpeedKmh > 15f && Mathf.Abs(input.Steer) > 0.15f)
+            {
+                float yawRate = Vector3.Dot(rb.angularVelocity, transform.up);
+                float absA = Mathf.Abs(DriftAngle);
+                float speedK = Mathf.Clamp01((SpeedKmh - 15f) / 35f);
+                float fade = Mathf.Clamp01(1f - absA / 40f);
+                float dir = Mathf.Sign(input.Steer);
+                if (yawRate * dir < 2.6f)   // cap the swing: no instant spins
+                    rb.AddTorque(transform.up * input.Steer * 6.5f * speedK * fade, ForceMode.Acceleration);
+                // weight goes onto the nose: a touch of extra front bite while the tail swings
+                rb.AddForceAtPosition(-transform.up * rb.mass * 1.5f * speedK, transform.TransformPoint(0f, 0f, 1.2f), ForceMode.Force);
             }
 
             // Light downforce keeps it planted over kerbs.

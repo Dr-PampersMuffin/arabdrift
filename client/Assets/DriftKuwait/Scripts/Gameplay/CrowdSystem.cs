@@ -11,33 +11,43 @@ namespace DriftKuwait
     {
         public DriftCarController player;
 
-        class Fan { public Transform t; public Vector3 home; public float phase, h; public bool camera; }
+        class Fan { public Transform t; public Vector3 home; public float phase, h; public bool camera, waver; }
         class Group { public Vector3 c; public List<Fan> fans = new List<Fan>(); public AudioSource loop, burst; public float excite, cheerCd; }
 
         readonly List<Group> groups = new List<Group>();
         Material[] mats;
         float[] aspect;
-        bool[] isCamera;
+        bool[] isCamera, isWaver;
         Light flash; float flashT;
         AudioClip cheer, whistle;
         int groundMask;
 
-        static readonly string[] Tex = { "crowd_a", "crowd_b", "crowd_c", "crowd_d", "crowd_e", "crowd_f" };
+        // crowd2_*: men in white dishdasha, white ghutra and black agal; b, c and f have taken the ghutra off and wave it like a flag.
+        // Listed twice so the traditional dress dominates; the older Bedouin shemagh set mixes in.
+        static readonly string[] Tex = { "crowd2_a", "crowd2_b", "crowd2_c", "crowd2_d", "crowd2_e", "crowd2_f", "crowd2_g", "crowd2_h",
+                                         "crowd2_a", "crowd2_b", "crowd2_c", "crowd2_e", "crowd2_f",
+                                         "crowd_a", "crowd_b", "crowd_c", "crowd_d", "crowd_e", "crowd_f" };
+        static bool Waver(string n) => n == "crowd2_b" || n == "crowd2_c" || n == "crowd2_f";
 
         void Start()
         {
             groundMask = ~((1 << 2) | (1 << TrafficSystem.TrafficLayer));
-            var list = new List<Material>(); var asp = new List<float>(); var cam = new List<bool>();
+            var list = new List<Material>(); var asp = new List<float>(); var cam = new List<bool>(); var wav = new List<bool>();
+            var cache = new Dictionary<string, Material>();
             foreach (var n in Tex)
             {
                 var tx = Resources.Load<Texture2D>("DriftKuwait/Crowd/" + n);
                 if (tx == null) continue;
-                var m = Mat.Textured("M_Crowd_" + n, tx, Color.white, 0.1f, Vector2.one);
-                m.SetFloat("_AlphaClip", 1f); m.SetFloat("_Cutoff", 0.5f); m.EnableKeyword("_ALPHATEST_ON"); m.SetFloat("_Cull", 0f);
-                list.Add(m); asp.Add(tx.width / (float)tx.height); cam.Add(n == "crowd_b" || n == "crowd_d");
+                if (!cache.TryGetValue(n, out var m))
+                {
+                    m = Mat.Textured("M_Crowd_" + n, tx, Color.white, 0.1f, Vector2.one);
+                    m.SetFloat("_AlphaClip", 1f); m.SetFloat("_Cutoff", 0.5f); m.EnableKeyword("_ALPHATEST_ON"); m.SetFloat("_Cull", 0f);
+                    cache[n] = m;
+                }
+                list.Add(m); asp.Add(tx.width / (float)tx.height); cam.Add(n == "crowd_b" || n == "crowd_d" || n == "crowd2_d"); wav.Add(Waver(n));
             }
             if (list.Count == 0) { enabled = false; return; }
-            mats = list.ToArray(); aspect = asp.ToArray(); isCamera = cam.ToArray();
+            mats = list.ToArray(); aspect = asp.ToArray(); isCamera = cam.ToArray(); isWaver = wav.ToArray();
             cheer = Resources.Load<AudioClip>("DriftKuwait/Audio/crowd_cheer_big");
             whistle = Resources.Load<AudioClip>("DriftKuwait/Audio/crowd_whistle");
             var loopClip = Resources.Load<AudioClip>("DriftKuwait/Audio/crowd_drift_loop");
@@ -107,7 +117,7 @@ namespace DriftKuwait
                 p.y = Ground(p) + h * 1.05f * 0.5f;
                 quad.transform.position = p;
                 // no solid posts (a car could wedge or beach on them): people jump clear and the car is slowed softly
-                g.fans.Add(new Fan { t = quad.transform, home = p, phase = Random.value * 10f, h = h, camera = isCamera[k] });
+                g.fans.Add(new Fan { t = quad.transform, home = p, phase = Random.value * 10f, h = h, camera = isCamera[k], waver = isWaver[k] });
             }
             g.loop = root.gameObject.AddComponent<AudioSource>();
             g.loop.clip = loopClip; g.loop.loop = true; g.loop.spatialBlend = 1f; g.loop.minDistance = 6f; g.loop.maxDistance = 70f;
@@ -154,7 +164,10 @@ namespace DriftKuwait
                     if (!near) continue;
                     // face the camera (upright billboard)
                     Vector3 look = f.t.position - cp; look.y = 0f;
-                    if (look.sqrMagnitude > 0.01f) f.t.rotation = Quaternion.LookRotation(look.normalized);
+                    // ghutra wavers swing side to side (about 2 Hz), harder when the car is sliding past; others lean a little
+                    float lean = f.waver ? Mathf.Sin(Time.time * (12f + f.phase % 2f) + f.phase) * Mathf.Lerp(5f, 13f, g.excite)
+                                         : Mathf.Sin(Time.time * 1.1f + f.phase) * 1.5f;
+                    if (look.sqrMagnitude > 0.01f) f.t.rotation = Quaternion.LookRotation(look.normalized) * Quaternion.Euler(0f, 0f, lean);
                     // jump and sway with the excitement; step back from a car coming at them
                     float hop = g.excite * Mathf.Max(0f, Mathf.Sin(Time.time * (7f + f.phase % 3f) + f.phase)) * 0.22f;
                     float sway = Mathf.Sin(Time.time * 1.3f + f.phase) * 0.04f;
@@ -162,7 +175,8 @@ namespace DriftKuwait
                     float push = away.magnitude < 8f && player.SpeedKmh > 5f ? (8f - away.magnitude) * 0.45f : 0f;
                     if (away.magnitude < 1.8f && player.SpeedKmh > 8f)   // ploughing into the crowd scrubs speed, never traps the car
                         player.Body.linearVelocity *= 1f - Mathf.Clamp01(2.5f * dt);
-                    Vector3 target = f.home + away.normalized * push + Vector3.up * hop + f.t.right * sway;
+                    float pivot = -Mathf.Sin(lean * Mathf.Deg2Rad) * f.h * 0.52f;   // hinge the lean at the feet, not the waist
+                    Vector3 target = f.home + away.normalized * push + Vector3.up * hop + f.t.right * (sway + pivot);
                     f.t.position = Vector3.Lerp(f.t.position, target, 1f - Mathf.Exp(-10f * dt));
                     // camera flashes from the ones with cameras
                     if (f.camera && g.excite > 0.4f && flashT <= -0.25f && Random.value < dt * 1.5f)

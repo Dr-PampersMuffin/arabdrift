@@ -263,6 +263,29 @@ namespace DriftKuwait.Preview
                 if (guard != null) guard.enabled = true;
             }
 
+            // Tyre test: a fresh standing burnout heats the rears; then a nearly worn tyre is cooked until it blows.
+            {
+                var tw = car.GetComponent<TyreWear>();
+                if (tw != null)
+                {
+                    tw.Refit();
+                    car.transform.SetPositionAndRotation(new Vector3(-3f, 0.6f, -330f), Quaternion.identity);
+                    rb.linearVelocity = Vector3.zero; rb.angularVelocity = Vector3.zero;
+                    yield return new WaitForSeconds(0.4f);
+                    CarInput.TouchThrottle = 1f; CarInput.TouchSteer = 1f;   // a donut: max wheelspin and slide
+                    yield return new WaitForSeconds(4f);
+                    Debug.Log($"[StressTest] tyres after 4 s donut: heat {tw.Heat(2):F2}/{tw.Heat(3):F2} health {tw.health[2]:F2}/{tw.health[3]:F2} spin {car.RearSpin:F1} grip {car.wheels[2].gripMul:F2}");
+                    Capture("16_hot_tyres");
+                    tw.health[2] = 0.04f; tw.health[3] = 0.04f; tw.heat[2] = 0.95f; tw.heat[3] = 0.95f;
+                    yield return new WaitForSeconds(2.5f);
+                    Debug.Log($"[StressTest] tyre blowout: {(tw.Blown(2) || tw.Blown(3) ? "PASS (blown)" : "FAIL (no blowout)")} grip {car.wheels[2].gripMul:F2}/{car.wheels[3].gripMul:F2}");
+                    Capture("17_blowout_sparks");
+                    CarInput.TouchThrottle = 0f; CarInput.TouchSteer = 0f;
+                    tw.Refit();
+                    Debug.Log($"[StressTest] refit: grip {car.wheels[2].gripMul:F2} blown {tw.Blown(2)}");
+                }
+            }
+
             // Night, if the world supports it.
             if (PreviewHooks.SetNight != null)
             {

@@ -9,6 +9,8 @@ namespace DriftKuwait
     {
         DriftCarController car;
         ParticleSystem[] smoke;
+        TyreWear wear;
+        static readonly Color HotSmoke = new Color(0.62f, 0.61f, 0.6f, 0.92f);   // cooked rubber: thick grey
         int[] lastSkid;
         Vector3[] lastSkidPos;
 
@@ -169,13 +171,16 @@ namespace DriftKuwait
 
                 bool sandy = w.surface != null && w.surface.GetComponent<SurfaceType>() is SurfaceType st && st.grip < 0.8f;
                 var main = ps.main;
-                main.startColor = sandy ? SandDust : AsphaltSmoke;
+                if (wear == null) wear = GetComponent<TyreWear>();
+                float hot = wear != null && i < 4 ? Mathf.Clamp01((wear.Heat(i) - 0.4f) / 0.5f) : 0f;
+                main.startColor = sandy ? SandDust : Color.Lerp(AsphaltSmoke, HotSmoke, hot);
 
                 var em = ps.emission;
                 float k = w.grounded ? w.skid : 0f;
                 float rate = k * k * (w.front ? 3f : 44f) + (w.front ? 0f : car.RearSpin * 2.4f * (w.grounded ? 1f : 0f));   // both rear tyres burn
                 rate *= Mathf.Lerp(0.35f, 1f, Mathf.InverseLerp(5f, 45f, car.SpeedKmh));   // standing burnouts stay modest
                 if (sandy) rate *= 0.5f;
+                rate *= 1f + hot * 1.3f;   // hot tyres pour out smoke
                 em.rateOverTime = rate * Mathf.Lerp(0.25f, 1.4f, GameSettings.Smoke);
 
                 // Skid marks only on hard surfaces (sand gets tracks later)

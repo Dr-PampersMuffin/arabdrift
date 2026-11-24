@@ -164,6 +164,7 @@ namespace DriftKuwait
             car.GetComponent<DriftCarController>().counterSteerAssist = GameSettings.Assist;
             if (car.GetComponent<DriftFX>() == null) car.AddComponent<DriftFX>();   // flames, sparks, tyre scream
             if (car.GetComponent<StuckGuard>() == null) car.AddComponent<StuckGuard>();   // never stay stuck
+            if (car.GetComponent<TyreWear>() == null) car.AddComponent<TyreWear>();   // hot, shredded and blown tyres
             driftCam.target = car.GetComponent<Rigidbody>();
             driftCam.enabled = true;
             worldCam.enabled = true;

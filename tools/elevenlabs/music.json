@@ -27,6 +27,24 @@
    "key": "mus_pursuit",
    "seconds": 100,
    "prompt": "Mid-1990s West Coast G-funk hip-hop instrumental, laid-back swung groove, deep rolling round synth bassline, eerie minor-key high synth lead with portamento whine, warm Rhodes chords, crisp snare and finger snaps, smooth lowrider cruising, chase version, 96 bpm, harder drums, urgent pulsing bass, high whining synth like a siren, tense and dangerous, loopable, instrumental, no vocals"
+  },
+  {
+   "key": "mus_bedu_samri",
+   "seconds": 50,
+   "source": "bedouin preview",
+   "prompt": "Original old-school Kuwaiti Bedouin folk music as heard at 1980s desert gatherings and street celebrations, warm worn cassette-tape recording, Samri rhythm: many deep tar frame drums and a big tabl drum, mirwas hand drums, tight group hand claps, an oud and a rababa fiddle playing a minor maqam melody, a group of men answering with long chanted 'yaa leil' calls and hums, swaying and proud, 100 bpm, loopable, no lyrics"
+  },
+  {
+   "key": "mus_bedu_khamari",
+   "seconds": 50,
+   "source": "bedouin preview",
+   "prompt": "Original old-school Kuwaiti Bedouin folk music as heard at 1980s desert gatherings and street celebrations, warm worn cassette-tape recording, swaying 6/8 khamari groove, tar frame drums and tabl, crisp group hand claps, mirwas, rababa fiddle leading a raw bedouin melody with oud underneath, men's chorus humming and ululating calls of joy, festive drift celebration energy, 110 bpm, loopable, no lyrics"
+  },
+  {
+   "key": "mus_bedu_ardah",
+   "seconds": 50,
+   "source": "bedouin preview",
+   "prompt": "Original old-school Kuwaiti Bedouin folk music as heard at 1980s desert gatherings and street celebrations, warm worn cassette-tape recording, slow powerful ardah war-dance drums: huge booming tabl, rolling tar frame drums, tambourine jingles, a chorus of men chanting a deep repeated call without words, rababa and oud answering, heroic, dusty and majestic, 90 bpm, loopable, no lyrics"
   }
  ]
 }

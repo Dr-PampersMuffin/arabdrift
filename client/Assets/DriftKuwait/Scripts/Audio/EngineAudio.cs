@@ -14,7 +14,8 @@ namespace DriftKuwait
         static readonly float[] ClipRpm = { 900f, 2000f, 4000f, 6000f };
 
         DriftCarController car;
-        AudioSource[] layers;
+        AudioSource[] layers, rasp, sub;
+        float load;   // smoothed engine load (throttle with a little lag, like a real intake)
         AudioSource synthSource, blowoff, limiterPop, shiftSrc;
 
         // Values handed to the audio thread
@@ -42,6 +43,25 @@ namespace DriftKuwait
             {
                 layers = new AudioSource[clips.Length];
                 for (int i = 0; i < clips.Length; i++) layers[i] = MakeSource(clips[i], true, 0f);
+                // Heavier engine: a header/exhaust rasp layer (high-passed, overdriven) that opens up on load and high
+                // rpm, and a sub-bass layer that gives the chest thump at idle and on the overrun.
+                var r = new AudioClip[ClipKeys.Length]; var b = new AudioClip[ClipKeys.Length]; bool extra = true;
+                for (int i = 0; i < ClipKeys.Length; i++)
+                {
+                    r[i] = Resources.Load<AudioClip>("DriftKuwait/Audio/" + ClipKeys[i] + "_rasp");
+                    b[i] = Resources.Load<AudioClip>("DriftKuwait/Audio/" + ClipKeys[i] + "_sub");
+                    extra &= r[i] != null && b[i] != null;
+                }
+                if (extra)
+                {
+                    rasp = new AudioSource[r.Length]; sub = new AudioSource[b.Length];
+                    for (int i = 0; i < r.Length; i++)
+                    {
+                        rasp[i] = MakeSource(r[i], true, 0f); sub[i] = MakeSource(b[i], true, 0f);
+                        // start all three in step so the firing pulses line up
+                        rasp[i].timeSamples = layers[i].timeSamples; sub[i].timeSamples = layers[i].timeSamples;
+                    }
+                }
             }
             else
             {
@@ -83,6 +103,10 @@ namespace DriftKuwait
 
             if (layers == null) return;
             float rpm = car.Rpm;
+            load = Mathf.MoveTowards(load, car.ThrottleInput, Time.deltaTime * (car.ThrottleInput > load ? 6f : 3.5f));
+            float cut = car.LimiterCut ? 0.4f : 1f;
+            float rasping = (0.12f + 0.95f * load * Mathf.Clamp01((rpm - 1500f) / 3500f)) * cut;   // headers scream on load
+            float thump = Mathf.Lerp(0.6f, 1f, load);                                             // sub stays on the overrun
             for (int i = 0; i < layers.Length; i++)
             {
                 float lo = i > 0 ? ClipRpm[i - 1] : 0f;
@@ -91,8 +115,15 @@ namespace DriftKuwait
                 float wgt = rpm < c ? Mathf.InverseLerp(lo, c, rpm) : 1f - Mathf.InverseLerp(c, hi, rpm);
                 if (i == 0 && rpm < c) wgt = 1f;
                 if (i == layers.Length - 1 && rpm > c) wgt = 1f;
-                layers[i].volume = Mathf.Clamp01(wgt) * Mathf.Lerp(0.72f, 1f, car.ThrottleInput) * (car.LimiterCut ? 0.4f : 1f);   // louder off-throttle burble too
-                layers[i].pitch = Mathf.Clamp(rpm / c, 0.6f, 1.6f);
+                wgt = Mathf.Clamp01(wgt);
+                float pitch = Mathf.Clamp(rpm / c, 0.6f, 1.6f);
+                layers[i].volume = wgt * Mathf.Lerp(0.72f, 1f, load) * cut;   // louder off-throttle burble too
+                layers[i].pitch = pitch;
+                if (rasp != null)
+                {
+                    rasp[i].volume = wgt * rasping; rasp[i].pitch = pitch;
+                    sub[i].volume = wgt * thump * cut; sub[i].pitch = pitch;
+                }
             }
         }
 

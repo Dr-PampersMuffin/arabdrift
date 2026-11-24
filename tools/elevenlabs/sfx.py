@@ -17,6 +17,10 @@ FX = {
     "exhaust_scrape": ("A lowered car's steel exhaust pipe dragging and scraping along rough asphalt at speed, harsh grinding metal screech with sparks, continuous loop", 3.0),
     "tyre_squeal_high": ("High-pitched screaming tyre squeal of a car drifting sideways at speed on hot asphalt, sustained continuous loop, no engine", 4.0),
     "tyre_burst_smoke": ("Rear tyres spinning in a burnout on asphalt, roaring rubber friction with a hissing smoky whine, continuous loop", 3.0),
+    "tyre_drift_roar": ("Heavy deep rubber roar of wide rear tyres sliding sideways on hot rough asphalt in a long car drift, thick low growling friction with a loud screech on top, very loud and close, continuous loop, no engine, no music", 5.0),
+    "tyre_blowout": ("A car tyre exploding during a smoky burnout: one huge violent bang, then hissing air and rubber shreds slapping the wheel arch, very loud, close", 2.5),
+    "rim_grind": ("A bare steel car wheel rim with a shredded tyre grinding and spinning on asphalt, harsh metallic screeching scrape with rubber flapping, continuous loop", 3.0),
+    "tyre_shred_flap": ("Shredded rubber strips of a torn car tyre slapping and flapping rapidly against the wheel arch while the car drives, rhythmic thwacking, continuous loop", 3.0),
 }
 def main():
     key = os.environ["ELEVENLABS_API_KEY"]

@@ -66,6 +66,7 @@ namespace DriftKuwait
 
             var rb = car.Body;
             rb.linearVelocity = Vector3.zero; rb.angularVelocity = Vector3.zero;
+            var tw = GetComponent<TyreWear>(); if (tw != null) tw.Refit();   // fresh tyres with the recovery
             transform.SetPositionAndRotation(new Vector3(bestPos.x, y + 0.6f, bestPos.z), Quaternion.LookRotation(bestDir));
             Physics.SyncTransforms();
             var hud = Object.FindAnyObjectByType<DriveHUD>();
