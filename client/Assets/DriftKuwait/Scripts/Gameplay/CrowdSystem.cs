@@ -49,13 +49,13 @@ namespace DriftKuwait
                 {
                     float a = (45f + q * 90f + Random.Range(-10f, 10f)) * Mathf.Deg2Rad;
                     var dir = new Vector3(Mathf.Cos(a), 0f, Mathf.Sin(a));
-                    if (OffRoad(new Vector3(c.x, 0f, c.z), dir, r + 12f, 90f, out var spot)) AddGroup(spot, Random.Range(6, 10), loopClip);
+                    if (OffRoad(new Vector3(c.x, 0f, c.z), dir, r + 12f, 90f, out var spot)) AddGroup(spot, Random.Range(6, 10), loopClip, dir);
                 }
             // Along the main avenue pavements, where the long slides happen
             for (float z = -330f; z <= 330f; z += 110f)
             {
                 float side = Random.value > 0.5f ? 1f : -1f;
-                if (OffRoad(new Vector3(0f, 0f, z + Random.Range(-20f, 20f)), new Vector3(side, 0f, 0f), 6f, 60f, out var spot)) AddGroup(spot, Random.Range(5, 8), loopClip);
+                if (OffRoad(new Vector3(0f, 0f, z + Random.Range(-20f, 20f)), new Vector3(side, 0f, 0f), 6f, 60f, out var spot)) AddGroup(spot, Random.Range(5, 8), loopClip, new Vector3(side, 0f, 0f));
             }
             Debug.Log("[Crowd] groups " + groups.Count);
             Random.state = saved;
@@ -80,16 +80,13 @@ namespace DriftKuwait
             for (float d = start; d < max; d += 2f)
             {
                 var p = from + dir * d;
-                if (!OnRoad(p, 1.5f)) { spot = p + dir * 4.5f; return !OnRoad(spot, 1.5f); }
+                if (!OnRoad(p, 0.5f)) { spot = p + dir * 1.6f; return true; }   // just past the kerb: on the pavement, in front of the walls
             }
             spot = Vector3.zero; return false;
         }
 
-        void AddGroup(Vector3 c, int n, AudioClip loopClip)
+        void AddGroup(Vector3 c, int n, AudioClip loopClip, Vector3 outward)
         {
-            // keep off the roads: the spot must not be within a road rectangle
-            foreach (var r in SalwaBlockBuilder.RoadRects)
-                if (c.x > r.x - 1.5f && c.x < r.y + 1.5f && c.z > r.z - 1.5f && c.z < r.w + 1.5f) return;
             var g = new Group { c = c };
             var root = new GameObject("CrowdGroup").transform; root.SetParent(transform, false); root.position = c;
             for (int i = 0; i < n; i++)
@@ -104,8 +101,9 @@ namespace DriftKuwait
                 var mr = quad.GetComponent<MeshRenderer>();
                 mr.sharedMaterial = mats[k];
                 mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-                Vector2 off = Random.insideUnitCircle * 3.2f;
-                Vector3 p = c + new Vector3(off.x, 0f, off.y);
+                // a line along the kerb, one or two deep
+                Vector3 along = Vector3.Cross(Vector3.up, outward).normalized;
+                Vector3 p = c + along * Random.Range(-5.5f, 5.5f) + outward * Random.Range(-0.6f, 0.9f);
                 p.y = Ground(p) + h * 1.05f * 0.5f;
                 quad.transform.position = p;
                 // a solid post where each spectator stands, so cars stop at the crowd instead of passing through it
