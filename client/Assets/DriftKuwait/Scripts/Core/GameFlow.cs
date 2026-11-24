@@ -62,6 +62,8 @@ namespace DriftKuwait
             PreviewHooks.Register("09d_faris_navy", () => f.PreviewScreen(() => { PlayerPrefs.SetInt("dk_paint_faris", 4); CarCatalog.SelectedId = "faris"; f.ShowGarage(); }), resetTune);
             PreviewHooks.Register("07b_story_ch2", () => f.PreviewScreen(() => StoryScene.Play(new[] { Story.Ch2Intro[0] }, null)),
                                   () => { var g = GameObject.Find("DK_Story"); if (g != null) Destroy(g); });
+            PreviewHooks.Register("07c_history", () => f.PreviewScreen(() => StoryScene.Play(new[] { Story.History[2] }, null)),
+                                  () => { var g = GameObject.Find("DK_Story"); if (g != null) Destroy(g); });
             PreviewHooks.Register("04b_map_ch2", () => f.PreviewScreen(() => { Story.Chapter = 2; f.ShowMap(); }), () => Story.Chapter = 1);
             PreviewHooks.StartDrive = () => f.StartDrive("shaheen", false);
             return f;

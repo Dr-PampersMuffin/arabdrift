@@ -40,6 +40,19 @@ namespace DriftKuwait
             var logo = UIKit.Img(safe, "Logo", logoSp, Color.white);
             logo.preserveAspect = true;
             UIKit.Place(logo.rectTransform, new Vector2(0f, 1f), new Vector2(40f, -40f), new Vector2(880f, 400f));
+
+            // حكايتنا: replay the garage's history and the story so far
+            {
+                var hb = UIKit.Button(safe, "History", new Color(0.04f, 0.07f, 0.13f, 0.78f), () => { Sfx.Play("ui_click"); Sfx.StopVoice(); StoryScene.Play(Story.Replay(), null); }, "hud/pill");
+                UIKit.Place((RectTransform)hb.transform, new Vector2(0f, 1f), new Vector2(48f, -456f), new Vector2(330f, 86f));
+                UIKit.Outline(hb.transform, new Color(UIKit.Gold.r, UIKit.Gold.g, UIKit.Gold.b, 0.7f), "hud/pill_outline");
+                var hi = UIKit.Img(hb.transform, "Ic", UIKit.S("hud/ic_play"), UIKit.Gold);
+                UIKit.Place(hi.rectTransform, new Vector2(1f, 0.5f), new Vector2(-26f, 0f), new Vector2(40f, 40f));
+                var ht = UIKit.Label(hb.transform, "T", "حكايتنا", 40, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
+                UIKit.Place(ht.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(-14f, 8f), new Vector2(240f, 52f));
+                var he = UIKit.Label(hb.transform, "E", "OUR STORY", 15, new Color(1, 1, 1, 0.65f), TextAnchor.MiddleCenter, UIKit.Digital, false);
+                UIKit.Place(he.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(-14f, -26f), new Vector2(240f, 22f));
+            }
             var ver = UIKit.Label(safe, "Ver", "VER 0.4", 18, new Color(1, 1, 1, 0.55f), TextAnchor.UpperLeft, UIKit.Digital, false);
             UIKit.Place(ver.rectTransform, new Vector2(0f, 1f), new Vector2(48f, -14f), new Vector2(600f, 30f));
 

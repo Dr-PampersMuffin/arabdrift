@@ -1,0 +1,31 @@
+{
+ "asset_id": "story_hist_uncle",
+ "version": 1,
+ "spec": "art/prompts/story_history.json",
+ "prompt": "Cinematic illustrated story panel for a premium mobile racing game, painterly realism like a high-end graphic novel, nostalgic faded film-photograph colours, film grain, soft vignette. Kuwait, Salwa district. Same characters throughout.\n\nLate 1970s, evening inside a small cluttered workshop office: a heavyset Kuwaiti man in his forties with a dark moustache, dishdasha and ghutra writes in a thick ledger book at a wooden desk with a worried face, a stack of unpaid bills and a rotary telephone beside him; in the doorway behind, an older tired-looking workshop owner leans on the frame coughing into a handkerchief. Desk lamp light, melancholic mood, faded film colours.\n\nDo not include: any text, letters, numbers, logos or watermarks; women; weapons; modern objects; real car brand logos.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 180,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 180
+  },
+  "output_tokens": 1372,
+  "output_tokens_details": {
+   "image_tokens": 1372,
+   "text_tokens": 0
+  },
+  "total_tokens": 1552
+ },
+ "seconds": 26.5,
+ "created": "2026-11-24T09:26:03+0300",
+ "qa_status": "in_review"
+}

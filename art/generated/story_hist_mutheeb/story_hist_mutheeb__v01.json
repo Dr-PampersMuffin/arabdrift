@@ -1,0 +1,31 @@
+{
+ "asset_id": "story_hist_mutheeb",
+ "version": 1,
+ "spec": "art/prompts/story_history.json",
+ "prompt": "Cinematic illustrated story panel for a premium mobile racing game, painterly realism like a high-end graphic novel, nostalgic faded film-photograph colours, film grain, soft vignette. Kuwait, Salwa district. Same characters throughout.\n\nMid 1980s, a confident Kuwaiti businessman in his forties in a crisp white dishdasha with a dark bisht and gold watch stands in the sandy lot next to the old car workshop, unrolling large architectural blueprints of modern towers on the bonnet of his shiny black 1980s Mercedes-style sedan, two assistants beside him; the small old workshop looks fragile in the background. Harsh noon sun, ominous framing from a low angle.\n\nDo not include: any text, letters, numbers, logos or watermarks; women; weapons; modern objects; real car brand logos.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 175,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 175
+  },
+  "output_tokens": 1372,
+  "output_tokens_details": {
+   "image_tokens": 1372,
+   "text_tokens": 0
+  },
+  "total_tokens": 1547
+ },
+ "seconds": 24.3,
+ "created": "2026-11-24T09:26:28+0300",
+ "qa_status": "in_review"
+}

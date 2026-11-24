@@ -1,0 +1,31 @@
+{
+ "asset_id": "story_hist_boys",
+ "version": 1,
+ "spec": "art/prompts/story_history.json",
+ "prompt": "Cinematic illustrated story panel for a premium mobile racing game, painterly realism like a high-end graphic novel, nostalgic faded film-photograph colours, film grain, soft vignette. Kuwait, Salwa district. Same characters throughout.\n\nInside the old car workshop on a sunny afternoon in the 1970s: two Kuwaiti boys about ten years old in small dishdashas sit side by side on the bonnet of a parked 1970s car laughing together, one boy with a cheeky grin wears oversized aviator sunglasses; behind them the workshop owner and his young grey-free mechanic work on an engine. Warm sunbeams through the roller door, tools on pegboards, nostalgic faded colours.\n\nDo not include: any text, letters, numbers, logos or watermarks; women; weapons; modern objects; real car brand logos.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 176,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 176
+  },
+  "output_tokens": 1372,
+  "output_tokens_details": {
+   "image_tokens": 1372,
+   "text_tokens": 0
+  },
+  "total_tokens": 1548
+ },
+ "seconds": 28.0,
+ "created": "2026-11-24T09:25:37+0300",
+ "qa_status": "in_review"
+}
