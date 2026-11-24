@@ -84,7 +84,7 @@ namespace DriftKuwait
             cardGoal = UIKit.Label(ct, "Goal", "", 40, UIKit.Gold, TextAnchor.UpperRight, UIKit.Black);
             UIKit.Place(cardGoal.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -110f), new Vector2(540f, 100f));
             cardHow = UIKit.Label(ct, "How", "", 33, new Color(1, 1, 1, 0.85f), TextAnchor.UpperRight, UIKit.Arabic);
-            UIKit.Place(cardHow.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -212f), new Vector2(540f, 220f));
+            UIKit.Place(cardHow.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -236f), new Vector2(540f, 200f));   // below a two-line goal
             for (int i = 0; i < 3; i++)
             {
                 var s = UIKit.Img(ct, "Star" + i, UIKit.S("hud/ic_star_big"), Color.white);
