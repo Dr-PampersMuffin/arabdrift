@@ -235,6 +235,34 @@ namespace DriftKuwait.Preview
                 Debug.Log($"[StressTest] flipped: up {up:F2} -> {(up > 0.9f ? "PASS (upright)" : "FAIL (still flipped)")}");
             }
 
+            // Wall test (the reported glitch): slide into a real villa wall, then try to back out.
+            // First with the StuckGuard off, to see whether the bare physics traps the car, then with it on.
+            {
+                var guard = car.GetComponent<StuckGuard>();
+                Vector3 street = new Vector3(-140f, 0.6f, -162f);
+                Vector3 wallDir = Vector3.zero; float wallDist = 99f;
+                foreach (var d in new[] { Vector3.forward, Vector3.back, Vector3.left, Vector3.right })
+                    if (Physics.Raycast(street + Vector3.up * 0.4f, d, out var wh, 30f, ~((1 << 2) | (1 << 29)), QueryTriggerInteraction.Ignore) && wh.distance < wallDist) { wallDist = wh.distance; wallDir = d; }
+                Debug.Log($"[StressTest] wall at {wallDist:F1} m towards {wallDir}");
+                for (int pass = 0; pass < 2 && wallDir != Vector3.zero; pass++)
+                {
+                    if (guard != null) guard.enabled = pass == 1;
+                    car.transform.SetPositionAndRotation(street - wallDir * Mathf.Max(0f, 14f - wallDist), Quaternion.LookRotation(Quaternion.AngleAxis(25f, Vector3.up) * wallDir));
+                    rb.linearVelocity = car.transform.forward * 14f; rb.angularVelocity = Vector3.zero;
+                    CarInput.TouchThrottle = 1f; CarInput.TouchSteer = 0.6f;
+                    yield return new WaitForSeconds(2.0f);
+                    CarInput.TouchThrottle = 0f; CarInput.TouchSteer = 0f;
+                    Debug.Log($"[StressTest] pass {pass}: after hitting wall pos {car.transform.position} up {Vector3.Dot(car.transform.up, Vector3.up):F2} grounded {car.GroundedCount} gear {car.Gear} speed {car.SpeedKmh:F1}");
+                    Vector3 hitPos = car.transform.position;
+                    CarInput.TouchBrake = 1f;   // automatic gearbox: holding the brake when stopped engages reverse
+                    yield return new WaitForSeconds(3.0f);
+                    CarInput.TouchBrake = 0f;
+                    float back = Vector3.Distance(hitPos, car.transform.position);
+                    Debug.Log($"[StressTest] pass {pass} ({(pass == 0 ? "guard off" : "guard on")}): reversed {back:F1} m, gear {car.Gear}, grounded {car.GroundedCount} -> {(back > 2f ? "PASS" : "STUCK")}");
+                }
+                if (guard != null) guard.enabled = true;
+            }
+
             // Night, if the world supports it.
             if (PreviewHooks.SetNight != null)
             {
