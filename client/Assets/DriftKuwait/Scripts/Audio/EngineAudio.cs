@@ -10,11 +10,8 @@ namespace DriftKuwait
     [RequireComponent(typeof(DriftCarController))]
     public class EngineAudio : MonoBehaviour
     {
-        // A screaming high-revving straight-six with a straight-through exhaust, matched to a real Kuwaiti street-stunt
-        // recording (dominant firing note 300-400 Hz at full noise). The rpm of each loop is measured from its firing
-        // frequency (straight-six: rpm / 20), so the pitch tracks the tacho.
-        static readonly string[] ClipKeys = { "street6_idle", "street6_2500", "street6_4500", "street6_8000" };
-        static readonly float[] ClipRpm = { 1100f, 2580f, 4140f, 7460f };
+        static readonly string[] ClipKeys = { "shaheen_idle", "shaheen_2000", "shaheen_4000", "shaheen_6000" };
+        static readonly float[] ClipRpm = { 900f, 2000f, 4000f, 6000f };
 
         DriftCarController car;
         AudioSource[] layers;
@@ -94,7 +91,7 @@ namespace DriftKuwait
                 float wgt = rpm < c ? Mathf.InverseLerp(lo, c, rpm) : 1f - Mathf.InverseLerp(c, hi, rpm);
                 if (i == 0 && rpm < c) wgt = 1f;
                 if (i == layers.Length - 1 && rpm > c) wgt = 1f;
-                layers[i].volume = Mathf.Clamp01(wgt) * Mathf.Lerp(0.55f, 1f, car.ThrottleInput) * (car.LimiterCut ? 0.35f : 1f);
+                layers[i].volume = Mathf.Clamp01(wgt) * Mathf.Lerp(0.72f, 1f, car.ThrottleInput) * (car.LimiterCut ? 0.4f : 1f);   // louder off-throttle burble too
                 layers[i].pitch = Mathf.Clamp(rpm / c, 0.6f, 1.6f);
             }
         }

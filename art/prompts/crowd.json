@@ -1,0 +1,15 @@
+{
+ "version": 1,
+ "batch": "crowd",
+ "style_header": "Photorealistic full-body photograph of one person standing, the whole body from head to feet in frame with a little space around, isolated on a perfectly flat pure chroma-key green background (#00FF00) with no shadow on the background, even soft daylight, sharp focus. Kuwait, 1987.",
+ "must_not": ["any text, letters, logos or watermarks", "green clothing", "smartphones", "mobile phones", "modern objects", "women", "weapons", "other people", "ground or floor visible"],
+ "defaults": {"model": "gpt-image-2", "size": "1024x1536", "quality": "medium", "background": "opaque", "output_format": "png", "n": 1},
+ "items": [
+  {"asset_id": "crowd_a", "prompt": "A young Kuwaiti Bedouin man in a white dishdasha and a red-and-white checked shemagh headscarf, cheering with both arms raised high above his head, mouth open shouting, excited."},
+  {"asset_id": "crowd_b", "prompt": "A young Kuwaiti man in a white dishdasha and white ghutra with black agal, holding a big 1980s shoulder VHS camcorder to his eye, filming toward the left."},
+  {"asset_id": "crowd_c", "prompt": "A Kuwaiti teenager in a white dishdasha with no headscarf, whistling with two fingers in his mouth, the other hand pumping a fist, excited."},
+  {"asset_id": "crowd_d", "prompt": "A young Kuwaiti Bedouin man in a beige dishdasha and a red-and-white shemagh wrapped loosely, holding a 1980s compact film camera with the flash, taking a photo, slightly turned to the side."},
+  {"asset_id": "crowd_e", "prompt": "A young Kuwaiti man in a white dishdasha and white ghutra thrown back over his shoulders, clapping his hands above his head and laughing."},
+  {"asset_id": "crowd_f", "prompt": "A young Kuwaiti man in a light grey dishdasha and a red-and-white shemagh, pointing excitedly with one arm outstretched and shouting, the other hand on his head in disbelief."}
+ ]
+}

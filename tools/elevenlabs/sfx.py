@@ -2,6 +2,9 @@
 import os, sys, json, requests, datetime
 OUT = os.path.join(os.path.dirname(__file__), "../../client/Assets/DriftKuwait/Resources/DriftKuwait/Audio")
 FX = {
+    "crowd_drift_loop": ("A crowd of young Arab men gathered on a street at a car drift meet in Kuwait, excited murmuring, whistles, clapping and Arabic shouting, continuous loop, outdoors, no music", 6.0),
+    "crowd_cheer_big": ("A crowd of young Arab men erupting in a huge cheer at a street drift show, loud whistles, clapping, ululating shouts of excitement in Arabic, outdoors", 4.0),
+    "crowd_whistle": ("A few young men whistling loudly with fingers and shouting in excitement at a passing drifting car, outdoors", 2.5),
     # Street engine matched to a real Kuwaiti street-stunt recording: a screaming high-revving straight-six, raw straight-through exhaust
     "street6_idle": ("Steady idle loop of a tuned 1980s straight-six car engine with a lumpy race camshaft and a loud straight-through exhaust, deep burble, no revving, no tyres, no music, close microphone", 4.0),
     "street6_2500": ("Steady constant loop of a tuned 1980s straight-six engine held at 2500 rpm under load, raspy loud straight-through exhaust, constant pitch, no gear changes, no tyres, no music", 4.0),
