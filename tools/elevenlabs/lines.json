@@ -64,6 +64,14 @@
    "owner": "584c0cf170af365d9732b4c08e181fea7a06f3e8330e7516ae72f71ad215a49a",
    "stability": 0.5,
    "style": 0.25
+  },
+  "bedouin_narrator": {
+   "name": "AD Bedouin Narrator",
+   "voice_id": "8aBg7Q1yOR9rl9MxDlwc",
+   "owner": null,
+   "designed": true,
+   "stability": 0.5,
+   "style": 0.3
   }
  },
  "lines": [
@@ -304,27 +312,27 @@
   },
   {
    "key": "hs_01",
-   "who": "abu_saqr",
+   "who": "bedouin_narrator",
    "text": "إي والله يا وليدي... سنة خمسة وستين، أبوك الله يرحمه فتح هالكراج بسلوى. وأنا كنت صبي عنده، أناوله المفاتيح وأمسح عن يدينه الشحم."
   },
   {
    "key": "hs_02",
-   "who": "abu_saqr",
+   "who": "bedouin_narrator",
    "text": "وبالثمانينات، صارت العيال تقحّص بالشوارع ليل ونهار... وكل سيارة زينة بالديرة، دشّت هني، وسنّعها أبوك من الصفر."
   },
   {
    "key": "hs_03",
-   "who": "abu_saqr",
+   "who": "bedouin_narrator",
    "text": "وانت وهيفي... چنتوا ياهل، تلعبون بين هالسياير وتتسابقون على الكبابيت. خوي وخويه، ما تتفارقون."
   },
   {
    "key": "hs_04",
-   "who": "abu_saqr",
+   "who": "bedouin_narrator",
    "text": "وعمّك بو شبيب، ماسك الدفاتر والحسابات... ويوم طاح أبوك مريض، الدين كبر واجد... واجد."
   },
   {
    "key": "hs_05",
-   "who": "abu_saqr",
+   "who": "bedouin_narrator",
    "text": "وجانا مثيب، بفلوسه ومخططاته، يبي الأرض اللي عليها الكراج... والحين يا وليدي، رجعت انت. وحنا معاك."
   }
  ]
