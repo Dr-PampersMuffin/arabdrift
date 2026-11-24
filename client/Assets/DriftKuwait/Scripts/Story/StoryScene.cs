@@ -10,14 +10,15 @@ namespace DriftKuwait
     {
         public struct Beat
         {
-            public string panel, voice, speaker;
-            public Beat(string panel, string voice, string speaker) { this.panel = panel; this.voice = voice; this.speaker = speaker; }
+            public string panel, voice, speaker, caption;   // caption: who is in the picture (name plate, top right)
+            public Beat(string panel, string voice, string speaker, string caption = null) { this.panel = panel; this.voice = voice; this.speaker = speaker; this.caption = caption; }
         }
 
         Beat[] beats;
         System.Action done;
         RawImage img;
-        Text who, line;
+        Text who, line, cap;
+        GameObject capPlate;
         int index = -1;
         float beatTime, beatLen;
         bool tapped;
@@ -53,6 +54,15 @@ namespace DriftKuwait
             UIKit.Place(line.rectTransform, new Vector2(1f, 0f), new Vector2(-60f, 22f), new Vector2(1900f, 110f));
             UIKit.AddShadow(line, 2f, 0.7f);
 
+            // Name plate: who is in the picture
+            var cp = UIKit.Panel(safe, "Caption", new Color(0.02f, 0.03f, 0.06f, 0.8f), "hud/panel_sharp");
+            UIKit.Place(cp.rectTransform, new Vector2(1f, 1f), new Vector2(-40f, -30f), new Vector2(900f, 84f));
+            UIKit.Stripe(cp.transform, new Vector2(1f, 0f), new Vector2(-20f, 8f), 160f, 4f, true);
+            cap = UIKit.Label(cp.transform, "T", "", 40, UIKit.Gold, TextAnchor.MiddleRight, UIKit.Black);
+            UIKit.Place(cap.rectTransform, new Vector2(1f, 0.5f), new Vector2(-24f, 4f), new Vector2(860f, 64f));
+            cap.resizeTextForBestFit = true; cap.resizeTextMinSize = 24; cap.resizeTextMaxSize = 40;
+            capPlate = cp.gameObject;
+
             var skip = UIKit.Button(safe, "Skip", UIKit.Ink, Finish, "hud/pill");
             UIKit.Place((RectTransform)skip.transform, new Vector2(0f, 1f), new Vector2(40f, -30f), new Vector2(170f, 64f));
             var st = UIKit.Label(skip.transform, "T", "تخطّي", 28, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
@@ -67,6 +77,8 @@ namespace DriftKuwait
                 img.texture = Resources.Load<Texture2D>("DriftKuwait/Story/" + b.panel);
                 img.rectTransform.localScale = Vector3.one;
                 who.text = UIKit.Ar(b.speaker);
+                capPlate.SetActive(!string.IsNullOrEmpty(b.caption));
+                cap.text = string.IsNullOrEmpty(b.caption) ? "" : UIKit.Ar(b.caption);
                 line.text = UIKit.ArWrap(Sfx.Line(b.voice, ""), 70);
                 beatLen = PreviewHooks.Active ? 600f : Mathf.Max(3f, Sfx.Voice(b.voice, 1f) + 0.8f);
                 beatTime = 0f; tapped = false;

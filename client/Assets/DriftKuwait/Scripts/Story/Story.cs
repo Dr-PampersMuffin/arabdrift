@@ -95,11 +95,11 @@ namespace DriftKuwait
         /// حكايتنا: the garage's history in five slides, narrated by بو نبيل (1965 to the day you come back).
         public static StoryScene.Beat[] History => new[]
         {
-            new StoryScene.Beat("story_hist_founding", "hs_01", "بو نبيل"),
-            new StoryScene.Beat("story_hist_taghees", "hs_02", "بو نبيل"),
-            new StoryScene.Beat("story_hist_boys", "hs_03", "بو نبيل"),
-            new StoryScene.Beat("story_hist_uncle", "hs_04", "بو نبيل"),
-            new StoryScene.Beat("story_hist_mutheeb", "hs_05", "بو نبيل"),
+            new StoryScene.Beat("story_hist_founding", "hs_01", "بو نبيل", "١٩٦٥ · أبوك .. وبو نبيل صبي الكراج"),
+            new StoryScene.Beat("story_hist_taghees", "hs_02", "بو نبيل", "الثمانينات · تقحيص سلوى"),
+            new StoryScene.Beat("story_hist_boys", "hs_03", "بو نبيل", "انت .. وهيفي أبو النظارة"),
+            new StoryScene.Beat("story_hist_uncle", "hs_04", "بو نبيل", "بو شبيب .. وأبوك"),
+            new StoryScene.Beat("story_hist_mutheeb", "hs_05", "بو نبيل", "مثيب"),
         };
 
         /// Replay from the title: the history, then every story scene of the chapters reached so far.
