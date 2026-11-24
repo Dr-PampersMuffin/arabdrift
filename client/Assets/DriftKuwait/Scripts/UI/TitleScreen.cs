@@ -48,7 +48,7 @@ namespace DriftKuwait
 
             // Main menu (right column)
             var col = UIKit.Rect(safe, "Menu");
-            UIKit.Place(col, new Vector2(1f, 0.5f), new Vector2(-60f, 40f), new Vector2(500f, 640f));
+            UIKit.Place(col, new Vector2(1f, 0.5f), new Vector2(-60f, 80f), new Vector2(520f, 640f));   // sits above the goal card
             (string ar, string en, string icon, bool primary, System.Action act)[] items =
             {
                 ("ابدأ اللعبة", "PLAY", "flag", true, () => flow.Play()),
@@ -61,7 +61,7 @@ namespace DriftKuwait
             {
                 var it = items[i];
                 var b = UIKit.MenuButton(col, it.ar, it.en, it.icon, it.primary, it.act);
-                UIKit.Place((RectTransform)b.transform, new Vector2(0.5f, 1f), new Vector2(0f, -i * 128f), new Vector2(500f, 112f));
+                UIKit.Place((RectTransform)b.transform, new Vector2(0.5f, 1f), new Vector2(0f, -i * 118f), new Vector2(520f, 106f));
             }
 
             // District cards (bottom-left)
@@ -84,8 +84,8 @@ namespace DriftKuwait
                 pic.gameObject.AddComponent<RectMask2D>();
                 var img = UIKit.Cover(pic, "Pic", Resources.Load<Texture2D>("DriftKuwait/UI/district_" + d.id));
                 if (!d.open) img.color = new Color(0.55f, 0.55f, 0.55f);
-                var n1 = UIKit.Label(crt, "Ar", d.ar, 38, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
-                UIKit.Place(n1.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 38f), new Vector2(290f, 46f));
+                var n1 = UIKit.Label(crt, "Ar", d.ar, 46, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
+                UIKit.Place(n1.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 34f), new Vector2(290f, 56f));
                 var n2 = UIKit.Label(crt, "En", d.en, 15, new Color(1, 1, 1, 0.7f), TextAnchor.MiddleCenter, UIKit.Digital, false);
                 UIKit.Place(n2.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 10f), new Vector2(290f, 24f));
                 if (d.open)
@@ -98,7 +98,7 @@ namespace DriftKuwait
                 {
                     var lk = UIKit.Img(crt, "Lock", UIKit.S("hud/ic_lock"), new Color(1, 1, 1, 0.9f));
                     UIKit.Place(lk.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -60f), new Vector2(54f, 54f));
-                    var soon = UIKit.Label(crt, "Soon", "قريباً", 28, UIKit.Gold, TextAnchor.MiddleCenter, UIKit.Black);
+                    var soon = UIKit.Label(crt, "Soon", "قريباً", 34, UIKit.Gold, TextAnchor.MiddleCenter, UIKit.Black);
                     UIKit.Place(soon.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -122f), new Vector2(200f, 40f));
                 }
             }
@@ -108,17 +108,17 @@ namespace DriftKuwait
             {
                 var g = Story.Next();
                 var dc = UIKit.Panel(safe, "Debt", UIKit.Ink, "hud/panel_sharp");
-                UIKit.Place(dc.rectTransform, new Vector2(1f, 0f), new Vector2(-40f, 40f), new Vector2(560f, 230f));
+                UIKit.Place(dc.rectTransform, new Vector2(1f, 0f), new Vector2(-40f, 40f), new Vector2(600f, 262f));
                 UIKit.Outline(dc.transform, new Color(0.97f, 0.93f, 0.85f, 0.22f), "hud/panel_sharp_outline");
                 UIKit.Stripe(dc.transform, new Vector2(1f, 1f), new Vector2(-24f, -14f), 160f, 4f, true);
                 string chapter = Story.Chapter == 1 ? "الفصل الأول: العودة" : Story.Chapter == 2 ? "الفصل الثاني: الكراج" : "الكراج حلالك";
-                var ch = UIKit.Label(dc.transform, "Ch", chapter, 22, new Color(1, 1, 1, 0.6f), TextAnchor.MiddleRight, UIKit.Arabic);
-                UIKit.Place(ch.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -24f), new Vector2(510f, 30f));
-                var dt = UIKit.Label(dc.transform, "T", g.title, 38, UIKit.Gold, TextAnchor.MiddleRight, UIKit.Display);
-                UIKit.Place(dt.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -54f), new Vector2(510f, 52f));
-                var ds = UIKit.Label(dc.transform, "S", g.sub, 28, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Black);
-                ds.resizeTextForBestFit = true; ds.resizeTextMinSize = 18; ds.resizeTextMaxSize = 28;
-                UIKit.Place(ds.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -108f), new Vector2(510f, 44f));
+                var ch = UIKit.Label(dc.transform, "Ch", chapter, 28, new Color(1, 1, 1, 0.7f), TextAnchor.MiddleRight, UIKit.Arabic);
+                UIKit.Place(ch.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -22f), new Vector2(550f, 38f));
+                var dt = UIKit.Label(dc.transform, "T", g.title, 46, UIKit.Gold, TextAnchor.MiddleRight, UIKit.Display);
+                UIKit.Place(dt.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -58f), new Vector2(550f, 62f));
+                var ds = UIKit.Label(dc.transform, "S", g.sub, 36, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Black);
+                ds.resizeTextForBestFit = true; ds.resizeTextMinSize = 24; ds.resizeTextMaxSize = 36;
+                UIKit.Place(ds.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -122f), new Vector2(550f, 54f));
                 // one pip per level
                 for (int i = 0; i < g.steps; i++)
                 {
@@ -132,7 +132,7 @@ namespace DriftKuwait
                     var go = UIKit.Button(dc.transform, "Pay", play || g.ready ? UIKit.Gold : new Color(0.3f, 0.3f, 0.32f, 0.95f),
                         () => { if (play) flow.StartEvent(g.ev); else flow.PayDebt(); }, "hud/panel_sharp");
                     UIKit.Place((RectTransform)go.transform, new Vector2(0f, 0f), new Vector2(20f, 20f), new Vector2(160f, 74f));
-                    var pt = UIKit.Label(go.transform, "T", play ? "يلا" : "سدّد", 34, UIKit.Navy, TextAnchor.MiddleCenter, UIKit.Black);
+                    var pt = UIKit.Label(go.transform, "T", play ? "يلا" : "سدّد", 42, UIKit.Navy, TextAnchor.MiddleCenter, UIKit.Black);
                     UIKit.Stretch(pt.rectTransform);
                 }
             }
@@ -159,7 +159,7 @@ namespace DriftKuwait
             UIKit.Place(pic.rectTransform, new Vector2(1f, 0.5f), new Vector2(-14f, 0f), new Vector2(48f, 48f));
             string who = GameCenter.PlayerName ?? "ضيف";
             if (who.Length > 16) who = who.Substring(0, 15) + "…";
-            var nm = UIKit.Label(prof.transform, "Name", who, 30, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
+            var nm = UIKit.Label(prof.transform, "Name", who, 34, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Place(nm.rectTransform, new Vector2(0f, 0.5f), new Vector2(18f, 2f), new Vector2(214f, 60f));
             nm.resizeTextForBestFit = true; nm.resizeTextMinSize = 16; nm.resizeTextMaxSize = 30; nm.horizontalOverflow = HorizontalWrapMode.Wrap;
             x -= 316f;

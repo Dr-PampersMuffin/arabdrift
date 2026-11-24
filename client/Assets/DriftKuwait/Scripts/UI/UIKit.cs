@@ -302,10 +302,10 @@ namespace DriftKuwait
             Color fg = primary ? Navy : Cream;
             var ic = Img(tr, "Icon", S("hud/ic_" + icon), fg);
             Place(ic.rectTransform, new Vector2(1f, 0.5f), new Vector2(-46f, 0f), new Vector2(60f, 60f));
-            var t1 = Label(tr, "Ar", ar, 50, fg, TextAnchor.MiddleCenter, Black);
-            Place(t1.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(10f, 14f), new Vector2(360f, 70f));
+            var t1 = Label(tr, "Ar", ar, 60, fg, TextAnchor.MiddleCenter, Black);
+            Place(t1.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(10f, 12f), new Vector2(380f, 82f));
             var t2 = Label(tr, "En", en.ToUpperInvariant(), 18, new Color(fg.r, fg.g, fg.b, 0.75f), TextAnchor.MiddleCenter, Digital, false);
-            Place(t2.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(10f, -30f), new Vector2(360f, 30f));
+            Place(t2.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(10f, -36f), new Vector2(380f, 26f));
             var ch = Img(tr, "Chevron", S("hud/ic_chev_l"), fg);
             Place(ch.rectTransform, new Vector2(0f, 0.5f), new Vector2(26f, 0f), new Vector2(46f, 46f));
             return b;
