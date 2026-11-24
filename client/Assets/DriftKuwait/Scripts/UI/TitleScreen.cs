@@ -21,14 +21,14 @@ namespace DriftKuwait
             ts.bg.GetComponent<CoverFit>().focus = new Vector2(0.35f, 0.5f);
 
             // Shade the left (logo) and right (menu) edges so text reads over the photo.
-            var shadeL = UIKit.Img(root, "ShadeL", UIKit.S("hud/grad_h"), new Color(1, 1, 1, 0.75f));
+            var shadeL = UIKit.Img(root, "ShadeL", UIKit.S("hud/grad_h"), new Color(1, 1, 1, 0.32f));
             shadeL.rectTransform.anchorMin = new Vector2(0f, 0f); shadeL.rectTransform.anchorMax = new Vector2(0.45f, 1f);
             shadeL.rectTransform.offsetMin = shadeL.rectTransform.offsetMax = Vector2.zero;
             shadeL.rectTransform.localScale = new Vector3(-1f, 1f, 1f);
-            var shadeR = UIKit.Img(root, "ShadeR", UIKit.S("hud/grad_h"), new Color(1, 1, 1, 0.85f));
+            var shadeR = UIKit.Img(root, "ShadeR", UIKit.S("hud/grad_h"), new Color(1, 1, 1, 0.62f));
             shadeR.rectTransform.anchorMin = new Vector2(0.62f, 0f); shadeR.rectTransform.anchorMax = new Vector2(1f, 1f);
             shadeR.rectTransform.offsetMin = shadeR.rectTransform.offsetMax = Vector2.zero;
-            var shadeB = UIKit.Img(root, "ShadeB", UIKit.S("hud/grad_v"), new Color(1, 1, 1, 0.8f));
+            var shadeB = UIKit.Img(root, "ShadeB", UIKit.S("hud/grad_v"), new Color(1, 1, 1, 0.5f));
             shadeB.rectTransform.anchorMin = new Vector2(0f, 0f); shadeB.rectTransform.anchorMax = new Vector2(1f, 0.38f);
             shadeB.rectTransform.offsetMin = shadeB.rectTransform.offsetMax = Vector2.zero;
             shadeB.rectTransform.localScale = new Vector3(1f, -1f, 1f);

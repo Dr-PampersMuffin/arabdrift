@@ -124,7 +124,7 @@ namespace DriftKuwait
         {
             var k = new MeshKit();
             k.Box(new Vector3(0f, -0.1f, 0f), new Vector3(2400f, 0.2f, 2400f));
-            var go = k.ToObject("Sand", root, Mat.Textured("M_Sand", TextureKit.Sand, Color.white, 0.12f, new Vector2(0.1f, 0.1f)));
+            var go = k.ToObject("Sand", root, Mat.Textured("M_Sand", TextureKit.Sand, new Color(0.86f, 0.82f, 0.76f), 0.08f, new Vector2(0.1f, 0.1f)));
             go.AddComponent<BoxCollider>();
             go.AddComponent<SurfaceType>().grip = 0.6f;
             go.GetComponent<SurfaceType>().id = "sand";
@@ -945,7 +945,7 @@ namespace DriftKuwait
             dateKit.ToObject("Dates", root, Mat.Paint("M_Dates", new Color(0.55f, 0.30f, 0.08f), 0.3f));
             acKit.ToObject("WindowACs", village, Mat.Paint("M_AC", new Color(0.82f, 0.80f, 0.74f), 0.4f, 0.3f));
             tankKit.ToObject("WaterTanks", village, Mat.Paint("M_Tank", new Color(0.90f, 0.88f, 0.80f), 0.35f));
-            pavingKit.ToObject("Pavements", root, Mat.Textured("M_Paving", TextureKit.Paving, Color.white, 0.2f, new Vector2(0.6f, 0.6f)));
+            pavingKit.ToObject("Pavements", root, Mat.Textured("M_Paving", TextureKit.Paving, new Color(0.8f, 0.79f, 0.77f), 0.12f, new Vector2(0.6f, 0.6f)));
             kerbYellow.ToObject("Kerb_Yellow", root, Mat.Paint("M_KerbY", new Color(0.95f, 0.75f, 0.10f), 0.35f));
             kerbBlack.ToObject("Kerb_Black", root, Mat.Paint("M_KerbB", new Color(0.06f, 0.06f, 0.06f), 0.35f));
             paintKit.ToObject("RoadPaint", root, Mat.Paint("M_RoadPaint", new Color(0.92f, 0.92f, 0.88f), 0.45f));
