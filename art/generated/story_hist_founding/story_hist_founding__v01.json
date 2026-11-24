@@ -1,0 +1,31 @@
+{
+ "asset_id": "story_hist_founding",
+ "version": 1,
+ "spec": "art/prompts/story_history.json",
+ "prompt": "Cinematic illustrated story panel for a premium mobile racing game, painterly realism like a high-end graphic novel, nostalgic faded film-photograph colours, film grain, soft vignette. Kuwait, Salwa district. Same characters throughout.\n\n1965, bright day: a proud Kuwaiti man in his thirties with a black moustache, white dishdasha and ghutra, stands with arms folded in front of his brand-new small car workshop with a freshly painted sign board (no readable letters) and an open roller door, a 1960s American sedan inside. Beside him a skinny Kuwaiti teenage apprentice in a work dishdasha holds a big spanner and grins. Dusty sand street, young palm saplings, faded 1960s photo colours.\n\nDo not include: any text, letters, numbers, logos or watermarks; women; weapons; modern objects; real car brand logos.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 191,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 191
+  },
+  "output_tokens": 1372,
+  "output_tokens_details": {
+   "image_tokens": 1372,
+   "text_tokens": 0
+  },
+  "total_tokens": 1563
+ },
+ "seconds": 27.3,
+ "created": "2026-11-24T09:24:43+0300",
+ "qa_status": "in_review"
+}

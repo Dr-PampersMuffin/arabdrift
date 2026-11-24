@@ -1,0 +1,19 @@
+{
+ "version": 1,
+ "batch": "story_history",
+ "style_header": "Cinematic illustrated story panel for a premium mobile racing game, painterly realism like a high-end graphic novel, nostalgic faded film-photograph colours, film grain, soft vignette. Kuwait, Salwa district. Same characters throughout.",
+ "must_not": ["any text, letters, numbers, logos or watermarks", "women", "weapons", "modern objects", "real car brand logos"],
+ "defaults": {"model": "gpt-image-2", "size": "1536x1024", "quality": "medium", "background": "opaque", "output_format": "png", "n": 1},
+ "items": [
+  {"asset_id": "story_hist_founding",
+   "prompt": "1965, bright day: a proud Kuwaiti man in his thirties with a black moustache, white dishdasha and ghutra, stands with arms folded in front of his brand-new small car workshop with a freshly painted sign board (no readable letters) and an open roller door, a 1960s American sedan inside. Beside him a skinny Kuwaiti teenage apprentice in a work dishdasha holds a big spanner and grins. Dusty sand street, young palm saplings, faded 1960s photo colours."},
+  {"asset_id": "story_hist_taghees",
+   "prompt": "Night in Salwa in the early 1980s: a crowd of young Kuwaiti men in dishdashas stands along a wide street lit by orange street lamps, cheering as a 1980s coupe drifts sideways past them in a huge cloud of white tyre smoke, other 1980s cars parked with headlights on. Energy, excitement, motion blur, nostalgic film look."},
+  {"asset_id": "story_hist_boys",
+   "prompt": "Inside the old car workshop on a sunny afternoon in the 1970s: two Kuwaiti boys about ten years old in small dishdashas sit side by side on the bonnet of a parked 1970s car laughing together, one boy with a cheeky grin wears oversized aviator sunglasses; behind them the workshop owner and his young grey-free mechanic work on an engine. Warm sunbeams through the roller door, tools on pegboards, nostalgic faded colours."},
+  {"asset_id": "story_hist_uncle",
+   "prompt": "Late 1970s, evening inside a small cluttered workshop office: a heavyset Kuwaiti man in his forties with a dark moustache, dishdasha and ghutra writes in a thick ledger book at a wooden desk with a worried face, a stack of unpaid bills and a rotary telephone beside him; in the doorway behind, an older tired-looking workshop owner leans on the frame coughing into a handkerchief. Desk lamp light, melancholic mood, faded film colours."},
+  {"asset_id": "story_hist_mutheeb",
+   "prompt": "Mid 1980s, a confident Kuwaiti businessman in his forties in a crisp white dishdasha with a dark bisht and gold watch stands in the sandy lot next to the old car workshop, unrolling large architectural blueprints of modern towers on the bonnet of his shiny black 1980s Mercedes-style sedan, two assistants beside him; the small old workshop looks fragile in the background. Harsh noon sun, ominous framing from a low angle."}
+ ]
+}
