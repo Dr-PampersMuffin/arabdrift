@@ -29,6 +29,7 @@ namespace DriftKuwait
         // Repair jobs (delivery)
         float condition = 100f;
         GameObject dropBeacon;
+        Transform dropArrow;
 
         void Start()
         {
@@ -38,7 +39,10 @@ namespace DriftKuwait
             car.OnImpact += (imp, _) => { if (running && imp > 3000f) hits++; };
             if (ev.kind == Career.Kind.Delivery)
             {
-                dropBeacon = FreeRoam.MakeBeacon("DK_DropOff", ev.dest, TyreFX.ParticleMaterial("DK_DropMat", Texture2D.whiteTexture, new Color(0.35f, 1f, 0.55f, 0.4f)));
+                // A tall, solid green column at the customer (seen over the rooftops in bright daylight) and a green arrow over the car
+                dropBeacon = FreeRoam.MakeBeacon("DK_DropOff", ev.dest, TyreFX.ParticleMaterial("DK_DropMat", Texture2D.whiteTexture, new Color(0.2f, 1f, 0.35f, 0.9f)));
+                dropBeacon.transform.localScale = new Vector3(1.4f, 4f, 1.4f);
+                dropArrow = FreeRoam.MakeGuideArrow(new Color(0.25f, 1f, 0.4f, 0.95f), "DK_DropArrowMat");
                 car.OnImpact += (imp, _) =>
                 {
                     if (!running || imp < 1500f) return;
@@ -123,6 +127,13 @@ namespace DriftKuwait
                 int sl = Mathf.Max(0, Mathf.CeilToInt(timeLeft));
                 hud.JudgedValue = -1;
                 hud.MissionTime = (sl / 60) + ":" + (sl % 60).ToString("00") + "     " + UIKit.Ar("الحالة ") + UIKit.Num((long)Mathf.Round(condition)) + "٪     " + UIKit.Num((long)dist) + UIKit.Ar(" م");
+                if (dropArrow != null)
+                {
+                    Vector3 to = ev.dest - car.transform.position; to.y = 0f;
+                    dropArrow.gameObject.SetActive(dist > 12f);
+                    dropArrow.position = car.transform.position + Vector3.up * (2.6f + Mathf.Sin(Time.time * 3f) * 0.12f);
+                    if (to.sqrMagnitude > 0.01f) dropArrow.rotation = Quaternion.Slerp(dropArrow.rotation, Quaternion.LookRotation(to.normalized), 1f - Mathf.Exp(-8f * Time.deltaTime));
+                }
                 if (dist < 9f && car.SpeedKmh < 50f) { Finish((long)Mathf.Max(1f, Mathf.Round(condition))); return; }
                 if (timeLeft <= 0f) Finish(0);
                 return;
@@ -261,6 +272,7 @@ namespace DriftKuwait
         {
             if (zoneRing != null) Destroy(zoneRing);
             if (dropBeacon != null) Destroy(dropBeacon);
+            if (dropArrow != null) Destroy(dropArrow.gameObject);
             foreach (var r in rivals) if (r != null) Destroy(r.gameObject);
         }
 

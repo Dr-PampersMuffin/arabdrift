@@ -53,15 +53,15 @@ namespace DriftKuwait
             // Chapter 2, the workshop's own work: deliver repaired customer cars across Salwa, on time and without a scratch.
             // Result = the car's condition in % on arrival (0 = late). Stars at 60 / 80 / 95 %.
             new EventDef { id = "salwa_job_taxi", district = "salwa", kind = Kind.Delivery, chapter = 2, titleAr = "تاكسي بو فهد", clientAr = "بو فهد",
-                goalAr = "وصّل التاكسي لبو فهد .. ينتظرك عند العلامة الخضرا", howAr = "بو فهد ينطر سيارته. لا تصدم ولا تتأخر... الزبون يبي سيارته مثل ما سلّمها.",
+                goalAr = "وصّل التاكسي لبو فهد .. اتبع السهم الأخضر للعمود الأخضر", howAr = "بو فهد ينطر سيارته. لا تصدم ولا تتأخر... الزبون يبي سيارته مثل ما سلّمها.",
                 seconds = 60f, stars = new long[] { 60, 80, 95 }, cash = 5000, rep = 50, carId = "tr_taxi",
                 spawn = new Vector3(-95f, 0.6f, -120f), yaw = 0f, dest = new Vector3(90f, 0f, 160f), mapPos = new Vector2(0.5f, 0.68f) },
             new EventDef { id = "salwa_job_pickup", district = "salwa", kind = Kind.Delivery, chapter = 2, titleAr = "ونيت أبو صالح", clientAr = "أبو صالح",
-                goalAr = "رجّع الونيت لأبو صالح .. العلامة الخضرا", howAr = "الونيت ثگيل ومحمّل. خفّف عند الدوّارات... وصّله گبل لا يسكّر المحل.",
+                goalAr = "رجّع الونيت لأبو صالح .. اتبع السهم الأخضر", howAr = "الونيت ثگيل ومحمّل. خفّف عند الدوّارات... وصّله گبل لا يسكّر المحل.",
                 seconds = 80f, stars = new long[] { 60, 80, 95 }, cash = 6500, rep = 60, carId = "tr_pickup",
                 spawn = new Vector3(90f, 0.6f, 40f), yaw = 180f, dest = new Vector3(-190f, 0f, -160f), mapPos = new Vector2(0.5f, 0.1f) },
             new EventDef { id = "salwa_job_sedan", district = "salwa", kind = Kind.Delivery, chapter = 2, titleAr = "سيارة الشيخ", clientAr = "الشيخ",
-                goalAr = "وصّل سيارة الشيخ للعلامة الخضرا .. ولا خدش واحد", howAr = "هذي أغلى سيّارة دخلت الكراج. لو وصلت سليمة، اسمنا يكبر بالديرة.",
+                goalAr = "وصّل سيارة الشيخ .. اتبع السهم الأخضر، ولا خدش واحد", howAr = "هذي أغلى سيّارة دخلت الكراج. لو وصلت سليمة، اسمنا يكبر بالديرة.",
                 seconds = 110f, stars = new long[] { 70, 88, 97 }, cash = 9000, rep = 90, carId = "tr_sedan_big", needStars = 2,
                 spawn = new Vector3(180f, 0.6f, -200f), yaw = 0f, dest = new Vector3(-95f, 0f, 242f), mapPos = new Vector2(0.18f, 0.78f) },
         };
