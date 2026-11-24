@@ -432,6 +432,7 @@ namespace DriftKuwait
         }
 
         public static void StopVoice() { if (voice != null) voice.Stop(); }
+        public static bool VoicePlaying => voice != null && voice.isPlaying;
 
         public static void Music(string key, float fade = 1.5f)
         {
@@ -463,6 +464,8 @@ namespace DriftKuwait
             if (to == null) return;
             t += Time.unscaledDeltaTime;
             float k = Mathf.Clamp01(t / dur);
+            // Duck the music under any voice line so the narrator is always clear, then bring it back gently
+            Sfx.MusicDuck = Mathf.MoveTowards(Sfx.MusicDuck, Sfx.VoicePlaying ? 0.22f : 1f, Time.unscaledDeltaTime * (Sfx.VoicePlaying ? 4f : 0.8f));
             float target = Sfx.MusicVolume * Sfx.MusicDuck;
             if (from != null && from != to) { from.volume = (1f - k) * target; if (k >= 1f) from.Stop(); }
             to.volume = k * target;

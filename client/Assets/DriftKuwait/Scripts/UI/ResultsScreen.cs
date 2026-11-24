@@ -27,8 +27,9 @@ namespace DriftKuwait
             UIKit.Place(v.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -116f), new Vector2(1200f, 56f));
             if (!string.IsNullOrEmpty(why))
             {
-                var w = UIKit.Label(tr, "Why", why, 28, new Color(1f, 1f, 1f, 0.8f), TextAnchor.MiddleCenter, UIKit.Arabic);
-                UIKit.Place(w.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -174f), new Vector2(1360f, 40f));
+                var w = UIKit.Label(tr, "Why", why, 34, new Color(1f, 1f, 1f, 0.88f), TextAnchor.MiddleCenter, UIKit.Arabic);
+                UIKit.Place(w.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -172f), new Vector2(1360f, 48f));
+                w.resizeTextForBestFit = true; w.resizeTextMinSize = 22; w.resizeTextMaxSize = 34;
             }
 
             // Stars
@@ -63,8 +64,8 @@ namespace DriftKuwait
                     ? $"النجوم: أقل من {UIKit.Num(ev.stars[0])} · {UIKit.Num(ev.stars[1])} · {UIKit.Num(ev.stars[2])} ثانية"
                     : ev.kind == Career.Kind.Delivery ? $"النجوم: حالة السيارة {UIKit.Num(ev.stars[0])}٪ · {UIKit.Num(ev.stars[1])}٪ · {UIKit.Num(ev.stars[2])}٪"
                     : $"النجوم: {UIKit.Num(ev.stars[0])} · {UIKit.Num(ev.stars[1])} · {UIKit.Num(ev.stars[2])}";
-                var tg = UIKit.Label(tr, "Targets", targets, 30, new Color(1, 1, 1, 0.6f), TextAnchor.MiddleCenter, UIKit.Arabic);
-                UIKit.Place(tg.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 170f), new Vector2(1300f, 44f));
+                var tg = UIKit.Label(tr, "Targets", targets, 34, new Color(1, 1, 1, 0.7f), TextAnchor.MiddleCenter, UIKit.Arabic);
+                UIKit.Place(tg.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 166f), new Vector2(1300f, 48f));
             }
 
             Btn(tr, "إعادة", new Vector2(1f, 0f), new Vector2(-60f, 40f), true, () => { Destroy(c.gameObject); flow.StartEvent(ev); });

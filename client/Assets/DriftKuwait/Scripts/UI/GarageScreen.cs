@@ -93,8 +93,9 @@ namespace DriftKuwait
                 if (active) UIKit.Outline(rt, UIKit.Gold, "hud/panel_sharp_outline");
                 var ic = UIKit.Img(rt, "Ic", UIKit.S("hud/ic_" + items[i].icon), active ? UIKit.Gold : UIKit.Cream);
                 UIKit.Place(ic.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -14f), new Vector2(48f, 48f));
-                var t = UIKit.Label(rt, "T", items[i].ar, 30, active ? UIKit.Gold : UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
-                UIKit.Place(t.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 14f), new Vector2(w, 44f));
+                var t = UIKit.Label(rt, "T", items[i].ar, 36, active ? UIKit.Gold : UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
+                UIKit.Place(t.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 10f), new Vector2(w, 50f));
+                t.resizeTextForBestFit = true; t.resizeTextMinSize = 24; t.resizeTextMaxSize = 36;
             }
 
             var bar = UIKit.Rect(safe, "TopRight");
@@ -119,12 +120,14 @@ namespace DriftKuwait
             UIKit.Stripe(tr, new Vector2(1f, 1f), new Vector2(-30f, -14f), 220f, 5f, true);
             nameTxt = UIKit.Label(tr, "Name", "", 72, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Display);
             UIKit.Place(nameTxt.rectTransform, new Vector2(1f, 1f), new Vector2(-34f, -18f), new Vector2(540f, 90f));
-            tagTxt = UIKit.Label(tr, "Tag", "", 30, new Color(1, 1, 1, 0.75f), TextAnchor.MiddleRight, UIKit.Arabic);
-            UIKit.Place(tagTxt.rectTransform, new Vector2(1f, 1f), new Vector2(-34f, -110f), new Vector2(360f, 44f));
+            tagTxt = UIKit.Label(tr, "Tag", "", 36, new Color(1, 1, 1, 0.8f), TextAnchor.MiddleRight, UIKit.Arabic);
+            UIKit.Place(tagTxt.rectTransform, new Vector2(1f, 1f), new Vector2(-34f, -108f), new Vector2(370f, 50f));
+            tagTxt.resizeTextForBestFit = true; tagTxt.resizeTextMinSize = 22; tagTxt.resizeTextMaxSize = 36;
             var chip = UIKit.Panel(tr, "Cyl", new Color(1, 1, 1, 0.08f), "hud/panel_sharp");
             UIKit.Place(chip.rectTransform, new Vector2(0f, 1f), new Vector2(34f, -110f), new Vector2(170f, 46f));
             UIKit.Outline(chip.transform, new Color(1, 1, 1, 0.3f), "hud/panel_sharp_outline");
-            cylTxt = UIKit.Label(chip.transform, "T", "", 24, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Arabic);
+            cylTxt = UIKit.Label(chip.transform, "T", "", 28, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Arabic);
+            cylTxt.resizeTextForBestFit = true; cylTxt.resizeTextMinSize = 18; cylTxt.resizeTextMaxSize = 28;
             UIKit.Stretch(cylTxt.rectTransform);
             var sep = UIKit.Img(tr, "Sep", null, new Color(1, 1, 1, 0.12f));
             UIKit.Place(sep.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -170f), new Vector2(540f, 2f));
@@ -133,10 +136,10 @@ namespace DriftKuwait
             for (int i = 0; i < 5; i++)
             {
                 float y = -196f - i * 50f;
-                var l = UIKit.Label(tr, "L" + i, labels[i], 28, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Arabic);
-                UIKit.Place(l.rectTransform, new Vector2(1f, 1f), new Vector2(-34f, y), new Vector2(220f, 40f));
-                vals[i] = UIKit.Label(tr, "V" + i, "", 28, UIKit.Cream, TextAnchor.MiddleLeft, UIKit.Black);
-                UIKit.Place(vals[i].rectTransform, new Vector2(0f, 1f), new Vector2(34f, y), new Vector2(70f, 40f));
+                var l = UIKit.Label(tr, "L" + i, labels[i], 34, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Arabic);
+                UIKit.Place(l.rectTransform, new Vector2(1f, 1f), new Vector2(-34f, y), new Vector2(230f, 48f));
+                vals[i] = UIKit.Label(tr, "V" + i, "", 34, UIKit.Cream, TextAnchor.MiddleLeft, UIKit.Black);
+                UIKit.Place(vals[i].rectTransform, new Vector2(0f, 1f), new Vector2(34f, y), new Vector2(84f, 48f));
                 var barRoot = UIKit.Rect(tr, "B" + i);
                 UIKit.Place(barRoot, new Vector2(0f, 1f), new Vector2(110f, y - 26f), new Vector2(230f, 10f));
                 bars[i] = UIKit.Bar(barRoot, "Bar", 0.5f, new Color(0.8f, 0.86f, 0.92f), new Vector2(230f, 10f));
@@ -176,13 +179,13 @@ namespace DriftKuwait
                 var art = UIKit.Img(rt, "Art", UIKit.S("car_" + id), Color.white);
                 art.preserveAspect = true;
                 UIKit.Place(art.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -4f), new Vector2(w - 16f, 92f));
-                var n = UIKit.Label(rt, "N", c.nameAr, 32, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
+                var n = UIKit.Label(rt, "N", c.nameAr, 38, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
                 UIKit.Place(n.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 6f), new Vector2(w, 46f));
                 if (!CarCatalog.Has3D(id))
                 {
                     var soon = UIKit.Panel(rt, "Soon", new Color(0, 0, 0, 0.7f), "hud/pill");
                     UIKit.Place(soon.rectTransform, new Vector2(0f, 1f), new Vector2(6f, -6f), new Vector2(84f, 30f));
-                    var st = UIKit.Label(soon.transform, "T", "قريباً", 20, UIKit.Gold, TextAnchor.MiddleCenter, UIKit.Black);
+                    var st = UIKit.Label(soon.transform, "T", "قريباً", 24, UIKit.Gold, TextAnchor.MiddleCenter, UIKit.Black);
                     UIKit.Stretch(st.rectTransform);
                 }
                 tileOutlines[i] = UIKit.Outline(rt, UIKit.Gold, "hud/panel_sharp_outline");
@@ -226,8 +229,9 @@ namespace DriftKuwait
                 UIKit.Place((RectTransform)b.transform, new Vector2(1f, 0.5f), new Vector2(x, 0f), new Vector2(w, 72f));
                 var ic = UIKit.Img(b.transform, "I", UIKit.S("hud/ic_" + a.icon), UIKit.Cream);
                 UIKit.Place(ic.rectTransform, new Vector2(0f, 0.5f), new Vector2(18f, 0f), new Vector2(38f, 38f));
-                var t = UIKit.Label(b.transform, "T", a.ar, 26, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Arabic);
-                UIKit.Place(t.rectTransform, new Vector2(1f, 0.5f), new Vector2(-20f, 2f), new Vector2(w - 70f, 60f));
+                var t = UIKit.Label(b.transform, "T", a.ar, 32, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Black);
+                UIKit.Place(t.rectTransform, new Vector2(1f, 0.5f), new Vector2(-20f, 2f), new Vector2(w - 70f, 64f));
+                t.resizeTextForBestFit = true; t.resizeTextMinSize = 22; t.resizeTextMaxSize = 32;
                 x -= w + 14f;
             }
         }

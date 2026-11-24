@@ -44,14 +44,14 @@ namespace DriftKuwait
             // حكايتنا: replay the garage's history and the story so far
             {
                 var hb = UIKit.Button(safe, "History", new Color(0.04f, 0.07f, 0.13f, 0.78f), () => { Sfx.Play("ui_click"); Sfx.StopVoice(); StoryScene.Play(Story.Replay(), null); }, "hud/pill");
-                UIKit.Place((RectTransform)hb.transform, new Vector2(0f, 1f), new Vector2(48f, -456f), new Vector2(330f, 86f));
+                UIKit.Place((RectTransform)hb.transform, new Vector2(0f, 1f), new Vector2(48f, -448f), new Vector2(430f, 112f));
                 UIKit.Outline(hb.transform, new Color(UIKit.Gold.r, UIKit.Gold.g, UIKit.Gold.b, 0.7f), "hud/pill_outline");
                 var hi = UIKit.Img(hb.transform, "Ic", UIKit.S("hud/ic_play"), UIKit.Gold);
-                UIKit.Place(hi.rectTransform, new Vector2(1f, 0.5f), new Vector2(-26f, 0f), new Vector2(40f, 40f));
-                var ht = UIKit.Label(hb.transform, "T", "حكايتنا", 40, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
-                UIKit.Place(ht.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(-14f, 8f), new Vector2(240f, 52f));
-                var he = UIKit.Label(hb.transform, "E", "OUR STORY", 15, new Color(1, 1, 1, 0.65f), TextAnchor.MiddleCenter, UIKit.Digital, false);
-                UIKit.Place(he.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(-14f, -26f), new Vector2(240f, 22f));
+                UIKit.Place(hi.rectTransform, new Vector2(1f, 0.5f), new Vector2(-30f, 0f), new Vector2(54f, 54f));
+                var ht = UIKit.Label(hb.transform, "T", "حكايتنا", 56, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
+                UIKit.Place(ht.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(-20f, 10f), new Vector2(320f, 70f));
+                var he = UIKit.Label(hb.transform, "E", "OUR STORY", 20, new Color(1, 1, 1, 0.7f), TextAnchor.MiddleCenter, UIKit.Digital, false);
+                UIKit.Place(he.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(-20f, -34f), new Vector2(320f, 26f));
             }
             var ver = UIKit.Label(safe, "Ver", "VER 0.4", 18, new Color(1, 1, 1, 0.55f), TextAnchor.UpperLeft, UIKit.Digital, false);
             UIKit.Place(ver.rectTransform, new Vector2(0f, 1f), new Vector2(48f, -14f), new Vector2(600f, 30f));
@@ -164,30 +164,31 @@ namespace DriftKuwait
         static void BuildTopRight(RectTransform safe, GameFlow flow)
         {
             var bar = UIKit.Rect(safe, "TopRight");
-            UIKit.Place(bar, new Vector2(1f, 1f), new Vector2(-40f, -28f), new Vector2(900f, 84f));
+            UIKit.Place(bar, new Vector2(1f, 1f), new Vector2(-40f, -24f), new Vector2(1150f, 96f));
             float x = 0f;
             var prof = UIKit.Panel(bar, "Profile", UIKit.InkSoft, "hud/pill");
-            UIKit.Place(prof.rectTransform, new Vector2(1f, 0.5f), new Vector2(x, 0f), new Vector2(300f, 72f));
+            UIKit.Place(prof.rectTransform, new Vector2(1f, 0.5f), new Vector2(x, 0f), new Vector2(320f, 84f));
             var pic = UIKit.Img(prof.transform, "Ic", UIKit.S("hud/ic_people"), UIKit.Cream);
             UIKit.Place(pic.rectTransform, new Vector2(1f, 0.5f), new Vector2(-14f, 0f), new Vector2(48f, 48f));
             string who = GameCenter.PlayerName ?? "ضيف";
             if (who.Length > 16) who = who.Substring(0, 15) + "…";
             var nm = UIKit.Label(prof.transform, "Name", who, 34, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Place(nm.rectTransform, new Vector2(0f, 0.5f), new Vector2(18f, 2f), new Vector2(214f, 60f));
-            nm.resizeTextForBestFit = true; nm.resizeTextMinSize = 16; nm.resizeTextMaxSize = 30; nm.horizontalOverflow = HorizontalWrapMode.Wrap;
-            x -= 316f;
-            x = Chip(bar, x, "hud/ic_rep", UIKit.Dig(Wallet.Rep), 230f);
-            Chip(bar, x, "hud/ic_coin", UIKit.Dig(Wallet.Cash), 300f);
+            nm.resizeTextForBestFit = true; nm.resizeTextMinSize = 16; nm.resizeTextMaxSize = 36; nm.horizontalOverflow = HorizontalWrapMode.Wrap;
+            x -= 336f;
+            x = Chip(bar, x, "hud/ic_rep", UIKit.Dig(Wallet.Rep), 270f, 84f, 40);
+            Chip(bar, x, "hud/ic_coin", UIKit.Dig(Wallet.Cash), 380f, 84f, 40);
         }
 
-        public static float Chip(RectTransform bar, float x, string icon, string value, float w)
+        public static float Chip(RectTransform bar, float x, string icon, string value, float w, float h = 64f, int font = 28)
         {
             var p = UIKit.Panel(bar, "Chip", UIKit.InkSoft, "hud/pill");
-            UIKit.Place(p.rectTransform, new Vector2(1f, 0.5f), new Vector2(x, 0f), new Vector2(w, 64f));
+            UIKit.Place(p.rectTransform, new Vector2(1f, 0.5f), new Vector2(x, 0f), new Vector2(w, h));
             var ic = UIKit.Img(p.transform, "Ic", UIKit.S(icon), Color.white);
-            UIKit.Place(ic.rectTransform, new Vector2(0f, 0.5f), new Vector2(12f, 0f), new Vector2(44f, 44f));
-            var v = UIKit.Label(p.transform, "V", value, 28, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Digital, false);
-            UIKit.Place(v.rectTransform, new Vector2(1f, 0.5f), new Vector2(-22f, 2f), new Vector2(w - 70f, 60f));
+            float isz = h * 0.7f;
+            UIKit.Place(ic.rectTransform, new Vector2(0f, 0.5f), new Vector2(h * 0.18f, 0f), new Vector2(isz, isz));
+            var v = UIKit.Label(p.transform, "V", value, font, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Digital, false);
+            UIKit.Place(v.rectTransform, new Vector2(1f, 0.5f), new Vector2(-22f, 2f), new Vector2(w - isz - 34f, h - 4f));
             return x - w - 16f;
         }
 

@@ -37,7 +37,7 @@ namespace DriftKuwait
             UIKit.Place(title.rectTransform, new Vector2(1f, 1f), new Vector2(-40f, -8f), new Vector2(360f, 84f));
             var stars = UIKit.Label(safe, "Stars", "نجومك: " + UIKit.Num(Career.TotalStars), 34, UIKit.Gold, TextAnchor.MiddleRight, UIKit.Black);
             UIKit.Place(stars.rectTransform, new Vector2(1f, 1f), new Vector2(-40f, -88f), new Vector2(360f, 44f));
-            stars.fontSize = 30;
+            stars.fontSize = 36;
 
             // District tabs (RTL): Salwa open, the rest locked for now
             (string ar, bool open)[] tabs = { ("سلوى", true), ("الرميثية", false), ("أم نقا", false), ("كبد", false) };
@@ -47,7 +47,7 @@ namespace DriftKuwait
                 var b = UIKit.Button(safe, "Tab" + i, open ? new Color(1f, 0.7f, 0.18f, 0.95f) : UIKit.InkSoft,
                     open ? (System.Action)(() => { }) : () => flow.Toast(ar + " .. قريباً"), "hud/panel_sharp");
                 UIKit.Place((RectTransform)b.transform, new Vector2(1f, 1f), new Vector2(-440f - i * 250f, -34f), new Vector2(234f, 76f));
-                var t = UIKit.Label(b.transform, "T", ar, 32, open ? new Color(0.12f, 0.08f, 0.03f) : new Color(1, 1, 1, 0.55f), TextAnchor.MiddleCenter, UIKit.Black);
+                var t = UIKit.Label(b.transform, "T", ar, 38, open ? new Color(0.12f, 0.08f, 0.03f) : new Color(1, 1, 1, 0.55f), TextAnchor.MiddleCenter, UIKit.Black);
                 UIKit.Stretch(t.rectTransform, open ? 0f : 56f, 10f, 0f, 0f);
                 if (!open)
                 {
@@ -80,9 +80,9 @@ namespace DriftKuwait
             UIKit.Stripe(ct, new Vector2(1f, 1f), new Vector2(-48f, -20f), 300f, 6f, true);
             cardTitle = UIKit.Label(ct, "Title", "", 58, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Display);
             UIKit.Place(cardTitle.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -24f), new Vector2(540f, 80f));
-            cardGoal = UIKit.Label(ct, "Goal", "", 34, UIKit.Gold, TextAnchor.UpperRight, UIKit.Black);
+            cardGoal = UIKit.Label(ct, "Goal", "", 40, UIKit.Gold, TextAnchor.UpperRight, UIKit.Black);
             UIKit.Place(cardGoal.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -110f), new Vector2(540f, 100f));
-            cardHow = UIKit.Label(ct, "How", "", 28, new Color(1, 1, 1, 0.8f), TextAnchor.UpperRight, UIKit.Arabic);
+            cardHow = UIKit.Label(ct, "How", "", 33, new Color(1, 1, 1, 0.85f), TextAnchor.UpperRight, UIKit.Arabic);
             UIKit.Place(cardHow.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -210f), new Vector2(540f, 200f));
             for (int i = 0; i < 3; i++)
             {
@@ -90,9 +90,9 @@ namespace DriftKuwait
                 UIKit.Place(s.rectTransform, new Vector2(1f, 1f), new Vector2(-80f - i * 100f, -440f), new Vector2(84f, 84f));
                 cardStars[i] = s;
             }
-            cardBest = UIKit.Label(ct, "Best", "", 30, Color.white, TextAnchor.MiddleRight, UIKit.Black);
+            cardBest = UIKit.Label(ct, "Best", "", 36, Color.white, TextAnchor.MiddleRight, UIKit.Black);
             UIKit.Place(cardBest.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -520f), new Vector2(540f, 50f));
-            cardLock = UIKit.Label(ct, "Lock", "", 30, new Color(1f, 0.5f, 0.4f), TextAnchor.MiddleRight, UIKit.Black);
+            cardLock = UIKit.Label(ct, "Lock", "", 34, new Color(1f, 0.5f, 0.4f), TextAnchor.MiddleRight, UIKit.Black);
             UIKit.Place(cardLock.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -570f), new Vector2(540f, 50f));
             startBtn = UIKit.Button(ct, "Start", UIKit.Gold, () => { if (selected != null && Career.Unlocked(selected)) flow.StartEvent(selected); }, "hud/panel_sharp");
             UIKit.Place((RectTransform)startBtn.transform, new Vector2(0.5f, 0f), new Vector2(0f, 30f), new Vector2(600f, 110f));
@@ -167,9 +167,10 @@ namespace DriftKuwait
             }
             tagRects.Add(new Rect(tip.x + chosen.x - 128f, tip.y + chosen.y - 4f, 256f, 90f));
             tagRects.Add(new Rect(tip.x - 50f, tip.y, 100f, 120f));   // the pin itself
-            UIKit.Place(tag.rectTransform, new Vector2(0.5f, 0f), chosen, new Vector2(240f, 82f));
-            var nm = UIKit.Label(tag.transform, "N", ev.titleAr, 27, open ? UIKit.Cream : new Color(1, 1, 1, 0.55f), TextAnchor.MiddleCenter, UIKit.Black);
-            UIKit.Place(nm.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -2f), new Vector2(240f, 42f));
+            UIKit.Place(tag.rectTransform, new Vector2(0.5f, 0f), chosen, new Vector2(270f, 88f));
+            var nm = UIKit.Label(tag.transform, "N", ev.titleAr, 32, open ? UIKit.Cream : new Color(1, 1, 1, 0.55f), TextAnchor.MiddleCenter, UIKit.Black);
+            UIKit.Place(nm.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -2f), new Vector2(262f, 48f));
+            nm.resizeTextForBestFit = true; nm.resizeTextMinSize = 20; nm.resizeTextMaxSize = 32;
             if (ev.stars != null)
                 for (int i = 0; i < 3; i++)
                 {

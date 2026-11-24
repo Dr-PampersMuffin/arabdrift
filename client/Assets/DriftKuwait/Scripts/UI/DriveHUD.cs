@@ -71,15 +71,18 @@ namespace DriftKuwait
             UIKit.Place(pi.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(56f, 56f));
 
             var mp = UIKit.Panel(safe, "Mission", new Color(0.035f, 0.06f, 0.11f, 0.7f));
-            UIKit.Place(mp.rectTransform, new Vector2(0f, 1f), new Vector2(156f, -30f), new Vector2(400f, 150f));
+            UIKit.Place(mp.rectTransform, new Vector2(0f, 1f), new Vector2(156f, -30f), new Vector2(520f, 168f));
             UIKit.Outline(mp.transform, new Color(1, 1, 1, 0.2f));
             UIKit.Stripe(mp.transform, new Vector2(1f, 0f), new Vector2(0f, 0f), 150f, 4f);
-            missionTitle = UIKit.Label(mp.transform, "T", "تقحيص حر", 40, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Black);
-            UIKit.Place(missionTitle.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -10f), new Vector2(360f, 50f));
-            missionSub = UIKit.Label(mp.transform, "S", "سلوى · قطعة ٥", 28, new Color(1, 1, 1, 0.8f), TextAnchor.MiddleRight, UIKit.Arabic);
-            UIKit.Place(missionSub.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -62f), new Vector2(360f, 40f));
-            missionTime = UIKit.Label(mp.transform, "Time", "", 34, Color.white, TextAnchor.MiddleRight, UIKit.Digital, false);
-            UIKit.Place(missionTime.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -100f), new Vector2(360f, 44f));
+            missionTitle = UIKit.Label(mp.transform, "T", "تقحيص حر", 44, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Black);
+            UIKit.Place(missionTitle.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -8f), new Vector2(476f, 56f));
+            missionTitle.resizeTextForBestFit = true; missionTitle.resizeTextMinSize = 28; missionTitle.resizeTextMaxSize = 44;
+            missionSub = UIKit.Label(mp.transform, "S", "سلوى · قطعة ٥", 34, new Color(1, 1, 1, 0.88f), TextAnchor.MiddleRight, UIKit.Arabic);
+            UIKit.Place(missionSub.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -64f), new Vector2(476f, 48f));
+            missionSub.resizeTextForBestFit = true; missionSub.resizeTextMinSize = 22; missionSub.resizeTextMaxSize = 34;
+            missionTime = UIKit.Label(mp.transform, "Time", "", 36, Color.white, TextAnchor.MiddleRight, UIKit.Digital, false);
+            UIKit.Place(missionTime.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -112f), new Vector2(476f, 48f));
+            missionTime.resizeTextForBestFit = true; missionTime.resizeTextMinSize = 20; missionTime.resizeTextMaxSize = 36;
         }
 
         void BuildScore(RectTransform safe)
