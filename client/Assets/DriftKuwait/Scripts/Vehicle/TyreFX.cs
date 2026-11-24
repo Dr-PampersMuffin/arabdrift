@@ -92,7 +92,7 @@ namespace DriftKuwait
             var main = ps.main;
             main.duration = 1f;
             main.loop = true;
-            main.startLifetime = new ParticleSystem.MinMaxCurve(2.2f, 4.2f);     // a thick billowing cloud that hangs behind the car (the camera stays clear: see maxParticleSize)
+            main.startLifetime = new ParticleSystem.MinMaxCurve(1.6f, 3.0f);     // a thick billowing cloud that hangs behind the car (the camera stays clear: see maxParticleSize)
             main.startSpeed = new ParticleSystem.MinMaxCurve(0.6f, 2.2f);
             main.startSize = new ParticleSystem.MinMaxCurve(1.0f * scale, 1.8f * scale);
             main.startRotation = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
@@ -116,7 +116,7 @@ namespace DriftKuwait
             var inherit = ps.inheritVelocity;
             inherit.enabled = true;
             inherit.mode = ParticleSystemInheritVelocityMode.Initial;
-            inherit.curve = new ParticleSystem.MinMaxCurve(0.72f);   // the cloud billows along with the sliding car (in front of the chase camera), then hangs
+            inherit.curve = new ParticleSystem.MinMaxCurve(0.5f);   // the cloud billows along with the sliding car (in front of the chase camera), then hangs
             var limit = ps.limitVelocityOverLifetime;
             limit.enabled = true;
             limit.dampen = 0.035f;
@@ -126,7 +126,7 @@ namespace DriftKuwait
             col.enabled = true;
             var g = new Gradient();
             g.SetKeys(new[] { new GradientColorKey(Color.white, 0f), new GradientColorKey(Color.white, 1f) },
-                      new[] { new GradientAlphaKey(0f, 0f), new GradientAlphaKey(0.78f, 0.06f), new GradientAlphaKey(0.32f, 0.45f), new GradientAlphaKey(0f, 1f) });
+                      new[] { new GradientAlphaKey(0f, 0f), new GradientAlphaKey(0.6f, 0.06f), new GradientAlphaKey(0.22f, 0.4f), new GradientAlphaKey(0f, 1f) });
             col.color = g;
 
             var rot = ps.rotationOverLifetime;
@@ -145,7 +145,7 @@ namespace DriftKuwait
             r.renderMode = ParticleSystemRenderMode.Billboard;
             r.sortMode = ParticleSystemSortMode.Distance;
             r.minParticleSize = 0f;
-            r.maxParticleSize = 0.38f;   // fraction of the screen: a puff next to the camera can never blind the player
+            r.maxParticleSize = 0.16f;   // fraction of the screen: a puff next to the camera can never blind the player
 
             ps.Play();
             return ps;
@@ -163,6 +163,15 @@ namespace DriftKuwait
                 // Day: warm sunlit white. Night: sodium-washed grey, like smoke under the street lamps.
                 smokeMat.SetColor("_BaseColor", smokeNight ? new Color(0.62f, 0.52f, 0.42f, 0.9f) : new Color(0.95f, 0.91f, 0.85f, 1f));
             }
+            // Keep the view clear: when the camera is close to the car (stopped burnouts, slow donuts) the smoke
+            // thins out so you can always see the car and the road ahead.
+            float camK = 1f;
+            var cam = Camera.main;
+            if (cam != null)
+            {
+                float d = Vector3.Distance(cam.transform.position, transform.position);
+                camK = Mathf.Lerp(0.35f, 1f, Mathf.InverseLerp(5f, 11f, d)) * Mathf.Lerp(0.55f, 1f, Mathf.InverseLerp(10f, 40f, car.SpeedKmh));
+            }
             for (int i = 0; i < car.wheels.Length; i++)
             {
                 var w = car.wheels[i];
@@ -178,10 +187,10 @@ namespace DriftKuwait
                 var em = ps.emission;
                 float k = w.grounded ? w.skid : 0f;
                 float rate = k * k * (w.front ? 3f : 44f) + (w.front ? 0f : car.RearSpin * 2.4f * (w.grounded ? 1f : 0f));   // both rear tyres burn
-                rate *= Mathf.Lerp(0.35f, 1f, Mathf.InverseLerp(5f, 45f, car.SpeedKmh));   // standing burnouts stay modest
+                rate *= Mathf.Lerp(0.22f, 1f, Mathf.InverseLerp(5f, 45f, car.SpeedKmh));   // standing burnouts stay modest
                 if (sandy) rate *= 0.5f;
-                rate *= 1f + hot * 1.3f;   // hot tyres pour out smoke
-                em.rateOverTime = rate * Mathf.Lerp(0.25f, 1.4f, GameSettings.Smoke);
+                rate *= 1f + hot * 0.5f;   // hot tyres pour out smoke
+                em.rateOverTime = rate * camK * Mathf.Lerp(0.25f, 1.4f, GameSettings.Smoke);
 
                 // Skid marks only on hard surfaces (sand gets tracks later)
                 if (w.grounded && w.skid > 0.3f && !sandy)

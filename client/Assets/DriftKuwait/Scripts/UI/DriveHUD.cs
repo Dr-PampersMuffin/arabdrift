@@ -71,18 +71,18 @@ namespace DriftKuwait
             UIKit.Place(pi.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(56f, 56f));
 
             var mp = UIKit.Panel(safe, "Mission", new Color(0.035f, 0.06f, 0.11f, 0.7f));
-            UIKit.Place(mp.rectTransform, new Vector2(0f, 1f), new Vector2(156f, -30f), new Vector2(520f, 168f));
+            UIKit.Place(mp.rectTransform, new Vector2(0f, 1f), new Vector2(156f, -30f), new Vector2(600f, 184f));
             UIKit.Outline(mp.transform, new Color(1, 1, 1, 0.2f));
             UIKit.Stripe(mp.transform, new Vector2(1f, 0f), new Vector2(0f, 0f), 150f, 4f);
-            missionTitle = UIKit.Label(mp.transform, "T", "تقحيص حر", 44, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Black);
-            UIKit.Place(missionTitle.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -8f), new Vector2(476f, 56f));
-            missionTitle.resizeTextForBestFit = true; missionTitle.horizontalOverflow = HorizontalWrapMode.Wrap; missionTitle.verticalOverflow = VerticalWrapMode.Truncate; missionTitle.resizeTextMinSize = 28; missionTitle.resizeTextMaxSize = 44;
-            missionSub = UIKit.Label(mp.transform, "S", "سلوى · قطعة ٥", 34, new Color(1, 1, 1, 0.88f), TextAnchor.MiddleRight, UIKit.Arabic);
-            UIKit.Place(missionSub.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -64f), new Vector2(476f, 48f));
-            missionSub.resizeTextForBestFit = true; missionSub.horizontalOverflow = HorizontalWrapMode.Wrap; missionSub.verticalOverflow = VerticalWrapMode.Truncate; missionSub.resizeTextMinSize = 22; missionSub.resizeTextMaxSize = 34;
-            missionTime = UIKit.Label(mp.transform, "Time", "", 36, Color.white, TextAnchor.MiddleRight, UIKit.Digital, false);
-            UIKit.Place(missionTime.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -112f), new Vector2(476f, 48f));
-            missionTime.resizeTextForBestFit = true; missionTime.horizontalOverflow = HorizontalWrapMode.Wrap; missionTime.verticalOverflow = VerticalWrapMode.Truncate; missionTime.resizeTextMinSize = 25; missionTime.resizeTextMaxSize = 36;
+            missionTitle = UIKit.Label(mp.transform, "T", "تقحيص حر", 48, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Black);
+            UIKit.Place(missionTitle.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -6f), new Vector2(556f, 60f));
+            missionTitle.resizeTextForBestFit = true; missionTitle.horizontalOverflow = HorizontalWrapMode.Wrap; missionTitle.verticalOverflow = VerticalWrapMode.Overflow; missionTitle.resizeTextMinSize = 32; missionTitle.resizeTextMaxSize = 48;
+            missionSub = UIKit.Label(mp.transform, "S", "سلوى · قطعة ٥", 40, new Color(1, 1, 1, 0.88f), TextAnchor.MiddleRight, UIKit.Arabic);
+            UIKit.Place(missionSub.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -66f), new Vector2(556f, 56f));
+            missionSub.resizeTextForBestFit = true; missionSub.horizontalOverflow = HorizontalWrapMode.Wrap; missionSub.verticalOverflow = VerticalWrapMode.Overflow; missionSub.resizeTextMinSize = 30; missionSub.resizeTextMaxSize = 40;
+            missionTime = UIKit.Label(mp.transform, "Time", "", 44, Color.white, TextAnchor.MiddleRight, UIKit.Digital, false);
+            UIKit.Place(missionTime.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -122f), new Vector2(556f, 56f));
+            missionTime.resizeTextForBestFit = true; missionTime.horizontalOverflow = HorizontalWrapMode.Wrap; missionTime.verticalOverflow = VerticalWrapMode.Overflow; missionTime.resizeTextMinSize = 34; missionTime.resizeTextMaxSize = 44;
         }
 
         void BuildScore(RectTransform safe)
@@ -115,18 +115,18 @@ namespace DriftKuwait
 
             var bd = UIKit.Panel(root, "Breakdown", new Color(0.035f, 0.06f, 0.11f, 0.62f), "hud/panel");
             breakdownRoot = bd.gameObject;
-            UIKit.Place(bd.rectTransform, new Vector2(1f, 1f), new Vector2(0f, -266f), new Vector2(290f, 136f));
+            UIKit.Place(bd.rectTransform, new Vector2(1f, 1f), new Vector2(0f, -266f), new Vector2(360f, 156f));
             for (int i = 0; i < 3; i++)
             {
-                breakdown[i] = UIKit.Label(bd.transform, "B" + i, "", 32, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Arabic);
-                UIKit.Place(breakdown[i].rectTransform, new Vector2(1f, 1f), new Vector2(-22f, -8f - i * 40f), new Vector2(260f, 40f));
+                breakdown[i] = UIKit.Label(bd.transform, "B" + i, "", 38, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Arabic);
+                UIKit.Place(breakdown[i].rectTransform, new Vector2(1f, 1f), new Vector2(-22f, -6f - i * 48f), new Vector2(320f, 48f));
             }
         }
 
         void BuildRightEdge(RectTransform safe)
         {
             var col = UIKit.Rect(safe, "Side");
-            UIKit.Place(col, new Vector2(1f, 0.5f), new Vector2(-30f, 60f), new Vector2(110f, 520f));
+            UIKit.Place(col, new Vector2(1f, 0.5f), new Vector2(-28f, 70f), new Vector2(124f, 580f));
             (string icon, string ar, System.Action act)[] items =
             {
                 ("video", "كاميرا", () => cam.NextMode()),
@@ -138,15 +138,15 @@ namespace DriftKuwait
             {
                 var it = items[i];
                 var b = UIKit.Button(col, "S" + i, new Color(0.035f, 0.06f, 0.11f, 0.68f), it.act, "hud/panel");
-                UIKit.Place((RectTransform)b.transform, new Vector2(0.5f, 1f), new Vector2(0f, -i * 124f), new Vector2(104f, 112f));
+                UIKit.Place((RectTransform)b.transform, new Vector2(0.5f, 1f), new Vector2(0f, -i * 140f), new Vector2(120f, 128f));
                 UIKit.Outline(b.transform, new Color(1, 1, 1, 0.2f));
                 var ic = UIKit.Img(b.transform, "I", UIKit.S("hud/ic_" + it.icon), Color.white);
-                UIKit.Place(ic.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, it.ar == "" ? -28f : -12f), new Vector2(54f, 54f));
+                UIKit.Place(ic.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, it.ar == "" ? -34f : -10f), new Vector2(56f, 56f));
                 if (it.ar != "")
                 {
-                    var t = UIKit.Label(b.transform, "T", it.ar, 30, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
-                    UIKit.Place(t.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 4f), new Vector2(112f, 40f));
-                    t.resizeTextForBestFit = true; t.horizontalOverflow = HorizontalWrapMode.Wrap; t.verticalOverflow = VerticalWrapMode.Truncate; t.resizeTextMinSize = 24; t.resizeTextMaxSize = 30;
+                    var t = UIKit.Label(b.transform, "T", it.ar, 36, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
+                    UIKit.Place(t.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 2f), new Vector2(124f, 56f));
+                    t.resizeTextForBestFit = true; t.horizontalOverflow = HorizontalWrapMode.Wrap; t.verticalOverflow = VerticalWrapMode.Overflow; t.resizeTextMinSize = 28; t.resizeTextMaxSize = 42;
                 }
             }
         }
@@ -173,17 +173,17 @@ namespace DriftKuwait
             // Radio / dialogue subtitle box
             var d = UIKit.Panel(safe, "Dialog", new Color(0.035f, 0.06f, 0.11f, 0.82f), "hud/panel");
             dialogRoot = d.gameObject;
-            UIKit.Place(d.rectTransform, new Vector2(0.5f, 0f), new Vector2(-40f, 26f), new Vector2(980f, 112f));
+            UIKit.Place(d.rectTransform, new Vector2(0f, 1f), new Vector2(34f, -230f), new Vector2(780f, 196f));
             UIKit.Outline(d.transform, new Color(1, 1, 1, 0.18f));
             var pm = UIKit.Rect(d.transform, "PortraitMask");
-            UIKit.Place(pm, new Vector2(1f, 0.5f), new Vector2(-12f, 0f), new Vector2(90f, 90f));
+            UIKit.Place(pm, new Vector2(1f, 1f), new Vector2(-14f, -14f), new Vector2(110f, 110f));
             pm.gameObject.AddComponent<RectMask2D>();
             dialogPortrait = UIKit.Img(pm, "P", null, Color.white);
             UIKit.Stretch(dialogPortrait.rectTransform);
-            dialogName = UIKit.Label(d.transform, "N", "", 32, UIKit.Gold, TextAnchor.MiddleRight, UIKit.Black);
-            UIKit.Place(dialogName.rectTransform, new Vector2(1f, 1f), new Vector2(-120f, -6f), new Vector2(820f, 44f));
-            dialogText = UIKit.Label(d.transform, "T", "", 32, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Arabic);
-            UIKit.Place(dialogText.rectTransform, new Vector2(1f, 0f), new Vector2(-120f, 10f), new Vector2(840f, 54f));
+            dialogName = UIKit.Label(d.transform, "N", "", 42, UIKit.Gold, TextAnchor.MiddleRight, UIKit.Black);
+            UIKit.Place(dialogName.rectTransform, new Vector2(1f, 1f), new Vector2(-138f, -8f), new Vector2(620f, 54f));
+            dialogText = UIKit.Label(d.transform, "T", "", 38, UIKit.Cream, TextAnchor.UpperRight, UIKit.Arabic);
+            UIKit.Place(dialogText.rectTransform, new Vector2(1f, 1f), new Vector2(-138f, -64f), new Vector2(620f, 124f));
             dialogRoot.SetActive(false);
         }
 
@@ -207,11 +207,11 @@ namespace DriftKuwait
             mapArrow.pivot = new Vector2(0.5f, 0.5f);
 
             var loc = UIKit.Panel(safe, "Loc", new Color(0.035f, 0.06f, 0.11f, 0.75f), "hud/panel");
-            UIKit.Place(loc.rectTransform, new Vector2(0f, 0f), new Vector2(64f, 214f), new Vector2(240f, 92f));
-            var l1 = UIKit.Label(loc.transform, "A", "سلوى", 34, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
-            UIKit.Place(l1.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -4f), new Vector2(240f, 46f));
-            var l2 = UIKit.Label(loc.transform, "B", "قطعة ٥", 30, new Color(1, 1, 1, 0.8f), TextAnchor.MiddleCenter, UIKit.Arabic);
-            UIKit.Place(l2.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 6f), new Vector2(240f, 36f));
+            UIKit.Place(loc.rectTransform, new Vector2(0f, 0f), new Vector2(54f, 208f), new Vector2(280f, 110f));
+            var l1 = UIKit.Label(loc.transform, "A", "سلوى", 44, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
+            UIKit.Place(l1.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -2f), new Vector2(280f, 56f));
+            var l2 = UIKit.Label(loc.transform, "B", "قطعة ٥", 38, new Color(1, 1, 1, 0.8f), TextAnchor.MiddleCenter, UIKit.Arabic);
+            UIKit.Place(l2.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 4f), new Vector2(280f, 48f));
 
             var camGo = new GameObject("DK_MinimapCam");
             mapCam = camGo.AddComponent<Camera>();
@@ -231,8 +231,8 @@ namespace DriftKuwait
             var heat = UIKit.Rect(safe, "Heat");
             heatRoot = heat.gameObject;
             UIKit.Place(heat, new Vector2(0f, 0f), new Vector2(34f, 616f), new Vector2(420f, 60f));
-            var ht = UIKit.Label(heat, "T", "مستوى الملاحقة", 32, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Black);
-            UIKit.Place(ht.rectTransform, new Vector2(1f, 0.5f), Vector2.zero, new Vector2(220f, 50f));
+            var ht = UIKit.Label(heat, "T", "مستوى الملاحقة", 38, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Black);
+            UIKit.Place(ht.rectTransform, new Vector2(1f, 0.5f), Vector2.zero, new Vector2(260f, 56f));
             UIKit.AddShadow(ht, 2f, 0.8f);
             flames = new Image[5];
             for (int i = 0; i < 5; i++)
@@ -255,11 +255,11 @@ namespace DriftKuwait
             ApplyLayout();
 
             hand = HoldImage(safe, "Handbrake", "hud/handbrake", new Vector2(1f, 0f), new Vector2(-640f, 40f), new Vector2(210f, 210f));
-            var hl = UIKit.Label(hand.transform, "L", "هاند بريك", 34, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
-            UIKit.Place(hl.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, -44f), new Vector2(240f, 46f));
+            var hl = UIKit.Label(hand.transform, "L", "هاند بريك", 40, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
+            UIKit.Place(hl.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, -46f), new Vector2(260f, 54f));
             UIKit.AddShadow(hl, 2f, 0.8f);
             brake = HoldImage(safe, "Brake", "hud/pedal_brake", new Vector2(1f, 0f), new Vector2(-420f, 40f), new Vector2(130f, 160f));
-            var bl = UIKit.Label(brake.transform, "L", "بريك", 34, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
+            var bl = UIKit.Label(brake.transform, "L", "بريك", 40, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Place(bl.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, -44f), new Vector2(170f, 46f));
             UIKit.AddShadow(bl, 2f, 0.8f);
             // Manual gearbox paddles, beside the gauge
@@ -268,7 +268,7 @@ namespace DriftKuwait
             shiftDown = UIKit.Button(safe, "ShiftDown", Color.white, () => CarInput.ShiftDownRequest = true, "hud/shift_down").gameObject;
             UIKit.Place((RectTransform)shiftDown.transform, new Vector2(1f, 0f), new Vector2(-610f, 300f), new Vector2(120f, 120f));
             gas = HoldImage(safe, "Gas", "hud/pedal_gas", new Vector2(1f, 0f), new Vector2(-220f, 40f), new Vector2(150f, 230f));
-            var gl = UIKit.Label(gas.transform, "L", "بانزين", 34, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
+            var gl = UIKit.Label(gas.transform, "L", "بانزين", 40, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Place(gl.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, -44f), new Vector2(170f, 46f));
             UIKit.AddShadow(gl, 2f, 0.8f);
             foreach (var (go, sp) in new[] { (shiftUp, "hud/shift_up"), (shiftDown, "hud/shift_down") })
@@ -310,10 +310,10 @@ namespace DriftKuwait
             speedTxt = UIKit.Label(g.transform, "Speed", "0", 92, Color.white, TextAnchor.MiddleCenter, UIKit.Digital, false);
             UIKit.Place(speedTxt.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -46f), new Vector2(240f, 96f));
             speedTxt.fontSize = 64;
-            var unit = UIKit.Label(g.transform, "Unit", "كم/س", 30, new Color(1, 1, 1, 0.75f), TextAnchor.MiddleCenter, UIKit.Arabic);
-            UIKit.Place(unit.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -98f), new Vector2(200f, 36f));
-            turboTxt = UIKit.Label(g.transform, "Turbo", "تيربو", 26, new Color(1, 1, 1, 0.3f), TextAnchor.MiddleCenter, UIKit.Black);
-            UIKit.Place(turboTxt.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 16f), new Vector2(160f, 30f));
+            var unit = UIKit.Label(g.transform, "Unit", "كم/س", 38, new Color(1, 1, 1, 0.9f), TextAnchor.MiddleCenter, UIKit.Arabic);
+            UIKit.Place(unit.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -100f), new Vector2(200f, 48f));
+            turboTxt = UIKit.Label(g.transform, "Turbo", "تيربو", 36, new Color(1, 1, 1, 0.45f), TextAnchor.MiddleCenter, UIKit.Black);
+            UIKit.Place(turboTxt.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 10f), new Vector2(180f, 44f));
             var gb = UIKit.Panel(g.transform, "GearBox", new Color(0, 0, 0, 0.7f), "hud/panel_sharp");
             UIKit.Place(gb.rectTransform, new Vector2(0f, 0f), new Vector2(-50f, 40f), new Vector2(76f, 96f));
             UIKit.Outline(gb.transform, new Color(1, 1, 1, 0.8f), "hud/panel_sharp_outline");
@@ -459,7 +459,7 @@ namespace DriftKuwait
             dialogRoot.SetActive(true);
             dialogPortrait.sprite = UIKit.S(portrait);
             dialogName.text = UIKit.Ar(nameAr);
-            dialogText.text = UIKit.Ar(Sfx.Line(voiceKey, textAr));
+            dialogText.text = UIKit.ArWrap(Sfx.Line(voiceKey, textAr), 30);   // two big lines
             dialogTimer = Mathf.Max(2.5f, len + 0.6f);
             Sfx.MusicDuck = 0.45f;
             return dialogTimer;

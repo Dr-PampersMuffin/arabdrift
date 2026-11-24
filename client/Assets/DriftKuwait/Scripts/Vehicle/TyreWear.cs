@@ -4,7 +4,8 @@ namespace DriftKuwait
 {
     /// Rear tyre heat and wear. Long burnouts and hard slides heat the rubber: the smoke turns thick and grey, bits of
     /// rubber fly off, grip fades. Keep cooking a tyre that is already shredded and it blows: a bang, the bare rim
-    /// grinds sparks on the asphalt and that corner loses most of its grip. A reset, the pause-menu recovery or the
+    /// grinds sparks (about half a minute of non-stop burnout at full heat; a short one never does it)
+        /// on the asphalt and that corner loses most of its grip. A reset, the pause-menu recovery or the
     /// garage fits fresh tyres.
     [RequireComponent(typeof(DriftCarController))]
     public class TyreWear : MonoBehaviour
@@ -110,7 +111,7 @@ namespace DriftKuwait
                 float work = w.grounded && !sandy ? spin * 0.22f + w.skid * 0.07f : 0f;
                 heat[i] = Mathf.Clamp01(heat[i] + work * dt - (0.05f + car.SpeedKmh * 0.0008f) * dt * (work < 0.02f ? 1f : 0.3f));
                 // wear only once the tyre is really hot (a long burnout or a very long slide)
-                if (heat[i] > 0.8f && work > 0.05f) health[i] = Mathf.Max(0f, health[i] - (heat[i] - 0.75f) * work * 1.6f * dt);
+                if (heat[i] > 0.8f && work > 0.05f) health[i] = Mathf.Max(0f, health[i] - (heat[i] - 0.75f) * work * 0.55f * dt);
                 if (!blown[i] && health[i] <= 0f) Blow(i);
 
                 float shred = 1f - health[i];

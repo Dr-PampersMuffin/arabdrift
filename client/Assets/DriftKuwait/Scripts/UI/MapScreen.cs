@@ -38,7 +38,7 @@ namespace DriftKuwait
             var stars = UIKit.Label(safe, "Stars", "نجومك: " + UIKit.Num(Career.TotalStars), 34, UIKit.Gold, TextAnchor.MiddleRight, UIKit.Black);
             UIKit.Place(stars.rectTransform, new Vector2(0f, 1f), new Vector2(300f, -18f), new Vector2(320f, 70f));   // beside the back button, clear of the card
             stars.alignment = TextAnchor.MiddleLeft;
-            stars.fontSize = 36;
+            stars.fontSize = 44;
 
             // District tabs (RTL): Salwa open, the rest locked for now
             (string ar, bool open)[] tabs = { ("سلوى", true), ("الرميثية", false), ("أم نقا", false), ("كبد", false) };
@@ -82,19 +82,19 @@ namespace DriftKuwait
             cardTitle = UIKit.Label(ct, "Title", "", 58, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Display);
             UIKit.Place(cardTitle.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -24f), new Vector2(540f, 80f));
             cardGoal = UIKit.Label(ct, "Goal", "", 40, UIKit.Gold, TextAnchor.UpperRight, UIKit.Black);
-            UIKit.Place(cardGoal.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -110f), new Vector2(540f, 100f));
-            cardHow = UIKit.Label(ct, "How", "", 33, new Color(1, 1, 1, 0.85f), TextAnchor.UpperRight, UIKit.Arabic);
-            UIKit.Place(cardHow.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -236f), new Vector2(540f, 200f));   // below a two-line goal
+            UIKit.Place(cardGoal.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -108f), new Vector2(540f, 130f));
+            cardHow = UIKit.Label(ct, "How", "", 37, new Color(1, 1, 1, 0.85f), TextAnchor.UpperRight, UIKit.Arabic);
+            UIKit.Place(cardHow.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -262f), new Vector2(540f, 200f));   // below a two-line goal (40 px lines need ~60 px each)
             for (int i = 0; i < 3; i++)
             {
                 var s = UIKit.Img(ct, "Star" + i, UIKit.S("hud/ic_star_big"), Color.white);
-                UIKit.Place(s.rectTransform, new Vector2(1f, 1f), new Vector2(-80f - i * 100f, -440f), new Vector2(84f, 84f));
+                UIKit.Place(s.rectTransform, new Vector2(1f, 1f), new Vector2(-80f - i * 100f, -478f), new Vector2(84f, 84f));
                 cardStars[i] = s;
             }
-            cardBest = UIKit.Label(ct, "Best", "", 36, Color.white, TextAnchor.MiddleRight, UIKit.Black);
-            UIKit.Place(cardBest.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -520f), new Vector2(540f, 50f));
-            cardLock = UIKit.Label(ct, "Lock", "", 34, new Color(1f, 0.5f, 0.4f), TextAnchor.MiddleRight, UIKit.Black);
-            UIKit.Place(cardLock.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -570f), new Vector2(540f, 50f));
+            cardBest = UIKit.Label(ct, "Best", "", 42, Color.white, TextAnchor.MiddleRight, UIKit.Black);
+            UIKit.Place(cardBest.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -560f), new Vector2(540f, 60f));
+            cardLock = UIKit.Label(ct, "Lock", "", 40, new Color(1f, 0.5f, 0.4f), TextAnchor.MiddleRight, UIKit.Black);
+            UIKit.Place(cardLock.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -620f), new Vector2(540f, 60f));
             startBtn = UIKit.Button(ct, "Start", UIKit.Gold, () => { if (selected != null && Career.Unlocked(selected)) flow.StartEvent(selected); }, "hud/panel_sharp");
             UIKit.Place((RectTransform)startBtn.transform, new Vector2(0.5f, 0f), new Vector2(0f, 30f), new Vector2(600f, 110f));
             cardStartTxt = UIKit.Label(startBtn.transform, "T", "ابدأ", 52, new Color(0.12f, 0.08f, 0.03f), TextAnchor.MiddleCenter, UIKit.Black);
@@ -156,27 +156,27 @@ namespace DriftKuwait
             var tag = UIKit.Panel(root, "Tag", new Color(0.035f, 0.06f, 0.11f, 0.85f), "hud/pill");
             // Put the name tag on whichever side of the pin is free: below, above, then left or right.
             Vector2 tip = new Vector2(root.anchorMin.x * MapW, root.anchorMin.y * MapH);
-            Vector2[] offs = { new Vector2(0f, -86f), new Vector2(0f, 128f), new Vector2(-250f, 20f), new Vector2(250f, 20f), new Vector2(0f, -176f), new Vector2(0f, 218f) };
+            Vector2[] offs = { new Vector2(0f, -86f), new Vector2(0f, 128f), new Vector2(-285f, 20f), new Vector2(285f, 20f), new Vector2(0f, -190f), new Vector2(0f, 232f) };
             Vector2 chosen = offs[0];
             foreach (var o in offs)
             {
-                var r = new Rect(tip.x + o.x - 128f, tip.y + o.y - 4f, 256f, 90f);
+                var r = new Rect(tip.x + o.x - 145f, tip.y + o.y - 4f, 290f, 102f);
                 bool inside = r.xMin > -10f && r.xMax < MapW + 10f && r.yMin > -10f && r.yMax < MapH + 10f;
                 bool clash = !inside;
                 foreach (var t in tagRects) if (t.Overlaps(r)) { clash = true; break; }
                 if (!clash) { chosen = o; break; }
             }
-            tagRects.Add(new Rect(tip.x + chosen.x - 128f, tip.y + chosen.y - 4f, 256f, 90f));
+            tagRects.Add(new Rect(tip.x + chosen.x - 145f, tip.y + chosen.y - 4f, 290f, 102f));
             tagRects.Add(new Rect(tip.x - 50f, tip.y, 100f, 120f));   // the pin itself
-            UIKit.Place(tag.rectTransform, new Vector2(0.5f, 0f), chosen, new Vector2(270f, 88f));
-            var nm = UIKit.Label(tag.transform, "N", ev.titleAr, 32, open ? UIKit.Cream : new Color(1, 1, 1, 0.55f), TextAnchor.MiddleCenter, UIKit.Black);
-            UIKit.Place(nm.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -2f), new Vector2(262f, 48f));
-            nm.resizeTextForBestFit = true; nm.horizontalOverflow = HorizontalWrapMode.Wrap; nm.verticalOverflow = VerticalWrapMode.Truncate; nm.resizeTextMinSize = 25; nm.resizeTextMaxSize = 32;
+            UIKit.Place(tag.rectTransform, new Vector2(0.5f, 0f), chosen, new Vector2(300f, 100f));
+            var nm = UIKit.Label(tag.transform, "N", ev.titleAr, 40, open ? UIKit.Cream : new Color(1, 1, 1, 0.55f), TextAnchor.MiddleCenter, UIKit.Black);
+            UIKit.Place(nm.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -2f), new Vector2(292f, 60f));
+            nm.resizeTextForBestFit = true; nm.horizontalOverflow = HorizontalWrapMode.Wrap; nm.verticalOverflow = VerticalWrapMode.Overflow; nm.resizeTextMinSize = 28; nm.resizeTextMaxSize = 42;
             if (ev.stars != null)
                 for (int i = 0; i < 3; i++)
                 {
                     var s = UIKit.Img(tag.transform, "S" + i, UIKit.S("hud/ic_star_big"), i < st ? UIKit.Gold : new Color(1, 1, 1, 0.22f));
-                    UIKit.Place(s.rectTransform, new Vector2(0.5f, 0f), new Vector2((i - 1) * 32f, 6f), new Vector2(28f, 28f));
+                    UIKit.Place(s.rectTransform, new Vector2(0.5f, 0f), new Vector2((i - 1) * 34f, 4f), new Vector2(30f, 30f));
                 }
             pins.Add((ev, ring));
         }
@@ -189,8 +189,8 @@ namespace DriftKuwait
             bool open = Career.Unlocked(ev);
             int st = Career.Stars(ev.id);
             cardTitle.text = UIKit.Ar(ev.titleAr);
-            cardGoal.text = UIKit.ArWrap(ev.goalAr, 24);
-            cardHow.text = UIKit.ArWrap(ev.howAr, 28);   // short lines: the text stays inside the card
+            cardGoal.text = UIKit.ArWrap(ev.goalAr, 22);
+            cardHow.text = UIKit.ArWrap(ev.howAr, 26);   // short lines: the text stays inside the card
             for (int i = 0; i < 3; i++)
             {
                 cardStars[i].gameObject.SetActive(ev.stars != null);

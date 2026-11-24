@@ -93,8 +93,8 @@ namespace DriftKuwait
                 var ic = UIKit.Img(rt, "Ic", UIKit.S("hud/ic_" + items[i].icon), active ? UIKit.Gold : UIKit.Cream);
                 UIKit.Place(ic.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -14f), new Vector2(48f, 48f));
                 var t = UIKit.Label(rt, "T", items[i].ar, 36, active ? UIKit.Gold : UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
-                UIKit.Place(t.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 10f), new Vector2(w, 50f));
-                t.resizeTextForBestFit = true; t.horizontalOverflow = HorizontalWrapMode.Wrap; t.verticalOverflow = VerticalWrapMode.Truncate; t.resizeTextMinSize = 24; t.resizeTextMaxSize = 36;
+                UIKit.Place(t.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 6f), new Vector2(w - 4f, 58f));
+                t.resizeTextForBestFit = true; t.horizontalOverflow = HorizontalWrapMode.Wrap; t.verticalOverflow = VerticalWrapMode.Overflow; t.resizeTextMinSize = 28; t.resizeTextMaxSize = 42;
             }
 
             var bar = UIKit.Rect(safe, "TopRight");
@@ -113,40 +113,40 @@ namespace DriftKuwait
         void BuildStats(RectTransform safe)
         {
             var p = UIKit.Panel(safe, "Stats", new Color(0.035f, 0.06f, 0.11f, 0.88f));
-            UIKit.Place(p.rectTransform, new Vector2(1f, 1f), new Vector2(-34f, -160f), new Vector2(600f, 610f));   // tall enough that the drive button sits under the five bars, clear of the car strip
+            UIKit.Place(p.rectTransform, new Vector2(1f, 1f), new Vector2(-34f, -160f), new Vector2(700f, 640f));   // tall enough that the drive button sits under the five bars, clear of the car strip
             UIKit.Outline(p.transform, new Color(1f, 1f, 1f, 0.12f));
             var tr = p.transform;
             UIKit.Stripe(tr, new Vector2(1f, 1f), new Vector2(-30f, -14f), 220f, 5f, true);
             nameTxt = UIKit.Label(tr, "Name", "", 72, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Display);
-            UIKit.Place(nameTxt.rectTransform, new Vector2(1f, 1f), new Vector2(-34f, -18f), new Vector2(540f, 90f));
+            UIKit.Place(nameTxt.rectTransform, new Vector2(1f, 1f), new Vector2(-34f, -18f), new Vector2(640f, 90f));
             tagTxt = UIKit.Label(tr, "Tag", "", 36, new Color(1, 1, 1, 0.8f), TextAnchor.MiddleRight, UIKit.Arabic);
-            UIKit.Place(tagTxt.rectTransform, new Vector2(1f, 1f), new Vector2(-34f, -108f), new Vector2(370f, 50f));
-            tagTxt.resizeTextForBestFit = true; tagTxt.horizontalOverflow = HorizontalWrapMode.Wrap; tagTxt.verticalOverflow = VerticalWrapMode.Truncate; tagTxt.resizeTextMinSize = 22; tagTxt.resizeTextMaxSize = 36;
+            UIKit.Place(tagTxt.rectTransform, new Vector2(1f, 1f), new Vector2(-34f, -106f), new Vector2(420f, 58f));
+            tagTxt.resizeTextForBestFit = true; tagTxt.horizontalOverflow = HorizontalWrapMode.Wrap; tagTxt.verticalOverflow = VerticalWrapMode.Overflow; tagTxt.resizeTextMinSize = 28; tagTxt.resizeTextMaxSize = 42;
             var chip = UIKit.Panel(tr, "Cyl", new Color(1, 1, 1, 0.08f), "hud/panel_sharp");
-            UIKit.Place(chip.rectTransform, new Vector2(0f, 1f), new Vector2(34f, -110f), new Vector2(170f, 46f));
+            UIKit.Place(chip.rectTransform, new Vector2(0f, 1f), new Vector2(30f, -108f), new Vector2(210f, 56f));
             UIKit.Outline(chip.transform, new Color(1, 1, 1, 0.3f), "hud/panel_sharp_outline");
             cylTxt = UIKit.Label(chip.transform, "T", "", 28, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Arabic);
-            cylTxt.resizeTextForBestFit = true; cylTxt.horizontalOverflow = HorizontalWrapMode.Wrap; cylTxt.verticalOverflow = VerticalWrapMode.Truncate; cylTxt.resizeTextMinSize = 24; cylTxt.resizeTextMaxSize = 28;
+            cylTxt.resizeTextForBestFit = true; cylTxt.horizontalOverflow = HorizontalWrapMode.Wrap; cylTxt.verticalOverflow = VerticalWrapMode.Overflow; cylTxt.resizeTextMinSize = 28; cylTxt.resizeTextMaxSize = 42;
             UIKit.Stretch(cylTxt.rectTransform);
             var sep = UIKit.Img(tr, "Sep", null, new Color(1, 1, 1, 0.12f));
-            UIKit.Place(sep.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -170f), new Vector2(540f, 2f));
+            UIKit.Place(sep.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -176f), new Vector2(640f, 2f));
 
             string[] labels = { "السرعة القصوى", "التسارع", "التحكم", "الكبح", "التقحيص" };
             for (int i = 0; i < 5; i++)
             {
-                float y = -196f - i * 50f;
-                var l = UIKit.Label(tr, "L" + i, labels[i], 34, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Arabic);
-                UIKit.Place(l.rectTransform, new Vector2(1f, 1f), new Vector2(-34f, y), new Vector2(230f, 48f));
-                vals[i] = UIKit.Label(tr, "V" + i, "", 34, UIKit.Cream, TextAnchor.MiddleLeft, UIKit.Black);
-                UIKit.Place(vals[i].rectTransform, new Vector2(0f, 1f), new Vector2(34f, y), new Vector2(84f, 48f));
+                float y = -194f - i * 60f;
+                var l = UIKit.Label(tr, "L" + i, labels[i], 42, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Arabic);
+                UIKit.Place(l.rectTransform, new Vector2(1f, 1f), new Vector2(-34f, y), new Vector2(290f, 58f));
+                vals[i] = UIKit.Label(tr, "V" + i, "", 42, UIKit.Cream, TextAnchor.MiddleLeft, UIKit.Black);
+                UIKit.Place(vals[i].rectTransform, new Vector2(0f, 1f), new Vector2(30f, y), new Vector2(100f, 58f));
                 var barRoot = UIKit.Rect(tr, "B" + i);
-                UIKit.Place(barRoot, new Vector2(0f, 1f), new Vector2(110f, y - 26f), new Vector2(230f, 10f));
-                bars[i] = UIKit.Bar(barRoot, "Bar", 0.5f, new Color(0.8f, 0.86f, 0.92f), new Vector2(230f, 10f));
+                UIKit.Place(barRoot, new Vector2(0f, 1f), new Vector2(136f, y - 30f), new Vector2(230f, 12f));
+                bars[i] = UIKit.Bar(barRoot, "Bar", 0.5f, new Color(0.8f, 0.86f, 0.92f), new Vector2(230f, 12f));
                 ((RectTransform)bars[i].transform.parent).anchoredPosition = Vector2.zero;
             }
 
             driveBtn = UIKit.Button(tr, "Drive", UIKit.Gold, () => { if (CarCatalog.Has3D(selected)) flow.StartDrive(selected); else flow.Toast("هذي السيارة قريباً"); }, "hud/panel_sharp");
-            UIKit.Place((RectTransform)driveBtn.transform, new Vector2(0.5f, 0f), new Vector2(0f, 26f), new Vector2(540f, 96f));
+            UIKit.Place((RectTransform)driveBtn.transform, new Vector2(0.5f, 0f), new Vector2(0f, 24f), new Vector2(640f, 100f));
             var ic = UIKit.Img(driveBtn.transform, "Ic", UIKit.S("hud/ic_flag"), new Color(0.12f, 0.08f, 0.03f));
             UIKit.Place(ic.rectTransform, new Vector2(1f, 0.5f), new Vector2(-30f, 0f), new Vector2(54f, 54f));
             driveTxt = UIKit.Label(driveBtn.transform, "T", "قيادة", 46, new Color(0.12f, 0.08f, 0.03f), TextAnchor.MiddleCenter, UIKit.Black);
@@ -183,8 +183,8 @@ namespace DriftKuwait
                 if (!CarCatalog.Has3D(id))
                 {
                     var soon = UIKit.Panel(rt, "Soon", new Color(0, 0, 0, 0.7f), "hud/pill");
-                    UIKit.Place(soon.rectTransform, new Vector2(0f, 1f), new Vector2(6f, -6f), new Vector2(84f, 30f));
-                    var st = UIKit.Label(soon.transform, "T", "قريباً", 28, UIKit.Gold, TextAnchor.MiddleCenter, UIKit.Black);
+                    UIKit.Place(soon.rectTransform, new Vector2(0f, 1f), new Vector2(6f, -6f), new Vector2(110f, 42f));
+                    var st = UIKit.Label(soon.transform, "T", "قريباً", 36, UIKit.Gold, TextAnchor.MiddleCenter, UIKit.Black);
                     UIKit.Stretch(st.rectTransform);
                 }
                 tileOutlines[i] = UIKit.Outline(rt, UIKit.Gold, "hud/panel_sharp_outline");
@@ -209,14 +209,14 @@ namespace DriftKuwait
             UIKit.Place(bi.rectTransform, new Vector2(0f, 0.5f), new Vector2(24f, 0f), new Vector2(40f, 40f));
 
             var row = UIKit.Rect(safe, "Actions");
-            UIKit.Place(row, new Vector2(1f, 0f), new Vector2(-30f, 24f), new Vector2(1250f, 80f));
+            UIKit.Place(row, new Vector2(1f, 0f), new Vector2(-30f, 22f), new Vector2(1250f, 86f));
             (string ar, string icon)[] acts = { ("الداينو", "gear"), ("القطع", "wrench"), ("الصبغ والجنوط", "spray"), ("وضع التصوير", "camera") };
             float x = 0f;
             for (int ai = 0; ai < acts.Length; ai++)
             {
                 var a = acts[ai];
                 int which = ai;
-                float w = 70f + a.ar.Length * 22f;
+                float w = 74f + a.ar.Length * 26f;
                 var b = UIKit.Button(row, a.ar, UIKit.Ink, () =>
                 {
                     Sfx.Play("ui_click");
@@ -225,12 +225,12 @@ namespace DriftKuwait
                     else if (which == 2) OpenWorkshop(WorkshopPanel.Mode.Look);
                     else flow.Toast("قريباً");
                 }, "hud/pill");
-                UIKit.Place((RectTransform)b.transform, new Vector2(1f, 0.5f), new Vector2(x, 0f), new Vector2(w, 72f));
+                UIKit.Place((RectTransform)b.transform, new Vector2(1f, 0.5f), new Vector2(x, 0f), new Vector2(w, 82f));
                 var ic = UIKit.Img(b.transform, "I", UIKit.S("hud/ic_" + a.icon), UIKit.Cream);
                 UIKit.Place(ic.rectTransform, new Vector2(0f, 0.5f), new Vector2(18f, 0f), new Vector2(38f, 38f));
-                var t = UIKit.Label(b.transform, "T", a.ar, 32, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Black);
-                UIKit.Place(t.rectTransform, new Vector2(1f, 0.5f), new Vector2(-20f, 2f), new Vector2(w - 70f, 54f));
-                t.resizeTextForBestFit = true; t.horizontalOverflow = HorizontalWrapMode.Wrap; t.verticalOverflow = VerticalWrapMode.Truncate; t.resizeTextMinSize = 26; t.resizeTextMaxSize = 32;
+                var t = UIKit.Label(b.transform, "T", a.ar, 40, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Black);
+                UIKit.Place(t.rectTransform, new Vector2(1f, 0.5f), new Vector2(-18f, 2f), new Vector2(w - 72f, 64f));
+                t.resizeTextForBestFit = true; t.horizontalOverflow = HorizontalWrapMode.Wrap; t.verticalOverflow = VerticalWrapMode.Overflow; t.resizeTextMinSize = 28; t.resizeTextMaxSize = 42;
                 x -= w + 14f;
             }
         }

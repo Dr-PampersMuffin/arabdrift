@@ -240,7 +240,7 @@ namespace DriftKuwait
             UIKit.Outline(p.transform, new Color(1f, 0.7f, 0.2f, 0.6f));
             var t = UIKit.Label(p.transform, "T", ar, 42, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Stretch(t.rectTransform, 30f, 30f, 8f, 8f);
-            t.resizeTextForBestFit = true; t.resizeTextMinSize = 24; t.resizeTextMaxSize = 42;   // always inside the box
+            t.resizeTextForBestFit = true; t.resizeTextMinSize = 28; t.resizeTextMaxSize = 42;   // always inside the box
             Destroy(c.gameObject, 2.4f);
         }
     }

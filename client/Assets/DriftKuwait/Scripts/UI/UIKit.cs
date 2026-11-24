@@ -202,12 +202,15 @@ namespace DriftKuwait
         }
 
         // ---------- Text ----------
+        public const int MinArabic = 36, MinLatin = 24, MinFit = 28;
+
         public static Text Label(Transform parent, string name, string text, int size, Color c, TextAnchor align, Font font = null, bool arabicText = true)
         {
             var rt = Rect(parent, name);
             var t = rt.gameObject.AddComponent<Text>();
             t.font = font != null ? font : Arabic;
-            t.fontSize = size;
+            // Readability floor (a 60-year-old must read every word on a phone): Arabic never below 36, Latin tags never below 24
+            t.fontSize = Mathf.Max(size, arabicText ? MinArabic : MinLatin);
             t.color = c;
             t.alignment = align;
             t.horizontalOverflow = HorizontalWrapMode.Overflow;

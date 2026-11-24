@@ -60,7 +60,7 @@ namespace DriftKuwait
             UIKit.Stripe(cp.transform, new Vector2(1f, 0f), new Vector2(-20f, 8f), 160f, 4f, true);
             cap = UIKit.Label(cp.transform, "T", "", 40, UIKit.Gold, TextAnchor.MiddleRight, UIKit.Black);
             UIKit.Place(cap.rectTransform, new Vector2(1f, 0.5f), new Vector2(-24f, 4f), new Vector2(860f, 64f));
-            cap.resizeTextForBestFit = true; cap.resizeTextMinSize = 24; cap.resizeTextMaxSize = 40;
+            cap.resizeTextForBestFit = true; cap.resizeTextMinSize = 28; cap.resizeTextMaxSize = 42;
             capPlate = cp.gameObject;
 
             var skip = UIKit.Button(safe, "Skip", UIKit.Ink, Finish, "hud/pill");

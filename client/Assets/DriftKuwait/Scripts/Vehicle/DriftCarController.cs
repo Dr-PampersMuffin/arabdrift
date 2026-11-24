@@ -74,7 +74,7 @@ namespace DriftKuwait
 
         Rigidbody rb;
         CarInput input;
-        float steer, rearSpin, shiftTimer, reverseTimer, limiterTimer;
+        float steer, rearSpin, shiftTimer, reverseTimer, limiterTimer, flickT;
         int groundMask;
         readonly Dictionary<int, float> gripCache = new Dictionary<int, float>();
 
@@ -138,6 +138,8 @@ namespace DriftKuwait
             bool autoRev = Gear == -1 && !manual;
             float throttle = autoRev ? input.Brake : input.Throttle;
             float brake = autoRev ? input.Throttle : input.Brake;
+            if (Handbrake && !input.Handbrake) flickT = 0.6f;   // just let go of the handbrake: let the slide develop
+            flickT -= dt;
             Handbrake = input.Handbrake;
             ThrottleInput = throttle;
 
@@ -294,7 +296,7 @@ namespace DriftKuwait
                 float a = DriftAngle, absA = Mathf.Abs(a);
                 float yawRate = Vector3.Dot(rb.angularVelocity, transform.up);
                 // 1) Damp the yaw rate so the tail swings smoothly instead of snapping into a spin
-                rb.AddTorque(-transform.up * yawRate * Mathf.Lerp(0.6f, 2.4f, counterSteerAssist) * driftT * (Handbrake ? 0.25f : 1f), ForceMode.Acceleration);
+                rb.AddTorque(-transform.up * yawRate * Mathf.Lerp(0.6f, 2.4f, counterSteerAssist) * driftT * (Handbrake ? 0.2f : flickT > 0f ? 0.4f : 1f), ForceMode.Acceleration);
                 // 2) Past ~55 degrees the nose is pulled back toward the direction of travel (no spin-outs unless you really mean it)
                 float limit = Mathf.Lerp(70f, 52f, counterSteerAssist);
                 if (absA > limit) rb.AddTorque(transform.up * Mathf.Sign(a) * (absA - limit) * 0.09f, ForceMode.Acceleration);
@@ -314,10 +316,10 @@ namespace DriftKuwait
                 float yawRate = Vector3.Dot(rb.angularVelocity, transform.up);
                 float absA = Mathf.Abs(DriftAngle);
                 float speedK = Mathf.Clamp01((SpeedKmh - 15f) / 35f);
-                float fade = Mathf.Clamp01(1f - absA / 40f);
+                float fade = Mathf.Clamp01(1f - absA / 48f);
                 float dir = Mathf.Sign(input.Steer);
-                if (yawRate * dir < 2.6f)   // cap the swing: no instant spins
-                    rb.AddTorque(transform.up * input.Steer * 6.5f * speedK * fade, ForceMode.Acceleration);
+                if (yawRate * dir < 3.2f)   // cap the swing: no instant spins
+                    rb.AddTorque(transform.up * input.Steer * 12f * speedK * fade, ForceMode.Acceleration);
                 // weight goes onto the nose: a touch of extra front bite while the tail swings
                 rb.AddForceAtPosition(-transform.up * rb.mass * 1.5f * speedK, transform.TransformPoint(0f, 0f, 1.2f), ForceMode.Force);
             }

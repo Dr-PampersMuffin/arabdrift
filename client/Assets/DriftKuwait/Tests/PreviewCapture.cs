@@ -59,6 +59,16 @@ namespace DriftKuwait.Preview
             car.counterSteerAssist = 1f;
             yield return new WaitForSeconds(1.0f);
             Capture("10_start");
+            {
+                // Subtitle box layout check: a two-line line from بو نبيل
+                var hudSay = Object.FindAnyObjectByType<DriveHUD>();
+                if (hudSay != null)
+                {
+                    hudSay.Say("ev_salwa_first", "por_abu_rashid", "بو نبيل:", "الشارع الطويل والدوار الصغير. قرب من الجدران عشان نقاط الاقتراب.");
+                    yield return null; yield return null;
+                    Capture("10b_dialog");
+                }
+            }
 
             // Accelerate down the straight, then a handbrake flick into a held drift.
             CarInput.TouchThrottle = 1f;
