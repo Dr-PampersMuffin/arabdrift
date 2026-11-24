@@ -1,4 +1,4 @@
-preview run 32 ref preview-32 sha e3ec8c2d2ef17ecf5a12fe45f9804523cf0b4917 play=failure
+preview run 33 ref preview-33 sha 086be466f8d7f4512438b2b5b519b77a31b42795 play=failure
 01_title.png
 02_garage.png
 03_garage_abusitta.png
@@ -41,170 +41,170 @@ preview run 32 ref preview-32 sha e3ec8c2d2ef17ecf5a12fe45f9804523cf0b4917 play=
 43_crowd.png
 50_job_taxi.png
 ----- test results -----
-<test-case id="1002" name="CaptureScenes" fullname="DriftKuwait.Preview.PreviewCapture.CaptureScenes" methodname="CaptureScenes" classname="DriftKuwait.Preview.PreviewCapture" runstate="Runnable" seed="2121817958" result="Passed" start-time="2026-11-24 09:53:17Z" end-time="2026-11-24 09:56:17Z" duration="179.874377" asserts="0"
+<test-case id="1002" name="CaptureScenes" fullname="DriftKuwait.Preview.PreviewCapture.CaptureScenes" methodname="CaptureScenes" classname="DriftKuwait.Preview.PreviewCapture" runstate="Runnable" seed="2143320965" result="Passed" start-time="2026-11-24 10:03:04Z" end-time="2026-11-24 10:11:34Z" duration="510.260978" asserts="0"
 ----- [Preview] / errors from the log -----
-3703:Start importing Packages/com.unity.test-framework.performance/ValidationExceptions.json using Guid(a23a55c69f9544b56a85639e7258ea1d) (TextScriptImporter) -> (artifact id: '1024791765b0e8e84823210b022d1eb8') in 0.000535378 seconds
-3708:Start importing Packages/com.unity.burst/ValidationExceptions.json using Guid(f383c015504b380698ba4a8681b1223e) (TextScriptImporter) -> (artifact id: '1832c82ee42321e0f5c680b68fbe37eb') in 0.000525756 seconds
-3758:Start importing Packages/com.unity.render-pipelines.universal/ValidationExceptions.json using Guid(3afe581e949e3cc489c978bd8e000c4b) (TextScriptImporter) -> (artifact id: '980e22429d5d4161b19132dc7ef780b2') in 0.00049689 seconds
-3788:Start importing Packages/com.unity.mathematics/ValidationExceptions.json using Guid(5ed727127196a4ecc90e24e2cd7af338) (TextScriptImporter) -> (artifact id: '4cc76c19a2de3daa0998756408ae203b') in 0.00055955 seconds
-3796:Start importing Packages/com.unity.collections/pvpExceptions.json using Guid(fee59c2b2318a7e4fa7a2c2af28d9553) (TextScriptImporter) -> (artifact id: 'e7d6d9de6fef388fbd1e6dba877bd237') in 0.000640791 seconds
-3804:Start importing Packages/com.unity.collections/ValidationExceptions.json using Guid(6fe576033d6a2424c888d599967457a2) (TextScriptImporter) -> (artifact id: 'f8ad2fec6095330ee571eda86931f6a4') in 0.000538568 seconds
-4075:UnityEngine.Rendering.RenderPipelineGlobalSettingsUtils:TryEnsure<UnityEngine.Rendering.Universal.UniversalRenderPipelineGlobalSettings, UnityEngine.Rendering.Universal.UniversalRenderPipeline> (UnityEngine.Rendering.Universal.UniversalRenderPipelineGlobalSettings&,string,bool,System.Exception&) (at ./Library/PackageCache/com.unity.render-pipelines.core@0ff91b144dbd/Runtime/RenderPipeline/RenderPipelineGlobalSettingsUtils.cs:126)
-4261:[Build] Created Assets/Settings/DK_URP.asset
-4282:[Build] SSAO feature added
-4440:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/abusitta/paint.mat
-4465:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/dawriya/paint.mat
-4490:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/faris/paint.mat
-4515:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/ghazal/paint.mat
-4540:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/shaheen/paint.mat
-4565:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/tr_compact/paint.mat
-4590:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/tr_pickup/paint.mat
-4615:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/tr_sedan_big/paint.mat
-4640:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/tr_suv/paint.mat
-4665:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/tr_taxi/paint.mat
-4690:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/wanait/paint.mat
-4734:[Build] PrepareForTests done
-4945:[World] Stone: 84210 verts, 28070 tris
-4960:[World] Trim: 145344 verts, 48448 tris
-4975:[World] WaterTanks: 64764 verts, 21588 tris
-4990:[World] Kerb_Yellow: 61536 verts, 20512 tris
-5005:[World] Kerb_Black: 60744 verts, 20248 tris
-5020:[World] PalmTrunks: 33984 verts, 11328 tris
-5035:[World] PalmFronds: 47200 verts, 23600 tris
-5050:[World] parked cars: 10 of 174 spots
-5086:[World] Dunes: 226368 verts, 75456 tris
-5106:[Preview] graphics OpenGLCore llvmpipe (LLVM 15.0.7, 256 bits), out /github/workspace/previews
-5115:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5133:[Preview] saved 01_title
-5144:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5163:[Preview] saved 02_garage
-5174:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5192:[Preview] saved 03_garage_abusitta
-5203:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5221:[Preview] saved 03_garage_faris
-5232:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5250:[Preview] saved 03_garage_ghazal
-5261:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5279:[Preview] saved 03_garage_wanait
-5290:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5308:[Preview] saved 04_map
-5319:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5337:[Preview] saved 04b_map_ch2
-5348:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5366:[Preview] saved 06_howto
-5377:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5395:[Preview] saved 07_story
-5406:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5424:[Preview] saved 07b_story_ch2
-5435:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5453:[Preview] saved 07c_history
-5464:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5482:[Preview] saved 08_results
-5493:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5511:[Preview] saved 09a_parts
-5522:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5540:[Preview] saved 09b_paint
-5551:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5569:[Preview] saved 09c_dyno
-5580:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5598:[Preview] saved 09d_faris_navy
-5609:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5627:[Preview] starting drive
-5636:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5654:[Drive] building car shaheen
-5669:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5687:[Drive] car ready, building HUD
-5702:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5720:[Drive] HUD ready
-5735:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5764:[Preview] drive frame 0: 1761 ms
-5773:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5791:[Preview] drive frame 1: 5 ms
-5800:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5818:[Preview] drive frame 2: 92 ms
-5827:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5845:[Preview] drive frame 3: 15 ms
-5854:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5872:[Preview] drive frame 4: 70 ms
-5881:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5899:[Preview] drive frame 5: 11 ms
-5908:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5926:[Preview] saved 10_start
-5937:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5955:[Preview] saved 11_speed
-5966:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-5984:[Preview] drift t=0.35s angle 0 speed 61 yawRate 0.60 steer 9
-5993:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6011:[Preview] drift t=0.45s angle -3 speed 61 yawRate -0.13 steer -7
-6020:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6038:[Preview] drift t=0.55s angle -2 speed 61 yawRate -0.52 steer -7
-6047:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6065:[Preview] drift t=0.65s angle 2 speed 63 yawRate -0.83 steer -7
-6074:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6092:[Preview] drift t=0.75s angle 8 speed 65 yawRate -1.21 steer -7
-6101:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6119:[Preview] drift t=0.85s angle 17 speed 67 yawRate -1.45 steer 2
-6128:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6146:[Preview] drift t=0.95s angle 26 speed 69 yawRate -1.41 steer 12
-6155:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6173:[Preview] drift t=1.05s angle 31 speed 71 yawRate -1.38 steer 16
-6182:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6200:[Preview] drift t=1.15s angle 39 speed 72 yawRate -1.33 steer 21
-6209:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6227:[Preview] saved 12_drift
-6238:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6256:[Preview] saved 13_drift_smoke
-6267:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6285:[Preview] smoke sample pos (-12.14, 0.37, -72.83) size 0.28 colour RGBA(245, 242, 237, 53) car (-10.64, 0.08, -72.62) renderer enabled True layer 0
-6294:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6312:[Preview] smoke sample pos (-12.16, 0.88, -74.28) size 0.26 colour RGBA(245, 242, 237, 101) car (-10.64, 0.08, -72.62) renderer enabled True layer 0
-6321:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6339:[Preview] smoke sample pos (-2.43, 1.54, -94.44) size 2.78 colour RGBA(245, 242, 237, 61) car (-10.64, 0.08, -72.62) renderer enabled True layer 0
-6348:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6366:[Preview] smoke sample pos (-4.00, 0.79, -98.28) size 2.51 colour RGBA(245, 242, 237, 63) car (-10.64, 0.08, -72.62) renderer enabled True layer 0
-6375:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6393:[Preview] particles alive 388, smoke material M_Smoke / Universal Render Pipeline/Particles/Unlit supported=True, speed 27 angle 0
-6402:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6420:[Preview] saved 13b_smoke_unlit
-6431:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6449:[Preview] saved 14_transition
-6460:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6478:[Preview] before lift rpm 5106
-6487:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6505:[Preview] saved 14b_backfire
-6516:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6534:[Preview] saved 20_car_front34
-6544:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6562:[Preview] saved 21_car_rear34
-6572:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6590:[Preview] saved 22_car_side
-6600:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6618:[Preview] saved 23_car_wheel
-6628:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6646:[Preview] saved 15_street_villas
-6656:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6674:[Preview] saved 16_street_gate
-6684:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6702:[Preview] saved 17_avenue
-6712:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6730:[Preview] saved 18_roundabout
-6740:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6758:[Preview] saved 19_mosque
-6768:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
-6786:[Preview] saved 19b_shops
-6796:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+3713:Start importing Packages/com.unity.test-framework.performance/ValidationExceptions.json using Guid(a23a55c69f9544b56a85639e7258ea1d) (TextScriptImporter) -> (artifact id: '1024791765b0e8e84823210b022d1eb8') in 0.000772337 seconds
+3720:Start importing Packages/com.unity.burst/ValidationExceptions.json using Guid(f383c015504b380698ba4a8681b1223e) (TextScriptImporter) -> (artifact id: '1832c82ee42321e0f5c680b68fbe37eb') in 0.000765387 seconds
+3777:Start importing Packages/com.unity.render-pipelines.universal/ValidationExceptions.json using Guid(3afe581e949e3cc489c978bd8e000c4b) (TextScriptImporter) -> (artifact id: '980e22429d5d4161b19132dc7ef780b2') in 0.000741422 seconds
+3801:Start importing Packages/com.unity.mathematics/ValidationExceptions.json using Guid(5ed727127196a4ecc90e24e2cd7af338) (TextScriptImporter) -> (artifact id: '4cc76c19a2de3daa0998756408ae203b') in 0.000663926 seconds
+3808:Start importing Packages/com.unity.collections/pvpExceptions.json using Guid(fee59c2b2318a7e4fa7a2c2af28d9553) (TextScriptImporter) -> (artifact id: 'e7d6d9de6fef388fbd1e6dba877bd237') in 0.000681572 seconds
+3816:Start importing Packages/com.unity.collections/ValidationExceptions.json using Guid(6fe576033d6a2424c888d599967457a2) (TextScriptImporter) -> (artifact id: 'f8ad2fec6095330ee571eda86931f6a4') in 0.00063265 seconds
+4087:UnityEngine.Rendering.RenderPipelineGlobalSettingsUtils:TryEnsure<UnityEngine.Rendering.Universal.UniversalRenderPipelineGlobalSettings, UnityEngine.Rendering.Universal.UniversalRenderPipeline> (UnityEngine.Rendering.Universal.UniversalRenderPipelineGlobalSettings&,string,bool,System.Exception&) (at ./Library/PackageCache/com.unity.render-pipelines.core@0ff91b144dbd/Runtime/RenderPipeline/RenderPipelineGlobalSettingsUtils.cs:126)
+4273:[Build] Created Assets/Settings/DK_URP.asset
+4294:[Build] SSAO feature added
+4452:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/abusitta/paint.mat
+4477:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/dawriya/paint.mat
+4502:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/faris/paint.mat
+4527:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/ghazal/paint.mat
+4552:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/shaheen/paint.mat
+4577:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/tr_compact/paint.mat
+4602:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/tr_pickup/paint.mat
+4627:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/tr_sedan_big/paint.mat
+4652:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/tr_suv/paint.mat
+4677:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/tr_taxi/paint.mat
+4702:[Build] Car material Assets/DriftKuwait/Resources/DriftKuwait/Cars/wanait/paint.mat
+4746:[Build] PrepareForTests done
+4957:[World] Stone: 84210 verts, 28070 tris
+4972:[World] Trim: 145344 verts, 48448 tris
+4987:[World] WaterTanks: 64764 verts, 21588 tris
+5002:[World] Kerb_Yellow: 61536 verts, 20512 tris
+5017:[World] Kerb_Black: 60744 verts, 20248 tris
+5032:[World] PalmTrunks: 33984 verts, 11328 tris
+5047:[World] PalmFronds: 47200 verts, 23600 tris
+5062:[World] parked cars: 10 of 174 spots
+5098:[World] Dunes: 226368 verts, 75456 tris
+5119:[Preview] graphics OpenGLCore llvmpipe (LLVM 15.0.7, 256 bits), out /github/workspace/previews
+5128:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5146:[Preview] saved 01_title
+5157:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5175:[Preview] saved 02_garage
+5186:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5204:[Preview] saved 03_garage_abusitta
+5215:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5233:[Preview] saved 03_garage_faris
+5244:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5262:[Preview] saved 03_garage_ghazal
+5273:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5291:[Preview] saved 03_garage_wanait
+5302:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5320:[Preview] saved 04_map
+5331:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5349:[Preview] saved 04b_map_ch2
+5360:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5378:[Preview] saved 06_howto
+5389:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5407:[Preview] saved 07_story
+5418:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5436:[Preview] saved 07b_story_ch2
+5447:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5465:[Preview] saved 07c_history
+5476:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5494:[Preview] saved 08_results
+5505:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5523:[Preview] saved 09a_parts
+5534:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5552:[Preview] saved 09b_paint
+5563:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5581:[Preview] saved 09c_dyno
+5592:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5610:[Preview] saved 09d_faris_navy
+5621:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5639:[Preview] starting drive
+5648:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5666:[Drive] building car shaheen
+5681:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5699:[Drive] car ready, building HUD
+5714:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5732:[Drive] HUD ready
+5747:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5776:[Preview] drive frame 0: 177 ms
+5785:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5803:[Preview] drive frame 1: 1899 ms
+5812:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5830:[Preview] drive frame 2: 21 ms
+5839:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5857:[Preview] drive frame 3: 69 ms
+5866:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5884:[Preview] drive frame 4: 15 ms
+5893:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5911:[Preview] drive frame 5: 84 ms
+5920:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5938:[Preview] saved 10_start
+5949:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5967:[Preview] saved 11_speed
+5978:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+5996:[Preview] drift t=0.35s angle 0 speed 62 yawRate 0.58 steer 12
+6005:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6023:[Preview] drift t=0.45s angle -3 speed 62 yawRate -0.22 steer -7
+6032:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6050:[Preview] drift t=0.55s angle -1 speed 61 yawRate -0.56 steer -7
+6059:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6077:[Preview] drift t=0.65s angle 2 speed 64 yawRate -0.87 steer -7
+6086:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6104:[Preview] drift t=0.75s angle 6 speed 65 yawRate -1.11 steer -7
+6113:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6131:[Preview] drift t=0.85s angle 11 speed 66 yawRate -1.34 steer -5
+6140:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6158:[Preview] drift t=0.95s angle 20 speed 68 yawRate -1.45 steer 8
+6167:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6185:[Preview] drift t=1.05s angle 26 speed 70 yawRate -1.41 steer 12
+6194:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6212:[Preview] drift t=1.15s angle 35 speed 72 yawRate -1.35 steer 18
+6221:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6239:[Preview] saved 12_drift
+6250:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6268:[Preview] saved 13_drift_smoke
+6279:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6297:[Preview] smoke sample pos (-2.10, -1.27, -96.92) size 2.00 colour RGBA(245, 242, 237, 65) car (-10.61, 0.07, -73.19) renderer enabled True layer 0
+6306:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6324:[Preview] smoke sample pos (-12.09, 0.57, -73.13) size 0.18 colour RGBA(245, 242, 237, 1) car (-10.61, 0.07, -73.19) renderer enabled True layer 0
+6333:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6351:[Preview] smoke sample pos (-2.40, 3.74, -112.33) size 4.54 colour RGBA(245, 242, 237, 20) car (-10.61, 0.07, -73.19) renderer enabled True layer 0
+6360:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6378:[Preview] smoke sample pos (-11.58, 0.58, -74.38) size 0.32 colour RGBA(204, 173, 128, 14) car (-10.61, 0.07, -73.19) renderer enabled True layer 0
+6387:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6405:[Preview] particles alive 296, smoke material M_Smoke / Universal Render Pipeline/Particles/Unlit supported=True, speed 33 angle 99
+6414:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6432:[Preview] saved 13b_smoke_unlit
+6443:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6461:[Preview] saved 14_transition
+6472:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6490:[Preview] before lift rpm 7200
+6499:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6517:[Preview] saved 14b_backfire
+6528:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6546:[Preview] saved 20_car_front34
+6556:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6574:[Preview] saved 21_car_rear34
+6584:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6602:[Preview] saved 22_car_side
+6612:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6630:[Preview] saved 23_car_wheel
+6640:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6658:[Preview] saved 15_street_villas
+6668:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6686:[Preview] saved 16_street_gate
+6696:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6714:[Preview] saved 17_avenue
+6724:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6742:[Preview] saved 18_roundabout
+6752:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6770:[Preview] saved 19_mosque
+6780:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
+6798:[Preview] saved 19b_shops
+6808:UnityEngine.TestTools.EnumerableTestMethodCommand/<ExecuteEnumerableAndRecordExceptions>d__4:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEngine.TestRunner/NUnitExtensions/Commands/EnumerableTestMethodCommand.cs:79)
 ----- log tail -----
-    Assets/Settings/DK_URP.asset
-    Assets/DriftKuwait/Resources/DK_ShaderRefs/Skybox_Panoramic.mat
-    Assets/DriftKuwait/Resources/DK_ShaderRefs/Universal_Render_Pipeline_Lit.mat
-    Assets/DriftKuwait/Resources/DK_ShaderRefs/keep_pl_soft.mat
-    Assets/Settings
-    Assets/DriftKuwait/Resources/DK_ShaderRefs/keep_lit_normal_metal.mat
-    Assets/Settings/DK_URP_Renderer.asset
-    Assets/DriftKuwait/Resources/DK_ShaderRefs/keep_lit_emission.mat
-    Assets/DriftKuwait/Resources/DriftKuwait/Cars/shaheen/paint.mat
+    Assets/DriftKuwait/Resources/DriftKuwait/Cars/faris/paint.mat
+    Assets/DriftKuwait/Resources/DriftKuwait/Cars/dawriya/paint.mat
+    Assets/DriftKuwait/Resources/DK_ShaderRefs/keep_pl_transparent.mat
     Assets/DriftKuwait/Resources/DriftKuwait/Cars/abusitta/paint.mat
-    Assets/DriftKuwait/Resources/DK_ShaderRefs/Universal_Render_Pipeline_Particles_Lit.mat
+    Assets/DriftKuwait/Resources/DK_ShaderRefs/keep_lit_normal_metal.mat
+    Assets/Settings/DK_URP.asset
+    Assets/DriftKuwait/Resources/DriftKuwait/Cars/ghazal/paint.mat
+    Assets/DriftKuwait/Resources/DriftKuwait/Cars/tr_suv/paint.mat
+    Assets/DriftKuwait/Resources/DK_ShaderRefs/Universal_Render_Pipeline_Particles_Unlit.mat
+    Assets/DriftKuwait/Resources/DK_ShaderRefs/keep_lit_transparent.mat
+    Assets/DriftKuwait/Resources/DK_ShaderRefs/keep_pl_soft.mat
 UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
 UnityEngine.StackTraceUtility:ExtractStackTrace () (at /home/bokken/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:35)
 UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
@@ -232,10 +232,10 @@ UnityEditor.EditorApplication:Internal_CallUpdateFunctions () (at /home/bokken/b
 
 (Filename: ./Library/PackageCache/com.unity.test-framework@d74e8e2cf45a/UnityEditor.TestRunner/CommandLineTest/Executer.cs Line: 81)
 
-Start importing ProjectSettings/ProjectSettings.asset using Guid(00000000000000004000000000000000) (LibraryAssetImporter) -> (artifact id: '123cc84358cc0c086f567b0c2ae5db72') in 0.005343147 seconds
+Start importing ProjectSettings/ProjectSettings.asset using Guid(00000000000000004000000000000000) (LibraryAssetImporter) -> (artifact id: 'ecc19a8e60e3d54a865c011545221f74') in 0.005795608 seconds
 Refreshing native plugins compatible for Editor in 0.00 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Asset Pipeline Refresh (id=89811c4c3c3b456ba9a511664acdbfe8): Total: 0.020 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Asset Pipeline Refresh (id=8799ee61b88fb119b8adbbe17465a9f6): Total: 0.022 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
 [Physics::Module] Cleanup current backned.
 [Physics::Module] Id: 0xf2b8ea05
 Input System module state changed to: ShutdownInProgress.
@@ -253,4 +253,4 @@ debugger-agent: Unable to listen on 36
 [Package Manager] Server process was shutdown
 Checking for leaked weakptr:
   Found no leaked weakptrs.
-##utp:{"type":"MemoryLeaks","version":2,"phase":"Immediate","time":1795514178642,"processId":129,"allocatedMemory":15553722,"memoryLabels":[{"Default":13965},{"Permanent":16080},{"Thread":1084616},{"Manager":805473},{"VertexData":8},{"Geometry":408},{"VFX":-104},{"Texture":296},{"Shader":118107},{"Material":24},{"GfxDevice":36616},{"Animation":456},{"Audio":4032},{"Font":4513712},{"FreeType":166474},{"FontEngine":320},{"Physics":2081},{"Serialization":272},{"Input":26752},{"JobScheduler":33024},{"TextLib":160},{"Mono":32},{"MonoCode":96},{"ScriptingNativeRuntime":155096},{"BaseObject":1663576},{"Resource":1032},{"Renderer":2928},{"Transform":4678},{"File":15453},{"WebCam":80},{"Culling":32},{"Terrain":11298},{"Wind":24},{"String":11141},{"DynamicArray":99135},{"HashMap":88372},{"Utility":2658704},{"PoolAlloc":1760},{"AI":72},{"TypeTree":5005},{"ScriptManager":512},{"RuntimeInitializeOnLoadManager":64},{"SpriteAtlas":112},{"GI":7448},{"Director":8208},{"WebRequest":808},{"VR":45689},{"SceneManager":528},{"Video":64},{"LazyScriptCache":32},{"Camera":17},{"Secure":10073},{"Image":278528},{"SerializationCache":1576},{"APIUpdating":10320},{"Subsystems":336},{"VirtualTexturing":57552},{"StaticSafetyDebugInfo":278528},{"Analytics":256},{"Hierarchy":832},{"Gui":80},{"EditorUtility":754428},{"VersionControl":4},{"Undo":979},{"AssetDatabase":2515004},{"EditorGi":328},{"UnityConnect":24816},{"Upm":1852},{"DrivenProperties":72},{"LocalIPC":147},{"ProfilerEditor":9746},{"CoreBusinessMetrics":2337},{"Licensing":1096},{"AssetReference":32},{"IPCStream":32}]}
+##utp:{"type":"MemoryLeaks","version":2,"phase":"Immediate","time":1795515099688,"processId":130,"allocatedMemory":15239770,"memoryLabels":[{"Default":13965},{"Permanent":16080},{"Thread":1084616},{"Manager":805473},{"VertexData":8},{"Geometry":408},{"VFX":-104},{"Texture":296},{"Shader":118107},{"Material":24},{"GfxDevice":36616},{"Animation":456},{"Audio":4032},{"Font":4513712},{"FreeType":166474},{"FontEngine":320},{"Physics":2081},{"Serialization":272},{"Input":26752},{"JobScheduler":33024},{"TextLib":160},{"Mono":32},{"MonoCode":96},{"ScriptingNativeRuntime":155096},{"BaseObject":1663576},{"Resource":1032},{"Renderer":2928},{"Transform":4678},{"File":15453},{"WebCam":80},{"Culling":32},{"Terrain":11298},{"Wind":24},{"String":11141},{"DynamicArray":99135},{"HashMap":88372},{"Utility":2658704},{"PoolAlloc":1760},{"AI":72},{"TypeTree":5005},{"ScriptManager":512},{"RuntimeInitializeOnLoadManager":64},{"SpriteAtlas":112},{"GI":7448},{"Director":8208},{"WebRequest":808},{"VR":45689},{"SceneManager":528},{"Video":64},{"LazyScriptCache":32},{"Camera":17},{"Secure":10073},{"Image":278528},{"SerializationCache":1576},{"APIUpdating":10320},{"Subsystems":336},{"VirtualTexturing":57552},{"StaticSafetyDebugInfo":278528},{"Analytics":256},{"Hierarchy":832},{"Gui":80},{"EditorUtility":440476},{"VersionControl":4},{"Undo":979},{"AssetDatabase":2515004},{"EditorGi":328},{"UnityConnect":24816},{"Upm":1852},{"DrivenProperties":72},{"LocalIPC":147},{"ProfilerEditor":9746},{"CoreBusinessMetrics":2337},{"Licensing":1096},{"AssetReference":32},{"IPCStream":32}]}
