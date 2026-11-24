@@ -1,0 +1,31 @@
+{
+ "asset_id": "crowd_c",
+ "version": 1,
+ "spec": "art/prompts/crowd.json",
+ "prompt": "Photorealistic full-body photograph of one person standing, the whole body from head to feet in frame with a little space around, isolated on a perfectly flat pure chroma-key green background (#00FF00) with no shadow on the background, even soft daylight, sharp focus. Kuwait, 1987.\n\nA Kuwaiti teenager in a white dishdasha with no headscarf, whistling with two fingers in his mouth, the other hand pumping a fist, excited.\n\nDo not include: any text, letters, logos or watermarks; green clothing; smartphones; mobile phones; modern objects; women; weapons; other people; ground or floor visible.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1024x1536",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 141,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 141
+  },
+  "output_tokens": 1372,
+  "output_tokens_details": {
+   "image_tokens": 1372,
+   "text_tokens": 0
+  },
+  "total_tokens": 1513
+ },
+ "seconds": 19.5,
+ "created": "2026-11-24T12:13:00+0300",
+ "qa_status": "in_review"
+}

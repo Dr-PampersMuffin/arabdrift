@@ -51,6 +51,18 @@ public class DKAssetPostprocessor : AssetPostprocessor
             }
             ti.SetPlatformTextureSettings(ios);
         }
+        else if (p.Contains("/DriftKuwait/Crowd/"))
+        {
+            // Spectator cut-outs: alpha-tested billboards
+            ti.textureType = TextureImporterType.Default;
+            ti.alphaSource = TextureImporterAlphaSource.FromInput;
+            ti.alphaIsTransparency = true;
+            ti.mipmapEnabled = true;
+            ti.maxTextureSize = 1024;
+            var cios = ti.GetPlatformTextureSettings("iPhone");
+            cios.overridden = true; cios.maxTextureSize = 1024; cios.format = TextureImporterFormat.ASTC_6x6;
+            ti.SetPlatformTextureSettings(cios);
+        }
         else if (p.Contains("/DriftKuwait/UI/"))
         {
             ti.textureType = TextureImporterType.Sprite;

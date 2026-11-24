@@ -21,6 +21,7 @@ namespace DriftKuwait
         TrafficSystem traffic;
         FreeRoam freeRoam;
         AIDrifters drifters;
+        CrowdSystem crowd;
         EventRunner runner;
         Image fade;
 
@@ -175,6 +176,8 @@ namespace DriftKuwait
             traffic.player = pursuit.player; traffic.pursuit = pursuit;
             traffic.count = (ev != null && ev.kind != Career.Kind.FreeRoam) ? 6 : 14;
             traffic.patrol = ev == null || ev.kind == Career.Kind.FreeRoam;
+            crowd = new GameObject("DK_Crowd").AddComponent<CrowdSystem>();   // spectators at the roundabouts and along the avenue
+            crowd.player = car.GetComponent<DriftCarController>();
             Sfx.Music(Atmosphere.IsNight ? "mus_drive_night" : "mus_drive_day");
             Sfx.Play("shaheen_start", 0.8f);
             if (ev != null && ev.kind != Career.Kind.FreeRoam)
@@ -204,6 +207,7 @@ namespace DriftKuwait
             if (traffic != null) Destroy(traffic.gameObject);
             if (freeRoam != null) Destroy(freeRoam.gameObject);
             if (drifters != null) Destroy(drifters.gameObject);
+            if (crowd != null) Destroy(crowd.gameObject);
             if (car != null) Destroy(car);
             hud = null; pursuit = null; car = null;
             Time.timeScale = 1f;
