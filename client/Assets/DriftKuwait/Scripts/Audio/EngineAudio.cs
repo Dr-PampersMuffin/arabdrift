@@ -10,8 +10,11 @@ namespace DriftKuwait
     [RequireComponent(typeof(DriftCarController))]
     public class EngineAudio : MonoBehaviour
     {
-        static readonly string[] ClipKeys = { "shaheen_idle", "shaheen_2000", "shaheen_4000", "shaheen_6000" };
-        static readonly float[] ClipRpm = { 900f, 2000f, 4000f, 6000f };
+        // A screaming high-revving straight-six with a straight-through exhaust, matched to a real Kuwaiti street-stunt
+        // recording (dominant firing note 300-400 Hz at full noise). The rpm of each loop is measured from its firing
+        // frequency (straight-six: rpm / 20), so the pitch tracks the tacho.
+        static readonly string[] ClipKeys = { "street6_idle", "street6_2500", "street6_4500", "street6_8000" };
+        static readonly float[] ClipRpm = { 1100f, 2580f, 4140f, 7460f };
 
         DriftCarController car;
         AudioSource[] layers;

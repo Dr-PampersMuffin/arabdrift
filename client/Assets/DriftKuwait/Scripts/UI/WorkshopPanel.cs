@@ -252,7 +252,7 @@ namespace DriftKuwait
             if (rev == null)
             {
                 rev = gameObject.AddComponent<AudioSource>();
-                rev.clip = Resources.Load<AudioClip>("DriftKuwait/Audio/shaheen_4000");
+                rev.clip = Resources.Load<AudioClip>("DriftKuwait/Audio/street6_4500");
                 rev.loop = true; rev.spatialBlend = 0f; rev.volume = 0.8f * GameSettings.Effects;
             }
             if (rev.clip != null) rev.Play();

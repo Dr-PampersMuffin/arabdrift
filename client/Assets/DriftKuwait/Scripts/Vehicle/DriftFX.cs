@@ -143,6 +143,8 @@ namespace DriftKuwait
             float thr = car.ThrottleInput;
             if (lastThrottle > 0.6f && thr < 0.15f && car.Rpm > 4200f) Backfire(Random.Range(5, 10), 0.95f);
             if (car.LimiterCut && !lastCut) Backfire(3, 0.5f);
+            // Overrun crackle: off the gas high in the revs the exhaust keeps popping, like the real street cars
+            if (thr < 0.1f && car.Rpm > 3600f && car.SpeedKmh > 20f && popCooldown < -Random.Range(0.25f, 0.7f)) Backfire(Random.Range(2, 5), 0.55f);
             lastCut = car.LimiterCut;
             lastThrottle = thr;
             if (limiter.clip != null) limiter.volume = Mathf.MoveTowards(limiter.volume, (car.Rpm >= car.maxRpm - 60f && thr > 0.5f ? 0.75f : 0f) * Sfx.SfxVolume, dt * 6f);
