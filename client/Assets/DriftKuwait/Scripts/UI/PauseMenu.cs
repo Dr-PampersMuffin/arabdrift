@@ -55,10 +55,10 @@ namespace DriftKuwait
 
             y = -140f;
             if (inDrive)
-                timeVal = Row(colL, ref y, "الوقت", Atmosphere.IsNight ? "ليل" : "غروب", () =>
+                timeVal = Row(colL, ref y, "الوقت", Atmosphere.IsNight ? "ليل" : "نهار", () =>
                 {
                     Atmosphere.Apply(Atmosphere.IsNight ? Atmosphere.Day : Atmosphere.Preset.Night);
-                    timeVal.text = UIKit.Ar(Atmosphere.IsNight ? "ليل" : "غروب");
+                    timeVal.text = UIKit.Ar(Atmosphere.IsNight ? "ليل" : "نهار");
                     Sfx.Music(Atmosphere.IsNight ? "mus_drive_night" : "mus_drive_day");
                 });
             SliderRow(colL, ref y, "الدخان", GameSettings.Smoke, v => GameSettings.Smoke = v);
@@ -81,6 +81,12 @@ namespace DriftKuwait
             UIKit.Stretch(ht.rectTransform);
             if (inDrive)
             {
+                // Car stuck or upside down: back onto the nearest free road
+                var unstick = UIKit.Button(tr, "Unstick", UIKit.Ink, () => { Close(); if (StuckGuard.Current != null) StuckGuard.Current.Recover(); }, "hud/panel_sharp");
+                UIKit.Place((RectTransform)unstick.transform, new Vector2(0.5f, 0f), new Vector2(0f, 156f), new Vector2(440f, 90f));
+                UIKit.Outline(unstick.transform, new Color(1, 1, 1, 0.25f), "hud/panel_sharp_outline");
+                var ut = UIKit.Label(unstick.transform, "T", "رجّع السيارة للشارع", 34, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
+                UIKit.Stretch(ut.rectTransform);
                 var quit = UIKit.Button(tr, "Quit", UIKit.Ink, () => { Close(); flow.ShowTitle(); }, "hud/panel_sharp");
                 UIKit.Place((RectTransform)quit.transform, new Vector2(0f, 0f), new Vector2(60f, 40f), new Vector2(520f, 100f));
                 UIKit.Outline(quit.transform, new Color(1, 1, 1, 0.25f), "hud/panel_sharp_outline");

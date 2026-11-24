@@ -212,6 +212,29 @@ namespace DriftKuwait.Preview
                 }
             }
 
+            // Stress test: boxed in front and back while flooring it, then upside down. The StuckGuard must free the car both times.
+            {
+                rb.isKinematic = false;
+                car.transform.SetPositionAndRotation(new Vector3(-3f, 0.6f, -250f), Quaternion.identity);
+                rb.linearVelocity = Vector3.zero; rb.angularVelocity = Vector3.zero;
+                var front = GameObject.CreatePrimitive(PrimitiveType.Cube); front.transform.position = new Vector3(-3f, 1f, -246.6f); front.transform.localScale = new Vector3(4f, 2f, 1f);
+                var back = GameObject.CreatePrimitive(PrimitiveType.Cube); back.transform.position = new Vector3(-3f, 1f, -253.4f); back.transform.localScale = new Vector3(4f, 2f, 1f);
+                yield return new WaitForSeconds(0.5f);
+                Vector3 before = car.transform.position;
+                CarInput.TouchThrottle = 1f;
+                yield return new WaitForSeconds(3.2f);
+                CarInput.TouchThrottle = 0f;
+                float moved = Vector3.Distance(before, car.transform.position);
+                Debug.Log($"[StressTest] boxed-in: moved {moved:F1} m -> {(moved > 3f ? "PASS (freed)" : "FAIL (still stuck)")}");
+                Object.Destroy(front); Object.Destroy(back);
+                yield return new WaitForSeconds(0.5f);
+                car.transform.SetPositionAndRotation(car.transform.position + Vector3.up * 1.5f, Quaternion.Euler(0f, 0f, 180f));
+                rb.linearVelocity = Vector3.zero; rb.angularVelocity = Vector3.zero;
+                yield return new WaitForSeconds(2.6f);
+                float up = Vector3.Dot(car.transform.up, Vector3.up);
+                Debug.Log($"[StressTest] flipped: up {up:F2} -> {(up > 0.9f ? "PASS (upright)" : "FAIL (still flipped)")}");
+            }
+
             // Night, if the world supports it.
             if (PreviewHooks.SetNight != null)
             {

@@ -16,7 +16,8 @@ namespace DriftKuwait
             public GameObject go;
             public DisplayWheels wheels;
             public Vector3 c;
-            public float r, ang, dir, speed, angle, phase, v;
+            public float r, ang, dir, speed, angle, phase, v, touch;
+            public Collider col;
             public ParticleSystem[] smoke;
             public AudioSource squeal;
         }
@@ -40,7 +41,7 @@ namespace DriftKuwait
                 var bc = go.AddComponent<BoxCollider>(); bc.center = new Vector3(0f, 0.75f, 0f); bc.size = new Vector3(1.8f, 1.4f, 4.5f);
                 var d = new Drifter
                 {
-                    go = go, wheels = go.GetComponent<DisplayWheels>(), c = new Vector3(c.x, 0f, c.z), r = r + 8f,
+                    col = bc, go = go, wheels = go.GetComponent<DisplayWheels>(), c = new Vector3(c.x, 0f, c.z), r = r + 8f,
                     ang = Random.value * Mathf.PI * 2f, dir = 1f, speed = 11.5f + i * 1.2f, angle = 36f + i * 6f, phase = Random.value * 10f,
                 };
                 d.smoke = new ParticleSystem[2];
@@ -98,6 +99,8 @@ namespace DriftKuwait
                 float toPlayer = Vector3.Distance(new Vector3(here.x, 0f, here.z), new Vector3(pp.x, 0f, pp.z));
                 Vector3 ahead = d.go.transform.position + d.go.transform.forward * 4f;
                 bool blocked = toPlayer < 7f || (Vector3.Distance(ahead, pp) < 6f);
+                d.touch = toPlayer < 4f ? d.touch + dt : 0f;
+                if (d.col != null) { if (d.touch > 3f) d.col.enabled = false; else if (toPlayer > 8f) d.col.enabled = true; }   // never pin the player
                 float want = blocked ? 0f : d.speed * (0.92f + 0.08f * Mathf.Sin(Time.time * 0.7f + d.phase));
                 d.v = Mathf.MoveTowards(d.v, want, (blocked ? 14f : 4f) * dt);
                 float v = d.v;

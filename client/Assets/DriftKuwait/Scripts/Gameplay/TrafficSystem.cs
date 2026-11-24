@@ -19,7 +19,8 @@ namespace DriftKuwait
             public DisplayWheels wheels;
             public Vector4 road;          // x0, x1, z0, z1
             public bool alongX;
-            public float dir, speed, cruise, stopTimer, turnCooldown, blocked;
+            public float dir, speed, cruise, stopTimer, turnCooldown, blocked, touch;
+            public Collider col;
             public bool police;
         }
 
@@ -50,7 +51,7 @@ namespace DriftKuwait
                 rb.isKinematic = true; rb.interpolation = RigidbodyInterpolation.Interpolate;
                 var bc = go.AddComponent<BoxCollider>();
                 bc.center = new Vector3(0f, 0.75f, 0f); bc.size = new Vector3(1.8f, 1.4f, 4.5f);
-                var a = new Agent { go = go, wheels = go.GetComponent<DisplayWheels>(), police = cop };
+                var a = new Agent { go = go, wheels = go.GetComponent<DisplayWheels>(), police = cop, col = bc };
                 Place(a, 60f, 200f);
                 agents.Add(a);
             }
@@ -126,7 +127,10 @@ namespace DriftKuwait
 
                 // Bumped or blocked by the player: stop a moment
                 float toPlayer = Vector3.Distance(pos, pp);
-                if (toPlayer < 3.6f) a.stopTimer = 2.5f;
+                // Bumped: stop a moment. Still touching after 3 s (you are pinned or wedged): it lets go, passes
+                // through you as a ghost and drives off, so the player can never be trapped by traffic.
+                if (toPlayer < 3.6f) { a.touch += dt; if (a.touch < 3f) a.stopTimer = 2.5f; else { a.stopTimer = 0f; if (a.col != null) a.col.enabled = false; } }
+                else { a.touch = 0f; if (a.col != null && !a.col.enabled && toPlayer > 8f) a.col.enabled = true; }
 
                 // Look ahead for anything solid (other cars, the player, walls)
                 float want = a.cruise;

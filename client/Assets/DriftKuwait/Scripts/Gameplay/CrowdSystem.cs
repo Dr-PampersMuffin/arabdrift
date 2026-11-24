@@ -106,10 +106,7 @@ namespace DriftKuwait
                 Vector3 p = c + along * Random.Range(-5.5f, 5.5f) + outward * Random.Range(-0.6f, 0.9f);
                 p.y = Ground(p) + h * 1.05f * 0.5f;
                 quad.transform.position = p;
-                // a solid post where each spectator stands, so cars stop at the crowd instead of passing through it
-                var post = new GameObject("FanCollider").AddComponent<CapsuleCollider>();
-                post.transform.SetParent(root, false); post.transform.position = new Vector3(p.x, p.y, p.z);
-                post.direction = 1; post.radius = 0.3f; post.height = h;
+                // no solid posts (a car could wedge or beach on them): people jump clear and the car is slowed softly
                 g.fans.Add(new Fan { t = quad.transform, home = p, phase = Random.value * 10f, h = h, camera = isCamera[k] });
             }
             g.loop = root.gameObject.AddComponent<AudioSource>();
@@ -162,7 +159,9 @@ namespace DriftKuwait
                     float hop = g.excite * Mathf.Max(0f, Mathf.Sin(Time.time * (7f + f.phase % 3f) + f.phase)) * 0.22f;
                     float sway = Mathf.Sin(Time.time * 1.3f + f.phase) * 0.04f;
                     Vector3 away = f.home - pp; away.y = 0f;
-                    float push = away.magnitude < 8f && player.SpeedKmh > 15f ? (8f - away.magnitude) * 0.35f : 0f;
+                    float push = away.magnitude < 8f && player.SpeedKmh > 5f ? (8f - away.magnitude) * 0.45f : 0f;
+                    if (away.magnitude < 1.8f && player.SpeedKmh > 8f)   // ploughing into the crowd scrubs speed, never traps the car
+                        player.Body.linearVelocity *= 1f - Mathf.Clamp01(2.5f * dt);
                     Vector3 target = f.home + away.normalized * push + Vector3.up * hop + f.t.right * sway;
                     f.t.position = Vector3.Lerp(f.t.position, target, 1f - Mathf.Exp(-10f * dt));
                     // camera flashes from the ones with cameras
