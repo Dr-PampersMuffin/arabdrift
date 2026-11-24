@@ -76,13 +76,13 @@ namespace DriftKuwait
             UIKit.Stripe(mp.transform, new Vector2(1f, 0f), new Vector2(0f, 0f), 150f, 4f);
             missionTitle = UIKit.Label(mp.transform, "T", "تقحيص حر", 44, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Black);
             UIKit.Place(missionTitle.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -8f), new Vector2(476f, 56f));
-            missionTitle.resizeTextForBestFit = true; missionTitle.resizeTextMinSize = 28; missionTitle.resizeTextMaxSize = 44;
+            missionTitle.resizeTextForBestFit = true; missionTitle.horizontalOverflow = HorizontalWrapMode.Wrap; missionTitle.verticalOverflow = VerticalWrapMode.Truncate; missionTitle.resizeTextMinSize = 28; missionTitle.resizeTextMaxSize = 44;
             missionSub = UIKit.Label(mp.transform, "S", "سلوى · قطعة ٥", 34, new Color(1, 1, 1, 0.88f), TextAnchor.MiddleRight, UIKit.Arabic);
             UIKit.Place(missionSub.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -64f), new Vector2(476f, 48f));
-            missionSub.resizeTextForBestFit = true; missionSub.resizeTextMinSize = 22; missionSub.resizeTextMaxSize = 34;
+            missionSub.resizeTextForBestFit = true; missionSub.horizontalOverflow = HorizontalWrapMode.Wrap; missionSub.verticalOverflow = VerticalWrapMode.Truncate; missionSub.resizeTextMinSize = 22; missionSub.resizeTextMaxSize = 34;
             missionTime = UIKit.Label(mp.transform, "Time", "", 36, Color.white, TextAnchor.MiddleRight, UIKit.Digital, false);
             UIKit.Place(missionTime.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -112f), new Vector2(476f, 48f));
-            missionTime.resizeTextForBestFit = true; missionTime.resizeTextMinSize = 20; missionTime.resizeTextMaxSize = 36;
+            missionTime.resizeTextForBestFit = true; missionTime.horizontalOverflow = HorizontalWrapMode.Wrap; missionTime.verticalOverflow = VerticalWrapMode.Truncate; missionTime.resizeTextMinSize = 25; missionTime.resizeTextMaxSize = 36;
         }
 
         void BuildScore(RectTransform safe)

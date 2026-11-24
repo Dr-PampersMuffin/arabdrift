@@ -170,7 +170,7 @@ namespace DriftKuwait
             UIKit.Place(tag.rectTransform, new Vector2(0.5f, 0f), chosen, new Vector2(270f, 88f));
             var nm = UIKit.Label(tag.transform, "N", ev.titleAr, 32, open ? UIKit.Cream : new Color(1, 1, 1, 0.55f), TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Place(nm.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -2f), new Vector2(262f, 48f));
-            nm.resizeTextForBestFit = true; nm.resizeTextMinSize = 20; nm.resizeTextMaxSize = 32;
+            nm.resizeTextForBestFit = true; nm.horizontalOverflow = HorizontalWrapMode.Wrap; nm.verticalOverflow = VerticalWrapMode.Truncate; nm.resizeTextMinSize = 25; nm.resizeTextMaxSize = 32;
             if (ev.stars != null)
                 for (int i = 0; i < 3; i++)
                 {

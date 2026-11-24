@@ -85,8 +85,8 @@ namespace DriftKuwait
                 }
                 string what = lvl < Tuning.MaxLevel ? Tuning.WhatAr(part, lvl + 1, spec) : "أقصى تعديل";
                 var wt = UIKit.Label(rt, "W", what, 26, new Color(1, 1, 1, 0.7f), TextAnchor.MiddleRight, UIKit.Arabic);
-                UIKit.Place(wt.rectTransform, new Vector2(1f, 0f), new Vector2(-74f, 34f), new Vector2(330f, 34f));
-                wt.resizeTextForBestFit = true; wt.resizeTextMinSize = 18; wt.resizeTextMaxSize = 26;
+                UIKit.Place(wt.rectTransform, new Vector2(1f, 0f), new Vector2(-74f, 30f), new Vector2(300f, 40f));
+                wt.resizeTextForBestFit = true; wt.horizontalOverflow = HorizontalWrapMode.Wrap; wt.verticalOverflow = VerticalWrapMode.Truncate; wt.resizeTextMinSize = 18; wt.resizeTextMaxSize = 26;
 
                 bool maxed = lvl >= Tuning.MaxLevel;
                 long price = maxed ? 0 : Tuning.Price(part, lvl + 1);
@@ -136,6 +136,7 @@ namespace DriftKuwait
                     ring.transform.SetSiblingIndex(sw.transform.GetSiblingIndex());
                 }
                 var lb = UIKit.Label(tr, "PL" + i, Tuning.Paints[i].ar, 22, new Color(1, 1, 1, 0.75f), TextAnchor.MiddleCenter, UIKit.Arabic);
+                lb.resizeTextForBestFit = true; lb.horizontalOverflow = HorizontalWrapMode.Wrap; lb.verticalOverflow = VerticalWrapMode.Truncate; lb.resizeTextMinSize = 14; lb.resizeTextMaxSize = 22;
                 UIKit.Place(lb.rectTransform, new Vector2(1f, 1f), pos + new Vector2(0f, -50f), new Vector2(106f, 28f));
             }
 
