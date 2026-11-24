@@ -114,10 +114,10 @@ namespace DriftKuwait
             var inherit = ps.inheritVelocity;
             inherit.enabled = true;
             inherit.mode = ParticleSystemInheritVelocityMode.Initial;
-            inherit.curve = new ParticleSystem.MinMaxCurve(0.3f);
+            inherit.curve = new ParticleSystem.MinMaxCurve(0.72f);   // the cloud billows along with the sliding car (in front of the chase camera), then hangs
             var limit = ps.limitVelocityOverLifetime;
             limit.enabled = true;
-            limit.dampen = 0.06f;
+            limit.dampen = 0.035f;
             limit.limit = new ParticleSystem.MinMaxCurve(1.2f);
 
             var col = ps.colorOverLifetime;

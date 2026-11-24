@@ -47,18 +47,42 @@ namespace DriftKuwait
             foreach (var (c, r) in SalwaBlockBuilder.Islands)
                 for (int q = 0; q < 4; q++)
                 {
-                    float a = (45f + q * 90f + Random.Range(-12f, 12f)) * Mathf.Deg2Rad;
-                    float rr = r + 22f + Random.Range(0f, 3f);
-                    AddGroup(new Vector3(c.x + Mathf.Cos(a) * rr, 0f, c.z + Mathf.Sin(a) * rr), Random.Range(6, 10), loopClip);
+                    float a = (45f + q * 90f + Random.Range(-10f, 10f)) * Mathf.Deg2Rad;
+                    var dir = new Vector3(Mathf.Cos(a), 0f, Mathf.Sin(a));
+                    if (OffRoad(new Vector3(c.x, 0f, c.z), dir, r + 12f, 90f, out var spot)) AddGroup(spot, Random.Range(6, 10), loopClip);
                 }
             // Along the main avenue pavements, where the long slides happen
             for (float z = -330f; z <= 330f; z += 110f)
-                AddGroup(new Vector3((Random.value > 0.5f ? 1f : -1f) * 17f, 0f, z + Random.Range(-20f, 20f)), Random.Range(5, 8), loopClip);
+            {
+                float side = Random.value > 0.5f ? 1f : -1f;
+                if (OffRoad(new Vector3(0f, 0f, z + Random.Range(-20f, 20f)), new Vector3(side, 0f, 0f), 6f, 60f, out var spot)) AddGroup(spot, Random.Range(5, 8), loopClip);
+            }
+            Debug.Log("[Crowd] groups " + groups.Count);
             Random.state = saved;
 
             flash = new GameObject("CameraFlash").AddComponent<Light>();
             flash.transform.SetParent(transform, false);
             flash.type = LightType.Point; flash.color = new Color(0.9f, 0.95f, 1f); flash.range = 7f; flash.intensity = 0f; flash.shadows = LightShadows.None;
+        }
+
+        static bool OnRoad(Vector3 p, float margin)
+        {
+            foreach (var r in SalwaBlockBuilder.RoadRects)
+                if (p.x > r.x - margin && p.x < r.y + margin && p.z > r.z - margin && p.z < r.w + margin) return true;
+            foreach (var (c, rad) in SalwaBlockBuilder.Islands)
+                if ((new Vector3(p.x - c.x, 0f, p.z - c.z)).magnitude < rad + 16f) return true;   // the roundabout ring road
+            return false;
+        }
+
+        /// Walks out from 'from' along 'dir' until it leaves the asphalt, then a few metres more onto the pavement.
+        static bool OffRoad(Vector3 from, Vector3 dir, float start, float max, out Vector3 spot)
+        {
+            for (float d = start; d < max; d += 2f)
+            {
+                var p = from + dir * d;
+                if (!OnRoad(p, 1.5f)) { spot = p + dir * 4.5f; return !OnRoad(spot, 1.5f); }
+            }
+            spot = Vector3.zero; return false;
         }
 
         void AddGroup(Vector3 c, int n, AudioClip loopClip)
