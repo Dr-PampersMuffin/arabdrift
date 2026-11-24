@@ -69,11 +69,21 @@ namespace DriftKuwait
 
             Btn(tr, "إعادة", new Vector2(1f, 0f), new Vector2(-60f, 40f), true, () => { Destroy(c.gameObject); flow.StartEvent(ev); });
             Btn(tr, "الخريطة", new Vector2(0.5f, 0f), new Vector2(0f, 40f), false, () => { Destroy(c.gameObject); flow.ShowMap(); });
-            var next = NextEvent(ev);
-            if (next != null && Career.Unlocked(next))
-                Btn(tr, "التالي: " + next.titleAr, new Vector2(0f, 0f), new Vector2(60f, 40f), false, () => { Destroy(c.gameObject); flow.StartEvent(next); });
+            // The chapter's next level: straight on to it, or pay when that is the step
+            var goal = Story.Next();
+            var next = goal.ev != null && goal.ev != ev && Career.Unlocked(goal.ev) ? goal.ev : NextEvent(ev);
+            if (goal.pay && !goal.done)
+                Btn(tr, goal.ready ? "سدّد القسط" : "اجمع الكاش", new Vector2(0f, 0f), new Vector2(60f, 40f), goal.ready && stars > 0,
+                    () => { Destroy(c.gameObject); if (goal.ready) flow.PayDebt(); else flow.StartDrive(CarCatalog.SelectedId, false); });
+            else if (next != null && Career.Unlocked(next))
+                Btn(tr, "التالي: " + next.titleAr, new Vector2(0f, 0f), new Vector2(60f, 40f), stars > 0, () => { Destroy(c.gameObject); flow.StartEvent(next); });
             else
                 Btn(tr, "الكراج", new Vector2(0f, 0f), new Vector2(60f, 40f), false, () => { Destroy(c.gameObject); flow.ShowGarage(); });
+            if (stars > 0 && goal.ev != null && goal.ev != ev)
+            {
+                var lv = UIKit.Label(tr, "Level", "خلصت المرحلة! .. " + goal.title + ": " + goal.ev.titleAr, 32, UIKit.Gold, TextAnchor.MiddleCenter, UIKit.Black);
+                UIKit.Place(lv.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 214f), new Vector2(1300f, 44f));
+            }
 
             r.StartCoroutine(r.StarsIn(starImgs, stars));
             Sfx.Play("ui_reward", 0.9f);

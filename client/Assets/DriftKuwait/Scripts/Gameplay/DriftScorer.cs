@@ -107,7 +107,7 @@ namespace DriftKuwait
                 Sfx.Voice(lines[UnityEngine.Random.Range(0, lines.Length)], 0.9f);
             }
             if (pts >= 4000) Sfx.Play("crowd_cheer", 0.5f);
-            Wallet.Add(pts / 4, pts / 100);
+            Wallet.Add(pts / 2, pts / 100);
             OnBank?.Invoke(pts);
             Current = 0f; chainTime = 0f; Multiplier = 1;
             AnglePts = SpeedPts = ProxPts = 0f;

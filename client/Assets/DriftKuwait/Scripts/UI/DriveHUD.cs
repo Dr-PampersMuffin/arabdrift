@@ -127,7 +127,7 @@ namespace DriftKuwait
             (string icon, string ar, System.Action act)[] items =
             {
                 ("video", "كاميرا", () => cam.NextMode()),
-                ("lights", "أضواء", () => Atmosphere.Apply(Atmosphere.IsNight ? Atmosphere.Preset.GoldenHour : Atmosphere.Preset.Night)),
+                ("lights", "أضواء", () => Atmosphere.Apply(Atmosphere.IsNight ? Atmosphere.Day : Atmosphere.Preset.Night)),
                 ("horn", "هرن", () => Sfx.Play("horn", 0.9f)),
                 ("more", "", () => PauseMenu.Open(flow, true)),
             };

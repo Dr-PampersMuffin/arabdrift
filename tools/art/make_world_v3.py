@@ -145,15 +145,16 @@ def main():
         out = Image.composite(im.convert("RGB"), rgb, im.getchannel("A").point(lambda v: 255 if v > 8 else 0))
         out.putalpha(im.getchannel("A"))
         save(out, "frond_v3", jpg=False)
-    s = src("sky_golden")
-    if s:
+    for sky_name in ("sky_golden", "sky_clear"):
+      s = src(sky_name)
+      if s:
         im = Image.open(s).convert("RGB").resize((2048, 1024), Image.LANCZOS)
         # Equirectangular 2:1 for Skybox/Panoramic: top half = sky (row 0 = zenith, middle row = horizon),
         # bottom half = the horizon colour (always behind the ground). Mirrored so it wraps with no seam.
         pano = Image.new("RGB", (4096, 2048), tuple(int(v) for v in np.asarray(im)[-8:].reshape(-1, 3).mean(0)))
         pano.paste(im, (0, 0))
         pano.paste(im.transpose(Image.FLIP_LEFT_RIGHT), (2048, 0))
-        save(pano, "sky_golden")
+        save(pano, sky_name)
 
 
 if __name__ == "__main__":

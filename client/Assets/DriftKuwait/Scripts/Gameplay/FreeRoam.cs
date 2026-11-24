@@ -19,7 +19,7 @@ namespace DriftKuwait
 
         void Start()
         {
-            scorer.OnBank += pts => { long cash = pts / 4; if (cash > 0) hud.Callout("+" + UIKit.Dig(cash) + " كاش", UIKit.Gold); };
+            scorer.OnBank += pts => { long cash = pts / 2; if (cash > 0) hud.Callout("+" + UIKit.Dig(cash) + " كاش", UIKit.Gold); };
             var mat = TyreFX.ParticleMaterial("DK_BeaconMat", Texture2D.whiteTexture, new Color(1f, 0.74f, 0.2f, 0.4f));
             foreach (var ev in Career.Events)
             {
@@ -27,6 +27,7 @@ namespace DriftKuwait
                 if ((new Vector3(ev.spawn.x, 0f, ev.spawn.z) - new Vector3(car.transform.position.x, 0f, car.transform.position.z)).sqrMagnitude < 400f) continue;   // not on top of the start
                 var b = new Beacon { ev = ev, pos = new Vector3(ev.spawn.x, 0f, ev.spawn.z) };
                 b.go = MakeBeacon("Beacon_" + ev.id, b.pos, mat);
+                if (ev == Story.Next().ev) b.go.transform.localScale = new Vector3(1.4f, 1.8f, 1.4f);   // the next level's beacon stands taller
                 beacons.Add(b);
             }
         }
@@ -59,23 +60,62 @@ namespace DriftKuwait
             return go;
         }
 
+        Transform arrow;
+        Story.Goal goal;
+        float goalCheck;
+        string lastGoalKey;
+
+        /// A gold chevron floating over the car that points the way to the next level's beacon.
+        Transform MakeArrow()
+        {
+            var mk = new MeshKit();
+            void Arm(float s)
+            {
+                Vector3 a0 = new Vector3(s * 0.95f, 0f, -0.45f), a1 = new Vector3(0f, 0f, 0.55f);
+                Vector3 w = new Vector3(0f, 0f, -0.42f);
+                Vector3 b0 = a0 + w, b1 = a1 + w;
+                mk.Quad(a0, a1, b1, b0, Vector3.up);
+                mk.Quad(b0, b1, a1, a0, Vector3.up);   // both windings: always visible
+            }
+            Arm(1f); Arm(-1f);
+            var go = mk.ToObject("DK_GuideArrow", null, TyreFX.ParticleMaterial("DK_GuideMat", Texture2D.whiteTexture, new Color(1f, 0.78f, 0.18f, 0.95f)));
+            foreach (var r in go.GetComponentsInChildren<Renderer>()) r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            go.transform.localScale = Vector3.one * 1.3f;
+            return go.transform;
+        }
+
         void Update()
         {
-            if (car == null || hud == null || hud.InPursuit) return;
-            // The goal, always on screen
-            long need = Story.Chapter == 1 ? Story.ToInstalment : Story.Remaining;
-            hud.MissionTitle = "أنقذ الكراج";
-            if (need <= 0) { hud.MissionSub = "خلصت الديون .. عفيه!"; hud.MissionTime = ""; }
-            else if (Wallet.Cash >= need)
+            if (car == null || hud == null || hud.InPursuit) { if (arrow != null) arrow.gameObject.SetActive(false); return; }
+
+            // The next level, always on screen
+            goalCheck -= Time.deltaTime;
+            if (goalCheck <= 0f) { goalCheck = 0.5f; goal = Story.Next(); }
+            hud.MissionTitle = goal.title;
+            hud.MissionSub = goal.sub;
+            Vector3 cp = car.transform.position;
+            if (goal.ev != null)
             {
-                hud.MissionSub = "عندك المبلغ! ارجع الكراج وسدّد";
-                hud.MissionTime = UIKit.Dig(Wallet.Cash) + " / " + UIKit.Dig(need);
-                if (!toldReady) { toldReady = true; hud.Pop("ارجع وسدّد!", UIKit.Gold); }
+                Vector3 tgt = new Vector3(goal.ev.spawn.x, 0f, goal.ev.spawn.z);
+                Vector3 to = tgt - cp; to.y = 0f;
+                hud.MissionTime = UIKit.Dig((long)to.magnitude) + " م";
+                if (arrow == null) arrow = MakeArrow();
+                bool show = to.magnitude > 14f;
+                arrow.gameObject.SetActive(show);
+                if (show)
+                {
+                    arrow.position = cp + Vector3.up * (2.6f + Mathf.Sin(Time.time * 3f) * 0.12f);
+                    arrow.rotation = Quaternion.Slerp(arrow.rotation, Quaternion.LookRotation(to.normalized), 1f - Mathf.Exp(-8f * Time.deltaTime));
+                }
+                string key = goal.ev.id;
+                if (key != lastGoalKey) { lastGoalKey = key; hud.Pop(goal.ev.titleAr, UIKit.Gold); hud.Callout("اتبع السهم الذهبي", UIKit.Gold); }
             }
             else
             {
-                hud.MissionSub = "قحّص واجمع كاش لأول قسط";
-                hud.MissionTime = UIKit.Dig(Wallet.Cash) + " / " + UIKit.Dig(need);
+                if (arrow != null) arrow.gameObject.SetActive(false);
+                long need = Story.Chapter == 1 ? Story.ToInstalment : Story.Remaining;
+                hud.MissionTime = goal.done ? "" : UIKit.Dig(Wallet.Cash) + " / " + UIKit.Dig(need);
+                if (goal.ready && !toldReady) { toldReady = true; hud.Pop("ارجع وسدّد!", UIKit.Gold); }
             }
 
             // Roll into a beacon to start its challenge
@@ -93,6 +133,7 @@ namespace DriftKuwait
 
         void OnDestroy()
         {
+            if (arrow != null) Destroy(arrow.gameObject);
             foreach (var b in beacons) if (b.go != null) Destroy(b.go);
         }
     }

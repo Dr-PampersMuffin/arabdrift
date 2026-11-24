@@ -5,8 +5,44 @@ namespace DriftKuwait
     /// The Streets Remember: chapter state and the garage debt (the one goal the player always knows).
     public static class Story
     {
-        public const long Debt = 50000;            // what the workshop owes
-        public const long Instalment = 20000;      // Chapter 1 goal: the first instalment
+        public const long Debt = 30000;            // what the workshop owes
+        public const long Instalment = 10000;      // Chapter 1 goal: the first instalment
+
+        // The levels of each chapter, in order: earn one star in each, then pay. The HUD, the title screen and the
+        // results screen always show the next one, and an arrow in the street points to it.
+        public static readonly string[] Ch1Ladder = { "salwa_first", "salwa_dallah", "salwa_desert_run", "salwa_chain" };
+        public static readonly string[] Ch2Ladder = { "salwa_job_taxi", "salwa_job_pickup", "salwa_job_sedan" };
+
+        public struct Goal
+        {
+            public int step, steps;          // 1-based level number and how many in the chapter
+            public string title, sub;        // "المرحلة ٢ من ٥", what to do
+            public Career.EventDef ev;       // the challenge to play (null = pay the instalment / chapter done)
+            public bool pay, ready, done;    // pay step; enough cash to pay; chapter finished
+        }
+
+        public static Goal Next()
+        {
+            var g = new Goal();
+            if (Chapter >= 3) { g.done = true; g.title = "الفصل الثالث قريباً"; g.sub = "حسّن نجومك وعدّل سيارتك"; return g; }
+            var ladder = Chapter == 1 ? Ch1Ladder : Ch2Ladder;
+            g.steps = ladder.Length + 1;
+            for (int i = 0; i < ladder.Length; i++)
+            {
+                var ev = Career.Get(ladder[i]);
+                if (ev == null || Career.Stars(ev.id) >= 1) continue;
+                g.step = i + 1; g.ev = ev;
+                g.title = "المرحلة " + UIKit.Num(g.step) + " من " + UIKit.Num(g.steps);
+                g.sub = ev.titleAr + " .. خذ نجمة وحدة";
+                return g;
+            }
+            long need = Chapter == 1 ? ToInstalment : Remaining;
+            g.step = g.steps; g.pay = true; g.ready = Wallet.Cash >= need;
+            g.title = "المرحلة " + UIKit.Num(g.step) + " من " + UIKit.Num(g.steps);
+            g.sub = g.ready ? "عندك المبلغ! ارجع وسدّد " + (Chapter == 1 ? "القسط" : "الدين")
+                            : "جمّع " + UIKit.Dig(need) + " كاش وسدّد " + (Chapter == 1 ? "القسط" : "الدين");
+            return g;
+        }
 
         public static int Chapter { get => PlayerPrefs.GetInt("dk_chapter", 1); set { PlayerPrefs.SetInt("dk_chapter", value); PlayerPrefs.Save(); } }
         public static bool IntroSeen { get => PlayerPrefs.GetInt("dk_st1_intro", 0) == 1; set { PlayerPrefs.SetInt("dk_st1_intro", value ? 1 : 0); PlayerPrefs.Save(); } }

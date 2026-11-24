@@ -103,28 +103,38 @@ namespace DriftKuwait
                 }
             }
 
-            // The one goal: save the garage (bottom-right)
+            // The next level, always one tap away (bottom-right): which level of the chapter, what to do, and a button
+            // that starts it (or pays the instalment when that is the step).
             {
+                var g = Story.Next();
                 var dc = UIKit.Panel(safe, "Debt", UIKit.Ink, "hud/panel_sharp");
-                UIKit.Place(dc.rectTransform, new Vector2(1f, 0f), new Vector2(-40f, 40f), new Vector2(500f, 176f));
+                UIKit.Place(dc.rectTransform, new Vector2(1f, 0f), new Vector2(-40f, 40f), new Vector2(560f, 230f));
                 UIKit.Outline(dc.transform, new Color(0.97f, 0.93f, 0.85f, 0.22f), "hud/panel_sharp_outline");
                 UIKit.Stripe(dc.transform, new Vector2(1f, 1f), new Vector2(-24f, -14f), 160f, 4f, true);
-                bool ch1 = Story.Chapter == 1;
-                bool done = Story.Chapter >= 3 || Story.Remaining <= 0;
-                var dt = UIKit.Label(dc.transform, "T", done ? "الكراج حلالك .. الفصل الثالث قريباً" : ch1 ? "أنقذ الكراج: أول قسط" : "الفصل الثاني: سدّد باقي الدين", 34, UIKit.Gold, TextAnchor.MiddleRight, UIKit.Display);
-                dt.resizeTextForBestFit = true; dt.resizeTextMinSize = 20; dt.resizeTextMaxSize = 34;
-                UIKit.Place(dt.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -24f), new Vector2(460f, 48f));
-                long goal = ch1 ? Story.Instalment : Story.Debt;
-                long paid = System.Math.Min(Story.Paid, goal);
-                var bar = UIKit.Bar(dc.transform, "Bar", paid / (float)goal, UIKit.Gold, new Vector2(300f, 14f));
-                UIKit.Place((RectTransform)bar.transform.parent, new Vector2(1f, 0f), new Vector2(-24f, 62f), new Vector2(300f, 14f));
-                var dv = UIKit.Label(dc.transform, "V", UIKit.Dig(paid) + " / " + UIKit.Dig(goal), 22, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Digital, false);
-                UIKit.Place(dv.rectTransform, new Vector2(1f, 0f), new Vector2(-24f, 22f), new Vector2(300f, 32f));
-                var pay = UIKit.Button(dc.transform, "Pay", UIKit.Gold, () => flow.PayDebt(), "hud/panel_sharp");
-                pay.gameObject.SetActive(!done);
-                UIKit.Place((RectTransform)pay.transform, new Vector2(0f, 0f), new Vector2(20f, 20f), new Vector2(140f, 70f));
-                var pt = UIKit.Label(pay.transform, "T", "سدّد", 32, UIKit.Navy, TextAnchor.MiddleCenter, UIKit.Black);
-                UIKit.Stretch(pt.rectTransform);
+                string chapter = Story.Chapter == 1 ? "الفصل الأول: العودة" : Story.Chapter == 2 ? "الفصل الثاني: الكراج" : "الكراج حلالك";
+                var ch = UIKit.Label(dc.transform, "Ch", chapter, 22, new Color(1, 1, 1, 0.6f), TextAnchor.MiddleRight, UIKit.Arabic);
+                UIKit.Place(ch.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -24f), new Vector2(510f, 30f));
+                var dt = UIKit.Label(dc.transform, "T", g.title, 38, UIKit.Gold, TextAnchor.MiddleRight, UIKit.Display);
+                UIKit.Place(dt.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -54f), new Vector2(510f, 52f));
+                var ds = UIKit.Label(dc.transform, "S", g.sub, 28, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Black);
+                ds.resizeTextForBestFit = true; ds.resizeTextMinSize = 18; ds.resizeTextMaxSize = 28;
+                UIKit.Place(ds.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -108f), new Vector2(510f, 44f));
+                // one pip per level
+                for (int i = 0; i < g.steps; i++)
+                {
+                    bool doneStep = g.done || i < g.step - 1, cur = i == g.step - 1;
+                    var pip = UIKit.Img(dc.transform, "Pip" + i, null, doneStep ? UIKit.Gold : cur ? new Color(1f, 0.85f, 0.4f, 0.55f) : new Color(1, 1, 1, 0.14f));
+                    UIKit.Place(pip.rectTransform, new Vector2(1f, 0f), new Vector2(-24f - i * 62f, 34f), new Vector2(54f, 10f));
+                }
+                if (!g.done)
+                {
+                    bool play = g.ev != null;
+                    var go = UIKit.Button(dc.transform, "Pay", play || g.ready ? UIKit.Gold : new Color(0.3f, 0.3f, 0.32f, 0.95f),
+                        () => { if (play) flow.StartEvent(g.ev); else flow.PayDebt(); }, "hud/panel_sharp");
+                    UIKit.Place((RectTransform)go.transform, new Vector2(0f, 0f), new Vector2(20f, 20f), new Vector2(160f, 74f));
+                    var pt = UIKit.Label(go.transform, "T", play ? "يلا" : "سدّد", 34, UIKit.Navy, TextAnchor.MiddleCenter, UIKit.Black);
+                    UIKit.Stretch(pt.rectTransform);
+                }
             }
 
             // Strip of words along the bottom edge

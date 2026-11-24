@@ -57,7 +57,7 @@ namespace DriftKuwait
             if (inDrive)
                 timeVal = Row(colL, ref y, "الوقت", Atmosphere.IsNight ? "ليل" : "غروب", () =>
                 {
-                    Atmosphere.Apply(Atmosphere.IsNight ? Atmosphere.Preset.GoldenHour : Atmosphere.Preset.Night);
+                    Atmosphere.Apply(Atmosphere.IsNight ? Atmosphere.Day : Atmosphere.Preset.Night);
                     timeVal.text = UIKit.Ar(Atmosphere.IsNight ? "ليل" : "غروب");
                     Sfx.Music(Atmosphere.IsNight ? "mus_drive_night" : "mus_drive_day");
                 });

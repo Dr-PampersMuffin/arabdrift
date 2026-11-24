@@ -1,0 +1,31 @@
+{
+ "asset_id": "sky_clear",
+ "version": 1,
+ "spec": "art/prompts/sky_clear.json",
+ "prompt": "Real photograph, not a render, not an illustration. Natural true-to-life colours, high dynamic range, crisp detail.\n\nWide photograph of a beautiful clear spring afternoon sky over Kuwait, taken from a rooftop looking level at the horizon, the horizon line exactly at the bottom edge of the frame with nothing but sky above: deep clean blue at the top fading to a pale bright blue-white haze near the horizon, scattered bright white fluffy cumulus clouds with soft grey undersides drifting across the middle and lower sky, sunlit from the left. Fresh, airy, optimistic, like a premium car commercial.\n\nDo not include: buildings; ground; trees; birds; aircraft; sun disc; text; watermarks; lens flare.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "high",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 150,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 150
+  },
+  "output_tokens": 5488,
+  "output_tokens_details": {
+   "image_tokens": 5488,
+   "text_tokens": 0
+  },
+  "total_tokens": 5638
+ },
+ "seconds": 73.4,
+ "created": "2026-11-24T08:34:28+0300",
+ "qa_status": "in_review"
+}

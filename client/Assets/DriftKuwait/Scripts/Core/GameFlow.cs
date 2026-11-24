@@ -20,6 +20,7 @@ namespace DriftKuwait
         Pursuit pursuit;
         TrafficSystem traffic;
         FreeRoam freeRoam;
+        AIDrifters drifters;
         EventRunner runner;
         Image fade;
 
@@ -184,6 +185,8 @@ namespace DriftKuwait
             {
                 freeRoam = new GameObject("DK_FreeRoam").AddComponent<FreeRoam>();
                 freeRoam.car = car.GetComponent<DriftCarController>(); freeRoam.scorer = scorer; freeRoam.hud = hud;
+                drifters = new GameObject("DK_AIDrifters").AddComponent<AIDrifters>();   // locals drifting the roundabouts: it can be done
+                drifters.player = freeRoam.car; drifters.hud = hud;
             }
             if (!PreviewHooks.Active && runner == null && !HowToPlay.Seen) hud.PlayIntro();
         }
@@ -197,6 +200,7 @@ namespace DriftKuwait
             if (pursuit != null) { pursuit.Cleanup(); Destroy(pursuit.gameObject); }
             if (traffic != null) Destroy(traffic.gameObject);
             if (freeRoam != null) Destroy(freeRoam.gameObject);
+            if (drifters != null) Destroy(drifters.gameObject);
             if (car != null) Destroy(car);
             hud = null; pursuit = null; car = null;
             Time.timeScale = 1f;

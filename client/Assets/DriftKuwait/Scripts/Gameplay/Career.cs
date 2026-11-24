@@ -67,6 +67,7 @@ namespace DriftKuwait
         };
 
         public static EventDef Get(string id) => Events.Find(e => e.id == id);
+
         public static int Stars(string id) { try { return PlayerPrefs.GetInt("dk_star_" + id, 0); } catch { return 0; } }
         public static long Best(string id) { try { return long.Parse(PlayerPrefs.GetString("dk_best_" + id, "0")); } catch { return 0; } }
         public static int TotalStars { get { int n = 0; foreach (var e in Events) n += Stars(e.id); return n; } }
@@ -91,7 +92,7 @@ namespace DriftKuwait
             if (got > had)
             {
                 // Reward each newly reached star level once; replays still pay a little.
-                cash = e.cash * (got - had) / 3 + e.cash / 6 * (got - had);
+                cash = e.cash * (got - had) / 3 + e.cash / 6 * (got - had) + (had == 0 ? e.cash / 2 : 0);   // the first star clears a level: a bigger reward
                 rep = e.rep * (got - had) / 3;
             }
             else if (got > 0) { cash = e.cash / 10; rep = 1; }

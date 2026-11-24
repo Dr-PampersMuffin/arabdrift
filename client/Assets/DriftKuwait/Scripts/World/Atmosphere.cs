@@ -8,9 +8,11 @@ namespace DriftKuwait
     /// Presets are switchable at runtime (F1..F4 in editor) for the look tests.
     public static class Atmosphere
     {
-        public enum Preset { GoldenHour, NoonHaze, Ghubar, Night }
+        public enum Preset { ClearDay, GoldenHour, NoonHaze, Ghubar, Night }
+        /// The look the game opens with: a clear Kuwaiti afternoon, blue sky and white clouds.
+        public const Preset Day = Preset.ClearDay;
         static Light sun;
-        static Material sky, photoSky;
+        static Material sky, photoSky, clearSky;
         static SplitToning split;
 
         /// Film-style split tone: cool teal into the shadows, warm amber into the highlights (grey = off).
@@ -56,6 +58,16 @@ namespace DriftKuwait
                 photoSky.SetFloat("_Exposure", 1.05f);
                 photoSky.SetFloat("_Rotation", 0f);
             }
+            var clearTex = Resources.Load<Texture2D>("DriftKuwait/Tex/sky_clear");
+            if (clearTex != null && pano != null)
+            {
+                clearSky = new Material(pano) { name = "DK_ClearSky" };
+                clearSky.SetTexture("_MainTex", clearTex);
+                clearSky.SetFloat("_Mapping", 1f);
+                clearSky.SetFloat("_ImageType", 0f);
+                clearSky.SetFloat("_Exposure", 1.0f);
+                clearSky.SetFloat("_Rotation", 40f);
+            }
 
             var volGo = new GameObject("DK_PostFX");
             volGo.transform.SetParent(parent, false);
@@ -98,8 +110,8 @@ namespace DriftKuwait
             probe.clearFlags = ReflectionProbeClearFlags.Skybox;
             probe.farClipPlane = 900f;
 
-            Apply(Preset.GoldenHour);
-            PreviewHooks.SetNight = night => Apply(night ? Preset.Night : Preset.GoldenHour);
+            Apply(Day);
+            PreviewHooks.SetNight = night => Apply(night ? Preset.Night : Day);
         }
 
         public static void Apply(Preset p)
@@ -114,6 +126,20 @@ namespace DriftKuwait
 
             switch (p)
             {
+                case Preset.ClearDay:
+                    // A clear spring afternoon: high white sun with crisp shadows, cool blue sky fill, light clean haze,
+                    // neutral grade with a touch of contrast and saturation (no colour filter over the scene).
+                    sun.transform.rotation = Quaternion.Euler(46f, -38f, 0f);
+                    sun.color = new Color(1f, 0.97f, 0.92f);
+                    sun.intensity = 2.0f;
+                    RenderSettings.ambientSkyColor = new Color(0.56f, 0.66f, 0.86f);
+                    RenderSettings.ambientEquatorColor = new Color(0.70f, 0.70f, 0.68f);
+                    RenderSettings.ambientGroundColor = new Color(0.40f, 0.36f, 0.31f);
+                    RenderSettings.fogColor = new Color(0.80f, 0.87f, 0.96f);
+                    RenderSettings.fogDensity = 0.0009f;
+                    SetSky(new Color(0.55f, 0.6f, 0.68f), 1.0f, 1.3f, 0.04f);
+                    Grade(ca, 0.05f, 12f, 8f, new Color(1f, 1f, 1f));
+                    break;
                 case Preset.GoldenHour:
                     // Real late-afternoon light: a warm low sun, but cool blue-grey sky fill in the shadows, and a
                     // pale neutral dust haze (not an orange filter over everything).
@@ -168,7 +194,7 @@ namespace DriftKuwait
                     break;
             }
             if (p != Preset.GoldenHour) Tone(new Color(0.5f, 0.5f, 0.5f), new Color(0.5f, 0.5f, 0.5f));
-            RenderSettings.skybox = (photoSky != null && (p == Preset.GoldenHour || p == Preset.NoonHaze)) ? photoSky : sky;
+            RenderSettings.skybox = p == Preset.ClearDay && clearSky != null ? clearSky : (photoSky != null && (p == Preset.GoldenHour || p == Preset.NoonHaze)) ? photoSky : sky;
             foreach (var l in Object.FindObjectsByType<StreetLamp>(FindObjectsSortMode.None))
                 l.SetOn(p == Preset.Night);
             SalwaBlockBuilder.SetNight(p == Preset.Night);
