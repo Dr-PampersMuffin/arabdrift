@@ -65,7 +65,7 @@ namespace DriftKuwait
                 clearSky.SetTexture("_MainTex", clearTex);
                 clearSky.SetFloat("_Mapping", 1f);
                 clearSky.SetFloat("_ImageType", 0f);
-                clearSky.SetFloat("_Exposure", 1.0f);
+                clearSky.SetFloat("_Exposure", 1.15f);   // the sky itself stays bright after the scene exposure is pulled down
                 clearSky.SetFloat("_Rotation", 40f);
             }
 
@@ -131,14 +131,14 @@ namespace DriftKuwait
                     // neutral grade with a touch of contrast and saturation (no colour filter over the scene).
                     sun.transform.rotation = Quaternion.Euler(46f, -38f, 0f);
                     sun.color = new Color(1f, 0.97f, 0.92f);
-                    sun.intensity = 2.0f;
-                    RenderSettings.ambientSkyColor = new Color(0.56f, 0.66f, 0.86f);
-                    RenderSettings.ambientEquatorColor = new Color(0.70f, 0.70f, 0.68f);
-                    RenderSettings.ambientGroundColor = new Color(0.40f, 0.36f, 0.31f);
+                    sun.intensity = 1.65f;
+                    RenderSettings.ambientSkyColor = new Color(0.46f, 0.55f, 0.74f);
+                    RenderSettings.ambientEquatorColor = new Color(0.58f, 0.58f, 0.56f);
+                    RenderSettings.ambientGroundColor = new Color(0.34f, 0.30f, 0.26f);
                     RenderSettings.fogColor = new Color(0.80f, 0.87f, 0.96f);
                     RenderSettings.fogDensity = 0.0009f;
                     SetSky(new Color(0.55f, 0.6f, 0.68f), 1.0f, 1.3f, 0.04f);
-                    Grade(ca, 0.05f, 12f, 8f, new Color(1f, 1f, 1f));
+                    Grade(ca, -0.25f, 14f, 10f, new Color(1f, 1f, 1f));
                     break;
                 case Preset.GoldenHour:
                     // Real late-afternoon light: a warm low sun, but cool blue-grey sky fill in the shadows, and a

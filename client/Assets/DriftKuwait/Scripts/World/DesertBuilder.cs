@@ -69,7 +69,7 @@ namespace DriftKuwait
                 c.transform.SetPositionAndRotation((a + b) * 0.5f + Vector3.down * 0.12f, Quaternion.LookRotation(f));
                 c.size = new Vector3(RoadW, 0.3f, len + 0.4f);
             }
-            road.ToObject("Highway", root, Mat.Textured("M_Asphalt", TextureKit.Asphalt, Color.white, 0.48f, new Vector2(0.125f, 0.125f)));
+            road.ToObject("Highway", root, Mat.Textured("M_DesertAsphalt", TextureKit.Asphalt, new Color(0.72f, 0.72f, 0.74f), 0.16f, new Vector2(0.125f, 0.125f)));
             paint.ToObject("HighwayPaint", root, Mat.Paint("M_RoadPaint", new Color(0.95f, 0.93f, 0.85f), 0.3f));
             shoulder.ToObject("SandDrift", root, Mat.Paint("M_SandDrift", new Color(0.86f, 0.72f, 0.52f), 0.1f));
 

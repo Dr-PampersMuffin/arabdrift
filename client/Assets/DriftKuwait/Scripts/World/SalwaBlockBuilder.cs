@@ -79,7 +79,7 @@ namespace DriftKuwait
             // Night streets look freshly washed: wetter, darker asphalt that mirrors the sodium lamps and headlights.
             if (asphaltMat != null)
             {
-                asphaltMat.SetFloat("_Smoothness", night ? 0.78f : 0.48f);   // a sheen that catches the sunset
+                asphaltMat.SetFloat("_Smoothness", night ? 0.78f : 0.16f);   // wet sheen at night; matte sun-bleached asphalt by day (a glossy road mirrors the bright sky white)
                 asphaltMat.SetColor("_BaseColor", night ? new Color(0.62f, 0.62f, 0.64f) : Color.white);
             }
             if (litWindowMat == null) return;
@@ -154,7 +154,7 @@ namespace DriftKuwait
             AddRoad(p1, 0.022f);
             AddRoad(p2, 0.0225f);
 
-            var asphalt = Mat.Textured("M_Asphalt", TextureKit.Asphalt, Color.white, 0.32f, new Vector2(0.125f, 0.125f));
+            var asphalt = Mat.Textured("M_Asphalt", TextureKit.Asphalt, new Color(0.72f, 0.72f, 0.74f), 0.16f, new Vector2(0.125f, 0.125f));
             asphaltMat = asphalt;
             var parent = new GameObject("Roads").transform;
             parent.SetParent(root, false);
