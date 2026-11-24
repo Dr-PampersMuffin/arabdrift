@@ -116,7 +116,7 @@ namespace DriftKuwait
             {
                 if (arrow != null) arrow.gameObject.SetActive(false);
                 long need = Story.Chapter == 1 ? Story.ToInstalment : Story.Remaining;
-                hud.MissionTime = goal.done ? "" : UIKit.Dig(Wallet.Cash) + " / " + UIKit.Dig(need);
+                hud.MissionTime = goal.done ? "" : need == 0 ? UIKit.Ar("الدين خالص") : UIKit.Dig(Wallet.Cash) + " / " + UIKit.Dig(need);
                 if (goal.ready && !toldReady) { toldReady = true; hud.Pop("ارجع وسدّد!", UIKit.Gold); }
             }
 

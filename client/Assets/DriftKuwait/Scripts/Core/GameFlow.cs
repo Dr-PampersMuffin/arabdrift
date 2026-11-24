@@ -121,9 +121,11 @@ namespace DriftKuwait
         /// Pays the garage debt from the wallet; the first instalment closes Chapter 1 with its story beat.
         public void PayDebt()
         {
-            bool before = Story.ToInstalment > 0;
+            bool before = Story.ToInstalment > 0 || Story.Chapter == 1;
             long paid = Story.PayFromWallet();
-            if (paid <= 0) { Toast("ما عندك كاش كافي .. اطلع قحّص واجمع"); return; }
+            // Already paid in full (e.g. paid under the old, bigger debt): move the story on instead of saying "no cash"
+            bool alreadyClear = (Story.Chapter == 1 && Story.ToInstalment == 0) || (Story.Chapter == 2 && Story.Remaining == 0);
+            if (paid <= 0 && !alreadyClear) { Toast("ما عندك كاش كافي .. اطلع قحّص واجمع"); return; }
             Sfx.Play("ui_reward", 0.9f);
             if (before && Story.ToInstalment == 0 && Story.Chapter == 1)
             {

@@ -80,10 +80,12 @@ def main():
             print(ours, "not available, the game keeps its own texture")
     for aid in HDRI[0] + search("hdris", HDRI[1]):
         f = files(aid)
-        u = f and pick(f, "hdri", "2k", "hdr")
+        # The tone-mapped photo of the sky (normal range JPG). The raw .hdr has the sun at thousands of times white,
+        # which blew the whole scene out to white on iPhone when used for lighting.
+        u = f and ((f.get("tonemapped") or {}).get("url"))
         if u:
-            print("sky_hdri <-", aid)
-            save(u, "sky_hdri.hdr")
+            print("sky_hdri <-", aid, "(tonemapped)")
+            save(u, "sky_hdri.jpg")
             credits.append(aid)
             break
     open(os.path.join(OUT, "cc0_credits.txt"), "w").write("Poly Haven (CC0): " + ", ".join(credits) + "\n")

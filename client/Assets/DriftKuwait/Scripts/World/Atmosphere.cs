@@ -199,13 +199,8 @@ namespace DriftKuwait
             }
             if (p != Preset.GoldenHour) Tone(new Color(0.5f, 0.5f, 0.5f), new Color(0.5f, 0.5f, 0.5f));
             RenderSettings.skybox = p == Preset.ClearDay && clearSky != null ? clearSky : (photoSky != null && (p == Preset.GoldenHour || p == Preset.NoonHaze)) ? photoSky : sky;
-            if (p == Preset.ClearDay && hdrSky)
-            {
-                // Image-based light: the real sky's colours fill every shadow and the car paint reflects it
-                RenderSettings.ambientMode = AmbientMode.Skybox;
-                RenderSettings.ambientIntensity = 1f;
-                DynamicGI.UpdateEnvironment();
-            }
+            // The sky photo is only the backdrop and reflections; the scene keeps its tuned three-colour ambient light
+            // (lighting from an HDR sky blew the image out to white on device).
             foreach (var l in Object.FindObjectsByType<StreetLamp>(FindObjectsSortMode.None))
                 l.SetOn(p == Preset.Night);
             SalwaBlockBuilder.SetNight(p == Preset.Night);

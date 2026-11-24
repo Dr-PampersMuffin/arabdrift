@@ -45,7 +45,7 @@ namespace DriftKuwait
             UIKit.Place(t.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -24f), new Vector2(460f, 70f));
             var close = UIKit.Button(tr, "Close", new Color(1, 1, 1, 0.08f), () => { Sfx.Play("ui_click"); Destroy(gameObject); }, "hud/pill");
             UIKit.Place((RectTransform)close.transform, new Vector2(0f, 1f), new Vector2(22f, -26f), new Vector2(110f, 56f));
-            var ct = UIKit.Label(close.transform, "T", "رجوع", 26, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
+            var ct = UIKit.Label(close.transform, "T", "رجوع", 30, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Stretch(ct.rectTransform);
 
             if (!CarCatalog.Has3D(car))
@@ -75,7 +75,7 @@ namespace DriftKuwait
                 UIKit.Place(ic.rectTransform, new Vector2(1f, 0.5f), new Vector2(-18f, 10f), new Vector2(44f, 44f));
                 var nm = UIKit.Label(rt, "N", Tuning.PartAr(part), 32, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Black);
                 UIKit.Place(nm.rectTransform, new Vector2(1f, 1f), new Vector2(-74f, -6f), new Vector2(200f, 46f));
-                var st = UIKit.Label(rt, "S", Tuning.StageAr(lvl), 26, lvl > 0 ? UIKit.Gold : new Color(1, 1, 1, 0.55f), TextAnchor.MiddleRight, UIKit.Arabic);
+                var st = UIKit.Label(rt, "S", Tuning.StageAr(lvl), 28, lvl > 0 ? UIKit.Gold : new Color(1, 1, 1, 0.55f), TextAnchor.MiddleRight, UIKit.Arabic);
                 UIKit.Place(st.rectTransform, new Vector2(1f, 1f), new Vector2(-280f, -8f), new Vector2(100f, 40f));
                 // stage pips
                 for (int k = 0; k < Tuning.MaxLevel; k++)
@@ -84,9 +84,9 @@ namespace DriftKuwait
                     UIKit.Place(pip.rectTransform, new Vector2(1f, 0f), new Vector2(-74f - k * 52f, 18f), new Vector2(44f, 8f));
                 }
                 string what = lvl < Tuning.MaxLevel ? Tuning.WhatAr(part, lvl + 1, spec) : "أقصى تعديل";
-                var wt = UIKit.Label(rt, "W", what, 26, new Color(1, 1, 1, 0.7f), TextAnchor.MiddleRight, UIKit.Arabic);
+                var wt = UIKit.Label(rt, "W", what, 28, new Color(1, 1, 1, 0.7f), TextAnchor.MiddleRight, UIKit.Arabic);
                 UIKit.Place(wt.rectTransform, new Vector2(1f, 0f), new Vector2(-74f, 30f), new Vector2(300f, 40f));
-                wt.resizeTextForBestFit = true; wt.horizontalOverflow = HorizontalWrapMode.Wrap; wt.verticalOverflow = VerticalWrapMode.Truncate; wt.resizeTextMinSize = 18; wt.resizeTextMaxSize = 26;
+                wt.resizeTextForBestFit = true; wt.horizontalOverflow = HorizontalWrapMode.Wrap; wt.verticalOverflow = VerticalWrapMode.Truncate; wt.resizeTextMinSize = 18; wt.resizeTextMaxSize = 28;
 
                 bool maxed = lvl >= Tuning.MaxLevel;
                 long price = maxed ? 0 : Tuning.Price(part, lvl + 1);
@@ -94,11 +94,11 @@ namespace DriftKuwait
                 var p = part;
                 var buy = UIKit.Button(rt, "Buy", maxed ? new Color(1, 1, 1, 0.08f) : afford ? UIKit.Gold : new Color(0.3f, 0.3f, 0.32f, 0.9f), () => BuyPart(p), "hud/panel_sharp");
                 UIKit.Place((RectTransform)buy.transform, new Vector2(0f, 0.5f), new Vector2(14f, 0f), new Vector2(170f, 80f));
-                var bt = UIKit.Label(buy.transform, "T", maxed ? "مكتمل" : "ركّب", 26, maxed ? UIKit.Gold : new Color(0.12f, 0.08f, 0.03f), TextAnchor.MiddleCenter, UIKit.Black);
+                var bt = UIKit.Label(buy.transform, "T", maxed ? "مكتمل" : "ركّب", 30, maxed ? UIKit.Gold : new Color(0.12f, 0.08f, 0.03f), TextAnchor.MiddleCenter, UIKit.Black);
                 UIKit.Place(bt.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, maxed ? -20f : -4f), new Vector2(170f, 40f));
                 if (!maxed)
                 {
-                    var pr = UIKit.Label(buy.transform, "Pr", UIKit.Dig(price), 26, new Color(0.12f, 0.08f, 0.03f), TextAnchor.MiddleCenter, UIKit.Digital, false);
+                    var pr = UIKit.Label(buy.transform, "Pr", UIKit.Dig(price), 30, new Color(0.12f, 0.08f, 0.03f), TextAnchor.MiddleCenter, UIKit.Digital, false);
                     UIKit.Place(pr.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 6f), new Vector2(170f, 34f));
                 }
             }
@@ -135,8 +135,8 @@ namespace DriftKuwait
                     ring.type = Image.Type.Simple; ring.preserveAspect = true;
                     ring.transform.SetSiblingIndex(sw.transform.GetSiblingIndex());
                 }
-                var lb = UIKit.Label(tr, "PL" + i, Tuning.Paints[i].ar, 22, new Color(1, 1, 1, 0.75f), TextAnchor.MiddleCenter, UIKit.Arabic);
-                lb.resizeTextForBestFit = true; lb.horizontalOverflow = HorizontalWrapMode.Wrap; lb.verticalOverflow = VerticalWrapMode.Truncate; lb.resizeTextMinSize = 14; lb.resizeTextMaxSize = 22;
+                var lb = UIKit.Label(tr, "PL" + i, Tuning.Paints[i].ar, 24, new Color(1, 1, 1, 0.75f), TextAnchor.MiddleCenter, UIKit.Arabic);
+                lb.resizeTextForBestFit = true; lb.horizontalOverflow = HorizontalWrapMode.Wrap; lb.verticalOverflow = VerticalWrapMode.Truncate; lb.resizeTextMinSize = 14; lb.resizeTextMaxSize = 24;
                 UIKit.Place(lb.rectTransform, new Vector2(1f, 1f), pos + new Vector2(0f, -50f), new Vector2(106f, 28f));
             }
 
@@ -205,7 +205,7 @@ namespace DriftKuwait
             Curve(chart, x => Tuning.TorqueAt(spec, x) * x * spec.maxRpm / 7121f / maxHp, new Color(0.95f, 0.35f, 0.25f), 5f);   // power
             cursor = UIKit.Img(chart, "Cursor", null, new Color(1, 1, 1, 0.5f)).rectTransform;
             UIKit.Place(cursor, new Vector2(0f, 0f), Vector2.zero, new Vector2(2f, 270f));
-            var leg = UIKit.Label(tr, "Leg", "الأصفر: العزم   ·   الأحمر: القوة   ·   الباهت: الوكالة", 24, new Color(1, 1, 1, 0.65f), TextAnchor.MiddleCenter, UIKit.Arabic);
+            var leg = UIKit.Label(tr, "Leg", "الأصفر: العزم   ·   الأحمر: القوة   ·   الباهت: الوكالة", 26, new Color(1, 1, 1, 0.65f), TextAnchor.MiddleCenter, UIKit.Arabic);
             UIKit.Place(leg.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -492f), new Vector2(560f, 30f));
 
             string gain = hp > hp0 + 0.5f ? "+" + UIKit.Dig((long)Mathf.Round(hp - hp0)) + " حصان على الوكالة" : "مكينة وكالة";
@@ -213,14 +213,14 @@ namespace DriftKuwait
             UIKit.Place(g2.rectTransform, new Vector2(1f, 0f), new Vector2(-30f, 30f), new Vector2(330f, 60f));
             var run = UIKit.Button(tr, "Run", UIKit.Gold, () => { if (dynoRun == null) dynoRun = StartCoroutine(Run(spec, hp, nm)); }, "hud/panel_sharp");
             UIKit.Place((RectTransform)run.transform, new Vector2(0f, 0f), new Vector2(26f, 26f), new Vector2(210f, 70f));
-            var rt = UIKit.Label(run.transform, "T", "شغّل الداينو", 26, new Color(0.12f, 0.08f, 0.03f), TextAnchor.MiddleCenter, UIKit.Black);
+            var rt = UIKit.Label(run.transform, "T", "شغّل الداينو", 30, new Color(0.12f, 0.08f, 0.03f), TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Stretch(rt.rectTransform);
             hpTxt.text = UIKit.Dig((long)Mathf.Round(hp)); nmTxt.text = UIKit.Dig((long)Mathf.Round(nm)); rpmTxt.text = UIKit.Dig((long)spec.maxRpm);
         }
 
         Text Readout(RectTransform tr, Vector2 pos, string label, string v)
         {
-            var l = UIKit.Label(tr, "RL" + label, label, 24, new Color(1, 1, 1, 0.65f), TextAnchor.MiddleRight, UIKit.Arabic);
+            var l = UIKit.Label(tr, "RL" + label, label, 28, new Color(1, 1, 1, 0.65f), TextAnchor.MiddleRight, UIKit.Arabic);
             UIKit.Place(l.rectTransform, new Vector2(1f, 1f), pos, new Vector2(190f, 30f));
             var t = UIKit.Label(tr, "RV" + label, v, 44, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Digital, false);
             UIKit.Place(t.rectTransform, new Vector2(1f, 1f), pos + new Vector2(0f, -30f), new Vector2(190f, 60f));

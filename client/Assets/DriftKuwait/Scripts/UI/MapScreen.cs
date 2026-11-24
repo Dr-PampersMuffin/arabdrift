@@ -36,7 +36,8 @@ namespace DriftKuwait
             var title = UIKit.Label(safe, "Title", "الخريطة", 64, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Display);
             UIKit.Place(title.rectTransform, new Vector2(1f, 1f), new Vector2(-40f, -8f), new Vector2(360f, 84f));
             var stars = UIKit.Label(safe, "Stars", "نجومك: " + UIKit.Num(Career.TotalStars), 34, UIKit.Gold, TextAnchor.MiddleRight, UIKit.Black);
-            UIKit.Place(stars.rectTransform, new Vector2(1f, 1f), new Vector2(-40f, -88f), new Vector2(360f, 44f));
+            UIKit.Place(stars.rectTransform, new Vector2(0f, 1f), new Vector2(300f, -18f), new Vector2(320f, 70f));   // beside the back button, clear of the card
+            stars.alignment = TextAnchor.MiddleLeft;
             stars.fontSize = 36;
 
             // District tabs (RTL): Salwa open, the rest locked for now
@@ -83,7 +84,7 @@ namespace DriftKuwait
             cardGoal = UIKit.Label(ct, "Goal", "", 40, UIKit.Gold, TextAnchor.UpperRight, UIKit.Black);
             UIKit.Place(cardGoal.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -110f), new Vector2(540f, 100f));
             cardHow = UIKit.Label(ct, "How", "", 33, new Color(1, 1, 1, 0.85f), TextAnchor.UpperRight, UIKit.Arabic);
-            UIKit.Place(cardHow.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -210f), new Vector2(540f, 200f));
+            UIKit.Place(cardHow.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -212f), new Vector2(540f, 220f));
             for (int i = 0; i < 3; i++)
             {
                 var s = UIKit.Img(ct, "Star" + i, UIKit.S("hud/ic_star_big"), Color.white);
@@ -188,8 +189,8 @@ namespace DriftKuwait
             bool open = Career.Unlocked(ev);
             int st = Career.Stars(ev.id);
             cardTitle.text = UIKit.Ar(ev.titleAr);
-            cardGoal.text = UIKit.ArWrap(ev.goalAr, 30);
-            cardHow.text = UIKit.ArWrap(ev.howAr, 40);
+            cardGoal.text = UIKit.ArWrap(ev.goalAr, 24);
+            cardHow.text = UIKit.ArWrap(ev.howAr, 28);   // short lines: the text stays inside the card
             for (int i = 0; i < 3; i++)
             {
                 cardStars[i].gameObject.SetActive(ev.stars != null);

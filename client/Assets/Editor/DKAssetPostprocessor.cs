@@ -89,7 +89,7 @@ public class DKAssetPostprocessor : AssetPostprocessor
             if (f.StartsWith("frond")) ti.alphaIsTransparency = true;
             ti.maxTextureSize = size;
             ios.overridden = true; ios.maxTextureSize = size; ios.format = f.EndsWith("_n") ? TextureImporterFormat.ASTC_6x6 : TextureImporterFormat.ASTC_5x5;
-            if (p.EndsWith(".hdr")) { ti.sRGBTexture = false; ios.format = TextureImporterFormat.ASTC_HDR_6x6; }   // the real HDR sky keeps its range
+
             ti.SetPlatformTextureSettings(ios);
         }
     }

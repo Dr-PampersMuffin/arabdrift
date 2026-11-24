@@ -47,7 +47,7 @@ namespace DriftKuwait
         public static int Chapter { get => PlayerPrefs.GetInt("dk_chapter", 1); set { PlayerPrefs.SetInt("dk_chapter", value); PlayerPrefs.Save(); } }
         public static bool IntroSeen { get => PlayerPrefs.GetInt("dk_st1_intro", 0) == 1; set { PlayerPrefs.SetInt("dk_st1_intro", value ? 1 : 0); PlayerPrefs.Save(); } }
         public static long Paid { get => long.TryParse(PlayerPrefs.GetString("dk_debt_paid", "0"), out var v) ? v : 0; set { PlayerPrefs.SetString("dk_debt_paid", value.ToString()); PlayerPrefs.Save(); } }
-        public static long Remaining => Debt - Paid;
+        public static long Remaining => System.Math.Max(0, Debt - Paid);   // never negative (saves from before the debt changed)
         public static long ToInstalment => System.Math.Max(0, Instalment - Paid);
 
         /// Pays what the wallet can toward the current instalment. Returns the amount paid.

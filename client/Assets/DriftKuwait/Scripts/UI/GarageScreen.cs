@@ -38,8 +38,7 @@ namespace DriftKuwait
             // The workshop's own sign, painted on the board on the back wall
             var sign = UIKit.Label(root, "Sign", "كراج بو نبيل", 84, new Color(0.46f, 0.11f, 0.08f, 0.92f), TextAnchor.MiddleCenter, UIKit.Display);
             UIKit.Place(sign.rectTransform, new Vector2(0.6f, 1f), new Vector2(0f, -196f), new Vector2(640f, 110f));
-            var sign2 = UIKit.Label(root, "Sign2", "لصيانة السيارات", 34, new Color(0.30f, 0.18f, 0.12f, 0.85f), TextAnchor.MiddleCenter, UIKit.Black);
-            UIKit.Place(sign2.rectTransform, new Vector2(0.6f, 1f), new Vector2(0f, -272f), new Vector2(640f, 50f));
+            // (the board holds one line; the second line "لصيانة السيارات" spilled off it)
             var shadeB = UIKit.Img(root, "ShadeB", UIKit.S("hud/grad_v"), new Color(1, 1, 1, 0.85f));
             shadeB.rectTransform.anchorMin = Vector2.zero; shadeB.rectTransform.anchorMax = new Vector2(1f, 0.42f);
             shadeB.rectTransform.offsetMin = shadeB.rectTransform.offsetMax = Vector2.zero;
@@ -79,7 +78,7 @@ namespace DriftKuwait
             UIKit.Place(tabs, new Vector2(1f, 1f), new Vector2(-640f, -20f), new Vector2(1100f, 128f));
             (string ar, string icon)[] items = { ("الكراج", "car"), ("السيارات", "car"), ("التعديلات", "wrench"), ("المظهر", "spray"),
                                                  ("الخرائط", "map"), ("الفعاليات", "flag"), ("الطاقم", "people") };
-            float w = 168f;
+            float w = 150f;
             for (int i = 0; i < items.Length; i++)
             {
                 int idx = i;
@@ -185,7 +184,7 @@ namespace DriftKuwait
                 {
                     var soon = UIKit.Panel(rt, "Soon", new Color(0, 0, 0, 0.7f), "hud/pill");
                     UIKit.Place(soon.rectTransform, new Vector2(0f, 1f), new Vector2(6f, -6f), new Vector2(84f, 30f));
-                    var st = UIKit.Label(soon.transform, "T", "قريباً", 24, UIKit.Gold, TextAnchor.MiddleCenter, UIKit.Black);
+                    var st = UIKit.Label(soon.transform, "T", "قريباً", 28, UIKit.Gold, TextAnchor.MiddleCenter, UIKit.Black);
                     UIKit.Stretch(st.rectTransform);
                 }
                 tileOutlines[i] = UIKit.Outline(rt, UIKit.Gold, "hud/panel_sharp_outline");

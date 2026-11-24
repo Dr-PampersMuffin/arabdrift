@@ -144,8 +144,9 @@ namespace DriftKuwait
                 UIKit.Place(ic.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, it.ar == "" ? -28f : -12f), new Vector2(54f, 54f));
                 if (it.ar != "")
                 {
-                    var t = UIKit.Label(b.transform, "T", it.ar, 24, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Arabic);
-                    UIKit.Place(t.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 6f), new Vector2(104f, 34f));
+                    var t = UIKit.Label(b.transform, "T", it.ar, 30, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
+                    UIKit.Place(t.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 4f), new Vector2(112f, 40f));
+                    t.resizeTextForBestFit = true; t.horizontalOverflow = HorizontalWrapMode.Wrap; t.verticalOverflow = VerticalWrapMode.Truncate; t.resizeTextMinSize = 24; t.resizeTextMaxSize = 30;
                 }
             }
         }
@@ -209,7 +210,7 @@ namespace DriftKuwait
             UIKit.Place(loc.rectTransform, new Vector2(0f, 0f), new Vector2(64f, 214f), new Vector2(240f, 92f));
             var l1 = UIKit.Label(loc.transform, "A", "سلوى", 34, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Place(l1.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -4f), new Vector2(240f, 46f));
-            var l2 = UIKit.Label(loc.transform, "B", "قطعة ٥", 26, new Color(1, 1, 1, 0.8f), TextAnchor.MiddleCenter, UIKit.Arabic);
+            var l2 = UIKit.Label(loc.transform, "B", "قطعة ٥", 30, new Color(1, 1, 1, 0.8f), TextAnchor.MiddleCenter, UIKit.Arabic);
             UIKit.Place(l2.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 6f), new Vector2(240f, 36f));
 
             var camGo = new GameObject("DK_MinimapCam");
@@ -230,7 +231,7 @@ namespace DriftKuwait
             var heat = UIKit.Rect(safe, "Heat");
             heatRoot = heat.gameObject;
             UIKit.Place(heat, new Vector2(0f, 0f), new Vector2(34f, 616f), new Vector2(420f, 60f));
-            var ht = UIKit.Label(heat, "T", "مستوى الملاحقة", 28, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Black);
+            var ht = UIKit.Label(heat, "T", "مستوى الملاحقة", 32, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Black);
             UIKit.Place(ht.rectTransform, new Vector2(1f, 0.5f), Vector2.zero, new Vector2(220f, 50f));
             UIKit.AddShadow(ht, 2f, 0.8f);
             flames = new Image[5];
@@ -254,12 +255,12 @@ namespace DriftKuwait
             ApplyLayout();
 
             hand = HoldImage(safe, "Handbrake", "hud/handbrake", new Vector2(1f, 0f), new Vector2(-640f, 40f), new Vector2(210f, 210f));
-            var hl = UIKit.Label(hand.transform, "L", "هاند بريك", 28, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
-            UIKit.Place(hl.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, -40f), new Vector2(220f, 40f));
+            var hl = UIKit.Label(hand.transform, "L", "هاند بريك", 34, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
+            UIKit.Place(hl.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, -44f), new Vector2(240f, 46f));
             UIKit.AddShadow(hl, 2f, 0.8f);
             brake = HoldImage(safe, "Brake", "hud/pedal_brake", new Vector2(1f, 0f), new Vector2(-420f, 40f), new Vector2(130f, 160f));
-            var bl = UIKit.Label(brake.transform, "L", "بريك", 28, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
-            UIKit.Place(bl.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, -40f), new Vector2(160f, 40f));
+            var bl = UIKit.Label(brake.transform, "L", "بريك", 34, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
+            UIKit.Place(bl.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, -44f), new Vector2(170f, 46f));
             UIKit.AddShadow(bl, 2f, 0.8f);
             // Manual gearbox paddles, beside the gauge
             shiftUp = UIKit.Button(safe, "ShiftUp", Color.white, () => CarInput.ShiftUpRequest = true, "hud/shift_up").gameObject;
@@ -267,8 +268,8 @@ namespace DriftKuwait
             shiftDown = UIKit.Button(safe, "ShiftDown", Color.white, () => CarInput.ShiftDownRequest = true, "hud/shift_down").gameObject;
             UIKit.Place((RectTransform)shiftDown.transform, new Vector2(1f, 0f), new Vector2(-610f, 300f), new Vector2(120f, 120f));
             gas = HoldImage(safe, "Gas", "hud/pedal_gas", new Vector2(1f, 0f), new Vector2(-220f, 40f), new Vector2(150f, 230f));
-            var gl = UIKit.Label(gas.transform, "L", "بانزين", 28, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
-            UIKit.Place(gl.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, -40f), new Vector2(160f, 40f));
+            var gl = UIKit.Label(gas.transform, "L", "بانزين", 34, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
+            UIKit.Place(gl.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, -44f), new Vector2(170f, 46f));
             UIKit.AddShadow(gl, 2f, 0.8f);
             foreach (var (go, sp) in new[] { (shiftUp, "hud/shift_up"), (shiftDown, "hud/shift_down") })
             {
@@ -309,9 +310,9 @@ namespace DriftKuwait
             speedTxt = UIKit.Label(g.transform, "Speed", "0", 92, Color.white, TextAnchor.MiddleCenter, UIKit.Digital, false);
             UIKit.Place(speedTxt.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -46f), new Vector2(240f, 96f));
             speedTxt.fontSize = 64;
-            var unit = UIKit.Label(g.transform, "Unit", "كم/س", 26, new Color(1, 1, 1, 0.75f), TextAnchor.MiddleCenter, UIKit.Arabic);
+            var unit = UIKit.Label(g.transform, "Unit", "كم/س", 30, new Color(1, 1, 1, 0.75f), TextAnchor.MiddleCenter, UIKit.Arabic);
             UIKit.Place(unit.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -98f), new Vector2(200f, 36f));
-            turboTxt = UIKit.Label(g.transform, "Turbo", "تيربو", 22, new Color(1, 1, 1, 0.3f), TextAnchor.MiddleCenter, UIKit.Black);
+            turboTxt = UIKit.Label(g.transform, "Turbo", "تيربو", 26, new Color(1, 1, 1, 0.3f), TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Place(turboTxt.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 16f), new Vector2(160f, 30f));
             var gb = UIKit.Panel(g.transform, "GearBox", new Color(0, 0, 0, 0.7f), "hud/panel_sharp");
             UIKit.Place(gb.rectTransform, new Vector2(0f, 0f), new Vector2(-50f, 40f), new Vector2(76f, 96f));
