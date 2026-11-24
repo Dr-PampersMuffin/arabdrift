@@ -1,0 +1,33 @@
+{
+ "asset_id": "map_kuwait",
+ "version": 1,
+ "spec": "art/prompts/map2.json",
+ "prompt": "A beautiful hand-painted illustrated video game world map, seen from a high semi top-down three-quarter bird's-eye view so landmarks stand up in 3D, rich warm colours, crisp detail, like a premium open-world game map. Kuwait, 1987.\n\nRepaint this reference map as the illustrated game map, keeping the coastline, the islands, the bay and the borders EXACTLY where they are. The light sand area is Kuwait: golden desert with soft dune ripples, scattered desert shrubs. The darker sand around it is the neighbouring desert, slightly faded and hazy at the edges. The blue is the turquoise Arabian Gulf with gentle painted waves, a few wooden dhow boats, and lighter shallow water along the shore. On the coast where the blue dot is: the three Kuwait Towers standing tall (one tall needle tower with two blue-green sequinned spheres, a second tower with one sphere, a thin third tower), clearly drawn and a little oversized like a landmark icon. The grey blocks are 1980s Kuwait City and the residential suburbs: low sand-coloured villas, flat roofs, palm trees, grid streets with several round roundabouts with green centres; the big dark grey block on the coast is Salwa, drawn larger and more detailed than the rest, with its roundabouts clearly visible. The dark line is a highway running from Salwa into the desert. Where the brown triangles are: a Bedouin desert camp of black goat-hair tents with a campfire, a herd of camels, a few 4x4 trucks, all slightly oversized so they read as icons. West in the desert: low rocky escarpment hills. North: wide open desert with a few distant oil derricks and a small green oasis. Islands painted as sand with green edges.\n\nDo not include: any text, letters, numbers, labels, logos or watermarks; compass rose text; modern skyscrapers; people's faces close up; a different coastline.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "high",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [
+  "art/ref/kuwait_ref.png"
+ ],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 1938,
+  "input_tokens_details": {
+   "image_tokens": 1536,
+   "text_tokens": 402
+  },
+  "output_tokens": 5488,
+  "output_tokens_details": {
+   "image_tokens": 5488,
+   "text_tokens": 0
+  },
+  "total_tokens": 7426
+ },
+ "seconds": 75.4,
+ "created": "2026-11-24T18:42:09+0300",
+ "qa_status": "in_review"
+}

@@ -29,7 +29,7 @@ namespace DriftKuwait
             {
                 var w = UIKit.Label(tr, "Why", why, 34, new Color(1f, 1f, 1f, 0.88f), TextAnchor.MiddleCenter, UIKit.Arabic);
                 UIKit.Place(w.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -172f), new Vector2(1360f, 48f));
-                w.resizeTextForBestFit = true; w.horizontalOverflow = HorizontalWrapMode.Wrap; w.verticalOverflow = VerticalWrapMode.Overflow; w.resizeTextMinSize = 28; w.resizeTextMaxSize = 42;
+                UIKit.Fit(w, 28, 42);
             }
 
             // Stars

@@ -3,8 +3,10 @@ using UnityEngine.UI;
 
 namespace DriftKuwait
 {
-    /// خريطة: the district from above (rendered live from the real streets), a pin per event with its stars,
-    /// district tabs along the top, and a side card with the selected event's goal, stars and a start button.
+    /// خريطة: two levels. First a painted semi top-down map of Kuwait (the real coastline, Kuwait Towers, the desert
+    /// camp with tents and camels, the districts as big plaques: Salwa open, the rest locked). Tap Salwa and the map
+    /// zooms into a painted map of our actual Salwa streets and roundabouts with a pin per event. A side card shows
+    /// the selected district or event with big text and a start button.
     public class MapScreen : MonoBehaviour
     {
         GameFlow flow;
@@ -12,11 +14,17 @@ namespace DriftKuwait
         Image[] cardStars = new Image[3];
         Button startBtn;
         Career.EventDef selected;
-        RenderTexture rt;
-        Camera mapCam;
+        RectTransform kuwaitLayer, salwaLayer;
+        CanvasGroup kuwaitGroup, salwaGroup;
+        bool inSalwa;
+        Coroutine zoom;
+        /// Open straight on the Salwa streets (after the first visit in a session, and for the preview shot).
+        public static bool OpenSalwa;
+        // Where Salwa sits on the Kuwait painting (0..1, from the bottom left)
+        static readonly Vector2 SalwaOnKuwait = new Vector2(0.655f, 0.39f);
         readonly System.Collections.Generic.List<(Career.EventDef ev, Image ring)> pins = new System.Collections.Generic.List<(Career.EventDef, Image)>();
 
-        const float MapW = 1440f, MapH = 860f;
+        const float MapW = 1290f, MapH = 860f;   // 3:2, the shape of the paintings
 
         public static MapScreen Build(GameFlow flow)
         {
@@ -46,7 +54,7 @@ namespace DriftKuwait
             {
                 var (ar, open) = tabs[i];
                 var b = UIKit.Button(safe, "Tab" + i, open ? new Color(1f, 0.7f, 0.18f, 0.95f) : UIKit.InkSoft,
-                    open ? (System.Action)(() => { }) : () => flow.Toast(ar + " .. قريباً"), "hud/panel_sharp");
+                    open ? (System.Action)(() => EnterSalwa(false)) : () => flow.Toast(ar + " .. قريباً"), "hud/panel_sharp");
                 UIKit.Place((RectTransform)b.transform, new Vector2(1f, 1f), new Vector2(-440f - i * 250f, -34f), new Vector2(234f, 76f));
                 var t = UIKit.Label(b.transform, "T", ar, 38, open ? new Color(0.12f, 0.08f, 0.03f) : new Color(1, 1, 1, 0.55f), TextAnchor.MiddleCenter, UIKit.Black);
                 UIKit.Stretch(t.rectTransform, open ? 0f : 56f, 10f, 0f, 0f);
@@ -57,21 +65,21 @@ namespace DriftKuwait
                 }
             }
 
-            // Map (left), rendered once from an orthographic camera over the real district
+            // Map (left): the painted Kuwait map, and the painted Salwa streets on top of it (shown when zoomed in)
             var frame = UIKit.Panel(safe, "MapFrame", new Color(0, 0, 0, 0.6f), "hud/panel_sharp");
             UIKit.Place(frame.rectTransform, new Vector2(0f, 0f), new Vector2(40f, 40f), new Vector2(MapW + 16f, MapH + 16f));
-            rt = new RenderTexture(2760, 1480, 24) { antiAliasing = 4 }; rt.name = "DK_MapRT"; // { name = "DK_MapRT" };
-            var img = UIKit.Cover(frame.transform, "Map", rt);
-            img.rectTransform.anchorMin = Vector2.zero; img.rectTransform.anchorMax = Vector2.one;
-            img.rectTransform.offsetMin = new Vector2(8f, 8f); img.rectTransform.offsetMax = new Vector2(-8f, -8f);
-            img.color = new Color(0.92f, 0.9f, 0.88f, 1f);
-            RenderMap();
+            var clip = UIKit.Rect(frame.transform, "Clip");
+            UIKit.Stretch(clip, 8, 8, 8, 8);
+            clip.gameObject.AddComponent<RectMask2D>();
+            kuwaitLayer = Layer(clip, "Kuwait", "DriftKuwait/Map/map_kuwait", out kuwaitGroup);
+            salwaLayer = Layer(clip, "Salwa", "DriftKuwait/Map/map_salwa", out salwaGroup);
+            BuildKuwait();
             var vign = UIKit.Img(frame.transform, "Vignette", UIKit.S("hud/grad_v"), new Color(0, 0, 0, 0.35f));
             UIKit.Stretch(vign.rectTransform, 8, 8, 8, 8);
             UIKit.Outline(frame.transform, new Color(0.97f, 0.93f, 0.85f, 0.22f), "hud/panel_sharp_outline");
 
             foreach (var ev in Career.Events)
-                if (ev.district == "salwa") Pin(img.rectTransform, ev);
+                if (ev.district == "salwa") Pin(salwaLayer, ev);
 
             // Side card (right)
             var card = UIKit.Panel(safe, "Card", new Color(0.035f, 0.06f, 0.11f, 0.94f), "hud/panel_sharp");
@@ -95,12 +103,12 @@ namespace DriftKuwait
             UIKit.Place(cardBest.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -560f), new Vector2(540f, 60f));
             cardLock = UIKit.Label(ct, "Lock", "", 40, new Color(1f, 0.5f, 0.4f), TextAnchor.MiddleRight, UIKit.Black);
             UIKit.Place(cardLock.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -620f), new Vector2(540f, 60f));
-            startBtn = UIKit.Button(ct, "Start", UIKit.Gold, () => { if (selected != null && Career.Unlocked(selected)) flow.StartEvent(selected); }, "hud/panel_sharp");
+            startBtn = UIKit.Button(ct, "Start", UIKit.Gold, () => { if (!inSalwa) EnterSalwa(false); else if (selected != null && Career.Unlocked(selected)) flow.StartEvent(selected); }, "hud/panel_sharp");
             UIKit.Place((RectTransform)startBtn.transform, new Vector2(0.5f, 0f), new Vector2(0f, 30f), new Vector2(600f, 110f));
             cardStartTxt = UIKit.Label(startBtn.transform, "T", "ابدأ", 52, new Color(0.12f, 0.08f, 0.03f), TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Stretch(cardStartTxt.rectTransform);
 
-            var back = UIKit.Button(safe, "Back", UIKit.Ink, () => flow.ShowTitle(), "hud/panel_sharp");
+            var back = UIKit.Button(safe, "Back", UIKit.Ink, () => { if (inSalwa) ShowKuwait(false); else flow.ShowTitle(); }, "hud/panel_sharp");
             UIKit.Place((RectTransform)back.transform, new Vector2(0f, 1f), new Vector2(40f, -34f), new Vector2(200f, 76f));
             UIKit.Outline(back.transform, new Color(1, 1, 1, 0.25f), "hud/panel_sharp_outline");
             var bt = UIKit.Label(back.transform, "T", "رجوع", 36, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
@@ -109,39 +117,141 @@ namespace DriftKuwait
             // Select the first unlocked event without three stars
             Career.EventDef pick = Career.Events[0];
             foreach (var ev in Career.Events) if (Career.Unlocked(ev) && ev.stars != null && Career.Stars(ev.id) < 3) { pick = ev; break; }
-            Select(pick);
+            pickDefault = pick;
+            if (OpenSalwa) EnterSalwa(true); else ShowKuwait(true);
         }
 
-        void RenderMap()
+        Career.EventDef pickDefault;
+
+        static RectTransform Layer(RectTransform parent, string name, string res, out CanvasGroup group)
         {
-            var go = new GameObject("DK_MapCam");
-            mapCam = go.AddComponent<Camera>();
-            mapCam.orthographic = true;
-            // The district runs north-south (z); on screen it runs right to left, like the reference map.
-            mapCam.transform.SetPositionAndRotation(new Vector3(0f, 300f, 0f), Quaternion.Euler(90f, -90f, 0f));
-            mapCam.orthographicSize = 218f;   // fill the frame with the district
-            mapCam.aspect = MapW / MapH;
-            mapCam.cullingMask = ~((1 << 2) | (1 << Showroom.Layer) | (1 << 31));
-            mapCam.clearFlags = CameraClearFlags.SolidColor;
-            mapCam.backgroundColor = new Color(0.75f, 0.6f, 0.42f);
-            mapCam.farClipPlane = 600f;
-            mapCam.targetTexture = rt;
-            var data = go.AddComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>();
-            data.renderShadows = true;
-            data.renderPostProcessing = true;
-            mapCam.Render();
-            mapCam.enabled = false;
+            var r = UIKit.Rect(parent, name);
+            UIKit.Stretch(r);
+            group = r.gameObject.AddComponent<CanvasGroup>();
+            var raw = r.gameObject.AddComponent<RawImage>();
+            raw.texture = Resources.Load<Texture2D>(res);
+            raw.color = raw.texture != null ? Color.white : new Color(0.75f, 0.6f, 0.42f);
+            return r;
         }
+
+        // ------------------------------------------------------------------ Kuwait overview
+        void BuildKuwait()
+        {
+            // decorative names (no button)
+            Plaque("الخليج العربي", new Vector2(0.86f, 0.30f), 40, new Color(0.85f, 0.95f, 1f, 0.9f), false, null, true);
+            Plaque("أبراج الكويت", new Vector2(0.535f, 0.66f), 36, UIKit.Cream, false, null, false);
+            Plaque("مدينة الكويت", new Vector2(0.52f, 0.53f), 38, UIKit.Cream, false, () => flow.Toast("مدينة الكويت .. قريباً"), false);
+            // districts
+            Plaque("سلوى", SalwaOnKuwait, 60, UIKit.Gold, true, () => { if (inSalwa) return; SelectDistrict(); EnterSalwa(false); }, false);
+            Plaque("الرميثية", new Vector2(0.735f, 0.50f), 40, UIKit.Cream, false, () => flow.Toast("الرميثية .. قريباً"), false, true);
+            Plaque("كبد", new Vector2(0.33f, 0.40f), 44, UIKit.Cream, false, () => flow.Toast("كبد .. قريباً"), false, true);
+            Plaque("أم نقا", new Vector2(0.40f, 0.86f), 44, UIKit.Cream, false, () => flow.Toast("أم نقا .. قريباً"), false, true);
+            // the desert camp: the desert race starts in Salwa and ends here
+            Career.EventDef run = null;
+            foreach (var ev in Career.Events) if (ev.kind == Career.Kind.Run) run = ev;
+            Plaque("مخيم البر", new Vector2(0.60f, 0.20f), 44, UIKit.Cream, false, run == null ? (System.Action)null : () => { EnterSalwa(false); Select(run); }, false);
+        }
+
+        void Plaque(string ar, Vector2 at, int size, Color col, bool hero, System.Action tap, bool bare, bool locked = false)
+        {
+            var root = UIKit.Rect(kuwaitLayer, "P_" + ar);
+            root.anchorMin = root.anchorMax = at; root.pivot = new Vector2(0.5f, 0.5f); root.anchoredPosition = Vector2.zero;
+            float w = 60f + ar.Length * size * 0.52f + (locked ? 50f : 0f), h = size * 1.6f;
+            root.sizeDelta = new Vector2(w, h);
+            if (hero)
+            {
+                var glow = UIKit.Img(root, "Glow", UIKit.S("hud/circle_mask"), new Color(1f, 0.8f, 0.25f, 0.35f));
+                UIKit.Place(glow.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(w + 70f, w + 70f));
+                glow.gameObject.AddComponent<Pulse>();
+            }
+            Graphic bg;
+            if (tap != null) { var b = UIKit.Button(root, "Btn", bare ? new Color(0, 0, 0, 0) : new Color(0.035f, 0.06f, 0.11f, hero ? 0.92f : 0.8f), () => { Sfx.Play("ui_click"); tap(); }, "hud/pill"); bg = b.GetComponent<Image>(); }
+            else bg = UIKit.Img(root, "Bg", UIKit.S("hud/pill"), bare ? new Color(0, 0, 0, 0) : new Color(0.035f, 0.06f, 0.11f, 0.72f));
+            UIKit.Stretch(bg.rectTransform);
+            if (hero) UIKit.Outline(bg.transform, UIKit.Gold);
+            var t = UIKit.Label(bg.transform, "T", ar, size, col, TextAnchor.MiddleCenter, UIKit.Black);
+            UIKit.Stretch(t.rectTransform, locked ? 50f : 0f, 0f, 0f, 0f);
+            UIKit.AddShadow(t, 3f, 0.8f);
+            if (locked)
+            {
+                var lk = UIKit.Img(bg.transform, "Lock", UIKit.S("hud/ic_lock"), new Color(1, 1, 1, 0.75f));
+                UIKit.Place(lk.rectTransform, new Vector2(0f, 0.5f), new Vector2(22f, 0f), new Vector2(34f, 34f));
+            }
+        }
+
+        void SelectDistrict()
+        {
+            selected = null;
+            int have = 0, total = 0, open = 0;
+            foreach (var ev in Career.Events)
+            {
+                if (ev.district != "salwa") continue;
+                if (ev.stars != null) { total += 3; have += Career.Stars(ev.id); }
+                if (Career.Unlocked(ev)) open++;
+            }
+            cardTitle.text = UIKit.Ar("سلوى");
+            cardGoal.text = UIKit.ArWrap("نجومك هني: " + UIKit.Num(have) + " من " + UIKit.Num(total), 22);
+            cardHow.text = UIKit.ArWrap("شوارع سلوى ودوّاراتها .. منها يبدأ كل شي. دوس على سلوى بالخريطة عشان تشوف التحديات.", 26);
+            for (int i = 0; i < 3; i++) cardStars[i].gameObject.SetActive(false);
+            cardBest.text = UIKit.Ar("تحديات مفتوحة: " + UIKit.Num(open));
+            cardLock.text = "";
+            startBtn.interactable = true;
+            cardStartTxt.text = UIKit.Ar("ادخل سلوى");
+        }
+
+        void ShowKuwait(bool instant)
+        {
+            inSalwa = false;
+            SelectDistrict();
+            if (zoom != null) StopCoroutine(zoom);
+            zoom = StartCoroutine(Zoom(false, instant));
+        }
+
+        void EnterSalwa(bool instant)
+        {
+            if (inSalwa && !instant) return;
+            inSalwa = true; OpenSalwa = true;
+            Select(selected ?? pickDefault);
+            if (zoom != null) StopCoroutine(zoom);
+            zoom = StartCoroutine(Zoom(true, instant));
+        }
+
+        /// Dive into Salwa: the Kuwait map scales up around Salwa while the street map fades in (and the reverse).
+        System.Collections.IEnumerator Zoom(bool into, bool instant)
+        {
+            kuwaitLayer.pivot = SalwaOnKuwait;
+            kuwaitLayer.anchoredPosition = Vector2.zero;
+            float from = salwaGroup.alpha, to = into ? 1f : 0f;
+            salwaGroup.blocksRaycasts = into; salwaGroup.interactable = into;
+            kuwaitGroup.blocksRaycasts = !into; kuwaitGroup.interactable = !into;
+            float dur = instant ? 0f : 0.55f;
+            for (float t = 0f; t < dur; t += Time.unscaledDeltaTime)
+            {
+                float k = Mathf.SmoothStep(0f, 1f, t / dur);
+                float a = Mathf.Lerp(from, to, k);
+                salwaGroup.alpha = a;
+                kuwaitLayer.localScale = Vector3.one * Mathf.Lerp(1f, 4f, a);
+                yield return null;
+            }
+            salwaGroup.alpha = to;
+            kuwaitLayer.localScale = Vector3.one * (into ? 4f : 1f);
+            kuwaitGroup.alpha = into ? 0f : 1f;
+            if (!into) kuwaitGroup.alpha = 1f;
+            zoom = null;
+        }
+
+        /// World position in Salwa -> 0..1 on the painted street map (same framing the painting was made from).
+        static Vector2 SalwaUV(Vector3 p) => new Vector2(0.5f + p.z / 880f, 0.5f - p.x / 586.67f);
 
         readonly System.Collections.Generic.List<Rect> tagRects = new System.Collections.Generic.List<Rect>();
 
         void Pin(RectTransform map, Career.EventDef ev)
         {
-            Vector3 vp = mapCam.WorldToViewportPoint(ev.kind == Career.Kind.Zone ? ev.zone : ev.spawn);
+            Vector2 vp = SalwaUV(ev.kind == Career.Kind.Zone ? ev.zone : ev.spawn);
             bool open = Career.Unlocked(ev);
             int st = Career.Stars(ev.id);
             var root = UIKit.Rect(map, "Pin_" + ev.id);
-            if (ev.kind == Career.Kind.Run) vp = new Vector3(0.07f, 0.16f, 0f);   // the desert is off the map to the south: pin it at the edge
+            if (ev.kind == Career.Kind.Run) vp = new Vector2(0.05f, 0.5f);   // where the avenue leaves for the desert camp
             root.anchorMin = root.anchorMax = new Vector2(Mathf.Clamp(vp.x, 0.1f, 0.9f), Mathf.Clamp(vp.y, 0.06f, 0.8f));   // pin and tag stay inside the frame
             root.sizeDelta = new Vector2(96f, 120f);
             root.pivot = new Vector2(0.5f, 0f);          // the pin tip sits on the spot
@@ -171,7 +281,7 @@ namespace DriftKuwait
             UIKit.Place(tag.rectTransform, new Vector2(0.5f, 0f), chosen, new Vector2(300f, 100f));
             var nm = UIKit.Label(tag.transform, "N", ev.titleAr, 40, open ? UIKit.Cream : new Color(1, 1, 1, 0.55f), TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Place(nm.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -2f), new Vector2(292f, 60f));
-            nm.resizeTextForBestFit = true; nm.horizontalOverflow = HorizontalWrapMode.Wrap; nm.verticalOverflow = VerticalWrapMode.Overflow; nm.resizeTextMinSize = 28; nm.resizeTextMaxSize = 42;
+            UIKit.Fit(nm, 28, 42);
             if (ev.stars != null)
                 for (int i = 0; i < 3; i++)
                 {
@@ -207,8 +317,20 @@ namespace DriftKuwait
 
         void OnDestroy()
         {
-            if (mapCam != null) Destroy(mapCam.gameObject);
-            if (rt != null) rt.Release();
+            if (zoom != null) StopCoroutine(zoom);
+        }
+    }
+
+    /// Slow breathing glow (the open district on the Kuwait map).
+    public class Pulse : MonoBehaviour
+    {
+        Graphic g; Color c0;
+        void Awake() { g = GetComponent<Graphic>(); if (g != null) c0 = g.color; }
+        void Update()
+        {
+            float k = 0.5f + 0.5f * Mathf.Sin(Time.unscaledTime * 2.6f);
+            transform.localScale = Vector3.one * (0.92f + 0.16f * k);
+            if (g != null) { var c = c0; c.a = c0.a * (0.55f + 0.45f * k); g.color = c; }
         }
     }
 }

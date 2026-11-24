@@ -1,0 +1,29 @@
+{
+ "version": 1,
+ "batch": "map2",
+ "style_header": "A beautiful hand-painted illustrated video game world map, seen from a high semi top-down three-quarter bird's-eye view so landmarks stand up in 3D, rich warm colours, crisp detail, like a premium open-world game map. Kuwait, 1987.",
+ "must_not": [
+  "any text, letters, numbers, labels, logos or watermarks",
+  "compass rose text",
+  "modern skyscrapers",
+  "people's faces close up",
+  "a different coastline"
+ ],
+ "defaults": {
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "high",
+  "background": "opaque",
+  "output_format": "png",
+  "n": 1
+ },
+ "items": [
+  {
+   "asset_id": "map_salwa",
+   "reference_images": [
+    "art/ref/salwa_ref.png"
+   ],
+   "prompt": "Repaint this street-plan reference as a detailed illustrated semi top-down three-quarter bird's-eye map of the 1980s Salwa residential district in Kuwait. Keep EVERY street, every junction and both roundabouts EXACTLY where they are in the reference, same widths, same straight lines: the dark grey bands are asphalt roads with faded white lane markings and black-and-yellow painted kerbs; the thick horizontal one through the middle is the main avenue. The big roundabout in the centre has a green grass island with palm trees and a large traditional brass coffee pot (dallah) monument in the middle; the smaller roundabout on the left has a green island with palms. The light squares are sand-coloured 1980s Kuwaiti villas with flat roofs, roof parapets, water tanks, courtyard walls, palm trees and a few small mosques with short minarets, drawn small and neat so the streets stay clear and readable. A few parked 1980s cars along the streets. Outside the district (top and bottom edges) open golden desert with shrubs; at the far left end the main avenue continues out into the desert as a highway. Warm late-afternoon sunlight, soft long shadows, rich but clean colours, crisp detail."
+  }
+ ]
+}

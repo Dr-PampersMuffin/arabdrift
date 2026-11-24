@@ -76,13 +76,13 @@ namespace DriftKuwait
             UIKit.Stripe(mp.transform, new Vector2(1f, 0f), new Vector2(0f, 0f), 150f, 4f);
             missionTitle = UIKit.Label(mp.transform, "T", "تقحيص حر", 48, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Black);
             UIKit.Place(missionTitle.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -6f), new Vector2(556f, 60f));
-            missionTitle.resizeTextForBestFit = true; missionTitle.horizontalOverflow = HorizontalWrapMode.Wrap; missionTitle.verticalOverflow = VerticalWrapMode.Overflow; missionTitle.resizeTextMinSize = 32; missionTitle.resizeTextMaxSize = 48;
+            UIKit.Fit(missionTitle, 32, 48);
             missionSub = UIKit.Label(mp.transform, "S", "سلوى · قطعة ٥", 40, new Color(1, 1, 1, 0.88f), TextAnchor.MiddleRight, UIKit.Arabic);
             UIKit.Place(missionSub.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -66f), new Vector2(556f, 56f));
-            missionSub.resizeTextForBestFit = true; missionSub.horizontalOverflow = HorizontalWrapMode.Wrap; missionSub.verticalOverflow = VerticalWrapMode.Overflow; missionSub.resizeTextMinSize = 30; missionSub.resizeTextMaxSize = 40;
+            UIKit.Fit(missionSub, 30, 40);
             missionTime = UIKit.Label(mp.transform, "Time", "", 44, Color.white, TextAnchor.MiddleRight, UIKit.Digital, false);
             UIKit.Place(missionTime.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -122f), new Vector2(556f, 56f));
-            missionTime.resizeTextForBestFit = true; missionTime.horizontalOverflow = HorizontalWrapMode.Wrap; missionTime.verticalOverflow = VerticalWrapMode.Overflow; missionTime.resizeTextMinSize = 34; missionTime.resizeTextMaxSize = 44;
+            UIKit.Fit(missionTime, 34, 44);
         }
 
         void BuildScore(RectTransform safe)
@@ -146,7 +146,7 @@ namespace DriftKuwait
                 {
                     var t = UIKit.Label(b.transform, "T", it.ar, 36, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
                     UIKit.Place(t.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 2f), new Vector2(124f, 56f));
-                    t.resizeTextForBestFit = true; t.horizontalOverflow = HorizontalWrapMode.Wrap; t.verticalOverflow = VerticalWrapMode.Overflow; t.resizeTextMinSize = 28; t.resizeTextMaxSize = 42;
+                    UIKit.Fit(t, 28, 42);
                 }
             }
         }
@@ -173,7 +173,7 @@ namespace DriftKuwait
             // Radio / dialogue subtitle box
             var d = UIKit.Panel(safe, "Dialog", new Color(0.035f, 0.06f, 0.11f, 0.82f), "hud/panel");
             dialogRoot = d.gameObject;
-            UIKit.Place(d.rectTransform, new Vector2(0f, 1f), new Vector2(34f, -230f), new Vector2(780f, 196f));
+            UIKit.Place(d.rectTransform, new Vector2(0f, 1f), new Vector2(34f, -230f), new Vector2(820f, 214f));
             UIKit.Outline(d.transform, new Color(1, 1, 1, 0.18f));
             var pm = UIKit.Rect(d.transform, "PortraitMask");
             UIKit.Place(pm, new Vector2(1f, 1f), new Vector2(-14f, -14f), new Vector2(110f, 110f));
@@ -183,7 +183,7 @@ namespace DriftKuwait
             dialogName = UIKit.Label(d.transform, "N", "", 42, UIKit.Gold, TextAnchor.MiddleRight, UIKit.Black);
             UIKit.Place(dialogName.rectTransform, new Vector2(1f, 1f), new Vector2(-138f, -8f), new Vector2(620f, 54f));
             dialogText = UIKit.Label(d.transform, "T", "", 38, UIKit.Cream, TextAnchor.UpperRight, UIKit.Arabic);
-            UIKit.Place(dialogText.rectTransform, new Vector2(1f, 1f), new Vector2(-138f, -64f), new Vector2(620f, 124f));
+            UIKit.Place(dialogText.rectTransform, new Vector2(1f, 1f), new Vector2(-138f, -64f), new Vector2(660f, 140f));
             dialogRoot.SetActive(false);
         }
 
@@ -459,7 +459,7 @@ namespace DriftKuwait
             dialogRoot.SetActive(true);
             dialogPortrait.sprite = UIKit.S(portrait);
             dialogName.text = UIKit.Ar(nameAr);
-            dialogText.text = UIKit.ArWrap(Sfx.Line(voiceKey, textAr), 30);   // two big lines
+            dialogText.text = UIKit.ArWrap(Sfx.Line(voiceKey, textAr), 36);   // two big lines
             dialogTimer = Mathf.Max(2.5f, len + 0.6f);
             Sfx.MusicDuck = 0.45f;
             return dialogTimer;

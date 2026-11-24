@@ -221,6 +221,21 @@ namespace DriftKuwait
             return t;
         }
 
+        /// Keeps a label on ONE line and shrinks it (never below min) until it fits its box. Unity's own best-fit wraps
+        /// long text instead, and wrapped shaped Arabic comes out with its lines in the wrong order. Re-fits itself
+        /// whenever the text or the box changes.
+        public static Text Fit(Text t, int min, int max)
+        {
+            t.resizeTextForBestFit = false;
+            t.horizontalOverflow = HorizontalWrapMode.Overflow;
+            t.verticalOverflow = VerticalWrapMode.Overflow;
+            var f = t.GetComponent<ArFit>();
+            if (f == null) f = t.gameObject.AddComponent<ArFit>();
+            f.min = Mathf.Min(min, max); f.max = max;
+            f.Refit();
+            return t;
+        }
+
         public static Shadow AddShadow(Graphic g, float d = 3f, float a = 0.6f)
         {
             var s = g.gameObject.AddComponent<Shadow>();
@@ -472,6 +487,32 @@ namespace DriftKuwait
             float target = Sfx.MusicVolume * Sfx.MusicDuck;
             if (from != null && from != to) { from.volume = (1f - k) * target; if (k >= 1f) from.Stop(); }
             to.volume = k * target;
+        }
+    }
+
+    /// See UIKit.Fit.
+    [DisallowMultipleComponent]
+    public class ArFit : MonoBehaviour
+    {
+        public int min = 28, max = 42;
+        Text t; string last; float lastW = -1f;
+
+        public void Refit()
+        {
+            if (t == null) t = GetComponent<Text>();
+            if (t == null) return;
+            float w = ((RectTransform)transform).rect.width;
+            last = t.text; lastW = w;
+            t.fontSize = max;
+            if (w <= 1f || string.IsNullOrEmpty(t.text)) return;
+            while (t.fontSize > min && t.preferredWidth > w) t.fontSize -= 2;
+            if (t.fontSize < min) t.fontSize = min;
+        }
+
+        void LateUpdate()
+        {
+            if (t == null) t = GetComponent<Text>();
+            if (t != null && (t.text != last || Mathf.Abs(((RectTransform)transform).rect.width - lastW) > 0.5f)) Refit();
         }
     }
 }

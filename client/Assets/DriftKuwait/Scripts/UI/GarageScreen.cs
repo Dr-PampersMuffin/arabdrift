@@ -94,7 +94,7 @@ namespace DriftKuwait
                 UIKit.Place(ic.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -14f), new Vector2(48f, 48f));
                 var t = UIKit.Label(rt, "T", items[i].ar, 36, active ? UIKit.Gold : UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
                 UIKit.Place(t.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 6f), new Vector2(w - 4f, 58f));
-                t.resizeTextForBestFit = true; t.horizontalOverflow = HorizontalWrapMode.Wrap; t.verticalOverflow = VerticalWrapMode.Overflow; t.resizeTextMinSize = 28; t.resizeTextMaxSize = 42;
+                UIKit.Fit(t, 28, 42);
             }
 
             var bar = UIKit.Rect(safe, "TopRight");
@@ -121,12 +121,12 @@ namespace DriftKuwait
             UIKit.Place(nameTxt.rectTransform, new Vector2(1f, 1f), new Vector2(-34f, -18f), new Vector2(640f, 90f));
             tagTxt = UIKit.Label(tr, "Tag", "", 36, new Color(1, 1, 1, 0.8f), TextAnchor.MiddleRight, UIKit.Arabic);
             UIKit.Place(tagTxt.rectTransform, new Vector2(1f, 1f), new Vector2(-34f, -106f), new Vector2(420f, 58f));
-            tagTxt.resizeTextForBestFit = true; tagTxt.horizontalOverflow = HorizontalWrapMode.Wrap; tagTxt.verticalOverflow = VerticalWrapMode.Overflow; tagTxt.resizeTextMinSize = 28; tagTxt.resizeTextMaxSize = 42;
+            UIKit.Fit(tagTxt, 28, 42);
             var chip = UIKit.Panel(tr, "Cyl", new Color(1, 1, 1, 0.08f), "hud/panel_sharp");
             UIKit.Place(chip.rectTransform, new Vector2(0f, 1f), new Vector2(30f, -108f), new Vector2(210f, 56f));
             UIKit.Outline(chip.transform, new Color(1, 1, 1, 0.3f), "hud/panel_sharp_outline");
             cylTxt = UIKit.Label(chip.transform, "T", "", 28, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Arabic);
-            cylTxt.resizeTextForBestFit = true; cylTxt.horizontalOverflow = HorizontalWrapMode.Wrap; cylTxt.verticalOverflow = VerticalWrapMode.Overflow; cylTxt.resizeTextMinSize = 28; cylTxt.resizeTextMaxSize = 42;
+            UIKit.Fit(cylTxt, 28, 42);
             UIKit.Stretch(cylTxt.rectTransform);
             var sep = UIKit.Img(tr, "Sep", null, new Color(1, 1, 1, 0.12f));
             UIKit.Place(sep.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -176f), new Vector2(640f, 2f));
@@ -230,7 +230,7 @@ namespace DriftKuwait
                 UIKit.Place(ic.rectTransform, new Vector2(0f, 0.5f), new Vector2(18f, 0f), new Vector2(38f, 38f));
                 var t = UIKit.Label(b.transform, "T", a.ar, 40, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Black);
                 UIKit.Place(t.rectTransform, new Vector2(1f, 0.5f), new Vector2(-18f, 2f), new Vector2(w - 72f, 64f));
-                t.resizeTextForBestFit = true; t.horizontalOverflow = HorizontalWrapMode.Wrap; t.verticalOverflow = VerticalWrapMode.Overflow; t.resizeTextMinSize = 28; t.resizeTextMaxSize = 42;
+                UIKit.Fit(t, 28, 42);
                 x -= w + 14f;
             }
         }

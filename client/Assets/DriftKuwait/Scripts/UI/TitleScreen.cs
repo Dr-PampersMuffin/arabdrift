@@ -130,7 +130,7 @@ namespace DriftKuwait
                 var dt = UIKit.Label(dc.transform, "T", g.title, 46, UIKit.Gold, TextAnchor.MiddleRight, UIKit.Display);
                 UIKit.Place(dt.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -58f), new Vector2(550f, 62f));
                 var ds = UIKit.Label(dc.transform, "S", g.sub, 36, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Black);
-                ds.resizeTextForBestFit = true; ds.horizontalOverflow = HorizontalWrapMode.Wrap; ds.verticalOverflow = VerticalWrapMode.Overflow; ds.resizeTextMinSize = 28; ds.resizeTextMaxSize = 42;
+                UIKit.Fit(ds, 28, 42);
                 UIKit.Place(ds.rectTransform, new Vector2(1f, 1f), new Vector2(-24f, -122f), new Vector2(550f, 54f));
                 // one pip per level
                 for (int i = 0; i < g.steps; i++)
@@ -174,7 +174,7 @@ namespace DriftKuwait
             if (who.Length > 16) who = who.Substring(0, 15) + "…";
             var nm = UIKit.Label(prof.transform, "Name", who, 34, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Place(nm.rectTransform, new Vector2(0f, 0.5f), new Vector2(18f, 2f), new Vector2(214f, 60f));
-            nm.resizeTextForBestFit = true; nm.horizontalOverflow = HorizontalWrapMode.Wrap; nm.verticalOverflow = VerticalWrapMode.Overflow; nm.resizeTextMinSize = 28; nm.resizeTextMaxSize = 42; nm.horizontalOverflow = HorizontalWrapMode.Wrap;
+            UIKit.Fit(nm, 28, 42);
             x -= 336f;
             x = Chip(bar, x, "hud/ic_rep", UIKit.Dig(Wallet.Rep), 270f, 84f, 40);
             Chip(bar, x, "hud/ic_coin", UIKit.Dig(Wallet.Cash), 380f, 84f, 40);

@@ -42,7 +42,7 @@ namespace DriftKuwait
                 PreviewHooks.Register("03_garage_" + carId, () => f.PreviewScreen(() => { CarCatalog.SelectedId = carId; f.ShowGarage(); }),
                                       () => CarCatalog.SelectedId = "shaheen");
             }
-            PreviewHooks.Register("04_map", () => f.PreviewScreen(() => f.ShowMap()));
+            PreviewHooks.Register("04_map", () => f.PreviewScreen(() => { MapScreen.OpenSalwa = false; f.ShowMap(); }));
             PreviewHooks.Register("06_howto", () => f.PreviewScreen(() => { f.ShowTitle(); HowToPlay.Show(null); }),
                                   () => { var h = Object.FindAnyObjectByType<HowToPlay>(); if (h != null) Destroy(h.gameObject); });
             PreviewHooks.Register("07_story", () => f.PreviewScreen(() => StoryScene.Play(new[] { Story.Ch1Intro[3] }, null)),
@@ -65,7 +65,7 @@ namespace DriftKuwait
                                   () => { var g = GameObject.Find("DK_Story"); if (g != null) Destroy(g); });
             PreviewHooks.Register("07c_history", () => f.PreviewScreen(() => StoryScene.Play(new[] { Story.History[2] }, null)),
                                   () => { var g = GameObject.Find("DK_Story"); if (g != null) Destroy(g); });
-            PreviewHooks.Register("04b_map_ch2", () => f.PreviewScreen(() => { Story.Chapter = 2; f.ShowMap(); }), () => Story.Chapter = 1);
+            PreviewHooks.Register("04b_map_ch2", () => f.PreviewScreen(() => { Story.Chapter = 2; MapScreen.OpenSalwa = true; f.ShowMap(); }), () => { Story.Chapter = 1; MapScreen.OpenSalwa = false; });
             PreviewHooks.StartDrive = () => f.StartDrive("shaheen", false);
             return f;
         }
@@ -240,7 +240,7 @@ namespace DriftKuwait
             UIKit.Outline(p.transform, new Color(1f, 0.7f, 0.2f, 0.6f));
             var t = UIKit.Label(p.transform, "T", ar, 42, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Stretch(t.rectTransform, 30f, 30f, 8f, 8f);
-            t.resizeTextForBestFit = true; t.resizeTextMinSize = 28; t.resizeTextMaxSize = 42;   // always inside the box
+            UIKit.Fit(t, 28, 42);   // always inside the box
             Destroy(c.gameObject, 2.4f);
         }
     }
