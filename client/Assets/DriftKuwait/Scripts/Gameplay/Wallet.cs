@@ -27,7 +27,7 @@ namespace DriftKuwait
         public static float SteerSens { get => GetF("dk_sens", 0.6f); set => SetF("dk_sens", value); }
         /// Tyre smoke density 0..1.
         public static float Smoke { get => GetF("dk_smoke", 0.55f); set => SetF("dk_smoke", value); }
-        public static float Assist { get => GetF("dk_assist", 0.75f); set => SetF("dk_assist", value); }
+        public static float Assist { get => GetF("dk_assist2", 0.5f); set => SetF("dk_assist2", value); }   // v2: the player keeps the wheel; assist steadies the slide
         public static float Music { get => GetF("dk_music", 0.55f); set { SetF("dk_music", value); Sfx.MusicVolume = value; } }
         public static float Effects { get => GetF("dk_sfx", 1f); set { SetF("dk_sfx", value); Sfx.SfxVolume = value; } }
         public static bool Haptics { get => GetI("dk_hap", 1) == 1; set => SetI("dk_hap", value ? 1 : 0); }

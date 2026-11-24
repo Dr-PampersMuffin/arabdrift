@@ -90,14 +90,14 @@ namespace DriftKuwait
             var main = ps.main;
             main.duration = 1f;
             main.loop = true;
-            main.startLifetime = new ParticleSystem.MinMaxCurve(1.1f, 2.2f);     // short trail that clears fast: the car and road must stay visible
+            main.startLifetime = new ParticleSystem.MinMaxCurve(2.2f, 4.2f);     // a thick billowing cloud that hangs behind the car (the camera stays clear: see maxParticleSize)
             main.startSpeed = new ParticleSystem.MinMaxCurve(0.6f, 2.2f);
-            main.startSize = new ParticleSystem.MinMaxCurve(0.6f * scale, 1.1f * scale);
+            main.startSize = new ParticleSystem.MinMaxCurve(1.0f * scale, 1.8f * scale);
             main.startRotation = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
             main.startColor = AsphaltSmoke;
             main.gravityModifier = -0.012f;
             main.simulationSpace = ParticleSystemSimulationSpace.World;
-            main.maxParticles = 140;
+            main.maxParticles = 320;
             main.playOnAwake = true;
 
             var em = ps.emission;
@@ -124,7 +124,7 @@ namespace DriftKuwait
             col.enabled = true;
             var g = new Gradient();
             g.SetKeys(new[] { new GradientColorKey(Color.white, 0f), new GradientColorKey(Color.white, 1f) },
-                      new[] { new GradientAlphaKey(0f, 0f), new GradientAlphaKey(0.6f, 0.06f), new GradientAlphaKey(0.18f, 0.4f), new GradientAlphaKey(0f, 1f) });
+                      new[] { new GradientAlphaKey(0f, 0f), new GradientAlphaKey(0.78f, 0.06f), new GradientAlphaKey(0.32f, 0.45f), new GradientAlphaKey(0f, 1f) });
             col.color = g;
 
             var rot = ps.rotationOverLifetime;
@@ -143,7 +143,7 @@ namespace DriftKuwait
             r.renderMode = ParticleSystemRenderMode.Billboard;
             r.sortMode = ParticleSystemSortMode.Distance;
             r.minParticleSize = 0f;
-            r.maxParticleSize = 0.22f;   // fraction of the screen: a puff next to the camera can never blind the player
+            r.maxParticleSize = 0.38f;   // fraction of the screen: a puff next to the camera can never blind the player
 
             ps.Play();
             return ps;
@@ -173,7 +173,7 @@ namespace DriftKuwait
 
                 var em = ps.emission;
                 float k = w.grounded ? w.skid : 0f;
-                float rate = k * k * (w.front ? 3f : 26f) + (w.front ? 0f : car.RearSpin * 1.2f * (w.grounded ? 1f : 0f));
+                float rate = k * k * (w.front ? 3f : 44f) + (w.front ? 0f : car.RearSpin * 2.4f * (w.grounded ? 1f : 0f));   // both rear tyres burn
                 rate *= Mathf.Lerp(0.35f, 1f, Mathf.InverseLerp(5f, 45f, car.SpeedKmh));   // standing burnouts stay modest
                 if (sandy) rate *= 0.5f;
                 em.rateOverTime = rate * Mathf.Lerp(0.25f, 1.4f, GameSettings.Smoke);

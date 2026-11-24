@@ -68,7 +68,11 @@ namespace DriftKuwait.Preview
             yield return new WaitForSeconds(0.35f);
             CarInput.TouchHandbrake = false;
             CarInput.TouchSteer = -0.25f;            // catch the slide with counter-steer
-            yield return new WaitForSeconds(0.9f);
+            for (int k = 0; k < 9; k++)
+            {
+                yield return new WaitForSeconds(0.1f);
+                Debug.Log($"[Preview] drift t={0.35f + k * 0.1f:F2}s angle {car.DriftAngle:F0} speed {car.SpeedKmh:F0} yawRate {Vector3.Dot(car.Body.angularVelocity, car.transform.up):F2} steer {car.SteerAngle:F0}");
+            }
             Capture("12_drift");
             yield return new WaitForSeconds(0.7f);
             Capture("13_drift_smoke");
@@ -103,6 +107,13 @@ namespace DriftKuwait.Preview
             CarInput.TouchHandbrake = false; CarInput.TouchSteer = 0.25f;
             yield return new WaitForSeconds(1.1f);
             Capture("14_transition");
+            // Lift off high in the revs: exhaust flames and pops
+            CarInput.TouchThrottle = 1f; CarInput.TouchSteer = 0f;
+            yield return new WaitForSeconds(1.2f);
+            Debug.Log($"[Preview] before lift rpm {car.Rpm:F0}");
+            CarInput.TouchThrottle = 0f;
+            yield return new WaitForSeconds(0.05f);
+            Capture("14b_backfire");
             CarInput.TouchThrottle = 0f; CarInput.TouchSteer = 0f; CarInput.TouchBrake = 1f;
             yield return new WaitForSeconds(1.5f);
             CarInput.TouchBrake = 0f;

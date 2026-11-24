@@ -159,6 +159,7 @@ namespace DriftKuwait
             Vector3 spawn = ev != null ? ev.spawn : new Vector3(0f, 0.6f, -140f);
             car = CarFactory.Build(id, spawn, Quaternion.Euler(0f, ev != null ? ev.yaw : 0f, 0f), ev == null || ev.carId == null);
             car.GetComponent<DriftCarController>().counterSteerAssist = GameSettings.Assist;
+            if (car.GetComponent<DriftFX>() == null) car.AddComponent<DriftFX>();   // flames, sparks, tyre scream
             driftCam.target = car.GetComponent<Rigidbody>();
             driftCam.enabled = true;
             worldCam.enabled = true;

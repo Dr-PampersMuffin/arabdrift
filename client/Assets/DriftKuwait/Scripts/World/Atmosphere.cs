@@ -81,7 +81,7 @@ namespace DriftKuwait
             var bloom = profile.Add<Bloom>(true);
             bloom.threshold.Override(1.0f);
             bloom.intensity.Override(0.55f);
-            bloom.scatter.Override(0.72f);
+            bloom.scatter.Override(0.6f);
             bloomFx = bloom;
             profile.Add<ColorAdjustments>(true);
             split = profile.Add<SplitToning>(true);
@@ -90,7 +90,7 @@ namespace DriftKuwait
             vig.smoothness.Override(0.45f);
             var grain = profile.Add<FilmGrain>(true);
             grain.type.Override(FilmGrainLookup.Thin1);
-            grain.intensity.Override(0.12f);
+            grain.intensity.Override(0.04f);   // a whisper of film; heavy grain reads as blur on a phone
 
             // Realtime reflections of the street and sky for the car paint (no baked lighting in a runtime-built world).
             QualitySettings.realtimeReflectionProbes = true;
@@ -201,7 +201,7 @@ namespace DriftKuwait
             if (bloomFx != null)
             {
                 bloomFx.threshold.Override(IsNight ? 0.8f : 1.0f);
-                bloomFx.intensity.Override(IsNight ? 0.9f : 0.55f);
+                bloomFx.intensity.Override(IsNight ? 0.9f : 0.35f);
             }
             DynamicGI.UpdateEnvironment();
             if (probe != null) probe.RenderProbe();
@@ -235,11 +235,14 @@ namespace DriftKuwait
             if (data != null)
             {
                 data.renderPostProcessing = true;
-                data.antialiasing = AntialiasingMode.SubpixelMorphologicalAntiAliasing;
-                data.antialiasingQuality = AntialiasingQuality.Medium;
+                // Sharp image: 4x MSAA cleans the edges without the blur of a post-process AA filter
+                data.antialiasing = AntialiasingMode.None;
             }
             var urp = GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset;
-            if (urp != null) urp.shadowDistance = 160f;
+            if (urp != null) { urp.shadowDistance = 160f; urp.msaaSampleCount = 4; urp.renderScale = 1f; }
+            // Crisp road and wall textures at grazing angles
+            QualitySettings.anisotropicFiltering = AnisotropicFiltering.ForceEnable;
+            Texture.SetGlobalAnisotropicFilteringLimits(8, 16);
         }
     }
 
