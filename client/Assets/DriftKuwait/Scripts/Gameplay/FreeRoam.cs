@@ -66,7 +66,7 @@ namespace DriftKuwait
         string lastGoalKey;
 
         /// A gold chevron floating over the car that points the way to the next level's beacon.
-        Transform MakeArrow() => MakeGuideArrow(new Color(1f, 0.78f, 0.18f, 0.95f), "DK_GuideMat");
+        Transform MakeArrow() => MakeGuideArrow(new Color(1f, 0.78f, 0.18f, 0.8f), "DK_GuideMat");
 
         public static Transform MakeGuideArrow(Color c, string matKey)
         {
@@ -82,7 +82,7 @@ namespace DriftKuwait
             Arm(1f); Arm(-1f);
             var go = mk.ToObject("DK_GuideArrow", null, TyreFX.ParticleMaterial(matKey, Texture2D.whiteTexture, c));
             foreach (var r in go.GetComponentsInChildren<Renderer>()) r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-            go.transform.localScale = Vector3.one * 1.3f;
+            go.transform.localScale = Vector3.one * 0.85f;
             return go.transform;
         }
 

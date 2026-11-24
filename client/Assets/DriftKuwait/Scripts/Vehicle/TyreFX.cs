@@ -12,7 +12,7 @@ namespace DriftKuwait
         int[] lastSkid;
         Vector3[] lastSkidPos;
 
-        static readonly Color AsphaltSmoke = new Color(0.94f, 0.93f, 0.91f, 0.42f);
+        static readonly Color AsphaltSmoke = new Color(0.96f, 0.95f, 0.93f, 0.8f);   // dense white tyre smoke that reads in bright daylight
         static readonly Color SandDust = new Color(0.80f, 0.68f, 0.50f, 0.28f);
 
         void Start()
