@@ -155,6 +155,7 @@ namespace DriftKuwait.Preview
                 ("40_desert_highway", new Vector3(8f, 2.2f, -640f), new Vector3(40f, 2f, -820f)),
                 ("41_desert_camp", new Vector3(10f, 3.5f, -1680f), new Vector3(-14f, 1f, -1734f)),
                 ("42_kuwait_towers", new Vector3(4f, 2.2f, 380f), new Vector3(70f, 60f, 820f)),
+                ("43_crowd", new Vector3(44f, 2.0f, -2f), new Vector3(20f, 1.4f, -20f)),
             };
             cam.fieldOfView = 62f;
             foreach (var s in streets)
