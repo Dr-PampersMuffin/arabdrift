@@ -1,0 +1,34 @@
+iap run 1 ref iap-1
+app 6837347746
+territories 175
+created world.embur.arabdrift.pearls_100 6839215544
+  name en-US ok
+  name ar-SA ok
+  price 0.99 ok
+  availability ok
+created world.embur.arabdrift.pearls_550 6839215481
+  name en-US ok
+  name ar-SA ok
+  price 4.99 ok
+  availability ok
+created world.embur.arabdrift.pearls_1200 6839215593
+  name en-US ok
+  name ar-SA ok
+  price 9.99 ok
+  availability ok
+created world.embur.arabdrift.pearls_2600 6839215472
+  name en-US ok
+  name ar-SA ok
+  price 19.99 ok
+  availability ok
+created world.embur.arabdrift.starter_pack 6839215787
+  name en-US ok
+  name ar-SA ok
+  price 1.99 ok
+  availability ok
+STATE world.embur.arabdrift.pearls_100 MISSING_METADATA
+STATE world.embur.arabdrift.pearls_1200 MISSING_METADATA
+STATE world.embur.arabdrift.pearls_2600 MISSING_METADATA
+STATE world.embur.arabdrift.pearls_550 MISSING_METADATA
+STATE world.embur.arabdrift.starter_pack MISSING_METADATA
+done
