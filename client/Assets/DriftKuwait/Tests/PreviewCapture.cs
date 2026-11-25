@@ -74,14 +74,18 @@ namespace DriftKuwait.Preview
             CarInput.TouchThrottle = 1f;
             yield return new WaitForSeconds(3.5f);
             Capture("11_speed");
+            // Timed in physics steps, so a slow CI renderer can't hold the handbrake longer than a player would
+            int Steps(float sec) => Mathf.RoundToInt(sec / Time.fixedDeltaTime);
+            float hb0 = Time.fixedTime;
             CarInput.TouchSteer = 1f; CarInput.TouchHandbrake = true;
-            yield return new WaitForSeconds(0.35f);
+            for (int k = Steps(0.35f); k > 0; k--) yield return new WaitForFixedUpdate();
             CarInput.TouchHandbrake = false;
             CarInput.TouchSteer = -0.25f;            // catch the slide with counter-steer
+            Debug.Log($"[Preview] handbrake held {Time.fixedTime - hb0:F2}s (physics time)");
             for (int k = 0; k < 9; k++)
             {
-                yield return new WaitForSeconds(0.1f);
-                Debug.Log($"[Preview] drift t={0.35f + k * 0.1f:F2}s angle {car.DriftAngle:F0} speed {car.SpeedKmh:F0} yawRate {Vector3.Dot(car.Body.angularVelocity, car.transform.up):F2} steer {car.SteerAngle:F0}");
+                for (int j = Steps(0.1f); j > 0; j--) yield return new WaitForFixedUpdate();
+                Debug.Log($"[Preview] drift t={Time.fixedTime - hb0:F2}s angle {car.DriftAngle:F0} speed {car.SpeedKmh:F0} yawRate {Vector3.Dot(car.Body.angularVelocity, car.transform.up):F2} steer {car.SteerAngle:F0}");
             }
             Capture("12_drift");
             yield return new WaitForSeconds(0.7f);
