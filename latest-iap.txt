@@ -1,29 +1,29 @@
-iap run 2 ref iap-2
+iap run 3 ref iap-3
 app 6837347746
 territories 175
 exists world.embur.arabdrift.pearls_100 6839215544
   price already set
   availability already set
-  screenshot ok
+  screenshot already set
 exists world.embur.arabdrift.pearls_550 6839215481
   price already set
   availability already set
-  screenshot ok
+  screenshot already set
 exists world.embur.arabdrift.pearls_1200 6839215593
   price already set
   availability already set
-  screenshot ok
+  screenshot already set
 exists world.embur.arabdrift.pearls_2600 6839215472
   price already set
   availability already set
-  screenshot ok
+  screenshot already set
 exists world.embur.arabdrift.starter_pack 6839215787
   price already set
   availability already set
-  screenshot ok
-STATE world.embur.arabdrift.pearls_100 MISSING_METADATA
+  screenshot already set
+STATE world.embur.arabdrift.pearls_100 READY_TO_SUBMIT
 STATE world.embur.arabdrift.pearls_1200 READY_TO_SUBMIT
 STATE world.embur.arabdrift.pearls_2600 READY_TO_SUBMIT
 STATE world.embur.arabdrift.pearls_550 READY_TO_SUBMIT
-STATE world.embur.arabdrift.starter_pack MISSING_METADATA
+STATE world.embur.arabdrift.starter_pack READY_TO_SUBMIT
 done
