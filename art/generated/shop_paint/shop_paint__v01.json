@@ -1,0 +1,31 @@
+{
+ "asset_id": "shop_paint",
+ "version": 1,
+ "spec": "art/prompts/shop.json",
+ "prompt": "Premium mobile racing game shop item render: one hero object, photoreal, dramatic studio lighting with a warm gold rim light, dark navy-to-black gradient background, crisp reflections, centred with space around, 1980s Kuwaiti street-drift culture.\n\nA curved car body panel showing a fan of glossy paint swatches: candy apple red, pearl white, midnight blue metallic, colour-shift chameleon purple-green, matte black, gold flake.\n\nDo not include: any text, letters, numbers, logos, brand names or watermarks; real car brand badges; people.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1024x1024",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 124,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 124
+  },
+  "output_tokens": 1756,
+  "output_tokens_details": {
+   "image_tokens": 1756,
+   "text_tokens": 0
+  },
+  "total_tokens": 1880
+ },
+ "seconds": 28.8,
+ "created": "2026-11-25T16:20:02+0300",
+ "qa_status": "in_review"
+}

@@ -1,0 +1,31 @@
+{
+ "asset_id": "shop_smoke",
+ "version": 1,
+ "spec": "art/prompts/shop.json",
+ "prompt": "Premium mobile racing game shop item render: one hero object, photoreal, dramatic studio lighting with a warm gold rim light, dark navy-to-black gradient background, crisp reflections, centred with space around, 1980s Kuwaiti street-drift culture.\n\nThick billowing coloured tyre smoke from a spinning tyre in three colours side by side, green, white and red, like the Kuwait flag, the tyre and rim visible at the bottom.\n\nDo not include: any text, letters, numbers, logos, brand names or watermarks; real car brand badges; people.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1024x1024",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 122,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 122
+  },
+  "output_tokens": 1756,
+  "output_tokens_details": {
+   "image_tokens": 1756,
+   "text_tokens": 0
+  },
+  "total_tokens": 1878
+ },
+ "seconds": 49.6,
+ "created": "2026-11-25T16:23:50+0300",
+ "qa_status": "in_review"
+}

@@ -74,6 +74,17 @@ public class DKAssetPostprocessor : AssetPostprocessor
             ios.overridden = true; ios.maxTextureSize = 2048; ios.format = TextureImporterFormat.ASTC_6x6;
             ti.SetPlatformTextureSettings(ios);
         }
+        else if (p.Contains("/DriftKuwait/Map/"))
+        {
+            // The painted map is shown zoomed in: keep it full size and sharp, no stretching to a power of two.
+            ti.textureType = TextureImporterType.Default;
+            ti.npotScale = TextureImporterNPOTScale.None;
+            ti.mipmapEnabled = false;
+            ti.wrapMode = TextureWrapMode.Clamp;
+            ti.maxTextureSize = 4096;
+            ios.overridden = true; ios.maxTextureSize = 4096; ios.format = TextureImporterFormat.ASTC_6x6;
+            ti.SetPlatformTextureSettings(ios);
+        }
         else if (p.Contains("/DriftKuwait/Tex/"))
         {
             string f = System.IO.Path.GetFileNameWithoutExtension(p);

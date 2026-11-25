@@ -24,7 +24,7 @@ namespace DriftKuwait
         public static bool OpenZoomedOut;
 
         // The painting is 1536 x 1024; the map shows it at Zoom units per painting pixel.
-        const float PaintW = 1536f, PaintH = 1024f, Zoom = 1.9f;
+        const float PaintW = 1536f, PaintH = 1024f, Zoom = 2.7f;   // close enough that every stage and its name have room
         static readonly Vector2 Focus = new Vector2(940f, 615f);   // the middle of our stages (painting pixels)
 
         /// Where each stage sits on the painting (pixels from the top left): Salwa's streets and roundabouts, the
@@ -108,6 +108,10 @@ namespace DriftKuwait
             scroll.inertia = true; scroll.decelerationRate = 0.12f; scroll.scrollSensitivity = 0f;
             BuildPlaces();
             BuildRoute();
+            // reserve every marker's spot first, so no name tag ever lands on a marker
+            foreach (var ev in Career.Events)
+                if (ev.district == "salwa" && (ev.chapter <= 1 || Story.Chapter >= ev.chapter) && Spots.TryGetValue(ev.id, out var sp0))
+                { var c0 = Local(sp0); tagRects.Add(new Rect(c0.x - 62f, c0.y - 62f, 124f, 124f)); }
             foreach (var ev in Career.Events)
                 if (ev.district == "salwa" && (ev.chapter <= 1 || Story.Chapter >= ev.chapter)) Pin(map, ev);
             var vign = UIKit.Img(frame.transform, "Vignette", UIKit.S("hud/grad_v"), new Color(0, 0, 0, 0.3f));
@@ -311,7 +315,7 @@ namespace DriftKuwait
             // name tag on whichever side is free: below, above, left, right
             var tag = UIKit.Panel(root, "Tag", new Color(0.035f, 0.06f, 0.11f, 0.88f), "hud/pill");
             tag.raycastTarget = false;
-            Vector2[] offs = { new Vector2(0f, -112f), new Vector2(0f, 112f), new Vector2(-230f, 0f), new Vector2(230f, 0f), new Vector2(0f, -200f), new Vector2(0f, 200f) };
+            Vector2[] offs = { new Vector2(0f, -112f), new Vector2(0f, 112f), new Vector2(-218f, 0f), new Vector2(218f, 0f), new Vector2(-190f, -100f), new Vector2(190f, -100f), new Vector2(-190f, 100f), new Vector2(190f, 100f), new Vector2(0f, -200f), new Vector2(0f, 200f) };
             Vector2 chosen = offs[0];
             foreach (var o in offs)
             {

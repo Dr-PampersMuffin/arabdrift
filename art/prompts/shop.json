@@ -1,0 +1,21 @@
+{
+ "version": 1,
+ "batch": "shop",
+ "style_header": "Premium mobile racing game shop item render: one hero object, photoreal, dramatic studio lighting with a warm gold rim light, dark navy-to-black gradient background, crisp reflections, centred with space around, 1980s Kuwaiti street-drift culture.",
+ "must_not": ["any text, letters, numbers, logos, brand names or watermarks", "real car brand badges", "people"],
+ "defaults": {"model": "gpt-image-2", "size": "1024x1024", "quality": "medium", "background": "opaque", "output_format": "png", "n": 1},
+ "items": [
+  {"asset_id": "shop_engine", "prompt": "A tuned 1980s inline six-cylinder engine on a stand, polished aluminium intake with six individual throttle bodies, braided hoses, red crackle-paint cam cover."},
+  {"asset_id": "shop_turbo", "prompt": "A big performance turbocharger with a glowing hot red exhaust housing, polished compressor housing and a blow-off valve, a little heat shimmer."},
+  {"asset_id": "shop_nitro", "prompt": "Twin blue nitrous oxide bottles with chrome valves and braided lines, mounted on a black bracket, a faint cold vapour around the valves, no labels."},
+  {"asset_id": "shop_rims", "prompt": "A pair of classic 1980s gold mesh multi-spoke racing wheels with polished lips, one standing and one leaning, wrapped in fat low-profile tyres."},
+  {"asset_id": "shop_paint", "prompt": "A curved car body panel showing a fan of glossy paint swatches: candy apple red, pearl white, midnight blue metallic, colour-shift chameleon purple-green, matte black, gold flake."},
+  {"asset_id": "shop_stickers", "prompt": "A sheet of glossy vinyl car stickers in a bold Kuwaiti street style, icons only with no lettering: a hunting falcon, a traditional dhow sailing boat, the Kuwait Towers silhouette, a palm tree, a coffee pot dallah, a camel, crossed swords, stripes in green white red and black, a sunset over dunes."},
+  {"asset_id": "shop_fenders", "prompt": "A glossy white 1980s Japanese coupe's rear quarter with a bolt-on wide-body over-fender flare kit with exposed rivets, a fat wheel tucked under the arch, low stance."},
+  {"asset_id": "shop_wing", "prompt": "A large carbon-fibre GT racing rear wing on tall aluminium uprights, sharp end plates, floating on its own."},
+  {"asset_id": "shop_exhaust", "prompt": "A pair of big polished titanium exhaust tips with blue-burnt edges shooting orange and blue backfire flames."},
+  {"asset_id": "shop_smoke", "prompt": "Thick billowing coloured tyre smoke from a spinning tyre in three colours side by side, green, white and red, like the Kuwait flag, the tyre and rim visible at the bottom."},
+  {"asset_id": "shop_neon", "prompt": "The underside edge of a lowered 1980s coupe glowing with bright cyan underglow neon light on wet dark asphalt, reflections."},
+  {"asset_id": "shop_hero", "size": "1536x1024", "quality": "high", "prompt": "A white 1980s Japanese drift coupe with a widebody over-fender kit, big carbon GT wing, gold mesh wheels, very low stance with negative camber, bold Kuwaiti-style vinyl graphics (falcon, dhow, green white red stripes, no lettering), parked at a three-quarter front angle on a Salwa Kuwait street at golden hour, sandy villas and palm trees softly blurred behind, light tyre smoke drifting, cinematic."}
+ ]
+}
