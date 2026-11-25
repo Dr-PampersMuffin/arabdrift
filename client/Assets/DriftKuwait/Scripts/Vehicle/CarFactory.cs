@@ -132,7 +132,8 @@ namespace DriftKuwait
             cab.center = new Vector3(0f, data.height * 0.8f, -data.length * 0.06f);
             cab.size = new Vector3(data.width * 0.78f, data.height * 0.36f, data.length * 0.5f);
 
-            var visual = BuildVisual(spec, data, root.transform, true);
+            var visual = BuildVisual(spec, data, root.transform, true, tuned);
+            float wide = tuned ? CarCustoms.TrackAdd(spec.id) : 0f;   // wide fenders push the wheels out
 
             root.AddComponent<CarInput>();
             var car = root.AddComponent<DriftCarController>();
@@ -148,15 +149,16 @@ namespace DriftKuwait
             car.springRate = 42000f * spec.mass / 1150f * spec.springMul;
             car.damperRate = 3800f * spec.mass / 1150f * Mathf.Sqrt(spec.springMul);
             car.antiRoll *= spec.antiRollMul;
+            if (tuned) { int n = Customs.Nitro(spec.id); car.nitroCapacity = n == 0 ? 0f : n == 1 ? 3f : 5f; car.nitroLeft = car.nitroCapacity; }
 
             // Raycast suspension mounts sit restLength above the wheel centre at full droop.
             float mountY = data.radius + car.restLength - 0.065f;   // static sag ~6.5 cm (spring scaled by mass)
             car.wheels = new[]
             {
-                Wheel(visual.wheels[0], new Vector3(data.fl.x, mountY, data.fl.z), true, true),
-                Wheel(visual.wheels[1], new Vector3(data.fr.x, mountY, data.fr.z), true, false),
-                Wheel(visual.wheels[2], new Vector3(data.rl.x, mountY, data.rl.z), false, true),
-                Wheel(visual.wheels[3], new Vector3(data.rr.x, mountY, data.rr.z), false, false),
+                Wheel(visual.wheels[0], new Vector3(data.fl.x - wide, mountY, data.fl.z), true, true),
+                Wheel(visual.wheels[1], new Vector3(data.fr.x + wide, mountY, data.fr.z), true, false),
+                Wheel(visual.wheels[2], new Vector3(data.rl.x - wide, mountY, data.rl.z), false, true),
+                Wheel(visual.wheels[3], new Vector3(data.rr.x + wide, mountY, data.rr.z), false, false),
             };
             rb.centerOfMass = new Vector3(0f, data.radius + 0.05f, (data.fl.z + data.rl.z) * 0.5f + 0.05f);
 
@@ -179,9 +181,10 @@ namespace DriftKuwait
             if (data == null) return null;
             var root = new GameObject("Display_" + spec.id);
             root.transform.SetParent(parent, false);
-            var v = BuildVisual(spec, data, root.transform, false);
+            var v = BuildVisual(spec, data, root.transform, false, tuned);
+            float wide = tuned ? CarCustoms.TrackAdd(spec.id) : 0f;
             for (int i = 0; i < 4; i++)
-                v.wheels[i].localPosition = i == 0 ? data.fl : i == 1 ? data.fr : i == 2 ? data.rl : data.rr;
+                v.wheels[i].localPosition = (i == 0 ? data.fl : i == 1 ? data.fr : i == 2 ? data.rl : data.rr) + new Vector3(i % 2 == 0 ? -wide : wide, 0f, 0f);
             if (spec.rideDrop > 0f) { var body = root.transform.Find("Body"); if (body != null) body.localPosition += Vector3.down * spec.rideDrop; }
             var dw = root.AddComponent<DisplayWheels>();
             dw.wheels = v.wheels; dw.radius = data.radius;
@@ -198,7 +201,7 @@ namespace DriftKuwait
             public List<Light> beams = new List<Light>();
         }
 
-        static Visual BuildVisual(CarSpec spec, CarData d, Transform root, bool dynamic)
+        static Visual BuildVisual(CarSpec spec, CarData d, Transform root, bool dynamic, bool customs = false)
         {
             var v = new Visual();
             var bodyRoot = new GameObject("Body");
@@ -331,6 +334,13 @@ namespace DriftKuwait
                 l.shadows = LightShadows.None;
                 l.enabled = false;
                 v.beams.Add(l);
+            }
+            // The customs shop's looks (only on the player's own car, never on traffic or rivals)
+            if (customs)
+            {
+                float w = CarCustoms.TrackAdd(spec.id);
+                CarCustoms.Attach(spec.id, root, bodyRoot.transform, d.radius,
+                    new[] { d.fl + Vector3.left * w, d.fr + Vector3.right * w, d.rl + Vector3.left * w, d.rr + Vector3.right * w });
             }
             return v;
         }

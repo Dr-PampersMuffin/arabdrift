@@ -273,6 +273,28 @@ namespace DriftKuwait.Preview
                 if (guard != null) guard.enabled = true;
             }
 
+            // Nitro test (the shop shots fitted nitro stage 2): a run up the avenue with and without the boost.
+            if (car.nitroCapacity > 0f)
+            {
+                car.transform.SetPositionAndRotation(new Vector3(-3f, 0.6f, -300f), Quaternion.identity);
+                rb.linearVelocity = Vector3.zero; rb.angularVelocity = Vector3.zero;
+                yield return new WaitForSeconds(0.5f);
+                CarInput.TouchThrottle = 1f; CarInput.TouchSteer = 0f; CarInput.TouchNitro = false;
+                yield return new WaitForSeconds(2f);
+                float plain = car.SpeedKmh;
+                car.transform.SetPositionAndRotation(new Vector3(-3f, 0.6f, -300f), Quaternion.identity);
+                rb.linearVelocity = Vector3.zero; rb.angularVelocity = Vector3.zero;
+                car.nitroLeft = car.nitroCapacity;
+                yield return new WaitForSeconds(0.5f);
+                CarInput.TouchNitro = true;
+                bool seen = false;
+                for (float t = 0f; t < 2f; t += Time.deltaTime) { seen |= car.NitroActive; yield return null; }
+                float boosted = car.SpeedKmh;
+                Capture("18_nitro");
+                CarInput.TouchNitro = false; CarInput.TouchThrottle = 0f;
+                Debug.Log($"[StressTest] nitro: {(seen && boosted > plain + 3f ? "PASS" : "FAIL")} 2 s from rest {plain:F0} km/h plain vs {boosted:F0} km/h with nitro, left {car.nitroLeft:F1}/{car.nitroCapacity:F0} s");
+            }
+
             // Tyre test: a fresh standing burnout heats the rears; then a nearly worn tyre is cooked until it blows.
             {
                 var tw = car.GetComponent<TyreWear>();

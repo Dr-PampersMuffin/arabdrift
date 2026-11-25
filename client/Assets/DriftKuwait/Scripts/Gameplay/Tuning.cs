@@ -54,7 +54,7 @@ namespace DriftKuwait
         }
 
         // ---------------- Rims ----------------
-        public struct RimStyle { public string ar; public int spokes; public Color rim, lip; }
+        public struct RimStyle { public string ar; public int spokes; public Color rim, lip; public int pearls; }
         public static readonly RimStyle[] Rims =
         {
             new RimStyle { ar = "وكالة" },
@@ -63,16 +63,25 @@ namespace DriftKuwait
             new RimStyle { ar = "ثمان أسود", spokes = 8, rim = new Color(0.07f, 0.07f, 0.08f), lip = new Color(0.82f, 0.82f, 0.84f) },
             new RimStyle { ar = "عشر أبيض", spokes = 10, rim = new Color(0.92f, 0.92f, 0.9f), lip = new Color(0.92f, 0.92f, 0.9f) },
             new RimStyle { ar = "شبك برونز", spokes = 0, rim = new Color(0.36f, 0.25f, 0.14f), lip = new Color(0.8f, 0.8f, 0.82f) },
+            // premium (pearls)
+            new RimStyle { ar = "ذهبي ملكي", spokes = 0, rim = new Color(0.95f, 0.72f, 0.25f), lip = new Color(0.97f, 0.97f, 0.98f), pearls = 150 },
+            new RimStyle { ar = "كروم", spokes = 5, rim = new Color(0.96f, 0.96f, 0.98f), lip = new Color(0.98f, 0.98f, 1f), pearls = 120 },
+            new RimStyle { ar = "أحمر سباق", spokes = 8, rim = new Color(0.82f, 0.08f, 0.06f), lip = new Color(0.1f, 0.1f, 0.1f), pearls = 120 },
+            new RimStyle { ar = "أسود مطفي", spokes = 10, rim = new Color(0.04f, 0.04f, 0.045f), lip = new Color(0.04f, 0.04f, 0.045f), pearls = 100 },
         };
+        public const int CashRims = 6;          // the first six are bought with cash in the workshop
+        public const int RoyalGoldRim = 6;      // the starter pack's rims
+        public static int PreviewRim = -1;      // shop try-on
+        public static void GiveRim(string car, int i) { PlayerPrefs.SetInt($"dk_rimown_{car}_{i}", 1); PlayerPrefs.Save(); }
         public const long RimPrice = 4500;
-        public static int Rim(string car) => PlayerPrefs.GetInt($"dk_rim_{car}", 0);
+        public static int Rim(string car) => PreviewRim >= 0 && Customs.PreviewCar == car ? PreviewRim : PlayerPrefs.GetInt($"dk_rim_{car}", 0);
         public static bool OwnsRim(string car, int i) => i == 0 || PlayerPrefs.GetInt($"dk_rimown_{car}_{i}", 0) == 1;
         public static bool SetRim(string car, int i)
         {
             if (!OwnsRim(car, i))
             {
-                if (Wallet.Cash < RimPrice) return false;
-                Wallet.Add(-RimPrice, 0);
+                if (Rims[i].pearls > 0) { if (!Customs.SpendPearls(Rims[i].pearls)) return false; }
+                else { if (Wallet.Cash < RimPrice) return false; Wallet.Add(-RimPrice, 0); }
                 PlayerPrefs.SetInt($"dk_rimown_{car}_{i}", 1);
             }
             PlayerPrefs.SetInt($"dk_rim_{car}", i); PlayerPrefs.Save();
@@ -81,7 +90,7 @@ namespace DriftKuwait
         }
 
         // ---------------- Paint ----------------
-        public struct PaintColor { public string ar; public Color c; }
+        public struct PaintColor { public string ar; public Color c; public int pearls; public float smooth; }   // smooth 0 = factory finish
         public static readonly PaintColor[] Paints =
         {
             new PaintColor { ar = "وكالة", c = Color.white },
@@ -94,13 +103,27 @@ namespace DriftKuwait
             new PaintColor { ar = "أخضر", c = new Color(0.1f, 0.36f, 0.2f) },
             new PaintColor { ar = "برتقالي", c = new Color(0.95f, 0.42f, 0.08f) },
             new PaintColor { ar = "ذهبي", c = new Color(0.82f, 0.62f, 0.22f) },
+            // premium finishes (pearls)
+            new PaintColor { ar = "كاندي أحمر", c = new Color(0.62f, 0.02f, 0.05f), pearls = 120, smooth = 0.95f },
+            new PaintColor { ar = "لؤلؤي ثلجي", c = new Color(1f, 0.99f, 0.97f), pearls = 120, smooth = 0.92f },
+            new PaintColor { ar = "حرباية", c = new Color(0.36f, 0.12f, 0.5f), pearls = 150, smooth = 0.95f },
+            new PaintColor { ar = "أسود مطفي", c = new Color(0.07f, 0.07f, 0.075f), pearls = 100, smooth = 0.12f },
+            new PaintColor { ar = "ذهبي فلاش", c = new Color(0.95f, 0.7f, 0.18f), pearls = 150, smooth = 0.95f },
+            new PaintColor { ar = "أزرق ليلي", c = new Color(0.05f, 0.12f, 0.45f), pearls = 100, smooth = 0.93f },
         };
+        public const int CashPaints = 10;       // the first ten are bought with cash in the workshop
+        public static int PreviewPaint = -1;    // shop try-on
+        public static bool OwnsPaint(int i) => i < CashPaints || PlayerPrefs.GetInt($"dk_paintown_{i}", 0) == 1;
         public const long PaintPrice = 3500;
-        public static int Paint(string car) => PlayerPrefs.GetInt($"dk_paint_{car}", 0);
+        public static int Paint(string car) => PreviewPaint >= 0 && Customs.PreviewCar == car ? PreviewPaint : PlayerPrefs.GetInt($"dk_paint_{car}", 0);
         public static bool SetPaint(string car, int i)
         {
-            if (i == Paint(car)) return true;
-            if (i != 0)
+            if (i == PlayerPrefs.GetInt($"dk_paint_{car}", 0)) return true;
+            if (i >= CashPaints)
+            {
+                if (!OwnsPaint(i)) { if (!Customs.SpendPearls(Paints[i].pearls)) return false; PlayerPrefs.SetInt($"dk_paintown_{i}", 1); }   // a premium finish, once owned, fits any car
+            }
+            else if (i != 0)
             {
                 if (Wallet.Cash < PaintPrice) return false;
                 Wallet.Add(-PaintPrice, 0);
@@ -111,6 +134,7 @@ namespace DriftKuwait
         }
 
         public static event System.Action<string> Changed;
+        public static void RaiseChanged(string car) => Changed?.Invoke(car);
 
         // ---------------- The tuned car ----------------
         /// The car as it leaves the workshop: base spec with the upgrades, rims and ride height applied.
@@ -207,6 +231,7 @@ namespace DriftKuwait
             tex.Apply(true, true);
             var m = new Material(src) { name = "DK_Paint_" + key };
             m.SetTexture("_BaseMap", tex);
+            if (Paints[paintIndex].smooth > 0f) m.SetFloat("_Smoothness", Paints[paintIndex].smooth);   // candy and pearl gloss, matte flat
             paintCache[key] = m;
             return m;
         }

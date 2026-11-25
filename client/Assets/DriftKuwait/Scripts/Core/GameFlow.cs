@@ -58,6 +58,22 @@ namespace DriftKuwait
                 CarCatalog.SelectedId = "shaheen";
             };
             PreviewHooks.Register("09a_parts", () => f.PreviewScreen(() => { PlayerPrefs.SetInt("dk_t_shaheen_0", 1); f.ShowGarage(); GarageScreen.Current?.Open(WorkshopPanel.Mode.Parts); }), resetTune);
+            // Customs shop: the categories, a fully fitted car with the stickers page, the pearl packs.
+            // The fitted looks stay on for the drive shots that follow (smoke colours, neon, wing, nitro button).
+            System.Action fitAll = () =>
+            {
+                CarCatalog.SelectedId = "shaheen";
+                PlayerPrefs.SetString("dk_pearls", "1250");
+                foreach (var (c, i) in new[] { (Customs.Cat.Stickers, 0), (Customs.Cat.Slogans, 1), (Customs.Cat.Wing, 1), (Customs.Cat.Fenders, 1),
+                                               (Customs.Cat.Neon, 0), (Customs.Cat.Smoke, 0), (Customs.Cat.Exhaust, 0) })
+                { PlayerPrefs.SetInt($"dk_own_{(int)c}_{i}", 1); PlayerPrefs.SetInt($"dk_eq_shaheen_{(int)c}", i); }
+                PlayerPrefs.SetInt("dk_rimown_shaheen_" + Tuning.RoyalGoldRim, 1); PlayerPrefs.SetInt("dk_rim_shaheen", Tuning.RoyalGoldRim);
+                PlayerPrefs.SetInt("dk_nitro_shaheen", 2);
+            };
+            PreviewHooks.Register("09e_shop", () => f.PreviewScreen(() => { PlayerPrefs.SetString("dk_pearls", "1250"); CarCatalog.SelectedId = "shaheen"; f.ShowGarage(); GarageScreen.Current?.OpenShop(); }));
+            PreviewHooks.Register("09f_shop_fitted", () => f.PreviewScreen(() => { fitAll(); f.ShowGarage(); GarageScreen.Current?.OpenShop(); ShopScreen.Current?.OpenCategory(Customs.Cat.Stickers); }));
+            PreviewHooks.Register("09g_shop_paint", () => f.PreviewScreen(() => { f.ShowGarage(); GarageScreen.Current?.OpenShop(); ShopScreen.Current?.OpenCategory(Customs.Cat.Paint); ShopScreen.Current?.TryOnForPreview(Tuning.CashPaints); }));
+            PreviewHooks.Register("09h_shop_packs", () => f.PreviewScreen(() => { f.ShowGarage(); GarageScreen.Current?.OpenShop(); ShopScreen.Current?.ShowPacks(); }));
             PreviewHooks.Register("09b_paint", () => f.PreviewScreen(() => { PlayerPrefs.SetInt("dk_paint_shaheen", 2); PlayerPrefs.SetInt("dk_rimown_shaheen_1", 1); PlayerPrefs.SetInt("dk_rim_shaheen", 1);
                                       PlayerPrefs.SetInt("dk_t_shaheen_3", 3); f.ShowGarage(); GarageScreen.Current?.Open(WorkshopPanel.Mode.Look); }), resetTune);
             PreviewHooks.Register("09c_dyno", () => f.PreviewScreen(() => { PlayerPrefs.SetInt("dk_t_shaheen_0", 2); PlayerPrefs.SetInt("dk_t_shaheen_1", 1); f.ShowGarage(); GarageScreen.Current?.Open(WorkshopPanel.Mode.Dyno); }), resetTune);

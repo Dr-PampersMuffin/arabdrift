@@ -1,0 +1,46 @@
+{
+ "version": 1,
+ "batch": "stickers",
+ "style_header": "A single die-cut glossy vinyl car sticker, flat vector illustration style with bold clean shapes and a thick white cut border all around, high contrast, centred, isolated on a perfectly flat pure magenta (#FF00FF) background with no shadow.",
+ "must_not": [
+  "any text, letters or numbers",
+  "logos or brands",
+  "background scenery",
+  "a second sticker",
+  "magenta or pink inside the sticker"
+ ],
+ "defaults": {
+  "model": "gpt-image-2",
+  "size": "1024x1024",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png",
+  "n": 1
+ },
+ "items": [
+  {
+   "asset_id": "stk_falcon",
+   "prompt": "A hunting saker falcon in flight with spread wings, side view, in gold, brown and cream with a black outline."
+  },
+  {
+   "asset_id": "stk_dhow",
+   "prompt": "A traditional Kuwaiti wooden boom dhow sailing boat with two big white triangular sails on a stylised blue wave, side view."
+  },
+  {
+   "asset_id": "stk_towers",
+   "prompt": "The silhouette of the three Kuwait Towers in deep blue and teal with their sequinned spheres, in front of a big orange sunset circle."
+  },
+  {
+   "asset_id": "stk_flag",
+   "prompt": "Bold racing speed stripes in the Kuwait flag colours, green, white and red horizontal bands with a black trapezoid at the leading end, swept back like they are moving fast."
+  },
+  {
+   "asset_id": "stk_dallah",
+   "prompt": "A traditional Arabic coffee pot dallah in polished brass gold next to a green palm tree, compact emblem."
+  },
+  {
+   "asset_id": "stk_camel",
+   "prompt": "A racing camel running fast with legs stretched, side view, sand gold with a black outline and motion lines."
+  }
+ ]
+}

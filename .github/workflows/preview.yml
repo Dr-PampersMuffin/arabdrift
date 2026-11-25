@@ -72,7 +72,7 @@ jobs:
             echo "----- [Preview] / errors from the log -----"
             for f in test-artifacts/*.log client/Logs/*.log; do [ -f "$f" ] && grep -n -E "\[Preview\]|\[World\]|\[Drive\]|error CS|Exception|NullReference|Shader not found|\[Build\]" "$f" | head -150; done
             echo "----- stress tests -----"
-            for f in test-artifacts/*.log client/Logs/*.log; do [ -f "$f" ] && grep -E "\[StressTest\]|\[StuckGuard\]|\[Crowd\]|\[TyreWear\]" "$f" | head -40; done
+            for f in test-artifacts/*.log client/Logs/*.log; do [ -f "$f" ] && grep -E "\[StressTest\]|\[StuckGuard\]|\[Crowd\]|\[TyreWear\]|\[IAP\]" "$f" | head -40; done
             echo "----- log tail -----"
             for f in test-artifacts/*.log; do [ -f "$f" ] && tail -n 60 "$f"; done
           } > out/preview-$n.txt 2>&1

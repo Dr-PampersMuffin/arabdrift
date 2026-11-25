@@ -1,0 +1,31 @@
+{
+ "asset_id": "stk_towers",
+ "version": 1,
+ "spec": "art/prompts/stickers.json",
+ "prompt": "A single die-cut glossy vinyl car sticker, flat vector illustration style with bold clean shapes and a thick white cut border all around, high contrast, centred, isolated on a perfectly flat pure magenta (#FF00FF) background with no shadow.\n\nThe silhouette of the three Kuwait Towers in deep blue and teal with their sequinned spheres, in front of a big orange sunset circle.\n\nDo not include: any text, letters or numbers; logos or brands; background scenery; a second sticker; magenta or pink inside the sticker.",
+ "params": {
+  "model": "gpt-image-2",
+  "size": "1024x1024",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png"
+ },
+ "reference_images": [],
+ "revised_prompt": null,
+ "usage": {
+  "input_tokens": 112,
+  "input_tokens_details": {
+   "image_tokens": 0,
+   "text_tokens": 112
+  },
+  "output_tokens": 1756,
+  "output_tokens_details": {
+   "image_tokens": 1756,
+   "text_tokens": 0
+  },
+  "total_tokens": 1868
+ },
+ "seconds": 42.4,
+ "created": "2026-11-25T16:35:58+0300",
+ "qa_status": "in_review"
+}

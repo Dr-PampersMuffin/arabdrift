@@ -15,6 +15,7 @@ namespace DriftKuwait
 
         // Written by TouchControls every frame.
         public static float TouchSteer, TouchThrottle, TouchBrake;
+        public static bool TouchNitro;   // the nitro button (only shown when the car has nitro fitted)
         public static bool TouchHandbrake;
         /// Manual gearbox: set true for one shift (paddles, keys, pad); the car consumes it.
         public static bool ShiftUpRequest, ShiftDownRequest;

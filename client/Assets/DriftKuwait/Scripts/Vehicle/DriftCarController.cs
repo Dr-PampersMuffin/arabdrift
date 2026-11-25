@@ -75,6 +75,12 @@ namespace DriftKuwait
         Rigidbody rb;
         CarInput input;
         float steer, rearSpin, shiftTimer, reverseTimer, limiterTimer, flickT;
+
+        // ---------- Nitro (bought with cash in the customs shop) ----------
+        [NonSerialized] public float nitroCapacity;   // seconds of boost when full (0 = no nitro fitted)
+        [NonSerialized] public float nitroLeft;
+        public bool NitroActive { get; private set; }
+        public float NitroFill => nitroCapacity > 0f ? nitroLeft / nitroCapacity : 0f;
         int groundMask;
         readonly Dictionary<int, float> gripCache = new Dictionary<int, float>();
 
@@ -323,6 +329,16 @@ namespace DriftKuwait
                 // weight goes onto the nose: a touch of extra front bite while the tail swings
                 rb.AddForceAtPosition(-transform.up * rb.mass * 1.5f * speedK, transform.TransformPoint(0f, 0f, 1.2f), ForceMode.Force);
             }
+
+            // ---------- Nitro ----------
+            // Hold the button with the gas down: a hard push for a few seconds, then it refills in about 20 s.
+            NitroActive = nitroCapacity > 0f && CarInput.TouchNitro && nitroLeft > 0f && input.Throttle > 0.5f && GroundedCount >= 2 && Gear >= 1;
+            if (NitroActive)
+            {
+                nitroLeft = Mathf.Max(0f, nitroLeft - dt);
+                rb.AddForce(transform.forward * (nitroCapacity > 4f ? 6.5f : 5f), ForceMode.Acceleration);
+            }
+            else if (nitroCapacity > 0f) nitroLeft = Mathf.Min(nitroCapacity, nitroLeft + dt * nitroCapacity / 20f);
 
             // Light downforce keeps it planted over kerbs.
             rb.AddForce(-transform.up * v.sqrMagnitude * 0.6f);

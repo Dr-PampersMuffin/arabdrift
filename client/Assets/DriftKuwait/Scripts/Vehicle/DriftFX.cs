@@ -10,6 +10,7 @@ namespace DriftKuwait
     {
         DriftCarController car;
         ParticleSystem flame, sparks;
+        int loudPops = -1;
         Light flash;
         AudioSource pops, limiter, scrape, scream, burn;
         Vector3 exhaustLocal;
@@ -88,6 +89,12 @@ namespace DriftKuwait
             var sh = ps.shape; sh.shapeType = ParticleSystemShapeType.Cone; sh.angle = 9f; sh.radius = 0.04f;
             var col = ps.colorOverLifetime; col.enabled = true;
             var g = new Gradient();
+            var cx = GetComponent<CarCustoms>();
+            var fx = cx != null ? cx.exhaust : null;
+            if (fx != null && fx.style == 0)   // the shop's coloured flames
+                g.SetKeys(new[] { new GradientColorKey(fx.color2, 0f), new GradientColorKey(fx.color, 0.3f), new GradientColorKey(fx.color * 0.5f, 1f) },
+                          new[] { new GradientAlphaKey(1f, 0f), new GradientAlphaKey(0.9f, 0.5f), new GradientAlphaKey(0f, 1f) });
+            else
             g.SetKeys(new[] { new GradientColorKey(new Color(0.55f, 0.7f, 1f), 0f), new GradientColorKey(new Color(1f, 0.75f, 0.25f), 0.25f), new GradientColorKey(new Color(1f, 0.3f, 0.05f), 1f) },
                       new[] { new GradientAlphaKey(1f, 0f), new GradientAlphaKey(0.9f, 0.5f), new GradientAlphaKey(0f, 1f) });
             col.color = g;
@@ -128,6 +135,8 @@ namespace DriftKuwait
         {
             if (popCooldown > 0f) return;
             popCooldown = 0.12f;
+            if (loudPops < 0) { var cx = GetComponent<CarCustoms>(); loudPops = cx != null && cx.exhaust != null && cx.exhaust.style == 1 ? 1 : 0; }
+            if (loudPops == 1) { count = count * 2; vol *= 1.4f; }   // the shop's "loud bangs" exhaust
             flame.Emit(count);
             flashT = 0.07f;
             if (pops.clip != null) { pops.pitch = Random.Range(0.9f, 1.15f); pops.volume = vol * Sfx.SfxVolume; pops.Play(); }
@@ -135,6 +144,8 @@ namespace DriftKuwait
 
         void Update()
         {
+            if (car != null && car.NitroActive && flame != null && Random.value < 0.6f) flame.Emit(2);   // nitro: steady flame from the pipe
+
             if (car == null) return;
             float dt = Time.deltaTime;
             popCooldown -= dt;

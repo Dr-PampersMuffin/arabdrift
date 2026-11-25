@@ -210,25 +210,26 @@ namespace DriftKuwait
 
             var row = UIKit.Rect(safe, "Actions");
             UIKit.Place(row, new Vector2(1f, 0f), new Vector2(-30f, 22f), new Vector2(1250f, 86f));
-            (string ar, string icon)[] acts = { ("الداينو", "gear"), ("القطع", "wrench"), ("الصبغ والجنوط", "spray"), ("وضع التصوير", "camera") };
+            (string ar, string icon)[] acts = { ("الداينو", "gear"), ("القطع", "wrench"), ("التعديل", "spray"), ("وضع التصوير", "camera") };
             float x = 0f;
             for (int ai = 0; ai < acts.Length; ai++)
             {
                 var a = acts[ai];
                 int which = ai;
                 float w = 74f + a.ar.Length * 26f;
-                var b = UIKit.Button(row, a.ar, UIKit.Ink, () =>
+                var b = UIKit.Button(row, a.ar, ai == 2 ? new Color(0.97f, 0.72f, 0.16f, 0.95f) : UIKit.Ink, () =>
                 {
                     Sfx.Play("ui_click");
                     if (which == 0) OpenWorkshop(WorkshopPanel.Mode.Dyno);
                     else if (which == 1) OpenWorkshop(WorkshopPanel.Mode.Parts);
-                    else if (which == 2) OpenWorkshop(WorkshopPanel.Mode.Look);
+                    else if (which == 2) OpenShop();
                     else flow.Toast("قريباً");
                 }, "hud/pill");
                 UIKit.Place((RectTransform)b.transform, new Vector2(1f, 0.5f), new Vector2(x, 0f), new Vector2(w, 82f));
-                var ic = UIKit.Img(b.transform, "I", UIKit.S("hud/ic_" + a.icon), UIKit.Cream);
+                var ink = ai == 2 ? new Color(0.12f, 0.08f, 0.03f) : UIKit.Cream;   // dark on the gold shop button
+                var ic = UIKit.Img(b.transform, "I", UIKit.S("hud/ic_" + a.icon), ink);
                 UIKit.Place(ic.rectTransform, new Vector2(0f, 0.5f), new Vector2(18f, 0f), new Vector2(38f, 38f));
-                var t = UIKit.Label(b.transform, "T", a.ar, 40, UIKit.Cream, TextAnchor.MiddleRight, UIKit.Black);
+                var t = UIKit.Label(b.transform, "T", a.ar, 40, ink, TextAnchor.MiddleRight, UIKit.Black);
                 UIKit.Place(t.rectTransform, new Vector2(1f, 0.5f), new Vector2(-18f, 2f), new Vector2(w - 72f, 64f));
                 UIKit.Fit(t, 28, 42);
                 x -= w + 14f;
@@ -290,6 +291,13 @@ namespace DriftKuwait
         }
 
         public void Open(WorkshopPanel.Mode m) => OpenWorkshop(m);
+
+        /// The customs shop (التعديل) over the garage, with the turntable car for try-on.
+        public void OpenShop()
+        {
+            CloseWorkshop();
+            ShopScreen.Open(this, flow, safeRoot, selected);
+        }
 
         void CloseWorkshop() { if (workshop != null) Destroy(workshop.gameObject); }
 

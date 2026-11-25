@@ -35,7 +35,8 @@ namespace DriftKuwait
         RectTransform mapArrow;
         Camera mapCam;
         RenderTexture mapRT;
-        HoldButton gas, brake, hand, left, right;
+        HoldButton gas, brake, hand, left, right, nitro;
+        Image nitroFill, nitroBody;
         SteeringWheelWidget wheel;
         GameObject steerButtons;
         public int Heat { get; set; }
@@ -271,6 +272,20 @@ namespace DriftKuwait
             var gl = UIKit.Label(gas.transform, "L", "بانزين", 40, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Place(gl.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, -44f), new Vector2(170f, 46f));
             UIKit.AddShadow(gl, 2f, 0.8f);
+            if (car != null && car.nitroCapacity > 0f)
+            {
+                // Nitro: a round blue button above the brake, its ring shows how full the bottles are
+                var ring = UIKit.Img(safe, "NitroRing", UIKit.S("hud/circle_mask"), new Color(0.3f, 0.7f, 1f, 0.95f));
+                UIKit.Place(ring.rectTransform, new Vector2(1f, 0f), new Vector2(-400f, 236f), new Vector2(150f, 150f));
+                ring.type = Image.Type.Filled; ring.fillMethod = Image.FillMethod.Radial360; ring.fillOrigin = 2; ring.raycastTarget = false;
+                nitroFill = ring;
+                nitro = HoldImage(safe, "Nitro", "hud/circle_mask", new Vector2(1f, 0f), new Vector2(-410f, 246f), new Vector2(130f, 130f));
+                nitroBody = nitro.GetComponent<Image>();
+                nitroBody.color = new Color(0.05f, 0.2f, 0.5f, 0.95f);
+                var nl = UIKit.Label(nitro.transform, "L", "نيترو", 36, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
+                UIKit.Stretch(nl.rectTransform);
+                UIKit.AddShadow(nl, 2f, 0.8f);
+            }
             foreach (var (go, sp) in new[] { (shiftUp, "hud/shift_up"), (shiftDown, "hud/shift_down") })
             {
                 var im = go.GetComponent<Image>();
@@ -331,9 +346,16 @@ namespace DriftKuwait
                 CarInput.TouchThrottle = gas.Pressed ? 1f : 0f;
                 CarInput.TouchBrake = brake.Pressed ? 1f : 0f;
                 CarInput.TouchHandbrake = hand.Pressed;
+                CarInput.TouchNitro = nitro != null && nitro.Pressed;
                 if (GameSettings.Layout == GameSettings.Controls.Buttons) CarInput.TouchSteer = (right.Pressed ? 1f : 0f) - (left.Pressed ? 1f : 0f);
                 else if (GameSettings.Layout == GameSettings.Controls.Wheel) CarInput.TouchSteer = wheel.Value;
                 else CarInput.TouchSteer = 0f;
+            }
+
+            if (nitroFill != null)
+            {
+                nitroFill.fillAmount = car.NitroFill;
+                nitroBody.color = car.NitroActive ? new Color(0.25f, 0.65f, 1f, 1f) : car.NitroFill > 0.15f ? new Color(0.05f, 0.2f, 0.5f, 0.95f) : new Color(0.2f, 0.22f, 0.26f, 0.85f);
             }
 
             // Score

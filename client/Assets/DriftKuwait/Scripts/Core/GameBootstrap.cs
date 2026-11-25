@@ -60,6 +60,7 @@ namespace DriftKuwait
             var flow = GameFlow.Create(cam, dc);
             flow.ShowTitle();
             GameCenter.SignIn();
+            IapStore.Init();   // pearls and the starter pack (Apple payments)
         }
     }
 }

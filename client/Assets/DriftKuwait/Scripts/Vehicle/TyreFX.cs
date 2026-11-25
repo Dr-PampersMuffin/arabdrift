@@ -10,6 +10,22 @@ namespace DriftKuwait
         DriftCarController car;
         ParticleSystem[] smoke;
         TyreWear wear;
+        CarCustoms customs; bool customsChecked;
+        ParticleSystem.MinMaxGradient customSmoke;
+
+        /// The shop's coloured smoke: one colour, or the Kuwait flag (green, white, red puffs mixed in the cloud).
+        static ParticleSystem.MinMaxGradient SmokeOf(Customs.Item it)
+        {
+            if (it.style == 1)
+            {
+                var g = new Gradient { mode = GradientMode.Fixed };
+                g.SetKeys(new[] { new GradientColorKey(it.color, 0.34f), new GradientColorKey(it.color2, 0.67f), new GradientColorKey(it.color3, 1f) },
+                          new[] { new GradientAlphaKey(0.85f, 0f), new GradientAlphaKey(0.85f, 1f) });
+                return new ParticleSystem.MinMaxGradient(g) { mode = ParticleSystemGradientMode.RandomColor };
+            }
+            var c = it.color; c.a = 0.85f;
+            return new ParticleSystem.MinMaxGradient(c);
+        }
         static readonly Color HotSmoke = new Color(0.62f, 0.61f, 0.6f, 0.92f);   // cooked rubber: thick grey
         int[] lastSkid;
         Vector3[] lastSkidPos;
@@ -182,7 +198,9 @@ namespace DriftKuwait
                 var main = ps.main;
                 if (wear == null) wear = GetComponent<TyreWear>();
                 float hot = wear != null && i < 4 ? Mathf.Clamp01((wear.Heat(i) - 0.4f) / 0.5f) : 0f;
-                main.startColor = sandy ? SandDust : Color.Lerp(AsphaltSmoke, HotSmoke, hot);
+                if (!customsChecked) { customsChecked = true; customs = GetComponent<CarCustoms>(); if (customs != null && customs.smoke != null) customSmoke = SmokeOf(customs.smoke); }
+                if (!sandy && customs != null && customs.smoke != null) main.startColor = customSmoke;
+                else main.startColor = sandy ? SandDust : Color.Lerp(AsphaltSmoke, HotSmoke, hot);
 
                 var em = ps.emission;
                 float k = w.grounded ? w.skid : 0f;

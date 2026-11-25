@@ -1,0 +1,31 @@
+name: In-app purchases setup
+
+# Creates the pearl packs and starter pack in App Store Connect (idempotent). Trigger with an iap-* tag.
+on:
+  push:
+    tags: ["iap-*"]
+  workflow_dispatch:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create in-app purchases
+        env:
+          APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
+          APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+          APPSTORE_P8: ${{ secrets.APPSTORE_P8 }}
+        run: |
+          pip install -q pyjwt cryptography requests
+          python3 tools/asc/iap.py 2>&1 | tee gc.txt
+      - name: Publish report
+        if: always()
+        run: |
+          git config user.name "ci"; git config user.email "ci@users.noreply.github.com"
+          git fetch -q origin ci-reports && git checkout -q ci-reports || git checkout -q --orphan ci-reports
+          { echo "iap run ${{ github.run_number }} ref ${{ github.ref_name }}"; cat gc.txt 2>/dev/null; } > latest-iap.txt
+          git add latest-iap.txt && git commit -qm "iap ${{ github.run_number }}" && git push -q origin ci-reports

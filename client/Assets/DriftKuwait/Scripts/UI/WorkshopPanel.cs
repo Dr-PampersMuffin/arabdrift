@@ -122,7 +122,7 @@ namespace DriftKuwait
             var h1 = UIKit.Label(tr, "H1", "الصبغ  ·  " + UIKit.Dig(Tuning.PaintPrice) + " كاش", 40, UIKit.Gold, TextAnchor.MiddleRight, UIKit.Black);
             UIKit.Place(h1.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -100f), new Vector2(720f, 54f));
             int cur = Tuning.Paint(car);
-            for (int i = 0; i < Tuning.Paints.Length; i++)
+            for (int i = 0; i < Tuning.CashPaints; i++)
             {
                 int idx = i;
                 int col = i % 5, row = i / 5;
@@ -145,7 +145,7 @@ namespace DriftKuwait
             var h2 = UIKit.Label(tr, "H2", "الجنوط  ·  " + UIKit.Dig(Tuning.RimPrice) + " كاش", 40, UIKit.Gold, TextAnchor.MiddleRight, UIKit.Black);
             UIKit.Place(h2.rectTransform, new Vector2(1f, 1f), new Vector2(-30f, -420f), new Vector2(720f, 54f));
             int rim = Tuning.Rim(car);
-            for (int i = 0; i < Tuning.Rims.Length; i++)
+            for (int i = 0; i < Tuning.CashRims; i++)
             {
                 int idx = i;
                 int col = i % 3, row = i / 3;
