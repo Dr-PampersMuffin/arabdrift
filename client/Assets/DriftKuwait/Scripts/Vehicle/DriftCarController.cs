@@ -336,7 +336,7 @@ namespace DriftKuwait
             if (NitroActive)
             {
                 nitroLeft = Mathf.Max(0f, nitroLeft - dt);
-                rb.AddForce(transform.forward * (nitroCapacity > 4f ? 6.5f : 5f), ForceMode.Acceleration);
+                rb.AddForce(transform.forward * (nitroCapacity > 4f ? 4.2f : 3.4f), ForceMode.Acceleration);
             }
             else if (nitroCapacity > 0f) nitroLeft = Mathf.Min(nitroCapacity, nitroLeft + dt * nitroCapacity / 20f);
 

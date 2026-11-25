@@ -54,14 +54,14 @@ namespace DriftKuwait
             m.simulationSpace = ParticleSystemSimulationSpace.World;
             m.startLifetime = new ParticleSystem.MinMaxCurve(0.5f, 1.2f);
             m.startSpeed = new ParticleSystem.MinMaxCurve(2f, 6f);
-            m.startSize = new ParticleSystem.MinMaxCurve(0.03f, 0.08f);
+            m.startSize = new ParticleSystem.MinMaxCurve(0.015f, 0.04f);   // small crumbs of rubber
             m.startColor = new Color(0.06f, 0.06f, 0.06f, 1f);
             m.gravityModifier = 1.6f; m.maxParticles = 200;
             var em = ps.emission; em.rateOverTime = 0f;
             var sh = ps.shape; sh.shapeType = ParticleSystemShapeType.Hemisphere; sh.radius = 0.15f;
             var col = ps.collision; col.enabled = true; col.type = ParticleSystemCollisionType.World; col.bounce = 0.3f; col.dampen = 0.5f; col.quality = ParticleSystemCollisionQuality.Low;
             var r = go.GetComponent<ParticleSystemRenderer>();
-            r.sharedMaterial = TyreFX.ParticleMaterial("DK_Rubber", Texture2D.whiteTexture, new Color(0.08f, 0.08f, 0.08f, 1f));
+            r.sharedMaterial = TyreFX.ParticleMaterial("DK_Rubber", Resources.Load<Texture2D>("DriftKuwait/FX/smoke_puff") ?? Texture2D.whiteTexture, new Color(0.08f, 0.08f, 0.08f, 1f));   // round, not square
             r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             ps.Play();
             return ps;

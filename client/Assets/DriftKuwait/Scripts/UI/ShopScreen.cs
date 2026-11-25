@@ -66,7 +66,7 @@ namespace DriftKuwait
             var bt = UIKit.Label(back.transform, "T", "رجوع", 38, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Stretch(bt.rectTransform);
             cashTxt = Chip(new Vector2(210f, -16f), UIKit.Gold, null);
-            pearlsTxt = Chip(new Vector2(470f, -16f), PearlCol, () => Show(View.Packs));
+            pearlsTxt = Chip(new Vector2(480f, -16f), PearlCol, () => Show(View.Packs));
             Customs.Changed += Refresh;
             Show(View.Categories);
         }
@@ -74,11 +74,11 @@ namespace DriftKuwait
         Text Chip(Vector2 pos, Color coin, System.Action plus)
         {
             var c = UIKit.Panel(panel, "Chip", new Color(0.02f, 0.03f, 0.06f, 0.9f), "hud/pill");
-            UIKit.Place(c.rectTransform, new Vector2(0f, 1f), pos, new Vector2(240f, 74f));
+            UIKit.Place(c.rectTransform, new Vector2(0f, 1f), pos, new Vector2(250f, 74f));
             var ic = UIKit.Img(c.transform, "Coin", UIKit.S("hud/circle_mask"), coin);
             UIKit.Place(ic.rectTransform, new Vector2(1f, 0.5f), new Vector2(-12f, 0f), new Vector2(46f, 46f));
             var t = UIKit.Label(c.transform, "V", "", 34, Color.white, TextAnchor.MiddleCenter, UIKit.Digital, false);
-            UIKit.Place(t.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(plus != null ? -4f : -18f, 0f), new Vector2(150f, 60f));
+            UIKit.Place(t.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(plus != null ? 10f : -18f, 0f), new Vector2(plus != null ? 120f : 150f, 60f));
             UIKit.Fit(t, 22, 34);
             if (plus != null)
             {
@@ -329,7 +329,7 @@ namespace DriftKuwait
             var vpi = vp.gameObject.AddComponent<Image>(); vpi.color = new Color(0, 0, 0, 0.01f);
             var content = UIKit.Rect(vp, "Content");
             content.anchorMin = new Vector2(0f, 1f); content.anchorMax = new Vector2(1f, 1f); content.pivot = new Vector2(0.5f, 1f);
-            content.anchoredPosition = Vector2.zero;
+            content.anchoredPosition = Vector2.zero; content.sizeDelta = Vector2.zero;   // exactly the viewport's width
             var grid = content.gameObject.AddComponent<GridLayoutGroup>();
             float cw = (W - 40f - 28f) / 3f;
             grid.cellSize = new Vector2(cw, 330f); grid.spacing = new Vector2(14f, 14f);

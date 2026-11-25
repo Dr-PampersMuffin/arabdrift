@@ -26,8 +26,8 @@ namespace DriftKuwait
             return a;
         }
 
-        /// How far each wheel moves out under wide fenders (metres).
-        public static float TrackAdd(string id) => Customs.Fitted(id, Customs.Cat.Fenders) >= 0 && Load(id) != null ? 0.055f : 0f;
+        /// Looks never change how a car drives (fair play): the wheels stay where they are under wide fenders.
+        public static float TrackAdd(string id) => 0f;
 
         public static void Attach(string id, Transform root, Transform body, float radius, Vector3[] wheels)
         {

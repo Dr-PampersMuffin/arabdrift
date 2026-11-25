@@ -276,10 +276,10 @@ namespace DriftKuwait
             {
                 // Nitro: a round blue button above the brake, its ring shows how full the bottles are
                 var ring = UIKit.Img(safe, "NitroRing", UIKit.S("hud/circle_mask"), new Color(0.3f, 0.7f, 1f, 0.95f));
-                UIKit.Place(ring.rectTransform, new Vector2(1f, 0f), new Vector2(-400f, 236f), new Vector2(150f, 150f));
+                UIKit.Place(ring.rectTransform, new Vector2(1f, 0f), new Vector2(-460f, 246f), new Vector2(150f, 150f));
                 ring.type = Image.Type.Filled; ring.fillMethod = Image.FillMethod.Radial360; ring.fillOrigin = 2; ring.raycastTarget = false;
                 nitroFill = ring;
-                nitro = HoldImage(safe, "Nitro", "hud/circle_mask", new Vector2(1f, 0f), new Vector2(-410f, 246f), new Vector2(130f, 130f));
+                nitro = HoldImage(safe, "Nitro", "hud/circle_mask", new Vector2(1f, 0f), new Vector2(-470f, 256f), new Vector2(130f, 130f));
                 nitroBody = nitro.GetComponent<Image>();
                 nitroBody.color = new Color(0.05f, 0.2f, 0.5f, 0.95f);
                 var nl = UIKit.Label(nitro.transform, "L", "نيترو", 36, Color.white, TextAnchor.MiddleCenter, UIKit.Black);
