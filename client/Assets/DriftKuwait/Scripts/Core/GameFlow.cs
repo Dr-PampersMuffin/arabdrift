@@ -42,7 +42,8 @@ namespace DriftKuwait
                 PreviewHooks.Register("03_garage_" + carId, () => f.PreviewScreen(() => { CarCatalog.SelectedId = carId; f.ShowGarage(); }),
                                       () => CarCatalog.SelectedId = "shaheen");
             }
-            PreviewHooks.Register("04_map", () => f.PreviewScreen(() => { MapScreen.OpenSalwa = false; f.ShowMap(); }));
+            PreviewHooks.Register("04_map", () => f.PreviewScreen(() => { MapScreen.OpenZoomedOut = false; f.ShowMap(); }));
+            PreviewHooks.Register("04c_map_kuwait", () => f.PreviewScreen(() => { MapScreen.OpenZoomedOut = true; f.ShowMap(); }), () => MapScreen.OpenZoomedOut = false);
             PreviewHooks.Register("06_howto", () => f.PreviewScreen(() => { f.ShowTitle(); HowToPlay.Show(null); }),
                                   () => { var h = Object.FindAnyObjectByType<HowToPlay>(); if (h != null) Destroy(h.gameObject); });
             PreviewHooks.Register("07_story", () => f.PreviewScreen(() => StoryScene.Play(new[] { Story.Ch1Intro[3] }, null)),
@@ -65,7 +66,7 @@ namespace DriftKuwait
                                   () => { var g = GameObject.Find("DK_Story"); if (g != null) Destroy(g); });
             PreviewHooks.Register("07c_history", () => f.PreviewScreen(() => StoryScene.Play(new[] { Story.History[2] }, null)),
                                   () => { var g = GameObject.Find("DK_Story"); if (g != null) Destroy(g); });
-            PreviewHooks.Register("04b_map_ch2", () => f.PreviewScreen(() => { Story.Chapter = 2; MapScreen.OpenSalwa = true; f.ShowMap(); }), () => { Story.Chapter = 1; MapScreen.OpenSalwa = false; });
+            PreviewHooks.Register("04b_map_ch2", () => f.PreviewScreen(() => { Story.Chapter = 2; f.ShowMap(); }), () => Story.Chapter = 1);
             PreviewHooks.StartDrive = () => f.StartDrive("shaheen", false);
             return f;
         }

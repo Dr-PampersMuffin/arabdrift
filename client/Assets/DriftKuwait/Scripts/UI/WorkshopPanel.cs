@@ -87,8 +87,8 @@ namespace DriftKuwait
                 }
                 string what = lvl < Tuning.MaxLevel ? Tuning.WhatAr(part, lvl + 1, spec) : "أقصى تعديل";
                 var wt = UIKit.Label(rt, "W", what, 36, new Color(1, 1, 1, 0.7f), TextAnchor.MiddleRight, UIKit.Arabic);
-                UIKit.Place(wt.rectTransform, new Vector2(1f, 0f), new Vector2(-74f, 18f), new Vector2(460f, 48f));
-                UIKit.Fit(wt, 28, 42);
+                UIKit.Place(wt.rectTransform, new Vector2(1f, 0f), new Vector2(-74f, 16f), new Vector2(430f, 48f));   // stops short of the buy button
+                UIKit.Fit(wt, 26, 36);
 
                 bool maxed = lvl >= Tuning.MaxLevel;
                 long price = maxed ? 0 : Tuning.Price(part, lvl + 1);
