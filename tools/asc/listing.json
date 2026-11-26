@@ -22,7 +22,19 @@
     "alcoholTobaccoOrDrugUseOrReferences": "NONE",
     "medicalOrTreatmentInformation": "NONE",
     "gamblingSimulated": "NONE",
-    "contests": "NONE"
+    "contests": "NONE",
+    "datingAndRelationships": "NONE",
+    "gambling": false,
+    "unrestrictedWebAccess": false,
+    "lootBox": false,
+    "messagingAndChat": false,
+    "userGeneratedContent": false,
+    "parentalControls": false,
+    "ageAssurance": false,
+    "advertising": false,
+    "healthOrWellnessTopics": false,
+    "socialMedia": false,
+    "sharedLocation": false
   },
   "review_notes": "Thank you for reviewing Q8 Drift (تقحيص). The game is in Arabic.\n\nNo login or account. Progress is stored on the device only. Game Center is optional (leaderboards).\n\nQuick tour:\n1. Title screen: \"ابدأ اللعبة\" (Play) starts the first story level in Salwa. Pause button (top left while driving) has the controls guide (طريقة اللعب) and \"رجّع السيارة للشارع\" to reset the car.\n2. In-app purchases: Title > \"الكراج\" (Garage) > the gold \"التعديل\" button opens the shop. The pearls page lists 4 consumable pearl packs and the one-time Starter Pack (non-consumable), with \"رجّع مشترياتي\" (Restore Purchases).\n3. Restore Purchases is also in Title > \"الإعدادات\" (Settings), next to Privacy Policy, Terms of Use and Support links.\n\nPearls buy cosmetic items only (paint, rims, stickers, slogans, body kits, wings, exhausts, tyre smoke, neon). Performance parts (engine, turbo, nitro) are bought only with in-game cash earned by playing. No random or loot-box items. Every look can be tried on the car before buying.\n\nTilt steering (optional) reads the motion sensor for steering only. No data is collected; no ads; no tracking.\n\nAll characters, story and police are fictional; the game tells players not to drift on real roads.",
   "locales": {
@@ -40,5 +52,8 @@
       "promotional_text": "الكويت 1987. قحّص في شوارع سلوى، سدّد دين الكراج، وعدّل سيارة أحلامك في محل التعديل الجديد.",
       "description": "الكويت، 1987. كراج أبوك عليه دين، وشوارع سلوى للحين تتذكر اسمه. رجّعه بالطريقة الوحيدة اللي يحترمها الفريج: بالتقحيص.\n\nتقحيص لعبة تقحيص شوارع بأجواء الكويت في الثمانينات، بقصة عربية يرويها رجال عرفوا أبوك.\n\nشنو ينتظرك\n• قصة فصل بعد فصل: كراج بو نبيل، والخصوم القدامى، ودين تسدّه مرحلة بعد مرحلة.\n• تقحيص حقيقي: جرّة هاندبريك، وعكس الدركسون، وتقحيص طويل، ودخان وتآكل الكفرات. ومساعدة التقحيص تسهّل التعلّم.\n• سلوى 1987: الفلل والنخيل والدوارات والمسجد والشارع الطويل، وأبراج الكويت في الأفق، والبر المفتوح.\n• سيارات كلاسيكية من ذاك الزمن تشتريها وتعدّلها وتسوقها.\n• محل التعديل: صبغ وجنوط وملصقات كويتية وعبارات على الزجاج ورفارف وجناح وأكزوز ودخان كفرات ملوّن ونيون. جرّب كل شكل على سيارتك قبل ما تشتري.\n• قطع السرعة (المكينة والتيربو والنيترو) تنشرى بالكاش اللي تجمعه من التقحيص فقط، ما تنباع بفلوس.\n• مطاردات مع دورية شرطة خيالية من الثمانينات.\n• لوحات ترتيب Game Center لأفضل نتايجك.\n• ثلاث طرق تحكم: أسهم أو دركسون أو ميلان، وجير أوتوماتيك أو يدوي.\n\nلعب عادل\n• كل سعر واضح قبل الشراء. لا صناديق عشوائية أبداً.\n• اللؤلؤ للشكل بس، والقوة بالتقحيص.\n• لا حساب، لا إعلانات، لا تتبّع. تقدّمك محفوظ على جهازك.\n\nالقصة والشخصيات والشرطة خيالية. قحّص في اللعبة، لا تقحّص في الشارع.\n\nتحتوي على مشتريات اختيارية داخل اللعبة.\nشروط الاستخدام: https://dr-pampersmuffin.github.io/arabdrift/terms.html\nسياسة الخصوصية: https://dr-pampersmuffin.github.io/arabdrift/privacy.html"
     }
+  },
+  "age_rating_if_asked": {
+    "socialMediaAgeRestricted": false
   }
 }
