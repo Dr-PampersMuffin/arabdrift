@@ -45,7 +45,7 @@ jobs:
               mkdir -p "$RUNNER_TEMP/shots"
               for f in $(git ls-tree --name-only origin/ci-reports "previews/run-$run/store/"); do git show "origin/ci-reports:$f" > "$RUNNER_TEMP/shots/$(basename $f)"; done
               # store order: the first three are what people see in search
-              cd "$RUNNER_TEMP/shots" && i=1 && for n in 12_drift 01_title 09e_shop 30_night_drift 04_map 02_garage 07_story 18_roundabout 13_drift_smoke; do [ -f $n.jpg ] && mv $n.jpg $(printf %02d $i)_$n.jpg && i=$((i+1)); done; ls; cd - >/dev/null
+              cd "$RUNNER_TEMP/shots" && i=1 && for n in 12_drift 01_title 09e_shop 30_night_drift 04_map 02_garage 07_story 18_roundabout 13_drift_smoke; do for e in jpg png; do [ -f $n.$e ] && mv $n.$e $(printf %02d $i)_$n.$e && i=$((i+1)); done; done; ls; cd - >/dev/null
               SHOTS_DIR="$RUNNER_TEMP/shots" python3 tools/asc/listing.py --screenshots 2>&1 | tee -a gc.txt ;;
             *)        python3 tools/asc/iap.py 2>&1 | tee gc.txt ;;
           esac
