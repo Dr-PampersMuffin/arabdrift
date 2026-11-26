@@ -1,0 +1,71 @@
+preview run 46 ref preview-46 sha acfdec426c70ebf267dd4b6b22986e02fafaf18c play=failure
+----- test results -----
+----- [Preview] / errors from the log -----
+2847:Assets/DriftKuwait/Tests/PreviewCapture.cs(284,49): error CS0117: 'Wallet' does not contain a definition for 'Assist'
+2848:Assets/DriftKuwait/Tests/PreviewCapture.cs(292,30): error CS0136: A local or parameter named 'c' cannot be declared in this scope because that name is used in an enclosing local scope to define a local or parameter
+2853:Assets/DriftKuwait/Tests/PreviewCapture.cs(284,49): error CS0117: 'Wallet' does not contain a definition for 'Assist'
+2854:Assets/DriftKuwait/Tests/PreviewCapture.cs(292,30): error CS0136: A local or parameter named 'c' cannot be declared in this scope because that name is used in an enclosing local scope to define a local or parameter
+2865:Assets/DriftKuwait/Tests/PreviewCapture.cs(284,49): error CS0117: 'Wallet' does not contain a definition for 'Assist'
+2866:Assets/DriftKuwait/Tests/PreviewCapture.cs(292,30): error CS0136: A local or parameter named 'c' cannot be declared in this scope because that name is used in an enclosing local scope to define a local or parameter
+----- stress tests -----
+----- log tail -----
+/debug:portable
+/nologo
+/RuntimeMetadataVersion:v4.0.30319
+/nowarn:0169
+/nowarn:0649
+/nowarn:0282
+/nowarn:1701
+/nowarn:1702
+-nullable:annotations
+/utf8output
+/preferreduilang:en-US
+/additionalfile:"Library/Bee/artifacts/2400b0aEDbg.dag/DriftKuwait.Preview.UnityAdditionalFile.txt"
+##### Custom Environment Variables
+DOTNET_MULTILEVEL_LOOKUP=0
+##### ExitCode
+1
+##### Output
+Assets/DriftKuwait/Tests/PreviewCapture.cs(284,49): error CS0117: 'Wallet' does not contain a definition for 'Assist'
+Assets/DriftKuwait/Tests/PreviewCapture.cs(292,30): error CS0136: A local or parameter named 'c' cannot be declared in this scope because that name is used in an enclosing local scope to define a local or parameter
+*** Tundra build failed (30.89 seconds), 813 items updated, 817 evaluated
+## Script Compilation Error for: Csc Library/Bee/artifacts/2400b0aEDbg.dag/DriftKuwait.Preview.dll (+2 others)
+## CmdLine: "/opt/unity/Editor/Data/NetCoreRuntime/dotnet" exec "/opt/unity/Editor/Data/DotNetSdkRoslyn/csc.dll" /nostdlib /noconfig /shared "@Library/Bee/artifacts/2400b0aEDbg.dag/DriftKuwait.Preview.rsp" "@Library/Bee/artifacts/2400b0aEDbg.dag/DriftKuwait.Preview.rsp2"
+## Output:
+Assets/DriftKuwait/Tests/PreviewCapture.cs(284,49): error CS0117: 'Wallet' does not contain a definition for 'Assist'
+Assets/DriftKuwait/Tests/PreviewCapture.cs(292,30): error CS0136: A local or parameter named 'c' cannot be declared in this scope because that name is used in an enclosing local scope to define a local or parameter
+
+Total cache size 22952944
+Total cache size after purge 22952944, took 00:00:00.0281317
+Assets/DriftKuwait/Scripts/Online/GameCenter.cs(14,96): warning CS0618: 'Social' is obsolete: 'Social is deprecated and will be removed in a future release.'
+Assets/DriftKuwait/Scripts/Online/GameCenter.cs(15,55): warning CS0618: 'Social' is obsolete: 'Social is deprecated and will be removed in a future release.'
+Assets/DriftKuwait/Scripts/Online/GameCenter.cs(24,13): warning CS0618: 'Social' is obsolete: 'Social is deprecated and will be removed in a future release.'
+Assets/DriftKuwait/Scripts/Online/GameCenter.cs(35,13): warning CS0618: 'Social' is obsolete: 'Social is deprecated and will be removed in a future release.'
+Assets/DriftKuwait/Scripts/Online/GameCenter.cs(45,17): warning CS0618: 'Social' is obsolete: 'Social is deprecated and will be removed in a future release.'
+Assets/DriftKuwait/Scripts/Online/GameCenter.cs(48,29): warning CS0618: 'Social' is obsolete: 'Social is deprecated and will be removed in a future release.'
+Assets/DriftKuwait/Scripts/Online/GameCenter.cs(53,13): warning CS0618: 'Social' is obsolete: 'Social is deprecated and will be removed in a future release.'
+Assets/DriftKuwait/Tests/PreviewCapture.cs(284,49): error CS0117: 'Wallet' does not contain a definition for 'Assist'
+Assets/DriftKuwait/Tests/PreviewCapture.cs(292,30): error CS0136: A local or parameter named 'c' cannot be declared in this scope because that name is used in an enclosing local scope to define a local or parameter
+Assets/DriftKuwait/Scripts/Online/GameCenter.cs(24,13): warning CS0618: 'Social' is obsolete: 'Social is deprecated and will be removed in a future release.'
+Assets/DriftKuwait/Scripts/Online/GameCenter.cs(35,13): warning CS0618: 'Social' is obsolete: 'Social is deprecated and will be removed in a future release.'
+Assets/DriftKuwait/Scripts/Online/GameCenter.cs(45,17): warning CS0618: 'Social' is obsolete: 'Social is deprecated and will be removed in a future release.'
+Assets/DriftKuwait/Scripts/Online/GameCenter.cs(48,29): warning CS0618: 'Social' is obsolete: 'Social is deprecated and will be removed in a future release.'
+Assets/DriftKuwait/Scripts/Online/GameCenter.cs(53,13): warning CS0618: 'Social' is obsolete: 'Social is deprecated and will be removed in a future release.'
+t/Scripts/Online/GameCenter.cs(24,13): warning CS0618: 'Social' is obsolete: 'Social is deprecated and will be removed in a future release.'
+Assets/DriftKuwait/Scripts/Online/GameCenter.cs(35,13): warning CS0618: 'Social' is obsolete: 'Social is deprecated and will be removed in a future release.'
+Assets/DriftKuwait/Scripts/Online/GameCenter.cs(45,17): warning CS0618: 'Social' is obsolete: 'Social is deprecated and will be removed in a future release.'
+Assets/DriftKuwait/Scripts/Online/GameCenter.cs(48,29): warning CS0618: 'Social' is obsolete: 'Social is deprecated and will be removed in a future release.'
+Assets/DriftKuwait/Scripts/Online/GameCenter.cs(53,13): warning CS0618: 'Social' is obsolete: 'Social is deprecated and will be removed in a future release.'
+ripts/Online/GameCenter.cs(24,13): warning CS0618: 'Social' is obsolete: 'Social is deprecated and will be removed in a future release.'
+Assets/DriftKuwait/Scripts/Online/GameCenter.cs(35,13): warning CS0618: 'Social' is obsolete: 'Social is deprecated and will be removed in a future release.'
+Assets/DriftKuwait/Scripts/Online/GameCenter.cs(45,17): warning CS0618: 'Social' is obsolete: 'Social is deprecated and will be removed in a future release.'
+Assets/DriftKuwait/Scripts/Online/GameCenter.cs(48,29): warning CS0618: 'Social' is obsolete: 'Social is deprecated and will be removed in a future release.'
+Assets/DriftKuwait/Scripts/Online/GameCenter.cs(53,13): warning CS0618: 'Social' is obsolete: 'Social is deprecated and will be removed in a future release.'
+AssetDatabase: script compilation time: 32.214918s
+Scripts have compiler errors.
+
+SDL leaked 2 allocations
+[40m[32minfo[39m[22m[49m: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...
+[40m[32minfo[39m[22m[49m: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      ALC ILPP context 1 is unloading
