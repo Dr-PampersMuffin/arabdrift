@@ -253,7 +253,7 @@ namespace DriftKuwait
                 hud.Pop("انحجزت السيارة!", new Color(1f, 0.32f, 0.25f));
                 StartCoroutine(Impound());
             }
-            Sfx.Music(Atmosphere.IsNight ? "mus_menu" : "mus_drive_day", 2f);
+            Sfx.Music("mus_drive_day", 2f);
             Cleanup();
             OnEnd?.Invoke(escaped);
         }

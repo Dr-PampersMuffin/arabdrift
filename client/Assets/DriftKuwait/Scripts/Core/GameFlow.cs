@@ -199,7 +199,7 @@ namespace DriftKuwait
             traffic.patrol = ev == null || ev.kind == Career.Kind.FreeRoam;
             crowd = new GameObject("DK_Crowd").AddComponent<CrowdSystem>();   // spectators at the roundabouts and along the avenue
             crowd.player = car.GetComponent<DriftCarController>();
-            Sfx.Music(Atmosphere.IsNight ? "mus_menu" : "mus_drive_day");
+            Sfx.Music("mus_drive_day");
             Sfx.Play("shaheen_start", 0.8f);
             if (ev != null && ev.kind != Career.Kind.FreeRoam)
             {

@@ -59,7 +59,7 @@ namespace DriftKuwait
                 {
                     Atmosphere.Apply(Atmosphere.IsNight ? Atmosphere.Day : Atmosphere.Preset.Night);
                     timeVal.text = UIKit.Ar(Atmosphere.IsNight ? "ليل" : "نهار");
-                    Sfx.Music(Atmosphere.IsNight ? "mus_menu" : "mus_drive_day");
+                    Sfx.Music("mus_drive_day");
                 });
             SliderRow(colL, ref y, "الدخان", GameSettings.Smoke, v => GameSettings.Smoke = v);
             SliderRow(colL, ref y, "الموسيقى", GameSettings.Music, v => GameSettings.Music = v);
