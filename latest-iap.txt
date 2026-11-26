@@ -1,4 +1,4 @@
-iap run 9 ref run/attach-1
+iap run 10 ref run/attach-2
 page https://dr-pampersmuffin.github.io/arabdrift/privacy.html -> 200
 page https://dr-pampersmuffin.github.io/arabdrift/terms.html -> 200
 page https://dr-pampersmuffin.github.io/arabdrift/support.html -> 200
@@ -11,12 +11,12 @@ app 6837347746 Q8 Drift primary locale en-US
   copyright 2026 Embur
   appStoreVersionLocalizations en-US: already up to date
   appStoreVersionLocalizations ar-SA: already up to date
-  review details unchanged (add the App Review contact on the website): PATCH /v1/appStoreReviewDetails/cccb5fcb-52a0-468b-a9dc-b086a828645f -> 409: {   "errors" : [ {     "id" : "8a8051ee-1dba-4b2d-9b35-03b6bf0d651b",     "status" 
+  review details unchanged (add the App Review contact on the website): PATCH /v1/appStoreReviewDetails/cccb5fcb-52a0-468b-a9dc-b086a828645f -> 409: {   "errors" : [ {     "id" : "54638e1a-89d9-4c06-90ce-11dade04f973",     "status" 
   review notes set; contact still to fill on the website (REVIEW_FIRST_NAME, REVIEW_LAST_NAME, REVIEW_PHONE, REVIEW_EMAIL)
   IAP world.embur.arabdrift.pearls_100: READY_TO_SUBMIT
   IAP world.embur.arabdrift.pearls_1200: READY_TO_SUBMIT
   IAP world.embur.arabdrift.pearls_2600: READY_TO_SUBMIT
   IAP world.embur.arabdrift.pearls_550: READY_TO_SUBMIT
   IAP world.embur.arabdrift.starter_pack: READY_TO_SUBMIT
-  no processed build for version 1.0.0 yet
+  build attached 29
 listing done
