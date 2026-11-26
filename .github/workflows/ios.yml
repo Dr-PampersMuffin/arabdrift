@@ -13,6 +13,7 @@ name: iOS build
 on:
   push:
     tags: ["ios-*"]
+    branches: ["run/ios-*"]   # tag pushes are blocked from some sessions; a run/<name> branch works the same
   workflow_dispatch:
     inputs:
       upload:

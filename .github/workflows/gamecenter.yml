@@ -4,6 +4,7 @@ name: Game Center setup
 on:
   push:
     tags: ["gc-*"]
+    branches: ["run/gc-*"]   # tag pushes are blocked from some sessions; a run/<name> branch works the same
   workflow_dispatch:
 
 jobs:

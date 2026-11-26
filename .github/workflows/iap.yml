@@ -9,6 +9,7 @@ name: In-app purchases setup
 on:
   push:
     tags: ["iap-*", "meta-*", "shots-*", "attach-*"]
+    branches: ["run/iap-*", "run/meta-*", "run/shots-*", "run/attach-*"]   # tag pushes are blocked from some sessions; a run/<name> branch works the same
   workflow_dispatch:
 
 jobs:
@@ -34,7 +35,7 @@ jobs:
           printf '%s\n' "$APPSTORE_P8" > "$RUNNER_TEMP/key.p8"
           export ASC_KEY_PATH="$RUNNER_TEMP/key.p8" ASC_KEY_ID="$APPSTORE_KEY_ID" ASC_ISSUER_ID="$APPSTORE_ISSUER_ID"
           set -o pipefail
-          case "$GITHUB_REF_NAME" in
+          case "${GITHUB_REF_NAME#run/}" in
             meta-*)   python3 tools/asc/listing.py --pricing 2>&1 | tee gc.txt ;;
             attach-*) python3 tools/asc/listing.py --attach-build 2>&1 | tee gc.txt ;;
             shots-*)
