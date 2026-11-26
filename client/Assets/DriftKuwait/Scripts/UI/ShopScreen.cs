@@ -503,6 +503,17 @@ namespace DriftKuwait
             UIKit.Outline(rs.transform, new Color(1, 1, 1, 0.25f), "hud/pill");
             var rst = UIKit.Label(rs.transform, "T", "رجّع مشترياتي", 36, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Stretch(rst.rectTransform);
+            // The policies, one tap from where people pay
+            (string ar, string url)[] links = { ("الشروط", Legal.Terms), ("الخصوصية", Legal.Privacy) };
+            for (int i = 0; i < links.Length; i++)
+            {
+                string url = links[i].url;
+                var lb = UIKit.Button(body, "Link" + i, UIKit.InkSoft, () => Legal.Open(url), "hud/pill");
+                UIKit.Place((RectTransform)lb.transform, new Vector2(0f, 0f), new Vector2(400f + i * 220f, 0f), new Vector2(206f, 72f));
+                UIKit.Outline(lb.transform, new Color(1, 1, 1, 0.25f), "hud/pill");
+                var lt = UIKit.Label(lb.transform, "T", links[i].ar, 34, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
+                UIKit.Stretch(lt.rectTransform);
+            }
         }
 
         void BuyPack(string id)

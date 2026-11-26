@@ -6,7 +6,8 @@ using UnityEditor.iOS.Xcode;
 
 /// <summary>
 /// Xcode project fixes after Unity exports (same approach as Sands of Empire): Game Center capability,
-/// a privacy manifest, and export compliance in Info.plist. v0.1 collects no data and has no purchases.
+/// a privacy manifest, and export compliance in Info.plist. The game collects no data: progress stays on the iPhone,
+/// scores go to Apple's Game Center, purchases go through Apple (Unity IAP / StoreKit). No tracking, no ads.
 /// </summary>
 public static class IOSPostBuild
 {

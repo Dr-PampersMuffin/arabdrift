@@ -22,7 +22,7 @@ on:
       version:
         description: "App version shown in TestFlight"
         type: string
-        default: "0.1.0"
+        default: "1.0.0"
 
 concurrency:
   group: arabdrift-ios-build
@@ -117,7 +117,7 @@ jobs:
           targetPlatform: iOS
           buildName: ArabDrift
           buildMethod: BuildScript.BuildIOS
-          customParameters: -buildNumber ${{ github.run_number }} -appVersion ${{ inputs.version || '0.1.0' }} -appleTeamId ${{ steps.team.outputs.id }}
+          customParameters: -buildNumber ${{ github.run_number }} -appVersion ${{ inputs.version || '1.0.0' }} -appleTeamId ${{ steps.team.outputs.id }}
           allowDirtyBuild: true
 
       - name: Clear caches before the second attempt
@@ -136,7 +136,7 @@ jobs:
           targetPlatform: iOS
           buildName: ArabDrift
           buildMethod: BuildScript.BuildIOS
-          customParameters: -buildNumber ${{ github.run_number }} -appVersion ${{ inputs.version || '0.1.0' }} -appleTeamId ${{ steps.team.outputs.id }}
+          customParameters: -buildNumber ${{ github.run_number }} -appVersion ${{ inputs.version || '1.0.0' }} -appleTeamId ${{ steps.team.outputs.id }}
           allowDirtyBuild: true
 
       - name: Pack Xcode project

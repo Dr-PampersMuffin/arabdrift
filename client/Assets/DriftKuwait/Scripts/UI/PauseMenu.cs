@@ -79,6 +79,29 @@ namespace DriftKuwait
             UIKit.Outline(help.transform, new Color(1, 1, 1, 0.25f), "hud/panel_sharp_outline");
             var ht = UIKit.Label(help.transform, "T", "طريقة اللعب", 40, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
             UIKit.Stretch(ht.rectTransform);
+            if (!inDrive)
+            {
+                // Bottom-left: the policies (open in Safari) and restoring the one-time purchase.
+                (string ar, string url)[] links = { ("الخصوصية", Legal.Privacy), ("الشروط", Legal.Terms), ("الدعم", Legal.Support) };
+                for (int i = 0; i < links.Length; i++)
+                {
+                    string url = links[i].url;
+                    var lb = UIKit.Button(tr, "Link" + i, UIKit.Ink, () => Legal.Open(url), "hud/pill");
+                    UIKit.Place((RectTransform)lb.transform, new Vector2(0f, 0f), new Vector2(60f + i * 214f, 40f), new Vector2(200f, 84f));
+                    UIKit.Outline(lb.transform, new Color(1, 1, 1, 0.25f), "hud/pill_outline");
+                    var lt = UIKit.Label(lb.transform, "T", links[i].ar, 36, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
+                    UIKit.Stretch(lt.rectTransform);
+                }
+                var rs = UIKit.Button(tr, "Restore", UIKit.Ink, () =>
+                {
+                    Sfx.Play("ui_click");
+                    IapStore.Restore((ok, msg) => flow.Toast(msg));
+                }, "hud/pill");
+                UIKit.Place((RectTransform)rs.transform, new Vector2(0f, 0f), new Vector2(60f, 140f), new Vector2(628f, 84f));
+                UIKit.Outline(rs.transform, new Color(1, 1, 1, 0.25f), "hud/pill_outline");
+                var rst = UIKit.Label(rs.transform, "T", "رجّع مشترياتي", 36, UIKit.Cream, TextAnchor.MiddleCenter, UIKit.Black);
+                UIKit.Stretch(rst.rectTransform);
+            }
             if (inDrive)
             {
                 // Car stuck or upside down: back onto the nearest free road

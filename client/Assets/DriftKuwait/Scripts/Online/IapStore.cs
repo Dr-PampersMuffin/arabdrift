@@ -45,7 +45,7 @@ namespace DriftKuwait
         /// The store's local price ("3.990 KD", "$4.99"), or the US price until the store answers.
         public static string Price(string id, string fallback)
         {
-            if (ctl == null) return fallback;
+            if (ctl == null || Application.isEditor) return fallback;   // the editor's fake store says $0.01
             var p = ctl.products.WithID(id);
             return p != null && p.availableToPurchase && !string.IsNullOrEmpty(p.metadata.localizedPriceString) ? p.metadata.localizedPriceString : fallback;
         }

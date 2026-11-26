@@ -64,6 +64,16 @@ jobs:
           n=${{ github.run_number }}
           mkdir -p out/previews/run-$n
           cp previews/*.png out/previews/run-$n/ 2>/dev/null || true
+          # App Store screenshots (2868 x 1320), kept as high-quality JPEG under store/
+          if ls previews/store/*.png >/dev/null 2>&1; then
+            mkdir -p out/previews/run-$n/store
+            python3 -c "
+          import glob,os
+          from PIL import Image
+          for p in glob.glob('previews/store/*.png'):
+              Image.open(p).convert('RGB').save('out/previews/run-$n/store/'+os.path.basename(p)[:-4]+'.jpg', quality=95)
+          " 2>/dev/null || cp previews/store/*.png out/previews/run-$n/store/
+          fi
           {
             echo "preview run $n ref ${{ github.ref_name }} sha ${{ github.sha }} play=${{ steps.play.outcome }}"
             ls out/previews/run-$n

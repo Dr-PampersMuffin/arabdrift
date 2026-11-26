@@ -53,7 +53,7 @@ namespace DriftKuwait
                 var he = UIKit.Label(hb.transform, "E", "OUR STORY", 20, new Color(1, 1, 1, 0.7f), TextAnchor.MiddleCenter, UIKit.Digital, false);
                 UIKit.Place(he.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(-20f, -34f), new Vector2(320f, 26f));
             }
-            var ver = UIKit.Label(safe, "Ver", "VER 0.4", 18, new Color(1, 1, 1, 0.55f), TextAnchor.UpperLeft, UIKit.Digital, false);
+            var ver = UIKit.Label(safe, "Ver", "VER " + Application.version, 18, new Color(1, 1, 1, 0.55f), TextAnchor.UpperLeft, UIKit.Digital, false);
             UIKit.Place(ver.rectTransform, new Vector2(0f, 1f), new Vector2(48f, -14f), new Vector2(600f, 30f));
 
             // Top-right: guest profile and wallet

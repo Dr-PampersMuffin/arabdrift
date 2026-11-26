@@ -398,10 +398,21 @@ namespace DriftKuwait.Preview
             var cam = Camera.main;
             if (cam == null) { Debug.LogWarning("[Preview] no main camera for " + name); return; }
             CaptureWith(cam, name, true);
+            // App Store screenshots: the same frame again at the 6.9-inch iPhone size (2868 x 1320).
+            if (System.Array.IndexOf(StoreShots, name) >= 0)
+                CaptureWith(cam, "store/" + name, true, 2868, 1320);
         }
 
-        static void CaptureWith(Camera cam, string name, bool withUi)
+        static readonly string[] StoreShots =
+            { "01_title", "12_drift", "30_night_drift", "09e_shop", "04_map", "02_garage", "07_story", "18_roundabout", "13_drift_smoke" };
+
+        static void CaptureWith(Camera cam, string name, bool withUi, int W = PreviewCapture.W, int H = PreviewCapture.H)
         {
+            Directory.CreateDirectory(Path.GetDirectoryName(Path.Combine(OutDir, name + ".png")));
+            var rt = RenderTexture.GetTemporary(W, H, 24, RenderTextureFormat.ARGB32);
+            rt.antiAliasing = 1;
+            var prev = cam.targetTexture;
+            cam.targetTexture = rt;   // set before the canvases lay out, so the UI fits this size
             var canvases = withUi ? Object.FindObjectsByType<Canvas>(FindObjectsSortMode.None) : new Canvas[0];
             var modes = new RenderMode[canvases.Length];
             for (int i = 0; i < canvases.Length; i++)
@@ -415,11 +426,6 @@ namespace DriftKuwait.Preview
                 }
             }
             Canvas.ForceUpdateCanvases();
-
-            var rt = RenderTexture.GetTemporary(W, H, 24, RenderTextureFormat.ARGB32);
-            rt.antiAliasing = 1;
-            var prev = cam.targetTexture;
-            cam.targetTexture = rt;
             cam.Render();
             cam.targetTexture = prev;
             var old = RenderTexture.active;
