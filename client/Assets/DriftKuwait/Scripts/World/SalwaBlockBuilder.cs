@@ -772,6 +772,7 @@ namespace DriftKuwait
         {
             trunkKit.Lathe(b, new[] { new Vector2(0, 0), new Vector2(0.34f, 0), new Vector2(0.27f, 0.6f), new Vector2(0.22f, height * 0.5f),
                                       new Vector2(0.19f, height), new Vector2(0, height + 0.05f) }, 12);
+            collKit.Box(b + Vector3.up * 1.5f, new Vector3(0.5f, 3f, 0.5f));   // a solid trunk: bump, never drive through
             Vector3 top = b + Vector3.up * height;
             int fronds = 20;
             float twist = Random.Range(0f, 360f);

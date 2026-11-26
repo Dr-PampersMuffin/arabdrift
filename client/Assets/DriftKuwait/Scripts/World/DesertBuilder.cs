@@ -73,8 +73,10 @@ namespace DriftKuwait
             paint.ToObject("HighwayPaint", root, Mat.Paint("M_RoadPaint", new Color(0.95f, 0.93f, 0.85f), 0.3f));
             shoulder.ToObject("SandDrift", root, Mat.Paint("M_SandDrift", new Color(0.86f, 0.72f, 0.52f), 0.1f));
 
-            // Power-line poles along the east side
+            // Power-line poles along the east side (solid: you bump off them, you never drive through)
             var poles = new MeshKit();
+            var hard = new GameObject("DesertColliders").transform;
+            hard.SetParent(root, false);
             for (int i = 0; i < Route.Count; i += 9)
             {
                 Vector3 p = Route[Mathf.Min(i + 1, Route.Count - 1)] - Route[i];
@@ -82,6 +84,7 @@ namespace DriftKuwait
                 Vector3 b = Route[i] + r * 16f;
                 poles.Box(b + Vector3.up * 5.5f, new Vector3(0.3f, 11f, 0.3f), Quaternion.LookRotation(p.normalized), true);
                 poles.Box(b + Vector3.up * 10.4f, new Vector3(3.2f, 0.22f, 0.22f), Quaternion.LookRotation(p.normalized), true);
+                Solid(hard, "Pole", b + Vector3.up * 2f, new Vector3(0.45f, 4f, 0.45f), Quaternion.LookRotation(p.normalized));
             }
             poles.ToObject("PowerPoles", root, Mat.Paint("M_Pole", new Color(0.32f, 0.26f, 0.2f), 0.2f));
 
@@ -101,7 +104,7 @@ namespace DriftKuwait
             var mc = dgo.AddComponent<MeshCollider>(); mc.sharedMesh = dgo.GetComponent<MeshFilter>().sharedMesh;
             var dst = dgo.AddComponent<SurfaceType>(); dst.id = "sand"; dst.grip = 0.6f;
 
-            CampSite(root);
+            CampSite(root, hard);
             Random.state = saved;
         }
 
@@ -122,7 +125,16 @@ namespace DriftKuwait
         }
 
         /// The crew's camp: a black goat-hair tent open on one side, rugs, a campfire with warm light, cars parked round it.
-        static void CampSite(Transform root)
+        /// An invisible solid box (the visible meshes are merged for speed, so they carry no collision themselves).
+        static void Solid(Transform parent, string name, Vector3 centre, Vector3 size, Quaternion rot)
+        {
+            var go = new GameObject(name);
+            go.transform.SetParent(parent, false);
+            go.transform.SetPositionAndRotation(centre, rot);
+            go.AddComponent<BoxCollider>().size = size;
+        }
+
+        static void CampSite(Transform root, Transform hard)
         {
             var camp = new GameObject("DesertCamp").transform;
             camp.SetParent(root, false);   // left at the origin: everything below is placed in world coordinates
@@ -136,11 +148,14 @@ namespace DriftKuwait
             for (int i = -1; i <= 1; i++) tent.Box(t0 + new Vector3(i * w * 0.45f, h * 0.5f, 0), new Vector3(0.12f, h, 0.12f), Quaternion.identity, true);
             var tm = Mat.Paint("M_Tent", new Color(0.12f, 0.10f, 0.09f), 0.1f); tm.SetFloat("_Cull", 0f);
             tent.ToObject("Tent", camp, tm);
+            Solid(hard, "TentWall", t0 + new Vector3(0, 0.8f, -d / 2), new Vector3(w, 1.6f, 0.3f), Quaternion.identity);
+            for (int i = -1; i <= 1; i++) Solid(hard, "TentPole", t0 + new Vector3(i * w * 0.45f, h * 0.5f, 0), new Vector3(0.3f, h, 0.3f), Quaternion.identity);
             rug.Box(t0 + new Vector3(0, 0.02f, 0.6f), new Vector3(9f, 0.04f, 5f), Quaternion.identity, true);
             rug.ToObject("Rugs", camp, Mat.Paint("M_Rug", new Color(0.55f, 0.12f, 0.1f), 0.15f));
             Vector3 fire = Camp + new Vector3(-14f, 0f, -2f);
             stones.Lathe(fire, new[] { new Vector2(0, 0), new Vector2(1.1f, 0), new Vector2(1.0f, 0.35f), new Vector2(0.7f, 0.3f), new Vector2(0, 0.05f) }, 10);
             stones.ToObject("Firepit", camp, Mat.Paint("M_Firepit", new Color(0.25f, 0.22f, 0.2f), 0.1f));
+            Solid(hard, "Firepit", fire + Vector3.up * 0.25f, new Vector3(2.1f, 0.5f, 2.1f), Quaternion.identity);
             var l = new GameObject("Campfire").AddComponent<Light>();
             l.transform.SetParent(camp, false); l.transform.position = fire + Vector3.up * 1.2f;
             l.type = LightType.Point; l.color = new Color(1f, 0.55f, 0.2f); l.range = 22f; l.intensity = 14f; l.shadows = LightShadows.Soft;
