@@ -1,4 +1,5 @@
-iap run 6 ref run/meta-3
+iap run 7 ref run/shots-1
+screenshots from preview run 49
 page https://dr-pampersmuffin.github.io/arabdrift/privacy.html -> 200
 page https://dr-pampersmuffin.github.io/arabdrift/terms.html -> 200
 page https://dr-pampersmuffin.github.io/arabdrift/support.html -> 200
@@ -6,18 +7,56 @@ app 6837347746 Q8 Drift primary locale en-US
   appInfoLocalizations en-US: already up to date
   appInfoLocalizations ar-SA: already up to date
   category {'primary': 'GAMES', 'sub1': 'GAMES_RACING', 'sub2': 'GAMES_SIMULATION'}
-  age rating now: {"advertising": null, "ageAssurance": null, "ageRatingOverride": "NONE", "ageRatingOverrideV2": "NONE", "alcoholTobaccoOrDrugUseOrReferences": null, "contests": null, "datingAndRelationships": null, "developerAgeRatingInfoUrl": null, "gambling": null, "gamblingSimulated": null, "gracRatingClassificationNumber": null, "gunsOrOtherWeapons": null, "healthOrWellnessTopics": null, "horrorOrFearThemes": null, "kidsAgeBand": null, "koreaAgeRatingOverride": "NONE", "lootBox": null, "matureOrSuggestiveThemes": null, "medicalOrTreatmentInformation": null, "messagingAndChat": null, "parentalControls": null, "profanityOrCrudeHumor": null, "sexualContentGraphicAndNudity": null, "sexualContentOrNudity": null, "sharedLocation": null, "socialMedia": null, "socialMediaAgeRestricted": null, "unrestrictedWebAccess": null, "userGeneratedContent": null, "violenceCartoonOrFantasy": null, "violenceRealistic": null, "violenceRealisticProlongedGraphicOrSadistic": null}
-  age rating: set ['advertising', 'ageAssurance', 'alcoholTobaccoOrDrugUseOrReferences', 'contests', 'datingAndRelationships', 'gambling', 'gamblingSimulated', 'gunsOrOtherWeapons', 'healthOrWellnessTopics', 'horrorOrFearThemes', 'lootBox', 'matureOrSuggestiveThemes', 'medicalOrTreatmentInformation', 'messagingAndChat', 'parentalControls', 'profanityOrCrudeHumor', 'sexualContentGraphicAndNudity', 'sexualContentOrNudity', 'sharedLocation', 'socialMedia', 'unrestrictedWebAccess', 'userGeneratedContent', 'violenceCartoonOrFantasy', 'violenceRealistic', 'violenceRealisticProlongedGraphicOrSadistic']
-  version 1.0 renamed to 1.0.0
+  age rating now: {"advertising": false, "ageAssurance": false, "ageRatingOverride": "NONE", "ageRatingOverrideV2": "NONE", "alcoholTobaccoOrDrugUseOrReferences": "NONE", "contests": "NONE", "datingAndRelationships": false, "developerAgeRatingInfoUrl": null, "gambling": false, "gamblingSimulated": "NONE", "gracRatingClassificationNumber": null, "gunsOrOtherWeapons": "NONE", "healthOrWellnessTopics": false, "horrorOrFearThemes": "NONE", "kidsAgeBand": null, "koreaAgeRatingOverride": "NONE", "lootBox": false, "matureOrSuggestiveThemes": "NONE", "medicalOrTreatmentInformation": "NONE", "messagingAndChat": false, "parentalControls": false, "profanityOrCrudeHumor": "NONE", "sexualContentGraphicAndNudity": "NONE", "sexualContentOrNudity": "NONE", "sharedLocation": false, "socialMedia": false, "socialMediaAgeRestricted": null, "unrestrictedWebAccess": false, "userGeneratedContent": false, "violenceCartoonOrFantasy": "NONE", "violenceRealistic": "NONE", "violenceRealisticProlongedGraphicOrSadistic": "NONE"}
+  age rating: already answered
   copyright 2026 Embur
-  appStoreVersionLocalizations en-US: updated ['description', 'keywords', 'marketingUrl', 'promotionalText', 'supportUrl']
-  appStoreVersionLocalizations ar-SA: updated ['description', 'keywords', 'marketingUrl', 'promotionalText', 'supportUrl']
-  review notes set; contact still to fill on the website (REVIEW_FIRST_NAME, REVIEW_LAST_NAME, REVIEW_PHONE, REVIEW_EMAIL)
-  price schedule: already set
-  availability: all 175 territories
-  IAP world.embur.arabdrift.pearls_100: READY_TO_SUBMIT
-  IAP world.embur.arabdrift.pearls_1200: READY_TO_SUBMIT
-  IAP world.embur.arabdrift.pearls_2600: READY_TO_SUBMIT
-  IAP world.embur.arabdrift.pearls_550: READY_TO_SUBMIT
-  IAP world.embur.arabdrift.starter_pack: READY_TO_SUBMIT
-listing done
+  appStoreVersionLocalizations en-US: already up to date
+  appStoreVersionLocalizations ar-SA: already up to date
+Traceback (most recent call last):
+  File "/home/runner/work/arabdrift/arabdrift/tools/asc/listing.py", line 314, in <module>
+    main()
+    ~~~~^^
+  File "/home/runner/work/arabdrift/arabdrift/tools/asc/listing.py", line 287, in main
+    asc.call("PATCH", f"/v1/appStoreReviewDetails/{cur['id']}", {"data": {"type": "appStoreReviewDetails", "id": cur["id"], "attributes": review}})
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/arabdrift/arabdrift/tools/asc/listing.py", line 47, in call
+    raise RuntimeError(f"{method} {path} -> {r.status_code}: {r.text[:1500]}")
+RuntimeError: PATCH /v1/appStoreReviewDetails/cccb5fcb-52a0-468b-a9dc-b086a828645f -> 409: {
+  "errors" : [ {
+    "id" : "e6b8a0a7-4281-46f7-844b-a0a8397c9729",
+    "status" : "409",
+    "code" : "ENTITY_ERROR.ATTRIBUTE.REQUIRED",
+    "title" : "The provided entity is missing a required attribute",
+    "detail" : "You must provide a value for the attribute 'contactFirstName' with this request",
+    "source" : {
+      "pointer" : "/data/attributes/contactFirstName"
+    }
+  }, {
+    "id" : "6513fb37-bd09-4b7a-a954-c179695b6e17",
+    "status" : "409",
+    "code" : "ENTITY_ERROR.ATTRIBUTE.REQUIRED",
+    "title" : "The provided entity is missing a required attribute",
+    "detail" : "You must provide a value for the attribute 'contactLastName' with this request",
+    "source" : {
+      "pointer" : "/data/attributes/contactLastName"
+    }
+  }, {
+    "id" : "2b008213-f7e2-4cbb-8983-cca7fdaf6ae7",
+    "status" : "409",
+    "code" : "ENTITY_ERROR.ATTRIBUTE.REQUIRED",
+    "title" : "The provided entity is missing a required attribute",
+    "detail" : "You must provide a value for the attribute 'contactEmail' with this request",
+    "source" : {
+      "pointer" : "/data/attributes/contactEmail"
+    }
+  }, {
+    "id" : "40a5a335-1e42-44ab-ab8f-58fa36d32155",
+    "status" : "409",
+    "code" : "ENTITY_ERROR.ATTRIBUTE.REQUIRED",
+    "title" : "The provided entity is missing a required attribute",
+    "detail" : "You must provide a value for the attribute 'contactPhone' with this request",
+    "source" : {
+      "pointer" : "/data/attributes/contactPhone"
+    }
+  }, {
+    "id" : 
