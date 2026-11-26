@@ -284,7 +284,11 @@ def main():
     except RuntimeError:
         cur = None
     if cur:
-        asc.call("PATCH", f"/v1/appStoreReviewDetails/{cur['id']}", {"data": {"type": "appStoreReviewDetails", "id": cur["id"], "attributes": review}})
+        try:
+            asc.call("PATCH", f"/v1/appStoreReviewDetails/{cur['id']}", {"data": {"type": "appStoreReviewDetails", "id": cur["id"], "attributes": review}})
+        except RuntimeError as e:
+            # Apple wants the reviewer contact (name, phone, email) on every edit; until it is filled on the website, leave the notes as they are.
+            print("  review details unchanged (add the App Review contact on the website):", str(e)[:160].replace("\n", " "))
     else:
         asc.call("POST", "/v1/appStoreReviewDetails", {"data": {"type": "appStoreReviewDetails", "attributes": review,
                                                                "relationships": {"appStoreVersion": {"data": {"type": "appStoreVersions", "id": vid}}}}})
