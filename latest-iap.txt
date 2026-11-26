@@ -1,4 +1,4 @@
-iap run 5 ref run/meta-2
+iap run 6 ref run/meta-3
 page https://dr-pampersmuffin.github.io/arabdrift/privacy.html -> 200
 page https://dr-pampersmuffin.github.io/arabdrift/terms.html -> 200
 page https://dr-pampersmuffin.github.io/arabdrift/support.html -> 200
@@ -7,27 +7,17 @@ app 6837347746 Q8 Drift primary locale en-US
   appInfoLocalizations ar-SA: already up to date
   category {'primary': 'GAMES', 'sub1': 'GAMES_RACING', 'sub2': 'GAMES_SIMULATION'}
   age rating now: {"advertising": null, "ageAssurance": null, "ageRatingOverride": "NONE", "ageRatingOverrideV2": "NONE", "alcoholTobaccoOrDrugUseOrReferences": null, "contests": null, "datingAndRelationships": null, "developerAgeRatingInfoUrl": null, "gambling": null, "gamblingSimulated": null, "gracRatingClassificationNumber": null, "gunsOrOtherWeapons": null, "healthOrWellnessTopics": null, "horrorOrFearThemes": null, "kidsAgeBand": null, "koreaAgeRatingOverride": "NONE", "lootBox": null, "matureOrSuggestiveThemes": null, "medicalOrTreatmentInformation": null, "messagingAndChat": null, "parentalControls": null, "profanityOrCrudeHumor": null, "sexualContentGraphicAndNudity": null, "sexualContentOrNudity": null, "sharedLocation": null, "socialMedia": null, "socialMediaAgeRestricted": null, "unrestrictedWebAccess": null, "userGeneratedContent": null, "violenceCartoonOrFantasy": null, "violenceRealistic": null, "violenceRealisticProlongedGraphicOrSadistic": null}
-Traceback (most recent call last):
-  File "/home/runner/work/arabdrift/arabdrift/tools/asc/listing.py", line 314, in <module>
-    main()
-    ~~~~^^
-  File "/home/runner/work/arabdrift/arabdrift/tools/asc/listing.py", line 265, in main
-    age_rating(asc, info["id"], L["age_rating"], L.get("age_rating_if_asked"))
-    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/arabdrift/arabdrift/tools/asc/listing.py", line 106, in age_rating
-    asc.call("PATCH", f"/v1/ageRatingDeclarations/{decl['id']}", {"data": {"type": "ageRatingDeclarations", "id": decl["id"], "attributes": diff}})
-    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/arabdrift/arabdrift/tools/asc/listing.py", line 47, in call
-    raise RuntimeError(f"{method} {path} -> {r.status_code}: {r.text[:1500]}")
-RuntimeError: PATCH /v1/ageRatingDeclarations/25b842a2-e3d8-418d-8827-55d0d6fd9ca8 -> 409: {
-  "errors" : [ {
-    "id" : "9125a417-dc56-4a26-aa7f-2bc4169a1138",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.TYPE",
-    "title" : "An attribute in the provided entity has the wrong type",
-    "detail" : "Unexpected json type provided for attribute 'datingAndRelationships'. Expected a BOOLEAN but got STRING",
-    "source" : {
-      "pointer" : "/data/attributes/datingAndRelationships"
-    }
-  } ]
-}
+  age rating: set ['advertising', 'ageAssurance', 'alcoholTobaccoOrDrugUseOrReferences', 'contests', 'datingAndRelationships', 'gambling', 'gamblingSimulated', 'gunsOrOtherWeapons', 'healthOrWellnessTopics', 'horrorOrFearThemes', 'lootBox', 'matureOrSuggestiveThemes', 'medicalOrTreatmentInformation', 'messagingAndChat', 'parentalControls', 'profanityOrCrudeHumor', 'sexualContentGraphicAndNudity', 'sexualContentOrNudity', 'sharedLocation', 'socialMedia', 'unrestrictedWebAccess', 'userGeneratedContent', 'violenceCartoonOrFantasy', 'violenceRealistic', 'violenceRealisticProlongedGraphicOrSadistic']
+  version 1.0 renamed to 1.0.0
+  copyright 2026 Embur
+  appStoreVersionLocalizations en-US: updated ['description', 'keywords', 'marketingUrl', 'promotionalText', 'supportUrl']
+  appStoreVersionLocalizations ar-SA: updated ['description', 'keywords', 'marketingUrl', 'promotionalText', 'supportUrl']
+  review notes set; contact still to fill on the website (REVIEW_FIRST_NAME, REVIEW_LAST_NAME, REVIEW_PHONE, REVIEW_EMAIL)
+  price schedule: already set
+  availability: all 175 territories
+  IAP world.embur.arabdrift.pearls_100: READY_TO_SUBMIT
+  IAP world.embur.arabdrift.pearls_1200: READY_TO_SUBMIT
+  IAP world.embur.arabdrift.pearls_2600: READY_TO_SUBMIT
+  IAP world.embur.arabdrift.pearls_550: READY_TO_SUBMIT
+  IAP world.embur.arabdrift.starter_pack: READY_TO_SUBMIT
+listing done
