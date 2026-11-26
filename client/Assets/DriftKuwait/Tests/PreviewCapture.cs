@@ -277,6 +277,56 @@ namespace DriftKuwait.Preview
                 if (guard != null) guard.enabled = true;
             }
 
+            // Spin tests, driven like a player with the default assist (0.5): gas and steering only, no handbrake.
+            // A car may slide big but must not spin all the way round.
+            {
+                float keepAssist = car.counterSteerAssist;
+                car.counterSteerAssist = Wallet.Assist;
+                var cases = new (string name, float startKmh, float steer, float secs)[]
+                {
+                    ("gas + half steer at 45 km/h", 45f, 0.6f, 3f),
+                    ("gas + full steer at 45 km/h", 45f, 1f, 3f),
+                    ("gas + full steer from a stop", 0f, 1f, 3f),
+                    ("gas + full steer at 70 km/h", 70f, 1f, 3f),
+                };
+                foreach (var c in cases)
+                {
+                    car.transform.SetPositionAndRotation(new Vector3(-3f, 0.6f, -300f), Quaternion.identity);
+                    rb.linearVelocity = car.transform.forward * (c.startKmh / 3.6f); rb.angularVelocity = Vector3.zero;
+                    CarInput.TouchThrottle = 0f; CarInput.TouchSteer = 0f; CarInput.TouchHandbrake = false; CarInput.TouchBrake = 0f;
+                    for (int k = 0; k < 10; k++) yield return new WaitForFixedUpdate();
+                    CarInput.TouchThrottle = 1f; CarInput.TouchSteer = c.steer;
+                    float turned = 0f, maxA = 0f;
+                    int n = Mathf.RoundToInt(c.secs / Time.fixedDeltaTime);
+                    for (int k = 0; k < n; k++)
+                    {
+                        yield return new WaitForFixedUpdate();
+                        turned += Vector3.Dot(car.Body.angularVelocity, Vector3.up) * Time.fixedDeltaTime * Mathf.Rad2Deg;
+                        if (car.SpeedKmh > 10f) maxA = Mathf.Max(maxA, Mathf.Abs(car.DriftAngle));
+                    }
+                    bool ok = maxA < 88f && Mathf.Abs(turned) < 330f || (c.startKmh == 0f && Mathf.Abs(turned) < 360f);
+                    Debug.Log($"[StressTest] spin '{c.name}': max angle {maxA:F0}, turned {turned:F0} deg in {c.secs:F0} s, speed {car.SpeedKmh:F0} -> {(ok ? "PASS" : "FAIL (spun)")}");
+                    if (c.steer == 1f && c.startKmh == 45f) Capture("19_gas_slide");
+                }
+                CarInput.TouchThrottle = 0f; CarInput.TouchSteer = 0f;
+                // and the handbrake held a whole second (a player, not a tap)
+                car.transform.SetPositionAndRotation(new Vector3(-3f, 0.6f, -300f), Quaternion.identity);
+                rb.linearVelocity = car.transform.forward * (60f / 3.6f); rb.angularVelocity = Vector3.zero;
+                for (int k = 0; k < 10; k++) yield return new WaitForFixedUpdate();
+                CarInput.TouchThrottle = 1f; CarInput.TouchSteer = 1f; CarInput.TouchHandbrake = true;
+                float hbTurn = 0f, hbMax = 0f;
+                for (int k = Mathf.RoundToInt(3f / Time.fixedDeltaTime); k > 0; k--)
+                {
+                    if (k == Mathf.RoundToInt(2f / Time.fixedDeltaTime)) CarInput.TouchHandbrake = false;   // held 1 s
+                    yield return new WaitForFixedUpdate();
+                    hbTurn += Vector3.Dot(car.Body.angularVelocity, Vector3.up) * Time.fixedDeltaTime * Mathf.Rad2Deg;
+                    if (car.SpeedKmh > 10f) hbMax = Mathf.Max(hbMax, Mathf.Abs(car.DriftAngle));
+                }
+                CarInput.TouchThrottle = 0f; CarInput.TouchSteer = 0f; CarInput.TouchHandbrake = false;
+                Debug.Log($"[StressTest] spin 'handbrake held 1 s + gas + full steer at 60 km/h': max angle {hbMax:F0}, turned {hbTurn:F0} deg -> {(hbMax < 88f && Mathf.Abs(hbTurn) < 330f ? "PASS" : "FAIL (spun)")}");
+                car.counterSteerAssist = keepAssist;
+            }
+
             // Nitro test (the shop shots fitted nitro stage 2): a run up the avenue with and without the boost.
             if (car.nitroCapacity > 0f)
             {

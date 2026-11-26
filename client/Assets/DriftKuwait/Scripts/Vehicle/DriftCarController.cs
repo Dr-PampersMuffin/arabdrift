@@ -195,6 +195,13 @@ namespace DriftKuwait
             float engineTorque = baseTorque * curve * (1f + boostTorque * Boost) * gameplayPower;
             if (LimiterCut || shifting) engineTorque = 0f;
             float driveTotal = engineTorque * throttle * ratio * finalDrive * drivetrainEff / wheelRadius;
+            // Slide control: past ~40 degrees the drive eases off (more with more assist), so flooring it holds a big
+            // slide instead of spinning the car round. Full power comes back as soon as the angle comes down.
+            if (Gear > 0)
+            {
+                float overA = Mathf.Clamp01((Mathf.Abs(DriftAngle) - 40f) / 35f);
+                driveTotal *= 1f - overA * Mathf.Lerp(0.35f, 0.75f, counterSteerAssist);
+            }
             float drivePerRear = (Gear == -1 ? -1f : 1f) * driveTotal * 0.5f;
 
             // ---------- Suspension pass ----------
@@ -271,7 +278,7 @@ namespace DriftKuwait
                 // Friction circle, longitudinal first: flooring it steals rear lateral grip = power oversteer.
                 float demand = fx;
                 fx = Mathf.Clamp(fx, -fMax, fMax);
-                float latCap = Mathf.Max(Mathf.Sqrt(Mathf.Max(0f, fMax * fMax - fx * fx)), fMax * 0.25f);
+                float latCap = Mathf.Max(Mathf.Sqrt(Mathf.Max(0f, fMax * fMax - fx * fx)), fMax * 0.38f);
                 fy = Mathf.Clamp(fy, -latCap, latCap);
 
                 if (!w.front)
@@ -297,15 +304,19 @@ namespace DriftKuwait
             RearSlip = rearSkidSum * 0.5f;
 
             // ---------- Drift stabiliser (what makes a slide holdable on a phone) ----------
-            if (GroundedCount >= 3 && Gear != -1 && SpeedKmh > 18f && driftT > 0f)
+            if (GroundedCount >= 3 && Gear != -1 && SpeedKmh > 8f && driftT > 0f)
             {
                 float a = DriftAngle, absA = Mathf.Abs(a);
                 float yawRate = Vector3.Dot(rb.angularVelocity, transform.up);
                 // 1) Damp the yaw rate so the tail swings smoothly instead of snapping into a spin
                 rb.AddTorque(-transform.up * yawRate * Mathf.Lerp(0.6f, 2.4f, counterSteerAssist) * driftT * (Handbrake ? 0.2f : flickT > 0f ? 0.4f : 1f), ForceMode.Acceleration);
                 // 2) Past ~55 degrees the nose is pulled back toward the direction of travel (no spin-outs unless you really mean it)
-                float limit = Mathf.Lerp(70f, 52f, counterSteerAssist);
-                if (absA > limit) rb.AddTorque(transform.up * Mathf.Sign(a) * (absA - limit) * 0.09f, ForceMode.Acceleration);
+                float limit = Mathf.Lerp(66f, 50f, counterSteerAssist);
+                if (absA > limit) rb.AddTorque(transform.up * Mathf.Sign(a) * (absA - limit) * 0.22f, ForceMode.Acceleration);
+                // Spin guard: near the limit, rotation that would open the angle further is braked hard
+                bool opening = yawRate * -Mathf.Sign(a) > 0f;
+                if (opening && absA > limit - 12f)
+                    rb.AddTorque(-transform.up * yawRate * Mathf.Lerp(1.5f, 4f, Mathf.Clamp01((absA - limit + 12f) / 24f)), ForceMode.Acceleration);
                 // 3) Throttle steers the angle: on the gas the tail stays out, off the gas the car straightens
                 if (absA < 42f) rb.AddTorque(-transform.up * Mathf.Sign(a) * (throttle - 0.35f) * 1.1f * driftT, ForceMode.Acceleration);
                 // 4) A committed, on-throttle slide keeps its momentum instead of scrubbing to a stop
