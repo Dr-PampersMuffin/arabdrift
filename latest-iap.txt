@@ -1,10 +1,10 @@
-iap run 4 ref run/meta-1
+iap run 5 ref run/meta-2
 page https://dr-pampersmuffin.github.io/arabdrift/privacy.html -> 200
 page https://dr-pampersmuffin.github.io/arabdrift/terms.html -> 200
 page https://dr-pampersmuffin.github.io/arabdrift/support.html -> 200
 app 6837347746 Q8 Drift primary locale en-US
-  appInfoLocalizations en-US: updated ['privacyPolicyUrl', 'subtitle']
-  appInfoLocalizations ar-SA: created
+  appInfoLocalizations en-US: already up to date
+  appInfoLocalizations ar-SA: already up to date
   category {'primary': 'GAMES', 'sub1': 'GAMES_RACING', 'sub2': 'GAMES_SIMULATION'}
   age rating now: {"advertising": null, "ageAssurance": null, "ageRatingOverride": "NONE", "ageRatingOverrideV2": "NONE", "alcoholTobaccoOrDrugUseOrReferences": null, "contests": null, "datingAndRelationships": null, "developerAgeRatingInfoUrl": null, "gambling": null, "gamblingSimulated": null, "gracRatingClassificationNumber": null, "gunsOrOtherWeapons": null, "healthOrWellnessTopics": null, "horrorOrFearThemes": null, "kidsAgeBand": null, "koreaAgeRatingOverride": "NONE", "lootBox": null, "matureOrSuggestiveThemes": null, "medicalOrTreatmentInformation": null, "messagingAndChat": null, "parentalControls": null, "profanityOrCrudeHumor": null, "sexualContentGraphicAndNudity": null, "sexualContentOrNudity": null, "sharedLocation": null, "socialMedia": null, "socialMediaAgeRestricted": null, "unrestrictedWebAccess": null, "userGeneratedContent": null, "violenceCartoonOrFantasy": null, "violenceRealistic": null, "violenceRealisticProlongedGraphicOrSadistic": null}
 Traceback (most recent call last):
@@ -21,40 +21,13 @@ Traceback (most recent call last):
     raise RuntimeError(f"{method} {path} -> {r.status_code}: {r.text[:1500]}")
 RuntimeError: PATCH /v1/ageRatingDeclarations/25b842a2-e3d8-418d-8827-55d0d6fd9ca8 -> 409: {
   "errors" : [ {
-    "id" : "80a4daab-6591-4c96-acb7-05286f93fc4a",
+    "id" : "9125a417-dc56-4a26-aa7f-2bc4169a1138",
     "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.REQUIRED",
-    "title" : "The provided entity is missing a required attribute",
-    "detail" : "You must provide a value for the attribute 'socialMedia' with this request",
+    "code" : "ENTITY_ERROR.ATTRIBUTE.TYPE",
+    "title" : "An attribute in the provided entity has the wrong type",
+    "detail" : "Unexpected json type provided for attribute 'datingAndRelationships'. Expected a BOOLEAN but got STRING",
     "source" : {
-      "pointer" : "/data/attributes/socialMedia"
+      "pointer" : "/data/attributes/datingAndRelationships"
     }
-  }, {
-    "id" : "40f74916-6a95-45b0-aea3-34276cb5a8a1",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.REQUIRED",
-    "title" : "The provided entity is missing a required attribute",
-    "detail" : "You must provide a value for the attribute 'gambling' with this request",
-    "source" : {
-      "pointer" : "/data/attributes/gambling"
-    }
-  }, {
-    "id" : "c1efc301-ba22-4432-b8cb-3b3513361f19",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.REQUIRED",
-    "title" : "The provided entity is missing a required attribute",
-    "detail" : "You must provide a value for the attribute 'ageAssurance' with this request",
-    "source" : {
-      "pointer" : "/data/attributes/ageAssurance"
-    }
-  }, {
-    "id" : "211c0f58-5190-4a4d-8853-cfcd75d828b7",
-    "status" : "409",
-    "code" : "ENTITY_ERROR.ATTRIBUTE.REQUIRED",
-    "title" : "The provided entity is missing a required attribute",
-    "detail" : "You must provide a value for the attribute 'advertising' with this request",
-    "source" : {
-      "pointer" : "/data/attributes/advertising"
-    }
-  }, {
-    "id" : "b4d2c34f-80cb-4cc7-9df9-d
+  } ]
+}
