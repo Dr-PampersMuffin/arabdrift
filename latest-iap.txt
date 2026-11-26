@@ -1,29 +1,60 @@
-iap run 3 ref iap-3
-app 6837347746
-territories 175
-exists world.embur.arabdrift.pearls_100 6839215544
-  price already set
-  availability already set
-  screenshot already set
-exists world.embur.arabdrift.pearls_550 6839215481
-  price already set
-  availability already set
-  screenshot already set
-exists world.embur.arabdrift.pearls_1200 6839215593
-  price already set
-  availability already set
-  screenshot already set
-exists world.embur.arabdrift.pearls_2600 6839215472
-  price already set
-  availability already set
-  screenshot already set
-exists world.embur.arabdrift.starter_pack 6839215787
-  price already set
-  availability already set
-  screenshot already set
-STATE world.embur.arabdrift.pearls_100 READY_TO_SUBMIT
-STATE world.embur.arabdrift.pearls_1200 READY_TO_SUBMIT
-STATE world.embur.arabdrift.pearls_2600 READY_TO_SUBMIT
-STATE world.embur.arabdrift.pearls_550 READY_TO_SUBMIT
-STATE world.embur.arabdrift.starter_pack READY_TO_SUBMIT
-done
+iap run 4 ref run/meta-1
+page https://dr-pampersmuffin.github.io/arabdrift/privacy.html -> 200
+page https://dr-pampersmuffin.github.io/arabdrift/terms.html -> 200
+page https://dr-pampersmuffin.github.io/arabdrift/support.html -> 200
+app 6837347746 Q8 Drift primary locale en-US
+  appInfoLocalizations en-US: updated ['privacyPolicyUrl', 'subtitle']
+  appInfoLocalizations ar-SA: created
+  category {'primary': 'GAMES', 'sub1': 'GAMES_RACING', 'sub2': 'GAMES_SIMULATION'}
+  age rating now: {"advertising": null, "ageAssurance": null, "ageRatingOverride": "NONE", "ageRatingOverrideV2": "NONE", "alcoholTobaccoOrDrugUseOrReferences": null, "contests": null, "datingAndRelationships": null, "developerAgeRatingInfoUrl": null, "gambling": null, "gamblingSimulated": null, "gracRatingClassificationNumber": null, "gunsOrOtherWeapons": null, "healthOrWellnessTopics": null, "horrorOrFearThemes": null, "kidsAgeBand": null, "koreaAgeRatingOverride": "NONE", "lootBox": null, "matureOrSuggestiveThemes": null, "medicalOrTreatmentInformation": null, "messagingAndChat": null, "parentalControls": null, "profanityOrCrudeHumor": null, "sexualContentGraphicAndNudity": null, "sexualContentOrNudity": null, "sharedLocation": null, "socialMedia": null, "socialMediaAgeRestricted": null, "unrestrictedWebAccess": null, "userGeneratedContent": null, "violenceCartoonOrFantasy": null, "violenceRealistic": null, "violenceRealisticProlongedGraphicOrSadistic": null}
+Traceback (most recent call last):
+  File "/home/runner/work/arabdrift/arabdrift/tools/asc/listing.py", line 314, in <module>
+    main()
+    ~~~~^^
+  File "/home/runner/work/arabdrift/arabdrift/tools/asc/listing.py", line 265, in main
+    age_rating(asc, info["id"], L["age_rating"], L.get("age_rating_if_asked"))
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/arabdrift/arabdrift/tools/asc/listing.py", line 106, in age_rating
+    asc.call("PATCH", f"/v1/ageRatingDeclarations/{decl['id']}", {"data": {"type": "ageRatingDeclarations", "id": decl["id"], "attributes": diff}})
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/arabdrift/arabdrift/tools/asc/listing.py", line 47, in call
+    raise RuntimeError(f"{method} {path} -> {r.status_code}: {r.text[:1500]}")
+RuntimeError: PATCH /v1/ageRatingDeclarations/25b842a2-e3d8-418d-8827-55d0d6fd9ca8 -> 409: {
+  "errors" : [ {
+    "id" : "80a4daab-6591-4c96-acb7-05286f93fc4a",
+    "status" : "409",
+    "code" : "ENTITY_ERROR.ATTRIBUTE.REQUIRED",
+    "title" : "The provided entity is missing a required attribute",
+    "detail" : "You must provide a value for the attribute 'socialMedia' with this request",
+    "source" : {
+      "pointer" : "/data/attributes/socialMedia"
+    }
+  }, {
+    "id" : "40f74916-6a95-45b0-aea3-34276cb5a8a1",
+    "status" : "409",
+    "code" : "ENTITY_ERROR.ATTRIBUTE.REQUIRED",
+    "title" : "The provided entity is missing a required attribute",
+    "detail" : "You must provide a value for the attribute 'gambling' with this request",
+    "source" : {
+      "pointer" : "/data/attributes/gambling"
+    }
+  }, {
+    "id" : "c1efc301-ba22-4432-b8cb-3b3513361f19",
+    "status" : "409",
+    "code" : "ENTITY_ERROR.ATTRIBUTE.REQUIRED",
+    "title" : "The provided entity is missing a required attribute",
+    "detail" : "You must provide a value for the attribute 'ageAssurance' with this request",
+    "source" : {
+      "pointer" : "/data/attributes/ageAssurance"
+    }
+  }, {
+    "id" : "211c0f58-5190-4a4d-8853-cfcd75d828b7",
+    "status" : "409",
+    "code" : "ENTITY_ERROR.ATTRIBUTE.REQUIRED",
+    "title" : "The provided entity is missing a required attribute",
+    "detail" : "You must provide a value for the attribute 'advertising' with this request",
+    "source" : {
+      "pointer" : "/data/attributes/advertising"
+    }
+  }, {
+    "id" : "b4d2c34f-80cb-4cc7-9df9-d
