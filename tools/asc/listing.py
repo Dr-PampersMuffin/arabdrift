@@ -233,6 +233,12 @@ def main():
     asc = Asc(os.environ["ASC_KEY_ID"], os.environ["ASC_ISSUER_ID"], os.environ["ASC_KEY_PATH"], dry)
     bundle = os.environ.get("BUNDLE_ID", "world.embur.arabdrift")
     version = os.environ.get("APP_VERSION", "1.0.0")
+    for key in ("privacy_url", "terms_url", "support_url"):
+        try:
+            code = requests.get(L[key], timeout=30).status_code
+        except Exception as e:  # noqa: BLE001
+            code = str(e)[:80]
+        print(f"page {L[key]} -> {code}")
     apps = asc.call("GET", "/v1/apps", params={"filter[bundleId]": bundle})["data"]
     if not apps:
         raise SystemExit(f"No app with bundle id {bundle} in App Store Connect")
