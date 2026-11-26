@@ -281,7 +281,7 @@ namespace DriftKuwait.Preview
             // A car may slide big but must not spin all the way round.
             {
                 float keepAssist = car.counterSteerAssist;
-                car.counterSteerAssist = Wallet.Assist;
+                car.counterSteerAssist = GameSettings.Assist;   // what players start with
                 var cases = new (string name, float startKmh, float steer, float secs)[]
                 {
                     ("gas + half steer at 45 km/h", 45f, 0.6f, 3f),
@@ -289,24 +289,24 @@ namespace DriftKuwait.Preview
                     ("gas + full steer from a stop", 0f, 1f, 3f),
                     ("gas + full steer at 70 km/h", 70f, 1f, 3f),
                 };
-                foreach (var c in cases)
+                foreach (var sc in cases)
                 {
                     car.transform.SetPositionAndRotation(new Vector3(-3f, 0.6f, -300f), Quaternion.identity);
-                    rb.linearVelocity = car.transform.forward * (c.startKmh / 3.6f); rb.angularVelocity = Vector3.zero;
+                    rb.linearVelocity = car.transform.forward * (sc.startKmh / 3.6f); rb.angularVelocity = Vector3.zero;
                     CarInput.TouchThrottle = 0f; CarInput.TouchSteer = 0f; CarInput.TouchHandbrake = false; CarInput.TouchBrake = 0f;
                     for (int k = 0; k < 10; k++) yield return new WaitForFixedUpdate();
-                    CarInput.TouchThrottle = 1f; CarInput.TouchSteer = c.steer;
+                    CarInput.TouchThrottle = 1f; CarInput.TouchSteer = sc.steer;
                     float turned = 0f, maxA = 0f;
-                    int n = Mathf.RoundToInt(c.secs / Time.fixedDeltaTime);
+                    int n = Mathf.RoundToInt(sc.secs / Time.fixedDeltaTime);
                     for (int k = 0; k < n; k++)
                     {
                         yield return new WaitForFixedUpdate();
                         turned += Vector3.Dot(car.Body.angularVelocity, Vector3.up) * Time.fixedDeltaTime * Mathf.Rad2Deg;
                         if (car.SpeedKmh > 10f) maxA = Mathf.Max(maxA, Mathf.Abs(car.DriftAngle));
                     }
-                    bool ok = maxA < 88f && Mathf.Abs(turned) < 330f || (c.startKmh == 0f && Mathf.Abs(turned) < 360f);
-                    Debug.Log($"[StressTest] spin '{c.name}': max angle {maxA:F0}, turned {turned:F0} deg in {c.secs:F0} s, speed {car.SpeedKmh:F0} -> {(ok ? "PASS" : "FAIL (spun)")}");
-                    if (c.steer == 1f && c.startKmh == 45f) Capture("19_gas_slide");
+                    bool ok = maxA < 88f && Mathf.Abs(turned) < 330f || (sc.startKmh == 0f && Mathf.Abs(turned) < 360f);
+                    Debug.Log($"[StressTest] spin '{sc.name}': max angle {maxA:F0}, turned {turned:F0} deg in {sc.secs:F0} s, speed {car.SpeedKmh:F0} -> {(ok ? "PASS" : "FAIL (spun)")}");
+                    if (sc.steer == 1f && sc.startKmh == 45f) Capture("19_gas_slide");
                 }
                 CarInput.TouchThrottle = 0f; CarInput.TouchSteer = 0f;
                 // and the handbrake held a whole second (a player, not a tap)
