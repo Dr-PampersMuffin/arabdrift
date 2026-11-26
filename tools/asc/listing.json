@@ -23,7 +23,7 @@
     "medicalOrTreatmentInformation": "NONE",
     "gamblingSimulated": "NONE",
     "contests": "NONE",
-    "datingAndRelationships": "NONE",
+    "datingAndRelationships": false,
     "gambling": false,
     "unrestrictedWebAccess": false,
     "lootBox": false,
